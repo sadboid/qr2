@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vietnam QR Explorer Prototype</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+            padding-bottom: 60px; /* Extra space for content */
+        }
+
+        header {
+            background: #008CBA;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .nav-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .home-button, .back-button {
+            background: #fff;
+            color: #008CBA;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 2px solid #008CBA;
+            font-size: 14px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .home-button:hover, .back-button:hover {
+            background: #008CBA;
+            color: #fff;
+        }
+
+        .qr-sign {
+            background: #fff;
+            border: 2px solid #008CBA;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .qr-sign h2, .qr-sign h3 {
+            color: #008CBA;
+        }
+
+        .qr-sign img {
+            width: 150px;
+            margin: 20px 0;
+        }
+
+        .content {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+
+        .content h2 {
+            color: #008CBA;
+        }
+
+        .content img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .btn-light {
+            background-color: #f9f9f9;
+            color: #008CBA;
+            border: 2px solid #008CBA;
+            cursor: pointer;
+        }
+
+        .quiz-container, .kids-mode-container, .games-container, .food-container {
+            display: none;
+        }
+
+        .quiz-container {
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+        .quiz-container h2 {
+            color: #008CBA;
+        }
+
+        .quiz-container p {
+            margin-bottom: 15px;
+        }
+
+        .answer {
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            color: #008CBA;
+            border: 2px solid #008CBA;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .answer:hover {
+            background-color: #008CBA;
+            color: #fff;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-left: 5px solid #008CBA;
+            display: none;
+        }
+
+        .restaurant {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .restaurant img {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .restaurant-info h3 {
+            margin-top: 0;
+            color: #008CBA;
+        }
+
+        .restaurant-info p {
+            margin: 5px 0;
+        }
+
+        .restaurant-info a {
+            color: #008CBA;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Vietnam QR Explorer</h1>
+        <div class="nav-buttons">
+            <a class="home-button" href="#" onclick="goHome()">Home</a>
+            <a class="back-button" href="#" onclick="goBack()">Back</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Artboard 1: QR Code Sign and Scan Instruction (Home Page) -->
+        <div id="qr-sign" class="qr-sign">
+            <h2>Vietnam QR Explorer</h2>
+            <h3>“Scan, Learn, Explore!”</h3>
+            <img src="https://via.placeholder.com/150" alt="QR Code">
+            <p>Scan this code to learn more about this market/product/site!</p>
+            <a class="btn" onclick="showMainContent()">Go to Main Page</a>
+        </div>
+
+        <!-- Artboard 2: Main Webpage After Scanning -->
+        <div id="main-content" class="content">
+            <h2>Ben Thanh Market</h2>
+            <img src="https://via.placeholder.com/400x200" alt="Ben Thanh Market">
+            <p id="main-description">Ben Thanh Market is one of the oldest and most famous markets in Ho Chi Minh City, offering a wide variety of goods and local food...</p>
+            <h3 id="tips-title">Cultural Tips</h3>
+            <p id="tips-content">When visiting Ben Thanh Market, it's customary to bargain with the vendors. Start by offering half of the asking price...</p>
+
+            <div>
+                <a class="btn" href="https://open.spotify.com/episode/2v4qSmwlH0l6GeNZDexqs5" target="_blank">Play Audio Guide</a>
+                <select class="btn" onchange="selectLanguage(this)">
+                    <option value="">Select Language</option>
+                    <option value="en">English</option>
+                    <option value="vn">Vietnamese</option>
+                </select>
+                <a class="btn btn-light" onclick="showQuiz()">Take the Quiz</a>
+                <a class="btn btn-light" onclick="showKidsActivities()">Kids Activities</a>
+            </div>
+        </div>
+
+        <!-- Artboard 3: Quiz Page -->
+        <div id="quiz-content" class="quiz-container content">
+            <h2>Cultural Quiz</h2>
+            <p>What is a popular food item you can find at Ben Thanh Market?</p>
+            <div class="answer" onclick="showFeedback(true)">Pho</div>
+            <div class="answer" onclick="showFeedback(false)">Sushi</div>
+            <div class="answer" onclick="showFeedback(false)">Tacos</div>
+            <div id="feedback" class="feedback"></div>
+            <a class="btn btn-light" onclick="nextQuestion()">Next Question</a>
+        </div>
+
+        <!-- Artboard 4: Kid’s Mode Interface -->
+        <div id="kids-mode-content" class="kids-mode-container content">
+            <h2>Kid’s Mode: Choose Activity</h2>
+            <a class="btn" onclick="showGames()">Games</a>
+            <a class="btn btn-light" onclick="showFood()">Food</a>
+        </div>
+
+        <!-- Artboard 5: Games -->
+        <div id="games-content" class="games-container content">
+            <h2>Treasure Hunt!</h2>
+            <p>Find the next QR code near the lantern stall to unlock the treasure!</p>
+            <img src="https://via.placeholder.com/200" alt="Treasure Hunt Clue">
+        </div>
+
+        <!-- Artboard 6: Food -->
+        <div id="food-content" class="food-container content">
+            <h2>Kid-Friendly Restaurants</h2>
+
+            <div class="restaurant">
+                <img src="https://via.placeholder.com/150" alt="Restaurant 1">
+                <div class="restaurant-info">
+                    <h3>Restaurant 1 - Pho for Kids</h3>
+                    <p>Address: 123 Street, District 1, Ho Chi Minh City</p>
+                    <p>Open Hours: 8:00 AM - 10:00 PM</p>
+                    <p><a href="https://maps.google.com" target="_blank">View on Google Maps</a></p>
+                </div>
+            </div>
+
+            <div class="restaurant">
+                <img src="https://via.placeholder.com/150" alt="Restaurant 2">
+                <div class="restaurant-info">
+                    <h3>Restaurant 2 - Fun Noodles</h3>
+                    <p>Address: 456 Avenue, District 3, Ho Chi Minh City</p>
+                    <p>Open Hours: 9:00 AM - 9:00 PM</p>
+                    <p><a href="https://maps.google.com" target="_blank">View on Google Maps</a></p>
+                </div>
+            </div>
+
+            <div class="restaurant">
+                <img src="https://via.placeholder.com/150" alt="Restaurant 3">
+                <div class="restaurant-info">
+                    <h3>Restaurant 3 - Kid’s Delight</h3>
+                    <p>Address: 789 Boulevard, District 5, Ho Chi Minh City</p>
+                    <p>Open Hours: 10:00 AM - 8:00 PM</p>
+                    <p><a href="https://maps.google.com" target="_blank">View on Google Maps</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functions
+        let previousPage = "";
+
+        function showMainContent() {
+            document.getElementById('qr-sign').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            document.querySelector('.home-button').style.display = 'block';
+            previousPage = 'qr-sign';
+        }
+
+        function showQuiz() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'block';
+            document.querySelector('.back-button').style.display = 'block';
+            previousPage = 'main-content';
+        }
+
+        function showKidsActivities() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('kids-mode-content').style.display = 'block';
+            document.querySelector('.back-button').style.display = 'block';
+            previousPage = 'main-content';
+        }
+
+        function showGames() {
+            document.getElementById('kids-mode-content').style.display = 'none';
+            document.getElementById('games-content').style.display = 'block';
+            previousPage = 'kids-mode-content';
+        }
+
+        function showFood() {
+            document.getElementById('kids-mode-content').style.display = 'none';
+            document.getElementById('food-content').style.display = 'block';
+            previousPage = 'kids-mode-content';
+        }
+
+        function goHome() {
+            document.getElementById('qr-sign').style.display = 'block';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('kids-mode-content').style.display = 'none';
+            document.getElementById('games-content').style.display = 'none';
+            document.getElementById('food-content').style.display = 'none';
+            document.querySelector('.home-button').style.display = 'none';
+            document.querySelector('.back-button').style.display = 'none';
+        }
+
+        function goBack() {
+            document.getElementById(previousPage).style.display = 'block';
+            document.querySelector('.back-button').style.display = 'none';
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('kids-mode-content').style.display = 'none';
+            document.getElementById('games-content').style.display = 'none';
+            document.getElementById('food-content').style.display = 'none';
+        }
+
+        function showFeedback(correct) {
+            const feedbackDiv = document.getElementById('feedback');
+            feedbackDiv.style.display = 'block';
+            if (correct) {
+                feedbackDiv.innerHTML = "Correct! Pho is a popular food item at Ben Thanh Market.";
+                feedbackDiv.style.borderLeftColor = "green";
+            } else {
+                feedbackDiv.innerHTML = "Incorrect. Try again!";
+                feedbackDiv.style.borderLeftColor = "red";
+            }
+        }
+
+        function playAudio() {
+            window.open("https://open.spotify.com/episode/2v4qSmwlH0l6GeNZDexqs5", "_blank");
+        }
+
+        function selectLanguage(element) {
+            const language = element.value;
+            if (language) {
+                alert(`Selected language: ${language}`);
+            }
+        }
+
+        function nextQuestion() {
+            alert("Move to the next question or finish the quiz.");
+        }
+    </script>
+</body>
+</html>
