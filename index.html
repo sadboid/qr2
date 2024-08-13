@@ -179,6 +179,28 @@
             color: #008CBA;
             text-decoration: none;
         }
+
+        footer {
+            background-color: #008CBA;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -199,7 +221,7 @@
             <h3>“Scan, Learn, Explore!”</h3>
             <img src="https://via.placeholder.com/150" alt="QR Code">
             <p>Scan this code to learn more about this market/product/site!</p>
-            <a class="btn" onclick="showMainContent()">Go to Main Page</a>
+            <a class="btn" onclick="showMainContent()">Scan Me</a>
         </div>
 
         <!-- Artboard 2: Main Webpage After Scanning -->
@@ -282,6 +304,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        <a href="feedback.html">Feedback</a>
+    </footer>
 
     <script>
         // Navigation functions
