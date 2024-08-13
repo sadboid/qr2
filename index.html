@@ -39,6 +39,9 @@
             position: absolute;
             top: 10px;
             left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
         }
 
         .home-button, .back-button {
@@ -47,7 +50,6 @@
             padding: 8px 15px;
             border-radius: 5px;
             text-decoration: none;
-            margin-right: 10px;
             cursor: pointer;
             border: 2px solid #008CBA;
             font-size: 14px;
@@ -333,10 +335,16 @@
         }
 
         function goBack() {
-            document.getElementById(previousPage).style.display = 'block';
+            // Handle back navigation based on the previous page
+            if (previousPage === 'kids-mode-content') {
+                document.getElementById('kids-mode-content').style.display = 'block';
+            } else if (previousPage === 'main-content') {
+                document.getElementById('main-content').style.display = 'block';
+            }
+
+            // Hide all other sections
             document.querySelector('.back-button').style.display = 'none';
             document.getElementById('quiz-content').style.display = 'none';
-            document.getElementById('kids-mode-content').style.display = 'none';
             document.getElementById('games-content').style.display = 'none';
             document.getElementById('food-content').style.display = 'none';
         }
