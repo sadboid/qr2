@@ -202,7 +202,7 @@
             <h3>“Scan, Learn, Explore!”</h3>
             <img src="https://via.placeholder.com/150" alt="QR Code">
             <p>Scan this code to learn more about this market/product/site!</p>
-            <a class="btn" onclick="showMainContent()">Scan Me</a>
+            <a class="btn" onclick="showMainContent()">Go to Main Page</a>
         </div>
 
         <!-- Artboard 2: Main Webpage After Scanning -->
@@ -314,12 +314,14 @@
         function showGames() {
             document.getElementById('kids-mode-content').style.display = 'none';
             document.getElementById('games-content').style.display = 'block';
+            document.querySelector('.back-button').style.display = 'block'; // Ensure back button is visible
             previousPage = 'kids-mode-content';
         }
 
         function showFood() {
             document.getElementById('kids-mode-content').style.display = 'none';
             document.getElementById('food-content').style.display = 'block';
+            document.querySelector('.back-button').style.display = 'block'; // Ensure back button is visible
             previousPage = 'kids-mode-content';
         }
 
@@ -343,7 +345,7 @@
             }
 
             // Hide all other sections
-            document.querySelector('.back-button').style.display = 'none';
+            document.querySelector('.back-button').style.display = 'block'; // Ensure back button is visible
             document.getElementById('quiz-content').style.display = 'none';
             document.getElementById('games-content').style.display = 'none';
             document.getElementById('food-content').style.display = 'none';
