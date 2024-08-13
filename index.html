@@ -28,7 +28,6 @@
             color: #fff;
             padding: 10px 0;
             text-align: center;
-            position: relative;
         }
 
         header h1 {
@@ -36,10 +35,7 @@
         }
 
         .nav-buttons {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
+            margin-top: 10px;
             display: flex;
             justify-content: space-between;
         }
@@ -189,13 +185,14 @@
 
     <header>
         <h1>Vietnam QR Explorer</h1>
+    </header>
+
+    <div class="container">
         <div class="nav-buttons">
             <a class="home-button" href="#" onclick="goHome()">Home</a>
             <a class="back-button" href="#" onclick="goBack()">Back</a>
         </div>
-    </header>
 
-    <div class="container">
         <!-- Artboard 1: QR Code Sign and Scan Instruction (Home Page) -->
         <div id="qr-sign" class="qr-sign">
             <h2>Vietnam QR Explorer</h2>
@@ -294,6 +291,7 @@
             document.getElementById('qr-sign').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
             document.querySelector('.home-button').style.display = 'block';
+            document.querySelector('.back-button').style.display = 'none'; // Hide back button initially
             previousPage = 'qr-sign';
         }
 
@@ -340,15 +338,18 @@
             // Handle back navigation based on the previous page
             if (previousPage === 'kids-mode-content') {
                 document.getElementById('kids-mode-content').style.display = 'block';
+                document.getElementById('games-content').style.display = 'none';
+                document.getElementById('food-content').style.display = 'none';
+                document.querySelector('.back-button').style.display = 'block'; // Back button returns to Artboard 2
+                previousPage = 'main-content';
             } else if (previousPage === 'main-content') {
                 document.getElementById('main-content').style.display = 'block';
+                document.getElementById('quiz-content').style.display = 'none';
+                document.getElementById('kids-mode-content').style.display = 'none';
+                document.getElementById('games-content').style.display = 'none';
+                document.getElementById('food-content').style.display = 'none';
+                document.querySelector('.back-button').style.display = 'none'; // Hide back button when back to Artboard 2
             }
-
-            // Hide all other sections
-            document.querySelector('.back-button').style.display = 'block'; // Ensure back button is visible
-            document.getElementById('quiz-content').style.display = 'none';
-            document.getElementById('games-content').style.display = 'none';
-            document.getElementById('food-content').style.display = 'none';
         }
 
         function showFeedback(correct) {
