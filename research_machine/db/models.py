@@ -80,6 +80,27 @@ class SearchCache(Base):
     expires_at = Column(DateTime, nullable=True)  # For cache expiration
 
 
+class Analysis(Base):
+    """Stores analysis results for research questions (Week 3)"""
+    __tablename__ = "analyses"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    research_question_id = Column(String, ForeignKey("research_questions.id"))
+
+    key_findings = Column(JSON, nullable=True)      # List of key findings
+    research_gaps = Column(JSON, nullable=True)     # List of research gaps
+    methodologies_used = Column(JSON, nullable=True)  # List of methodologies
+    contradictions = Column(JSON, nullable=True)    # List of contradictions
+    trend_analysis = Column(Text, nullable=True)    # Text synthesis of trends
+    contribution_angle = Column(Text, nullable=True)  # How hypothesis fills gap
+    recommended_methodology = Column(Text, nullable=True)  # Recommended approach
+    key_citations = Column(JSON, nullable=True)     # List of key paper titles
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    research_question = relationship("ResearchQuestion")
+
+
 class PaperEmbedding(Base):
     """Stores vector embeddings for papers (for similarity search)"""
     __tablename__ = "paper_embeddings"
