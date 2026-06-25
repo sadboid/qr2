@@ -15,11 +15,22 @@ import argparse
 import asyncio
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 
 # Allow running from repo root
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Load .env
+from pathlib import Path as _P
+_env = _P(__file__).parent.parent / ".env"
+if _env.exists():
+    for _line in _env.read_text().splitlines():
+        if _line.strip() and not _line.startswith("#") and "=" in _line:
+            _k, _v = _line.split("=", 1)
+            if _v.strip():
+                os.environ.setdefault(_k.strip(), _v.strip())
 
 from research_machine.local_engine import LocalResearchEngine
 from research_machine.output.formatter import PaperFormatter

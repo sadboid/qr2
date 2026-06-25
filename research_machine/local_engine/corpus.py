@@ -7,9 +7,13 @@ from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 
+import os
+
 import httpx
 
 logger = logging.getLogger(__name__)
+
+_SS_API_KEY = os.environ.get("SEMANTIC_SCHOLAR_API_KEY", "")
 
 _CURRENT_YEAR = 2026
 _SS_BASE = "https://api.semanticscholar.org/graph/v1"
@@ -54,7 +58,7 @@ class Paper:
 
 
 _ss_semaphore = asyncio.Semaphore(1)  # one SS request at a time
-_SS_DELAY = 3.5  # seconds between SS requests (avoid rate limit)
+_SS_DELAY = 1.1  # seconds between SS requests (1 req/s with API key)
 
 
 async def _search_semantic_scholar(
@@ -65,10 +69,12 @@ async def _search_semantic_scholar(
         delay = 3.0
         for attempt in range(retries):
             try:
+                headers = {"x-api-key": _SS_API_KEY} if _SS_API_KEY else {}
                 async with httpx.AsyncClient() as client:
                     r = await client.get(
                         f"{_SS_BASE}/paper/search",
                         params={"query": query, "limit": limit, "fields": _SS_FIELDS},
+                        headers=headers,
                         timeout=30,
                     )
                     if r.status_code == 429:
