@@ -150,7 +150,7 @@ def synthesize(
 
     logger.info(f"Synthesizing {len(corpus)} papers...")
 
-    findings = _top_sentences(corpus, _FINDING_SIGNALS, n=8)
+    findings = _top_sentences(corpus, _FINDING_SIGNALS, n=15)
     gaps = _top_sentences(corpus, _GAP_SIGNALS, n=5)
     methodologies = _detect_methodologies(corpus)
 

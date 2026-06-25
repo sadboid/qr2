@@ -241,7 +241,7 @@ class LocalResearchEngine:
         5. Programmatic quality gates
     """
 
-    def __init__(self, target_corpus_size: int = 35):
+    def __init__(self, target_corpus_size: int = 50):
         self.target_corpus_size = target_corpus_size
 
     async def run(

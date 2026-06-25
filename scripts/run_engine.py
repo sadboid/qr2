@@ -96,7 +96,7 @@ async def run(args):
     print("=" * 72 + "\n")
 
     # Run engine
-    engine = LocalResearchEngine(target_corpus_size=35)
+    engine = LocalResearchEngine(target_corpus_size=args.target_corpus_size)
     result = await engine.run(
         research_question=question,
         keywords=keywords,
@@ -198,6 +198,8 @@ Available topic keys: ai_startup, ml_failure, llm_enterprise, ai_roi
     parser.add_argument("--keywords", help="Comma-separated keywords")
     parser.add_argument("--domain", default="startup", choices=["startup", "enterprise"], help="Domain context")
     parser.add_argument("--output-dir", default="./papers_engine", help="Output directory")
+    parser.add_argument("--target-corpus-size", type=int, default=50, help="Target number of papers to fetch (default: 50)")
+    parser.add_argument("--format", default="all", choices=["md", "tex", "docx", "json", "all"], help="Output format(s)")
 
     args = parser.parse_args()
     asyncio.run(run(args))
