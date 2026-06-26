@@ -294,13 +294,17 @@ def write_full_paper(
     keywords: List[str],
     domain: str,
     synthesis: SynthesisResult,
+    literature_review: str = None,  # Optional: use provided lit review instead of default
 ) -> dict:
     """Assemble all IMRAD sections including Literature Review and Future Directions. Returns dict of section strings."""
     ref_papers = synthesis.top_papers
 
     abstract = write_abstract(research_question, synthesis, domain)
     introduction = write_introduction(research_question, synthesis, keywords, domain)
-    literature_review = write_literature_review(synthesis, keywords, domain)
+
+    # Use provided literature review or generate default
+    if literature_review is None:
+        literature_review = write_literature_review(synthesis, keywords, domain)
     methods = write_methods(research_question, synthesis, keywords)
     results = write_results(research_question, synthesis, domain)
     discussion = write_discussion(research_question, synthesis, keywords, domain)

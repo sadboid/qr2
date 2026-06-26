@@ -13,6 +13,10 @@ from .corpus import fetch_corpus, Paper
 from .synthesizer import synthesize, SynthesisResult
 from .writer import write_full_paper
 from .claim_checker import ClaimChecker
+from .source_verifier import SourceVerifier
+from .source_quality import SourceQualityScorer
+from .lit_review_generator import LiteratureReviewGenerator
+from .source_quality_gates import SourceQualityGates
 
 _METRICS_LOG = Path(__file__).parent.parent.parent / "logs" / "paper_metrics.jsonl"
 
@@ -318,11 +322,41 @@ class LocalResearchEngine:
         logger.info(f"[LocalEngine] Queries: {queries[:3]}")
 
         # 2. Fetch corpus
-        logger.info("[LocalEngine] Fetching papers from Semantic Scholar + arXiv...")
+        logger.info("[LocalEngine] Fetching papers from Semantic Scholar + arXiv + Crossref...")
         corpus = await fetch_corpus(queries, keywords, target_size=self.target_corpus_size)
         if not corpus:
             raise RuntimeError("No papers found — check network connectivity and query terms")
         logger.info(f"[LocalEngine] Corpus: {len(corpus)} papers")
+
+        # 2.5. Verify source quality
+        logger.info("[LocalEngine] Verifying source quality...")
+        verifier = SourceVerifier()
+        verifications, verification_rate = await verifier.verify_corpus(
+            [_paper_to_dict(p) for p in corpus]
+        )
+
+        scorer = SourceQualityScorer()
+        quality_scores, quality_stats = scorer.score_corpus(
+            [_paper_to_dict(p) for p in corpus]
+        )
+
+        # Source quality gates
+        gates = SourceQualityGates()
+        gate_result = gates.validate_corpus(
+            [_paper_to_dict(p) for p in corpus],
+            verifications,
+            quality_scores
+        )
+
+        logger.info(
+            f"[LocalEngine] Source Quality: {gate_result.verification_rate:.0%} verified, "
+            f"{gate_result.quality_rate:.0%} high-quality (score: {gate_result.score:.2f})"
+        )
+
+        if not gate_result.passed:
+            logger.warning(f"[LocalEngine] ⚠ Source quality gates: {len(gate_result.issues)} issues")
+            for issue in gate_result.issues:
+                logger.warning(f"  - {issue}")
 
         # 3. Synthesize
         logger.info("[LocalEngine] Synthesizing corpus...")
@@ -333,7 +367,17 @@ class LocalResearchEngine:
             f"methods: {synthesis.methodologies[:3]}"
         )
 
-        # 4. Write paper
+        # 3.5. Generate literature review from verified sources
+        lit_gen = LiteratureReviewGenerator()
+        lit_review = lit_gen.generate_lit_review(
+            research_question=research_question,
+            keywords=keywords,
+            papers=[_paper_to_dict(p) for p in corpus],
+            quality_scores=quality_scores,
+            min_quality_threshold=0.50  # Use papers with decent quality
+        )
+
+        # 4. Write paper (with literature review)
         title = _make_title(research_question, domain)
         logger.info(f"[LocalEngine] Writing paper: '{title}'")
         paper_data = write_full_paper(
@@ -342,6 +386,7 @@ class LocalResearchEngine:
             keywords=keywords,
             domain=domain,
             synthesis=synthesis,
+            literature_review=lit_review,
         )
 
         # 5. Quality gates
@@ -371,3 +416,23 @@ class LocalResearchEngine:
         )
         _append_metrics_log(result)
         return result
+
+
+# ---------------------------------------------------------------------------
+# Helper functions
+# ---------------------------------------------------------------------------
+
+def _paper_to_dict(paper: Paper) -> Dict[str, Any]:
+    """Convert Paper object to dictionary for use in verification/quality functions."""
+    return {
+        "paperId": paper.paper_id,
+        "title": paper.title,
+        "abstract": paper.abstract,
+        "authors": [{"name": a} for a in paper.authors],
+        "year": paper.year,
+        "citationCount": paper.citation_count,
+        "venue": paper.venue,
+        "url": paper.url,
+        "_source": paper.source,
+        "author_h_index": paper.author_h_index,
+    }
