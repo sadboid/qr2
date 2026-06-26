@@ -11,6 +11,8 @@ import os
 
 import httpx
 
+from . import venue_ranking
+
 logger = logging.getLogger(__name__)
 
 _SS_API_KEY = os.environ.get("SEMANTIC_SCHOLAR_API_KEY", "")
@@ -33,6 +35,7 @@ class Paper:
     url: str
     source: str  # "semantic_scholar" | "arxiv"
     keywords_matched: List[str] = field(default_factory=list)
+    author_h_index: int = 0  # Lead author h-index (from Semantic Scholar)
 
     @property
     def is_recent(self) -> bool:
@@ -40,10 +43,20 @@ class Paper:
 
     @property
     def relevance_score(self) -> float:
-        recency = 1.0 if self.is_recent else 0.5
-        cite_score = min(self.citation_count / 100, 1.0)
+        """Advanced reputation scoring with venue tiers + h-index + recency decay."""
+        # Keyword match ratio (0.0-1.0)
         kw_score = min(len(self.keywords_matched) / 3, 1.0)
-        return 0.4 * kw_score + 0.3 * recency + 0.3 * cite_score
+
+        # Use advanced reputation formula from venue_ranking
+        score = venue_ranking.calculate_reputation_score(
+            keywords_match=kw_score,
+            citation_count=self.citation_count,
+            venue=self.venue,
+            year=self.year,
+            author_h_index=self.author_h_index,
+            current_year=_CURRENT_YEAR,
+        )
+        return score
 
     def short_ref(self) -> str:
         first_author = self.authors[0].split(",")[0] if self.authors else "Unknown"
@@ -186,6 +199,14 @@ def _to_paper(raw: Dict[str, Any], keywords: List[str]) -> Optional[Paper]:
     if not authors:
         authors = ["Unknown"]
 
+    # Extract lead author h-index from Semantic Scholar data
+    author_h_index = 0
+    author_list = raw.get("authors") or []
+    if author_list and isinstance(author_list, list) and len(author_list) > 0:
+        lead_author = author_list[0]
+        if isinstance(lead_author, dict):
+            author_h_index = lead_author.get("hIndex") or 0
+
     return Paper(
         paper_id=raw.get("paperId") or raw.get("url") or title[:20],
         title=title,
@@ -197,6 +218,7 @@ def _to_paper(raw: Dict[str, Any], keywords: List[str]) -> Optional[Paper]:
         url=raw.get("url") or "",
         source=raw.get("_source", "semantic_scholar"),
         keywords_matched=_extract_keywords(title + " " + abstract, keywords),
+        author_h_index=author_h_index,
     )
 
 
