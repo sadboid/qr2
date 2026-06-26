@@ -1,7 +1,7 @@
 """Source quality scoring — rank papers by multiple quality dimensions."""
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Dict, Any
 
 from . import venue_ranking
@@ -23,10 +23,10 @@ class SourceQualityScore:
     recency_score: float        # How recent the paper is
     peer_review_score: float    # Peer-reviewed vs preprint
 
-    # Composite scores
-    overall_quality: float      # Weighted average of all dimensions
-    fit_for_lit_review: bool   # Suitable for literature review
-    quality_tier: str          # "excellent", "good", "acceptable", "poor"
+    # Composite scores (calculated in __post_init__)
+    overall_quality: float = field(init=False, default=0.0)
+    fit_for_lit_review: bool = field(init=False, default=False)
+    quality_tier: str = field(init=False, default="poor")
 
     def __post_init__(self):
         """Calculate composite scores."""
