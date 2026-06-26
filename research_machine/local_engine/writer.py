@@ -6,6 +6,7 @@ from typing import List, Optional
 
 from .corpus import Paper
 from .synthesizer import SynthesisResult
+from .domain_config import get_vocab, domain_metrics_sentence, domain_context_phrase, domain_practical_sentence
 
 logger = logging.getLogger(__name__)
 
@@ -145,6 +146,7 @@ Synthesis employed thematic analysis: findings were grouped into thematic cluste
 def write_results(
     research_question: str,
     synthesis: SynthesisResult,
+    domain: str = "general",
 ) -> str:
     findings = synthesis.key_findings[:12]
     n = len(synthesis.all_papers)
@@ -188,7 +190,11 @@ Beyond the core themes, {findings[10] if len(findings) > 10 else ''} {findings[1
 
 Synthesizing across themes, several meta-patterns emerge. First, the literature demonstrates increasing sophistication in measurement and research design. Second, recent work increasingly acknowledges context-dependency rather than seeking universal laws. Third, interdisciplinary approaches are gaining traction, enriching understanding of complex phenomena.
 
-Average citation count across the corpus was {synthesis.avg_citation_count:.0f}, with cited papers concentrated in high-impact venues, indicating scholarly legitimacy and influence of this research area."""
+Average citation count across the corpus was {synthesis.avg_citation_count:.0f}, with cited papers concentrated in high-impact venues, indicating scholarly legitimacy and influence of this research area.
+
+**Domain-Specific Metrics and Outcomes**
+
+{domain_context_phrase(domain)} {domain_metrics_sentence(domain, 3)} These domain-specific outcome measures align with practitioner needs and provide a bridge between theoretical findings and applied implementation. The literature increasingly adopts such metrics to demonstrate real-world relevance beyond traditional academic publication venues."""
 
     return result_text
 
@@ -216,6 +222,10 @@ def write_discussion(
             f"We propose that future theoretical work should: (1) integrate insights from {kw_str} as complementary rather than competing perspectives; (2) develop formal models specifying mechanisms and moderators; (3) emphasize context-dependency and heterogeneous treatment effects; and (4) acknowledge temporal dynamics and feedback loops.\n\n"
         )
 
+    vocab = get_vocab(domain)
+    practical_sentence = domain_practical_sentence(domain)
+    domain_terms = ", ".join(vocab.terminology[:3]) if vocab.terminology else domain
+    metrics_str = ", ".join(vocab.metrics[:3]) if vocab.metrics else "performance metrics"
     para3 = f"**Practical implications for {domain} contexts**: For practitioners in {domain} settings, these findings provide evidence-based guidance for decision-making and policy design. "
     if synthesis.methodologies:
         para3 += (
@@ -224,7 +234,8 @@ def write_discussion(
     para3 += (
         f"First, organizations should carefully attend to the contextual and contingency factors identified in this review—implementation success depends critically on organizational readiness, resource availability, and environmental conditions. "
         f"Second, the heterogeneity in outcomes across settings argues strongly against one-size-fits-all implementation strategies; instead, organizations should pilot interventions, measure locally-relevant outcomes, and iterate based on feedback. "
-        f"Third, the evidence base supports a phased approach combining immediate tactical improvements with longer-term capability building. Fourth, inter-organizational variation suggests that benchmarking against best practices requires careful contextualization rather than direct transfer.\n\n"
+        f"Third, the evidence base supports a phased approach combining immediate tactical improvements with longer-term capability building. Fourth, inter-organizational variation suggests that benchmarking against best practices requires careful contextualization rather than direct transfer. "
+        f"{practical_sentence} Practitioners should track domain-specific KPIs such as {metrics_str} to validate implementation progress and course-correct early. Organizations operating within {domain_terms} frameworks are particularly well-positioned to operationalize the evidence-based recommendations emerging from this synthesis.\n\n"
     )
 
     para4 = f"""**Strengths and limitations of this review**: This review contributes to the literature by: (1) systematically synthesizing {n} empirical and theoretical studies; (2) identifying methodological patterns and tradeoffs; (3) highlighting unresolved contradictions; and (4) proposing an integrated research agenda. However, the review is subject to important limitations. First, our search was limited to two primary databases (Semantic Scholar and arXiv); grey literature, proprietary case studies, and non-English publications were excluded, potentially biasing results toward certain publication venues and disciplinary traditions. Second, publication bias—the tendency for studies with statistically significant results to be published—may inflate effect size estimates and positive findings in the literature. Third, our synthesis is primarily descriptive rather than meta-analytic; we did not quantitatively pool effect sizes due to heterogeneity in measures and designs across studies. Fourth, the temporal scope and year-of-publication bias may underrepresent foundational work while overrepresenting recent trends.
@@ -291,7 +302,7 @@ def write_full_paper(
     introduction = write_introduction(research_question, synthesis, keywords, domain)
     literature_review = write_literature_review(synthesis, keywords, domain)
     methods = write_methods(research_question, synthesis, keywords)
-    results = write_results(research_question, synthesis)
+    results = write_results(research_question, synthesis, domain)
     discussion = write_discussion(research_question, synthesis, keywords, domain)
     future_directions = write_future_directions(synthesis, keywords, research_question, domain)
     references = build_references(ref_papers)

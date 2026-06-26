@@ -1,16 +1,20 @@
 """Main orchestrator for the local (no-API) research engine."""
 
 import asyncio
+import json
 import logging
 import re
 import time
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import List, Optional, Dict, Any
 
 from .corpus import fetch_corpus, Paper
 from .synthesizer import synthesize, SynthesisResult
 from .writer import write_full_paper
 from .claim_checker import ClaimChecker
+
+_METRICS_LOG = Path(__file__).parent.parent.parent / "logs" / "paper_metrics.jsonl"
 
 logger = logging.getLogger(__name__)
 
@@ -250,6 +254,38 @@ class EngineResult:
 
 
 # ---------------------------------------------------------------------------
+# Metrics logging
+# ---------------------------------------------------------------------------
+
+def _append_metrics_log(result: "EngineResult") -> None:
+    """Append one-line JSON record to logs/paper_metrics.jsonl."""
+    try:
+        _METRICS_LOG.parent.mkdir(parents=True, exist_ok=True)
+        qr = result.quality_results
+        fc = qr.get("fact_check", {})
+        record = {
+            "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "title": result.title,
+            "domain": result.domain,
+            "status": result.status,
+            "word_count": result.word_count,
+            "corpus_size": result.corpus_size,
+            "citation_count": result.paper_data.get("citation_count", 0),
+            "novelty_score": qr.get("novelty", {}).get("score", 0.0),
+            "peer_review_score": qr.get("peer_review", {}).get("score", 0.0),
+            "fact_check_score": fc.get("score", 10.0),
+            "fact_check_passed": fc.get("passed", True),
+            "elapsed_seconds": round(result.elapsed_seconds, 1),
+            "cost_usd": 0.00,
+            "keywords": result.keywords[:4],
+        }
+        with open(_METRICS_LOG, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+    except Exception as e:
+        logger.warning(f"[LocalEngine] Could not write metrics log: {e}")
+
+
+# ---------------------------------------------------------------------------
 # Main engine
 # ---------------------------------------------------------------------------
 
@@ -318,10 +354,11 @@ class LocalResearchEngine:
         )
 
         elapsed = time.time() - t0
+        word_count = len(paper_data['content_markdown'].split())
         logger.info(f"[LocalEngine] DONE in {elapsed:.1f}s ({paper_data['citation_count']} citations, "
-                    f"{len(paper_data['content_markdown'].split())} words)")
+                    f"{word_count} words)")
 
-        return EngineResult(
+        result = EngineResult(
             research_question=research_question,
             title=title,
             domain=domain,
@@ -332,3 +369,5 @@ class LocalResearchEngine:
             elapsed_seconds=elapsed,
             corpus_size=len(corpus),
         )
+        _append_metrics_log(result)
+        return result
