@@ -72,8 +72,16 @@ class ClaimChecker:
                 passed=True
             )
 
-        # Create lookup dict: (last_name, year) -> Paper
-        paper_lookup = {(p.authors[0].split(",")[0].lower() if p.authors else "", p.year): p for p in corpus}
+        # Create lookup dict: (last_name_only, year) -> Paper
+        # Key uses last word of first author's name (matches _parse_citation output)
+        paper_lookup = {}
+        for p in corpus:
+            if p.authors:
+                full = p.authors[0].split(",")[0].strip()  # e.g. "Joel Becker" or "D. Rajasekaran"
+                last = full.split()[-1].lower()             # last word = last name
+            else:
+                last = ""
+            paper_lookup[(last, p.year)] = p
 
         verified = []
         unverified = []
@@ -186,10 +194,11 @@ class ClaimChecker:
         # Remove brackets
         content = citation_ref.strip('[]')
 
-        # Try pattern: "Author, Year" or "Author Year"
-        match = re.match(r'([A-Za-z\s]+)[,\s]+(\d{4})', content)
+        # Handle: "Joel Becker, 2025" / "D. Rajasekaran, 2026" / "Cheng-Kui Huang, 2025"
+        match = re.match(r'([A-Za-z][A-Za-z.\-\s]+)[,\s]+(\d{4})', content)
         if match:
-            author = match.group(1).strip().split()[-1]  # Last name only
+            name_part = match.group(1).strip()
+            author = name_part.split()[-1].lower()  # Last word = last name, lowercased
             year = int(match.group(2))
             return (author, year)
 
