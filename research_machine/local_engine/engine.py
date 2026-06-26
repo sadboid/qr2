@@ -10,6 +10,7 @@ from typing import List, Optional, Dict, Any
 from .corpus import fetch_corpus, Paper
 from .synthesizer import synthesize, SynthesisResult
 from .writer import write_full_paper
+from .claim_checker import ClaimChecker
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +80,7 @@ def _make_title(research_question: str, domain: str) -> str:
 def _run_quality_gates(
     synthesis: SynthesisResult,
     paper_data: dict,
+    corpus: list = None,
 ) -> dict:
     # Novelty gate: if we found 15+ unique papers, the topic is addressable
     # Use recency ratio as proxy for novelty gap
@@ -117,7 +119,23 @@ def _run_quality_gates(
     rigor_score = min(10.0, (word_count / 400) + finding_count + gap_count)
     peer_review_passed = rigor_score >= 7.0
 
-    overall = "accepted" if (novelty_passed and citation_passed and peer_review_passed) else "revision_requested"
+    # Fact-check gate: verify claims against source abstracts
+    fact_check_passed = True
+    fact_check_score = 10.0
+    fact_check_feedback = "No fact-check performed"
+
+    if corpus:
+        checker = ClaimChecker()
+        fact_report = checker.check(paper_data["content_markdown"], corpus)
+        fact_check_passed = fact_report.passed
+        fact_check_score = fact_report.overall_score
+        fact_check_feedback = (
+            f"{fact_report.verified_count}/{fact_report.total_citations} claims verified "
+            f"({fact_report.verification_rate:.0%}). "
+            f"{len(fact_report.contradictions)} contradictions detected."
+        )
+
+    overall = "accepted" if (novelty_passed and citation_passed and peer_review_passed and fact_check_passed) else "revision_requested"
     if not novelty_passed and not peer_review_passed:
         overall = "rejected"
 
@@ -149,6 +167,11 @@ def _run_quality_gates(
                 f"Paper contains {word_count} words, {finding_count} key findings, "
                 f"{gap_count} identified gaps. Rigor proxy score: {rigor_score:.1f}/10."
             ),
+        },
+        "fact_check": {
+            "passed": fact_check_passed,
+            "score": fact_check_score,
+            "feedback": fact_check_feedback,
         },
         "overall_status": overall,
     }
@@ -184,7 +207,8 @@ class EngineResult:
             "metadata": {
                 "title": self.title,
                 "mode": "local_engine",
-                **{k: v for k, v in qr.items() if k != "overall_status"},
+                **{k: v for k, v in qr.items() if k not in ("overall_status", "fact_check")},
+                "fact_check": qr.get("fact_check", {"passed": True, "score": 10.0, "feedback": "No fact-check"}),
                 "domain": self.domain,
                 "keywords": self.keywords,
             },
@@ -285,7 +309,7 @@ class LocalResearchEngine:
         )
 
         # 5. Quality gates
-        quality_results = _run_quality_gates(synthesis, paper_data)
+        quality_results = _run_quality_gates(synthesis, paper_data, corpus)
         logger.info(
             f"[LocalEngine] Gates: novelty={'✓' if quality_results['novelty']['passed'] else '✗'} "
             f"citations={'✓' if quality_results['citation']['passed'] else '✗'} "

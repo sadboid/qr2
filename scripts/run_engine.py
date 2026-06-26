@@ -158,6 +158,9 @@ async def run(args):
     print(f"    Citations   : {draft.citation_count}     {'✓ PASS' if ct['passed'] else '✗ FAIL'}  (recency {ct['metrics']['recency_ratio']:.0%}, h≈{ct['metrics']['avg_h_index']:.1f})")
     pr = qr["peer_review"]
     print(f"    Peer Review : {pr['score']:.1f}/10 {'✓ PASS' if pr['passed'] else '✗ FAIL'}  ({pr['recommendation']})")
+    fc = qr.get("fact_check", {})
+    if fc:
+        print(f"    Fact Check  : {fc['score']:.1f}/10 {'✓ PASS' if fc['passed'] else '✗ FAIL'}  ({fc['feedback'][:55]})")
     print()
     print("  Output Files:")
     for fmt, path in outputs.items():
