@@ -43,6 +43,7 @@ papers_factcheck_v3/
 papers_q1/
 papers_real/
 papers_batch/
+papers_source_discovery_test/
 submission/
 
 # Logs (metrics data — keep .gitkeep but not JSONL runtime logs)
