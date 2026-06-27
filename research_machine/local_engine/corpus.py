@@ -273,6 +273,7 @@ async def fetch_corpus(
     raw_all.extend(crossref_raw)
 
     logger.info(f"[Corpus] Phase 1 (multi-source): {len(raw_all)} raw papers")
+    n_raw = len(raw_all)
 
     # Deduplicate early to avoid redundant network expansion
     deduped = _deduplicate(raw_all)
@@ -330,7 +331,7 @@ async def fetch_corpus(
     logger.info(
         f"[Corpus] Final: {len(final_papers)} papers (from {len(raw_all)} initial + network expansion)"
     )
-    return final_papers
+    return final_papers, n_raw
 
 
 def _extract_arxiv_id(paper: Paper) -> Optional[str]:

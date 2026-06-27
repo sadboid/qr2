@@ -125,9 +125,7 @@ class LiteratureReviewGenerator:
 
     def _intro_section(self, research_question: str) -> str:
         """Generate introduction to literature review."""
-        return f"""## Literature Review
-
-### Overview
+        return f"""### Overview
 
 The following systematic review examines the current state of knowledge relevant to the research question: **{research_question}**
 

@@ -327,7 +327,7 @@ class LocalResearchEngine:
 
         # 2. Fetch corpus
         logger.info("[LocalEngine] Fetching papers from Semantic Scholar + arXiv + Crossref...")
-        corpus = await fetch_corpus(queries, keywords, target_size=self.target_corpus_size)
+        corpus, n_raw = await fetch_corpus(queries, keywords, target_size=self.target_corpus_size)
         if not corpus:
             raise RuntimeError("No papers found — check network connectivity and query terms")
         logger.info(f"[LocalEngine] Corpus: {len(corpus)} papers")
@@ -407,6 +407,7 @@ class LocalResearchEngine:
         # 4. Write paper (with literature review)
         title = _make_title(research_question, domain)
         logger.info(f"[LocalEngine] Writing paper: '{title}'")
+        n_included = sum(1 for q in quality_scores if q.overall_quality >= 0.30)
         paper_data = write_full_paper(
             title=title,
             research_question=research_question,
@@ -414,6 +415,8 @@ class LocalResearchEngine:
             domain=domain,
             synthesis=synthesis,
             literature_review=lit_review,
+            n_raw=n_raw,
+            n_included=n_included,
         )
 
         # 5. Quality gates

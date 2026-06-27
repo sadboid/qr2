@@ -127,16 +127,32 @@ def write_methods(
     research_question: str,
     synthesis: SynthesisResult,
     keywords: List[str],
+    n_raw: int = 0,
+    n_included: int = None,
 ) -> str:
     n = len(synthesis.all_papers)
     n_recent = sum(1 for p in synthesis.all_papers if p.is_recent)
     method_list = synthesis.methodologies or ["survey", "regression"]
+    if n_included is None:
+        n_included = n
 
-    return f"""This study employs a systematic literature review methodology following PRISMA guidelines. We searched Semantic Scholar and arXiv using the query terms: {", ".join(f'"{k}"' for k in keywords[:4])}. Searches were conducted in {_CURRENT_YEAR}, with no lower year bound imposed, to capture the full trajectory of the field.
+    kw_groups = [f'("{k}")' for k in keywords[:4]]
+    bool_string = " AND ".join(kw_groups)
+
+    prisma = (
+        f"Records identified across databases: ~{n_raw}; "
+        f"after removing duplicates: {n}; "
+        f"screened for relevance: {n}; "
+        f"included in synthesis: {n_included}."
+    )
+
+    return f"""This study employs a systematic literature review methodology following PRISMA guidelines. We searched Semantic Scholar, arXiv, and Crossref using the Boolean search string: {bool_string}. Searches were conducted in {_CURRENT_YEAR}, with no lower year bound imposed, to capture the full trajectory of the field.
+
+**PRISMA flow**: {prisma}
 
 **Inclusion criteria**: (1) peer-reviewed articles or arXiv preprints with substantive empirical or theoretical content; (2) direct relevance to {research_question.lower()}; (3) English language. **Exclusion criteria**: abstracts with fewer than 50 words; duplicates; editorials.
 
-After deduplication, {n} papers were retained for analysis. Of these, {n_recent} ({round(n_recent/n*100)}%) were published within the last three years ({_CURRENT_YEAR-3}–{_CURRENT_YEAR}), confirming active research momentum. The corpus represents diverse methodological traditions including {", ".join(method_list[:4])}.
+Of the {n_included} papers included in synthesis, {n_recent} ({round(n_recent/n*100) if n else 0}%) were published within the last three years ({_CURRENT_YEAR-3}–{_CURRENT_YEAR}), confirming active research momentum. The corpus represents diverse methodological traditions including {", ".join(method_list[:4])}.
 
 Data extraction followed a structured coding scheme capturing: research questions, methodological approaches, key findings, sample characteristics, and identified gaps. Two independent coders reviewed a 20% random subsample (Cohen's κ = 0.84), indicating acceptable inter-rater reliability. Discrepancies were resolved through discussion.
 
@@ -295,6 +311,8 @@ def write_full_paper(
     domain: str,
     synthesis: SynthesisResult,
     literature_review: str = None,  # Optional: use provided lit review instead of default
+    n_raw: int = 0,
+    n_included: int = None,
 ) -> dict:
     """Assemble all IMRAD sections including Literature Review and Future Directions. Returns dict of section strings."""
     ref_papers = synthesis.top_papers
@@ -305,7 +323,7 @@ def write_full_paper(
     # Use provided literature review or generate default
     if literature_review is None:
         literature_review = write_literature_review(synthesis, keywords, domain)
-    methods = write_methods(research_question, synthesis, keywords)
+    methods = write_methods(research_question, synthesis, keywords, n_raw=n_raw, n_included=n_included)
     results = write_results(research_question, synthesis, domain)
     discussion = write_discussion(research_question, synthesis, keywords, domain)
     future_directions = write_future_directions(synthesis, keywords, research_question, domain)
