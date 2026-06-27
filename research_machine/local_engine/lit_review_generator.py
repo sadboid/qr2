@@ -19,6 +19,24 @@ _GAP_SIGNALS_LIST = [
     "scarce literature", "to our knowledge", "to date",
 ]
 
+_POSITIVE_SIGNALS = frozenset({
+    "increases", "improves", "enhances", "boosts", "positive", "higher",
+    "greater", "benefit", "effective", "significant", "promotes", "facilitates",
+})
+_NEGATIVE_SIGNALS = frozenset({
+    "decreases", "reduces", "hinders", "no significant", "not significant",
+    "failed", "lower", "challenges", "limits", "negative", "impedes", "no effect",
+})
+
+
+def _get_last_name(authors_raw) -> str:
+    """Extract last name of first author from authors list (any format)."""
+    if not authors_raw:
+        return "Unknown"
+    entry = authors_raw[0]
+    full = entry.get("name", "Unknown") if isinstance(entry, dict) else str(entry)
+    return full.split(",")[0].strip().split()[-1]
+
 
 class LiteratureReviewGenerator:
     """Generate coherent literature review from quality-ranked sources."""
@@ -220,83 +238,99 @@ This methodological diversity reflects both disciplinary maturation and recognit
                          keywords: List[str],
                          fulltext_map: Dict[str, str] = None) -> str:
         """
-        Generate findings section with grounded, source-traceable claims.
+        Generate findings section organized by theme (Q1 standard).
 
-        Each finding is extracted directly from the paper's abstract/full text,
-        making it verifiable by the LitReviewVerifier.
+        Each theme paragraph cites 2–5 papers with narrative synthesis,
+        and flags contradicting evidence where detected.
         """
         from .fulltext_extractor import FullTextExtractor
         extractor = FullTextExtractor()
         fulltext_map = fulltext_map or {}
-        top_papers = quality_papers[:12]
 
-        findings_list = []
-        for qpaper in top_papers:
-            paper = qpaper["paper"]
-            title = paper.get("title", "Unknown")
-            year = paper.get("year", 2026)
-            authors_raw = paper.get("authors", [])
-            if authors_raw and isinstance(authors_raw[0], dict):
-                first_author_full = authors_raw[0].get("name", "Unknown")
-            elif authors_raw:
-                first_author_full = str(authors_raw[0])
-            else:
-                first_author_full = "Unknown"
+        # Active themes: ≥2 papers, sorted by paper count desc, cap at 5 themes
+        active_themes = sorted(
+            [(theme, papers) for theme, papers in clusters.items() if len(papers) >= 2],
+            key=lambda x: len(x[1]), reverse=True
+        )[:5]
 
-            # Use last name only for citation key (matches verifier's lookup)
-            first_author_last = first_author_full.split(",")[0].strip().split()[-1]
-            venue = paper.get("venue", "")
-            cites = paper.get("citationCount", 0)
-            tier = qpaper["quality"].quality_tier
+        # Fall back to legacy bullet list if clustering produced no usable themes
+        if not active_themes:
+            return self._findings_section_bullets(quality_papers, keywords, fulltext_map, extractor)
 
-            citation_ref = f"[{first_author_last}, {year}]"
-            citation_note = f"{cites} citations" if cites > 0 else "preprint"
-            venue_note = f", *{venue[:35]}*" if venue else ""
+        theme_blocks = []
+        for theme, theme_papers in active_themes:
+            top = theme_papers[:5]
 
-            # Extract grounded claim from source (abstract or full text)
-            title_key = title.lower().strip()[:80]
-            full_text = fulltext_map.get(title_key, "")
-            grounded_claim = self._extract_grounded_claim(paper, keywords, extractor, full_text)
+            claims, refs = [], []
+            for qpaper in top:
+                paper = qpaper["paper"]
+                title_key = paper.get("title", "").lower().strip()[:80]
+                full_text = fulltext_map.get(title_key, "")
+                claim = self._extract_grounded_claim(paper, keywords, extractor, full_text)
+                last = _get_last_name(paper.get("authors", []))
+                year = paper.get("year", 2026)
+                claims.append(claim)
+                refs.append(f"[{last}, {year}]")
 
-            # Format as a citable finding with source attribution
-            if grounded_claim:
-                findings_list.append(
-                    f"- {grounded_claim} {citation_ref} [{citation_note}{venue_note}] — *{tier}*"
+            contra_idx = self._detect_contradiction(claims)
+
+            # Build paragraph
+            n = len(top)
+            header = f"**{theme.title()} ({n} {'study' if n == 1 else 'studies'})**"
+
+            evidence_sents = []
+            for i, (claim, ref) in enumerate(zip(claims, refs)):
+                if i == contra_idx:
+                    continue
+                connector = "Similarly, " if i > 0 and not evidence_sents else ""
+                evidence_sents.append(f"{connector}{ref} find that {claim}.")
+
+            contra_sent = ""
+            if contra_idx is not None:
+                contra_sent = (
+                    f" However, {refs[contra_idx]} find that {claims[contra_idx]},"
+                    f" suggesting context-dependence in these effects."
                 )
-            else:
-                findings_list.append(
-                    f"- Research on \"{title[:60]}...\" {citation_ref} [{citation_note}{venue_note}] — *{tier}*"
-                )
 
-        findings_text = "\n".join(findings_list)
+            para = header + "\n\n" + " ".join(evidence_sents) + contra_sent
+            theme_blocks.append(para)
 
-        # Thematic summary from abstracts
-        theme_counts = defaultdict(int)
-        for qpaper in quality_papers:
-            abstract = qpaper["paper"].get("abstract", "").lower()
-            for kw in keywords:
-                if kw.lower() in abstract:
-                    theme_counts[kw] += 1
-
-        themes_summary = ", ".join(
-            f"{kw} ({cnt} papers)" for kw, cnt in
-            sorted(theme_counts.items(), key=lambda x: x[1], reverse=True)
-        ) or "diverse topics"
+        findings_text = "\n\n".join(theme_blocks)
+        theme_names = ", ".join(theme for theme, _ in active_themes)
 
         return f"""### Key Findings
 
-The following papers represent the strongest evidence base for the research question, selected by quality tier (venue reputation, citation count, recency):
+The following thematic synthesis organizes evidence from the corpus by research theme, with convergent findings and notable contradictions where detected:
 
 {findings_text}
 
-**Thematic distribution** across papers: {themes_summary}.
+**Thematic coverage**: {theme_names}."""
 
-Across the selected sources, four convergent patterns emerge:
+    def _findings_section_bullets(self,
+                                  quality_papers: List[Dict[str, Any]],
+                                  keywords: List[str],
+                                  fulltext_map: Dict[str, str],
+                                  extractor) -> str:
+        """Fallback: bullet-list findings when clustering yields no multi-paper themes."""
+        findings_list = []
+        for qpaper in quality_papers[:12]:
+            paper = qpaper["paper"]
+            year = paper.get("year", 2026)
+            last = _get_last_name(paper.get("authors", []))
+            cites = paper.get("citationCount", 0)
+            venue = paper.get("venue", "")
+            tier = qpaper["quality"].quality_tier
+            title_key = paper.get("title", "").lower().strip()[:80]
+            full_text = fulltext_map.get(title_key, "")
+            claim = self._extract_grounded_claim(paper, keywords, extractor, full_text)
+            ref = f"[{last}, {year}]"
+            cite_note = f"{cites} citations" if cites > 0 else "preprint"
+            venue_note = f", *{venue[:35]}*" if venue else ""
+            findings_list.append(f"- {claim} {ref} [{cite_note}{venue_note}] — *{tier}*")
 
-1. **Empirical grounding**: Evidence is drawn from multiple independent studies rather than single-source inference, reducing idiosyncratic bias.
-2. **Context dependency**: Outcomes differ meaningfully by organizational size, sector, and temporal context — necessitating nuanced interpretation.
-3. **Methodological diversity**: Quantitative, qualitative, and mixed-methods studies corroborate similar conclusions from different angles.
-4. **Practical relevance**: Recent papers emphasize implementation challenges and real-world scalability alongside theoretical contributions."""
+        return f"""### Key Findings
+
+{chr(10).join(findings_list)}"""
 
     def _gap_section(self,
                     quality_papers: List[Dict[str, Any]],
@@ -385,14 +419,9 @@ These gaps, extracted directly from the source literature, represent productive 
         gap_citations: Dict[str, str] = {}
         for qpaper in quality_papers:
             abstract = qpaper["paper"].get("abstract", "").lower()
-            authors_raw = qpaper["paper"].get("authors", [])
-            year = qpaper["paper"].get("year", 2026)
-            if authors_raw and isinstance(authors_raw[0], dict):
-                last = authors_raw[0].get("name", "Unknown").split(",")[0].strip().split()[-1]
-            elif authors_raw:
-                last = str(authors_raw[0]).split(",")[0].strip().split()[-1]
-            else:
-                last = "Unknown"
+            paper = qpaper["paper"]
+            year = paper.get("year", 2026)
+            last = _get_last_name(paper.get("authors", []))
             citation = f"[{last}, {year}]"
 
             for gap_name, signals in gap_signals.items():
@@ -459,14 +488,8 @@ These gaps represent productive opportunities for directly addressing: **{resear
                 continue
 
             # Build citation
-            authors_raw = paper.get("authors", [])
             year = paper.get("year", 2026)
-            if authors_raw and isinstance(authors_raw[0], dict):
-                last = authors_raw[0].get("name", "Unknown").split(",")[0].strip().split()[-1]
-            elif authors_raw:
-                last = str(authors_raw[0]).split(",")[0].strip().split()[-1]
-            else:
-                last = "Unknown"
+            last = _get_last_name(paper.get("authors", []))
             citation = f"[{last}, {year}]"
 
             # Score sentences by gap signal count
@@ -488,23 +511,26 @@ These gaps represent productive opportunities for directly addressing: **{resear
     def _cluster_by_theme(self,
                          quality_papers: List[Dict[str, Any]],
                          keywords: List[str]) -> Dict[str, List[Dict[str, Any]]]:
-        """Organize papers into thematic clusters based on keywords."""
-        clusters = defaultdict(list)
-
+        """Assign each paper to its single best-matching keyword theme (exclusive)."""
+        clusters: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
         for qpaper in quality_papers:
             abstract = qpaper["paper"].get("abstract", "").lower()
-
-            # Assign to clusters based on keyword presence
-            assigned = False
-            for keyword in keywords[:3]:  # Use first 3 keywords
-                if keyword.lower() in abstract:
-                    clusters[keyword] = clusters.get(keyword, []) + [qpaper]
-                    assigned = True
-
-            if not assigned:
-                clusters["General"] = clusters.get("General", []) + [qpaper]
-
+            best_kw, best_count = "General", 0
+            for kw in keywords[:5]:
+                count = abstract.count(kw.lower())
+                if count > best_count:
+                    best_count = count
+                    best_kw = kw
+            clusters[best_kw].append(qpaper)
         return dict(clusters)
+
+    def _detect_contradiction(self, claims: List[str]) -> Optional[int]:
+        """Return index of minority-signal claim in cluster, or None if no contradiction."""
+        pos = [i for i, c in enumerate(claims) if any(s in c.lower() for s in _POSITIVE_SIGNALS)]
+        neg = [i for i, c in enumerate(claims) if any(s in c.lower() for s in _NEGATIVE_SIGNALS)]
+        if pos and neg:
+            return neg[0] if len(neg) <= len(pos) else pos[0]
+        return None
 
     def _fallback_lit_review(self, research_question: str, keywords: List[str]) -> str:
         """Fallback literature review if no high-quality papers available."""
