@@ -600,9 +600,7 @@ These gaps represent productive opportunities for directly addressing: **{resear
 
     def _fallback_lit_review(self, research_question: str, keywords: List[str]) -> str:
         """Fallback literature review if no high-quality papers available."""
-        return f"""## Literature Review
-
-### Overview
+        return f"""### Overview
 
 This review examines research relevant to: **{research_question}**
 
