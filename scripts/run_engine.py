@@ -174,7 +174,10 @@ async def run(args):
     pr_dims = pr.get("dimensions", {})
     pr_dim_str = ""
     if pr_dims:
-        pr_dim_str = f"  [orig={pr_dims.get('originality')}/4 sig={pr_dims.get('significance')}/4 sound={pr_dims.get('soundness')}/4]"
+        ai_orig = pr_dims.get('originality')
+        ai_sig = pr_dims.get('significance')
+        ai_snd = pr_dims.get('soundness')
+        pr_dim_str = f"  [AI dims: orig={ai_orig}/4 sig={ai_sig}/4 sound={ai_snd}/4]"
     print(f"    Peer Review : {pr['score']:.1f}/10 {'✓ PASS' if pr['passed'] else '✗ FAIL'}  ({pr['recommendation']}){pr_dim_str}")
     fc = qr.get("fact_check", {})
     if fc:

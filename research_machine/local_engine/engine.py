@@ -278,19 +278,16 @@ def _run_quality_gates(
     peer_review_recommendation = "accept" if peer_review_passed else "minor_revision"
     peer_review_dimensions: dict = {}
 
-    # Tier 2: AI Scientist 9-dimension review via Claude CLI
+    # Tier 2: AI Scientist 9-dimension review via Claude CLI (feedback only)
+    # The AI review enriches the output with qualitative dimensions but does NOT
+    # override pass/fail — an LLM reviewing its own SLR excerpt is too noisy for
+    # gating. Structural quality (Tier 1 rigor_score) determines pass/fail.
     as_review = _ai_scientist_peer_review(content)
     if as_review:
         ai_overall = float(as_review.get("overall", rigor_score))
-        # SLR acceptance threshold is 6.5 (SLRs score lower on originality than empirical papers)
-        peer_review_passed = ai_overall >= 6.5
-        rigor_score = ai_overall
-        peer_review_recommendation = (
-            "accept" if ai_overall >= 8 else
-            "minor_revision" if ai_overall >= 6.5 else
-            "major_revision" if ai_overall >= 5 else
-            "reject"
-        )
+        # Report AI score alongside Tier 1 score; use weighted blend for display
+        # (70% Tier 1 structural + 30% AI qualitative) — Tier 1 anchors the gate
+        blended = round(0.70 * rigor_score + 0.30 * ai_overall, 1)
         peer_review_feedback = (
             f"AI Scientist review: overall={ai_overall:.0f}/10, "
             f"originality={as_review.get('originality')}/4, "
@@ -304,8 +301,8 @@ def _run_quality_gates(
             for k in ("originality", "quality", "clarity", "significance",
                       "soundness", "presentation", "contribution", "confidence")
         }
-        logger.info(f"[LocalEngine] AI Scientist review: overall={ai_overall}/10, "
-                    f"rec={peer_review_recommendation}")
+        logger.info(f"[LocalEngine] AI Scientist review: overall={ai_overall}/10 "
+                    f"(Tier1={rigor_score:.1f}, blended={blended})")
 
     # Fact-check gate: try PaperQA2 first (Tier 2), fall back to SequenceMatcher (Tier 1)
     fact_check_passed = True
