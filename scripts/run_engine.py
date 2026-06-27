@@ -141,6 +141,7 @@ async def run(args):
 
     # Print summary
     qr = result.quality_results
+    sq = result.source_quality
     print("\n" + "=" * 72)
     print("  PAPER GENERATED")
     print("=" * 72)
@@ -150,6 +151,14 @@ async def run(args):
     print(f"  Corpus       : {result.corpus_size} real papers from Semantic Scholar + arXiv")
     print(f"  Elapsed      : {result.elapsed_seconds:.1f}s")
     print(f"  Cost         : $0.00  (no LLM API used)")
+    print()
+    print("  Source Quality:")
+    gate_sym = "✓" if sq.get("gate_passed") else "⚠"
+    print(f"    {gate_sym} Verified    : {sq.get('verified_papers', 0)}/{result.corpus_size} papers ({sq.get('verification_rate', 0):.0%})")
+    print(f"    {gate_sym} High Quality: {sq.get('high_quality_papers', 0)}/{result.corpus_size} papers ({sq.get('quality_rate', 0):.0%})")
+    if sq.get("issues"):
+        for issue in sq["issues"]:
+            print(f"    ⚠ {issue}")
     print()
     print("  Quality Gates:")
     nv = qr["novelty"]

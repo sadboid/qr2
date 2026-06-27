@@ -200,6 +200,7 @@ class EngineResult:
     synthesis: SynthesisResult
     elapsed_seconds: float
     corpus_size: int
+    source_quality: dict = field(default_factory=dict)   # source quality gate results
 
     @property
     def status(self) -> str:
@@ -413,6 +414,15 @@ class LocalResearchEngine:
             synthesis=synthesis,
             elapsed_seconds=elapsed,
             corpus_size=len(corpus),
+            source_quality={
+                "verification_rate": gate_result.verification_rate,
+                "quality_rate": gate_result.quality_rate,
+                "high_quality_papers": gate_result.high_quality_papers,
+                "verified_papers": gate_result.verified_papers,
+                "gate_passed": gate_result.passed,
+                "gate_score": gate_result.score,
+                "issues": gate_result.issues,
+            },
         )
         _append_metrics_log(result)
         return result
