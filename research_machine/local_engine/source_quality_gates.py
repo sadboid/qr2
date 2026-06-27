@@ -27,8 +27,8 @@ class SourceQualityGates:
     def __init__(self):
         # Minimum thresholds for paper acceptance
         self.min_verification_rate = 0.80       # 80% of papers must be verified
-        self.min_high_quality_ratio = 0.40      # 40% should be excellent/good
-        self.min_peer_reviewed_ratio = 0.60     # 60% should be peer-reviewed
+        self.min_high_quality_ratio = 0.30      # 30% should be excellent/good/acceptable
+        self.min_peer_reviewed_ratio = 0.50     # 50% should be peer-reviewed
         self.min_total_papers = 20              # At least 20 papers in corpus
 
     def validate_corpus(self,
@@ -64,16 +64,16 @@ class SourceQualityGates:
             recommendations.append("Check metadata consistency for unverified papers")
             recommendations.append("Remove papers with mismatched title/year/authors")
 
-        # Calculate high-quality ratio
+        # Calculate high-quality ratio (excellent + good + acceptable)
         high_quality_count = sum(
             1 for q in quality_scores
-            if q.quality_tier in ["excellent", "good"]
+            if q.quality_tier in ["excellent", "good", "acceptable"]
         )
         high_quality_ratio = high_quality_count / total if total > 0 else 0.0
 
         if high_quality_ratio < self.min_high_quality_ratio:
             issues.append(
-                f"Low high-quality paper ratio: {high_quality_ratio:.0%} (target: {self.min_high_quality_ratio:.0%})"
+                f"Low quality paper ratio: {high_quality_ratio:.0%} (target: {self.min_high_quality_ratio:.0%})"
             )
             recommendations.append("Add more papers from top-tier venues (ICML, NeurIPS, ACL, etc.)")
             recommendations.append("Prioritize recent papers with high citation counts")

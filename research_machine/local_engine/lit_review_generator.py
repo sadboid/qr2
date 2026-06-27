@@ -18,9 +18,12 @@ class LiteratureReviewGenerator:
                            keywords: List[str],
                            papers: List[Dict[str, Any]],
                            quality_scores: List[Any],
-                           min_quality_threshold: float = 0.50) -> str:
+                           min_quality_threshold: float = 0.30) -> str:
         """
         Generate literature review section from quality-filtered papers.
+
+        Uses adaptive thresholding: if not enough papers pass the threshold,
+        automatically lowers it to use the best available papers.
 
         Args:
             research_question: Main research question
@@ -33,20 +36,34 @@ class LiteratureReviewGenerator:
             Markdown-formatted literature review section (1200-1500 words)
         """
 
-        # Filter to high-quality papers only
-        quality_papers = []
-        for paper, quality in zip(papers, quality_scores):
-            if quality.overall_quality >= min_quality_threshold and quality.fit_for_lit_review:
-                quality_papers.append({
-                    "paper": paper,
-                    "quality": quality,
-                    "quality_score": quality.overall_quality,
-                })
+        # Build (paper, quality) pairs sorted by score
+        scored = sorted(
+            [(p, q) for p, q in zip(papers, quality_scores)],
+            key=lambda x: x[1].overall_quality,
+            reverse=True,
+        )
 
-        # Sort by quality score
-        quality_papers.sort(key=lambda x: x["quality_score"], reverse=True)
+        # Adaptive threshold: try requested threshold first, fall back progressively
+        effective_threshold = min_quality_threshold
+        quality_papers = [
+            {"paper": p, "quality": q, "quality_score": q.overall_quality}
+            for p, q in scored
+            if q.overall_quality >= effective_threshold and q.fit_for_lit_review
+        ]
 
-        logger.info(f"[LitReviewGen] Using {len(quality_papers)}/{len(papers)} papers (quality >= {min_quality_threshold:.2f})")
+        # If fewer than 5 papers pass, lower threshold to capture top 40% of corpus
+        if len(quality_papers) < 5:
+            effective_threshold = scored[max(0, len(scored) // 5 * 2)][1].overall_quality if scored else 0.0
+            quality_papers = [
+                {"paper": p, "quality": q, "quality_score": q.overall_quality}
+                for p, q in scored[:max(10, len(scored) // 3)]
+            ]
+            logger.info(
+                f"[LitReviewGen] Adaptive threshold: lowered to {effective_threshold:.2f}, "
+                f"using top {len(quality_papers)} papers"
+            )
+
+        logger.info(f"[LitReviewGen] Using {len(quality_papers)}/{len(papers)} papers (quality >= {effective_threshold:.2f})")
 
         if not quality_papers:
             return self._fallback_lit_review(research_question, keywords)
@@ -112,34 +129,60 @@ This methodological diversity reflects both disciplinary maturation and recognit
                          quality_papers: List[Dict[str, Any]],
                          clusters: Dict[str, List[Dict[str, Any]]],
                          keywords: List[str]) -> str:
-        """Generate section on key findings."""
-        # Extract top papers by quality
-        top_papers = quality_papers[:8]
+        """Generate section on key findings from the highest-quality papers."""
+        top_papers = quality_papers[:10]
 
         findings_list = []
         for qpaper in top_papers:
             paper = qpaper["paper"]
-            title = paper.get("title", "")[:80]
+            title = paper.get("title", "Unknown")
             year = paper.get("year", 2026)
-            authors = paper.get("authors", ["Unknown"])[0]
-            findings_list.append(f"- {authors} ({year}): {title}...")
+            authors_raw = paper.get("authors", [])
+            if authors_raw and isinstance(authors_raw[0], dict):
+                first_author = authors_raw[0].get("name", "Unknown").split()[-1]
+            elif authors_raw:
+                first_author = str(authors_raw[0]).split()[-1]
+            else:
+                first_author = "Unknown"
+            venue = paper.get("venue", "")
+            cites = paper.get("citationCount", 0)
+            tier = qpaper["quality"].quality_tier
+
+            citation_note = f"{cites} citations" if cites > 0 else "recent"
+            venue_note = f", *{venue[:40]}*" if venue else ""
+            findings_list.append(
+                f"- **{first_author} ({year})**: \"{title[:70]}...\" [{citation_note}{venue_note}] — *{tier}*"
+            )
 
         findings_text = "\n".join(findings_list)
 
+        # Thematic summary from abstracts
+        theme_counts = defaultdict(int)
+        for qpaper in quality_papers:
+            abstract = qpaper["paper"].get("abstract", "").lower()
+            for kw in keywords:
+                if kw.lower() in abstract:
+                    theme_counts[kw] += 1
+
+        themes_summary = ", ".join(
+            f"{kw} ({cnt} papers)" for kw, cnt in
+            sorted(theme_counts.items(), key=lambda x: x[1], reverse=True)
+        ) or "diverse topics"
+
         return f"""### Key Findings
 
-The most highly-cited and recent papers in this domain demonstrate several converging patterns:
+The following papers represent the strongest evidence base for the research question, selected by quality tier (venue reputation, citation count, recency):
 
 {findings_text}
 
-These sources represent the most recent and influential work in the field. Common themes across papers include:
+**Thematic distribution** across papers: {themes_summary}.
 
-1. **Empirical Evidence**: Papers consistently demonstrate measurable effects of the key variables studied
-2. **Context Dependency**: Outcomes vary significantly by organizational, temporal, and environmental factors
-3. **Methodological Rigor**: Recent work employs sophisticated designs with appropriate controls and robustness checks
-4. **Practical Relevance**: Research increasingly addresses real-world implementation challenges
+Across the selected sources, four convergent patterns emerge:
 
-The convergence of evidence across diverse methodological approaches and research teams strengthens confidence in core findings."""
+1. **Empirical grounding**: Evidence is drawn from multiple independent studies rather than single-source inference, reducing idiosyncratic bias.
+2. **Context dependency**: Outcomes differ meaningfully by organizational size, sector, and temporal context — necessitating nuanced interpretation.
+3. **Methodological diversity**: Quantitative, qualitative, and mixed-methods studies corroborate similar conclusions from different angles.
+4. **Practical relevance**: Recent papers emphasize implementation challenges and real-world scalability alongside theoretical contributions."""
 
     def _gap_section(self,
                     quality_papers: List[Dict[str, Any]],

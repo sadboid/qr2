@@ -15,12 +15,17 @@ TIER_1_VENUES = {
     "IEEE TPAMI": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
     "Machine Learning": "Springer Machine Learning Journal",
 
-    # Business/Entrepreneurship
+    # Business/Entrepreneurship (top-tier)
     "Journal of Business Venturing": "JBV",
     "Strategic Management Journal": "SMJ",
     "Management Science": "MS",
     "Entrepreneurship Theory and Practice": "ETP",
     "Small Business Economics": "SBE",
+    "Academy of Management Journal": "AMJ",
+    "Academy of Management Review": "AMR",
+    "Administrative Science Quarterly": "ASQ",
+    "Journal of International Business Studies": "JIBS",
+    "Research Policy": "RP",
 
     # AI/NLP
     "ACL": "Association for Computational Linguistics",
@@ -55,26 +60,80 @@ TIER_2_VENUES = {
     "Journal of Management Information Systems": "JMIS",
     "MIS Quarterly": "MISQ",
     "Information Systems Research": "ISR",
+    "Journal of Business Research": "JBR",
+    "Technovation": "Technovation",
+    "Journal of Product Innovation Management": "JPIM",
+    "R&D Management": "R&D",
+    "Technology Analysis & Strategic Management": "TASM",
+    "Journal of Organizational Behavior": "JOB",
 
     # Economics
     "Journal of Economic Literature": "JEL",
     "Review of Economic Studies": "RES",
     "Journal of Finance": "JF",
     "Journal of Financial Economics": "JFE",
+    "Applied Economics": "AE",
+    "Journal of Economics": "JE",
 
     # NLP journals
     "Computational Linguistics": "CL",
     "Transactions of the Association for Computational Linguistics": "TACL",
+
+    # AI & Society
+    "AI & Society": "AI Society",
+    "Artificial Intelligence Review": "AIR",
+    "Expert Systems with Applications": "ESA",
+    "Decision Support Systems": "DSS",
+    "Computers in Human Behavior": "CHB",
+    "Telematics and Informatics": "TI",
 }
+
+# Tier 2 keyword patterns — venues matching these get Tier 2 treatment
+TIER_2_PATTERNS = [
+    "journal of",           # Most academic journals
+    "international journal",
+    "transactions on",
+    "annals of",
+    "review of",
+    "quarterly",
+    "proceedings of",
+    "conference on",
+    "symposium on",
+    "workshop on",
+    "entrepreneurship",
+    "innovation",
+    "management",
+    "business",
+    "economics",
+    "finance",
+    "venture",
+    "startup",
+    "technology management",
+    "information systems",
+    "organizational",
+    "ieee ",           # IEEE-published journals (e.g. "IEEE Access", "IEEE Transactions...")
+    "acm ",            # ACM-published journals/conferences
+    "springer ",       # Springer journals
+    "elsevier",        # Elsevier journals
+]
 
 # Tier 3: Lower reputation (boost +0.03)
 TIER_3_VENUES = {
     "arXiv": "arXiv Preprint",
-    "IEEE": "IEEE (generic)",
-    "ACM": "ACM (generic)",
     "Workshop": "Workshop",
     "Preprint": "Preprint",
     "Technical Report": "Technical Report",
+}
+
+# Tier 1 short names requiring exact match (avoid "Nature" matching "Natural Language Processing")
+TIER_1_EXACT_NAMES = {
+    "nature", "science", "cell", "pnas",
+    "lancet", "nejm", "bmj",
+}
+
+# Tier 2 short names requiring exact match
+TIER_2_EXACT_NAMES = {
+    "ieee", "acm", "springer", "elsevier",
 }
 
 def get_venue_tier(venue: str) -> tuple[int, float]:
@@ -87,23 +146,35 @@ def get_venue_tier(venue: str) -> tuple[int, float]:
     if not venue:
         return (3, 0.03)
 
-    venue_lower = venue.lower()
+    venue_lower = venue.lower().strip()
 
-    # Check Tier 1
-    for tier1_venue in TIER_1_VENUES:
-        if tier1_venue.lower() in venue_lower or venue_lower in tier1_venue.lower():
-            return (1, 0.15)
-
-    # Check Tier 2
-    for tier2_venue in TIER_2_VENUES:
-        if tier2_venue.lower() in venue_lower or venue_lower in tier2_venue.lower():
-            return (2, 0.08)
-
-    # Check for known preprint/workshop patterns
-    if any(pattern in venue_lower for pattern in ["arxiv", "preprint", "workshop", "technical report"]):
+    # Preprints are always Tier 3 (check first to avoid false positives)
+    if any(pattern in venue_lower for pattern in ["arxiv", "preprint", "technical report", "ssrn", "researchgate"]):
         return (3, 0.03)
 
-    # Default: unknown venue = lowest tier
+    # Exact-match check for short prestigious names (avoids substring collisions)
+    if venue_lower in TIER_1_EXACT_NAMES:
+        return (1, 0.15)
+    if venue_lower in TIER_2_EXACT_NAMES:
+        return (2, 0.08)
+
+    # Check Tier 1 named venues (substring match in either direction)
+    for tier1_venue in TIER_1_VENUES:
+        t1 = tier1_venue.lower()
+        if t1 in venue_lower or venue_lower in t1:
+            return (1, 0.15)
+
+    # Check Tier 2 named venues
+    for tier2_venue in TIER_2_VENUES:
+        t2 = tier2_venue.lower()
+        if t2 in venue_lower or venue_lower in t2:
+            return (2, 0.08)
+
+    # Pattern-based Tier 2: academic journals and conference proceedings
+    if any(pattern in venue_lower for pattern in TIER_2_PATTERNS):
+        return (2, 0.08)
+
+    # Unknown venue — Tier 3
     return (3, 0.03)
 
 

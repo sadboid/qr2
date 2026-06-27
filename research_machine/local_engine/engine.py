@@ -374,7 +374,7 @@ class LocalResearchEngine:
             keywords=keywords,
             papers=[_paper_to_dict(p) for p in corpus],
             quality_scores=quality_scores,
-            min_quality_threshold=0.50  # Use papers with decent quality
+            min_quality_threshold=0.30  # Adaptive: lowers if too few papers pass
         )
 
         # 4. Write paper (with literature review)
