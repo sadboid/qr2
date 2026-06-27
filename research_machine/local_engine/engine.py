@@ -562,7 +562,7 @@ class LocalResearchEngine:
 
         # 3. Synthesize
         logger.info("[LocalEngine] Synthesizing corpus...")
-        synthesis = synthesize(corpus, research_question, keywords)
+        synthesis = synthesize(corpus, research_question, keywords, domain=domain)
         logger.info(
             f"[LocalEngine] {len(synthesis.key_findings)} findings, "
             f"{len(synthesis.research_gaps)} gaps, "

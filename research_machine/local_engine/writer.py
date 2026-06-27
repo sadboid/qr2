@@ -70,16 +70,28 @@ def _write_section_with_claude(section_name: str, context: dict) -> Optional[str
             "Write in formal academic English. Use hedged language ('suggests', 'indicates', 'may'). "
             "Cite in-text as [Author, Year]. Do not add a section header — return body text only."
         )
+        databases = context.get("databases", "Semantic Scholar, arXiv, and Crossref")
+        n_raw = context.get("n_raw", 0)
+        n_included = context.get("n_included", context.get("n_papers", 0))
+        prisma_note = (
+            f"PRISMA counts: ~{n_raw} records identified, {context['n_papers']} after deduplication, "
+            f"{n_included} included in synthesis."
+            if n_raw > 0 else ""
+        )
         user_prompt = (
             f"Research question: {context['research_question']}\n"
             f"Domain: {context['domain']}\n"
             f"Keywords: {', '.join(context['keywords'][:4])}\n"
+            f"Databases searched (use ONLY these, do not mention others): {databases}\n"
             f"Corpus: {context['n_papers']} papers ({context.get('recency_pct', 0):.0f}% from last 3 years)\n"
+            f"{prisma_note}\n"
             f"Methodologies identified: {', '.join(context.get('methodologies', [])[:4])}\n\n"
             f"Key findings:\n{findings_txt}\n\n"
             f"Research gaps:\n{gaps_txt}\n\n"
             f"Representative papers:\n{papers_txt}\n\n"
-            f"Write the {section_name} section now."
+            f"Write the {section_name} section now. "
+            f"IMPORTANT: Use only the databases listed above — do not mention Scopus, Web of Science, "
+            f"PubMed, EBSCO, or Google Scholar."
         )
         return claude_cli.call(user_prompt, system=system_prompt, timeout=120)
     except Exception as e:
@@ -95,8 +107,15 @@ def _refine_section_with_claude(section_name: str, draft: str, context: dict) ->
     if not claude_cli.is_available() or not draft:
         return draft
     try:
+        databases = context.get("databases", "Semantic Scholar, arXiv, and Crossref")
+        n_papers = context.get("n_papers", "N")
         refine_requirements = {
-            "abstract": "ensure structured format (Background/Objective/Methods/Results/Conclusion), add N papers count, make findings specific",
+            "abstract": (
+                f"ensure structured format (Background/Objective/Methods/Results/Conclusion), "
+                f"state exactly {n_papers} papers reviewed, "
+                f"name ONLY these databases: {databases} (remove any mention of Scopus, Web of Science, PubMed, EBSCO, Google Scholar), "
+                f"make findings specific with evidence where possible"
+            ),
             "introduction": "ensure CARS structure (territory → niche → contribution), tighten gap statement, verify paper structure preview is present",
             "discussion": "ensure all three subsections (Theoretical / Practical / Limitations+Future), make recommendations actionable, ensure at least 5 limitations listed",
         }.get(section_name, "improve clarity and logical flow, add specifics where missing")
@@ -428,11 +447,16 @@ def write_full_paper(
     recency_pct = round(recent / n * 100) if n else 0
 
     # Build shared context for Claude section generation (Tier 2)
+    n_inc = n_included if n_included is not None else n
     _ctx: dict = {
         "research_question": research_question,
         "domain": domain,
         "keywords": keywords,
         "n_papers": n,
+        "n_raw": n_raw,
+        "n_included": n_inc,
+        # Actual databases used — must be passed explicitly to prevent hallucination
+        "databases": "Semantic Scholar, arXiv, and Crossref",
         "recency_pct": recency_pct,
         "findings": [re.sub(r"\[.*?\]", "", f).strip() for f in synthesis.key_findings[:8]],
         "gaps": [re.sub(r"\[.*?\]", "", g).strip() for g in synthesis.research_gaps[:4]],

@@ -44,6 +44,33 @@ _METHOD_SIGNALS = {
     "interview": ["interview", "thematic analysis", "grounded theory"],
 }
 
+# Terms that strongly indicate a paper is outside business/startup/enterprise scope
+_DOMAIN_EXCLUSION_TERMS = {
+    "startup": frozenset({
+        "hospital", "clinical", "patient", "healthcare", "physician",
+        "nursing", "surgery", "disease", "diagnosis", "treatment",
+        "therapeutic", "epidemiology", "radiology", "pharmacology",
+    }),
+    "enterprise": frozenset({
+        "hospital", "clinical", "patient", "nursing", "surgery",
+        "disease", "diagnosis", "therapeutic", "epidemiology",
+    }),
+}
+
+
+def _is_off_domain(paper: "Paper", domain: str, keywords: List[str]) -> bool:
+    """Return True if a paper is clearly outside the target domain and should not be cited."""
+    exclusion = _DOMAIN_EXCLUSION_TERMS.get(domain, frozenset())
+    if not exclusion:
+        return False
+    text = ((paper.title or "") + " " + (paper.abstract or "")).lower()
+    has_exclusion = any(term in text for term in exclusion)
+    if not has_exclusion:
+        return False
+    # Only exclude if none of the core keywords are present (avoids over-filtering)
+    has_required = any(kw.lower() in text for kw in keywords[:4])
+    return not has_required
+
 
 @dataclass
 class SynthesisResult:
@@ -144,6 +171,7 @@ def synthesize(
     corpus: List[Paper],
     research_question: str,
     keywords: List[str],
+    domain: str = "startup",
 ) -> SynthesisResult:
     if not corpus:
         raise ValueError("Corpus is empty — cannot synthesize")
@@ -174,7 +202,14 @@ def synthesize(
     recency_ratio = recent_count / len(corpus) if corpus else 0.0
     avg_cites = sum(p.citation_count for p in corpus) / len(corpus) if corpus else 0.0
 
-    top_papers = sorted(corpus, key=lambda p: p.relevance_score, reverse=True)[:20]
+    sorted_corpus = sorted(corpus, key=lambda p: p.relevance_score, reverse=True)
+
+    # Filter off-domain papers from the citation list (all_papers stays intact for stats)
+    in_domain = [p for p in sorted_corpus if not _is_off_domain(p, domain, keywords)]
+    off_domain_count = len(sorted_corpus) - len(in_domain)
+    if off_domain_count:
+        logger.info(f"[Synthesizer] Filtered {off_domain_count} off-domain papers from citation list")
+    top_papers = (in_domain if len(in_domain) >= 10 else sorted_corpus)[:20]
 
     return SynthesisResult(
         key_findings=findings,
