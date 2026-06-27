@@ -150,9 +150,10 @@ async def run(args):
     print(f"  Words        : {result.word_count:,}")
     print(f"  Corpus       : {result.corpus_size} real papers from Semantic Scholar + arXiv")
     print(f"  Elapsed      : {result.elapsed_seconds:.1f}s")
-    has_api = bool(os.environ.get("ANTHROPIC_API_KEY"))
-    cost_note = "~$0.05–0.20 (Haiku API calls)" if has_api else "$0.00  (no LLM API used)"
-    tier_note = "Tier 2 (API + Extractive)" if has_api else "Tier 1 (Extractive only)"
+    import shutil as _shutil
+    has_claude_cli = bool(_shutil.which("claude"))
+    cost_note = "$0.00  (Claude Code session — no extra API cost)" if has_claude_cli else "$0.00  (extractive only)"
+    tier_note = "Tier 2 (Claude Code CLI + Extractive)" if has_claude_cli else "Tier 1 (Extractive only)"
     print(f"  Cost         : {cost_note}")
     print(f"  Mode         : {tier_note}")
     print()

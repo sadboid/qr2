@@ -15,6 +15,7 @@ from .synthesizer import synthesize, SynthesisResult
 from .writer import write_full_paper
 from .claim_checker import ClaimChecker
 from .claim_checker_pqa import check_claims_sync, PaperQAClaimChecker
+from . import claude_cli
 from .source_verifier import SourceVerifier
 from .source_quality import SourceQualityScorer
 from .lit_review_generator import LiteratureReviewGenerator
@@ -70,10 +71,10 @@ def _build_queries_with_claude(
     research_question: str, keywords: List[str], domain: str, max_queries: int = 5
 ) -> List[str]:
     """
-    GPT-Researcher-style sub-question decomposition via Claude Haiku.
+    GPT-Researcher-style sub-question decomposition via Claude CLI.
     Generates N targeted search queries covering different research angles.
+    No API key required — uses the running Claude Code session.
     """
-    import anthropic as _anthropic
     kw_str = ", ".join(keywords[:4])
     dynamic_example = ", ".join(f'"query {i+1}"' for i in range(max_queries))
     prompt = (
@@ -84,13 +85,7 @@ def _build_queries_with_claude(
         f'methods, practical applications, and emerging trends.\n'
         f'Respond with ONLY a JSON array: [{dynamic_example}]'
     )
-    client = _anthropic.Anthropic()
-    msg = client.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=256,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    text = msg.content[0].text.strip()
+    text = claude_cli.call(prompt, timeout=60)
     m = re.search(r'\[[\s\S]*?\]', text)
     if m:
         queries = json.loads(m.group(0))
@@ -101,8 +96,8 @@ def _build_queries_with_claude(
 
 
 def _build_queries(research_question: str, keywords: List[str], domain: str) -> List[str]:
-    # Tier 2: GPT-Researcher-style sub-question decomposition if Anthropic API available
-    if os.environ.get("ANTHROPIC_API_KEY"):
+    # Tier 2: GPT-Researcher-style sub-question decomposition via Claude CLI
+    if claude_cli.is_available():
         try:
             return _build_queries_with_claude(research_question, keywords, domain)
         except Exception as e:
@@ -130,21 +125,25 @@ def _make_title(research_question: str, domain: str) -> str:
 def _ai_scientist_peer_review(paper_content: str) -> Optional[dict]:
     """
     AI Scientist-style structured peer review using 9 dimensions adapted for
-    Business+AI papers. Uses Claude Haiku (cheap, fast).
-    Returns score dict or None if API unavailable.
+    Business+AI papers. Calls the running Claude Code session via CLI — no API key needed.
+    Returns score dict or None if CLI unavailable.
     """
-    if not os.environ.get("ANTHROPIC_API_KEY"):
+    if not claude_cli.is_available():
         return None
     try:
-        import anthropic as _anthropic
         excerpt = paper_content[:3500]
-        prompt = f"""You are a strict peer reviewer for a Q1 business+AI journal (e.g., Strategic Management Journal, MIS Quarterly).
-Review the paper excerpt below. Be rigorous — most papers need revision.
+        system = (
+            "You are a strict peer reviewer for a Q1 business+AI journal "
+            "(e.g., Strategic Management Journal, MIS Quarterly). "
+            "Be rigorous — most papers need revision. "
+            "Return ONLY valid JSON, no prose before or after."
+        )
+        prompt = f"""Review the paper excerpt below and score it on 9 dimensions.
 
 PAPER EXCERPT:
 {excerpt}
 
-Return ONLY this JSON object (no other text):
+Return ONLY this JSON object:
 {{
   "originality": <1-4>,
   "quality": <1-4>,
@@ -159,16 +158,8 @@ Return ONLY this JSON object (no other text):
   "main_weakness": "<1 specific improvement needed>"
 }}
 
-Scoring guide:
-- 1-4 scales: 1=poor 2=below-avg 3=good 4=excellent
-- overall: 1-5=reject 6=borderline 7-8=minor-revision 9-10=accept"""
-        client = _anthropic.Anthropic()
-        msg = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=400,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        text = msg.content[0].text.strip()
+Scoring: 1-4 scales: 1=poor 2=below-avg 3=good 4=excellent; overall: 1-5=reject 6=borderline 7-8=minor-revision 9-10=accept"""
+        text = claude_cli.call(prompt, system=system, timeout=90)
         m = re.search(r'\{[\s\S]*\}', text)
         if m:
             return json.loads(m.group(0))
