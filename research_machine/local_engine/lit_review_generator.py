@@ -230,16 +230,47 @@ This methodological diversity reflects both disciplinary maturation and recognit
 
         return paper.get("title", "")[:120]
 
+    def _classify_stance(self, claim: str, abstract: str) -> str:
+        """
+        Classify a paper's stance as convergent | divergent | methodological.
+
+        STORM-inspired: each paper is assigned to one of three 'persona buckets'
+        before synthesis, so the final paragraph presents multiple epistemic voices.
+        """
+        c = claim.lower()
+        a = abstract.lower()
+
+        limiting_signals = frozenset({
+            "however", "despite", "limited", "unclear", "no significant",
+            "not significant", "failed", "not support", "contrary", "mixed",
+            "inconsistent", "null", "no effect", "cannot",
+        })
+        method_signals = frozenset({
+            "n =", "n=", "sample of", "sample size", "participants", "respondents",
+            "regression", "logistic", "survey", "experiment", "interview",
+            "longitudinal", "cross-sectional", "dataset",
+        })
+
+        if any(s in c for s in limiting_signals):
+            return "divergent"
+        if any(s in c for s in _NEGATIVE_SIGNALS):
+            return "divergent"
+        if any(s in a for s in method_signals) and not any(s in c for s in _POSITIVE_SIGNALS):
+            return "methodological"
+        return "convergent"
+
     def _findings_section(self,
                          quality_papers: List[Dict[str, Any]],
                          clusters: Dict[str, List[Dict[str, Any]]],
                          keywords: List[str],
                          fulltext_map: Dict[str, str] = None) -> str:
         """
-        Generate findings section organized by theme (Q1 standard).
+        STORM-inspired multi-perspective thematic synthesis.
 
-        Each theme paragraph cites 2–5 papers with narrative synthesis,
-        and flags contradicting evidence where detected.
+        For each theme, papers are bucketed into three epistemic stances
+        (convergent / divergent / methodological) and presented as separate
+        narrative voices — matching Q1 reviewers' expectation of balanced synthesis
+        with explicit treatment of contradictions and methodological nuance.
         """
         from .fulltext_extractor import FullTextExtractor
         extractor = FullTextExtractor()
@@ -251,15 +282,18 @@ This methodological diversity reflects both disciplinary maturation and recognit
             key=lambda x: len(x[1]), reverse=True
         )[:5]
 
-        # Fall back to legacy bullet list if clustering produced no usable themes
         if not active_themes:
             return self._findings_section_bullets(quality_papers, keywords, fulltext_map, extractor)
 
         theme_blocks = []
         for theme, theme_papers in active_themes:
-            top = theme_papers[:5]
+            top = theme_papers[:6]
 
-            claims, refs = [], []
+            # --- Stance bucketing (STORM persona assignment) ---
+            convergent: List[Tuple[str, str]] = []   # (claim, ref)
+            divergent:  List[Tuple[str, str]] = []
+            methodological: List[Tuple[str, str]] = []
+
             for qpaper in top:
                 paper = qpaper["paper"]
                 title_key = paper.get("title", "").lower().strip()[:80]
@@ -267,30 +301,64 @@ This methodological diversity reflects both disciplinary maturation and recognit
                 claim = self._extract_grounded_claim(paper, keywords, extractor, full_text)
                 last = _get_last_name(paper.get("authors", []))
                 year = paper.get("year", 2026)
-                claims.append(claim)
-                refs.append(f"[{last}, {year}]")
+                ref = f"[{last}, {year}]"
+                abstract = paper.get("abstract", "")
+                stance = self._classify_stance(claim, abstract)
+                if stance == "divergent":
+                    divergent.append((claim, ref))
+                elif stance == "methodological":
+                    methodological.append((claim, ref))
+                else:
+                    convergent.append((claim, ref))
 
-            contra_idx = self._detect_contradiction(claims)
+            # Ensure at least 2 convergent papers (re-assign methodological if needed)
+            while len(convergent) < 2 and methodological:
+                convergent.append(methodological.pop(0))
 
-            # Build paragraph
+            # --- Multi-voice paragraph assembly ---
             n = len(top)
             header = f"**{theme.title()} ({n} {'study' if n == 1 else 'studies'})**"
+            voices: List[str] = []
 
-            evidence_sents = []
-            for i, (claim, ref) in enumerate(zip(claims, refs)):
-                if i == contra_idx:
-                    continue
-                connector = "Similarly, " if i > 0 and not evidence_sents else ""
-                evidence_sents.append(f"{connector}{ref} find that {claim}.")
+            # Voice 1 — Convergent perspective
+            if convergent:
+                sents: List[str] = []
+                for i, (claim, ref) in enumerate(convergent[:3]):
+                    if i == 0:
+                        sents.append(f"{ref} demonstrate that {claim}.")
+                    elif i == 1:
+                        sents.append(f"Corroborating this, {ref} find that {claim}.")
+                    else:
+                        sents.append(f"Similarly, {ref} report that {claim}.")
+                voices.append(" ".join(sents))
 
-            contra_sent = ""
-            if contra_idx is not None:
-                contra_sent = (
-                    f" However, {refs[contra_idx]} find that {claims[contra_idx]},"
-                    f" suggesting context-dependence in these effects."
+            # Voice 2 — Divergent / critical perspective
+            if divergent:
+                sents = []
+                for i, (claim, ref) in enumerate(divergent[:2]):
+                    if i == 0:
+                        sents.append(
+                            f"However, {ref} present a contrasting view, finding that {claim}."
+                        )
+                    else:
+                        sents.append(f"Equally, {ref} caution that {claim}.")
+                sents.append(
+                    "These divergent findings suggest boundary conditions — likely tied to "
+                    "contextual moderators such as firm size, industry, and prior experience "
+                    "— that warrant careful attention in future empirical work."
                 )
+                voices.append(" ".join(sents))
 
-            para = header + "\n\n" + " ".join(evidence_sents) + contra_sent
+            # Voice 3 — Methodological observation
+            if methodological:
+                sents = []
+                for claim, ref in methodological[:2]:
+                    sents.append(
+                        f"From a methodological standpoint, {ref} note that {claim}."
+                    )
+                voices.append(" ".join(sents))
+
+            para = header + "\n\n" + "\n\n".join(voices)
             theme_blocks.append(para)
 
         findings_text = "\n\n".join(theme_blocks)
@@ -298,7 +366,7 @@ This methodological diversity reflects both disciplinary maturation and recognit
 
         return f"""### Key Findings
 
-The following thematic synthesis organizes evidence from the corpus by research theme, with convergent findings and notable contradictions where detected:
+The following multi-perspective synthesis organizes evidence by research theme. For each theme, convergent findings, divergent (contradictory) evidence, and methodological observations are presented as distinct analytical voices — following the perspective-segregated synthesis approach (cf. STORM; Shao et al., 2024):
 
 {findings_text}
 

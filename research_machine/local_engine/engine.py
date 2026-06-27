@@ -3,6 +3,7 @@
 import asyncio
 import json
 import logging
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -13,6 +14,7 @@ from .corpus import fetch_corpus, fetch_full_texts, Paper
 from .synthesizer import synthesize, SynthesisResult
 from .writer import write_full_paper
 from .claim_checker import ClaimChecker
+from .claim_checker_pqa import check_claims_sync, PaperQAClaimChecker
 from .source_verifier import SourceVerifier
 from .source_quality import SourceQualityScorer
 from .lit_review_generator import LiteratureReviewGenerator
@@ -64,14 +66,53 @@ _QUERY_EXPANSIONS = {
 }
 
 
+def _build_queries_with_claude(
+    research_question: str, keywords: List[str], domain: str, max_queries: int = 5
+) -> List[str]:
+    """
+    GPT-Researcher-style sub-question decomposition via Claude Haiku.
+    Generates N targeted search queries covering different research angles.
+    """
+    import anthropic as _anthropic
+    kw_str = ", ".join(keywords[:4])
+    dynamic_example = ", ".join(f'"query {i+1}"' for i in range(max_queries))
+    prompt = (
+        f'Write {max_queries} search queries to research: "{research_question}"\n'
+        f'Each query: plain natural language phrase, 3-7 words, no boolean operators.\n'
+        f'Domain: {domain}. Key themes: {kw_str}.\n'
+        f'Cover diverse angles: empirical evidence, theoretical frameworks, '
+        f'methods, practical applications, and emerging trends.\n'
+        f'Respond with ONLY a JSON array: [{dynamic_example}]'
+    )
+    client = _anthropic.Anthropic()
+    msg = client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=256,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    text = msg.content[0].text.strip()
+    m = re.search(r'\[[\s\S]*?\]', text)
+    if m:
+        queries = json.loads(m.group(0))
+        if isinstance(queries, list) and all(isinstance(q, str) for q in queries):
+            fallbacks = _QUERY_EXPANSIONS.get(domain, _QUERY_EXPANSIONS["default"])[:1]
+            return [q for q in queries[:max_queries] if q.strip()] + fallbacks
+    raise ValueError(f"Could not parse query list: {text[:100]}")
+
+
 def _build_queries(research_question: str, keywords: List[str], domain: str) -> List[str]:
-    # Use keyword-based queries (NOT the full question) — search APIs work better with keywords
+    # Tier 2: GPT-Researcher-style sub-question decomposition if Anthropic API available
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        try:
+            return _build_queries_with_claude(research_question, keywords, domain)
+        except Exception as e:
+            logger.warning(f"[LocalEngine] Claude query decomp failed, using fallback: {e}")
+    # Tier 1: keyword-based queries (no API required)
     keyword_query = " ".join(keywords[:4])
     short_kw = " ".join(keywords[:2])
     domain_expansions = _QUERY_EXPANSIONS.get(domain, _QUERY_EXPANSIONS["default"])
-
     queries = [keyword_query, short_kw] + domain_expansions[:2]
-    return [q for q in dict.fromkeys(queries) if q.strip()]  # deduplicate, preserve order
+    return [q for q in dict.fromkeys(queries) if q.strip()]
 
 
 def _make_title(research_question: str, domain: str) -> str:
@@ -80,6 +121,60 @@ def _make_title(research_question: str, domain: str) -> str:
     # Trim question mark from end of question for title
     q = research_question.rstrip("?")
     return template.format(question=q)
+
+
+# ---------------------------------------------------------------------------
+# AI Scientist 9-dimension peer review (Tier 2 — requires ANTHROPIC_API_KEY)
+# ---------------------------------------------------------------------------
+
+def _ai_scientist_peer_review(paper_content: str) -> Optional[dict]:
+    """
+    AI Scientist-style structured peer review using 9 dimensions adapted for
+    Business+AI papers. Uses Claude Haiku (cheap, fast).
+    Returns score dict or None if API unavailable.
+    """
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        return None
+    try:
+        import anthropic as _anthropic
+        excerpt = paper_content[:3500]
+        prompt = f"""You are a strict peer reviewer for a Q1 business+AI journal (e.g., Strategic Management Journal, MIS Quarterly).
+Review the paper excerpt below. Be rigorous — most papers need revision.
+
+PAPER EXCERPT:
+{excerpt}
+
+Return ONLY this JSON object (no other text):
+{{
+  "originality": <1-4>,
+  "quality": <1-4>,
+  "clarity": <1-4>,
+  "significance": <1-4>,
+  "soundness": <1-4>,
+  "presentation": <1-4>,
+  "contribution": <1-4>,
+  "overall": <1-10>,
+  "confidence": <1-5>,
+  "summary": "<2-sentence assessment>",
+  "main_weakness": "<1 specific improvement needed>"
+}}
+
+Scoring guide:
+- 1-4 scales: 1=poor 2=below-avg 3=good 4=excellent
+- overall: 1-5=reject 6=borderline 7-8=minor-revision 9-10=accept"""
+        client = _anthropic.Anthropic()
+        msg = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=400,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        text = msg.content[0].text.strip()
+        m = re.search(r'\{[\s\S]*\}', text)
+        if m:
+            return json.loads(m.group(0))
+    except Exception as e:
+        logger.debug(f"[AI Scientist review] failed: {e}")
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -119,7 +214,7 @@ def _run_quality_gates(
         and recency_ratio >= 0.30
     )
 
-    # Peer review gate: section length + finding count as proxy for rigor
+    # Peer review gate — Tier 1: section length + finding count proxy
     content = paper_data["content_markdown"]
     word_count = len(content.split())
     finding_count = len(synthesis.key_findings)
@@ -127,22 +222,70 @@ def _run_quality_gates(
 
     rigor_score = min(10.0, (word_count / 400) + finding_count + gap_count)
     peer_review_passed = rigor_score >= 7.0
+    peer_review_feedback = (
+        f"Paper contains {word_count} words, {finding_count} key findings, "
+        f"{gap_count} identified gaps. Rigor proxy score: {rigor_score:.1f}/10."
+    )
+    peer_review_recommendation = "accept" if peer_review_passed else "minor_revision"
+    peer_review_dimensions: dict = {}
 
-    # Fact-check gate: verify claims against source abstracts
+    # Tier 2: AI Scientist 9-dimension review (requires ANTHROPIC_API_KEY)
+    as_review = _ai_scientist_peer_review(content)
+    if as_review:
+        ai_overall = float(as_review.get("overall", rigor_score))
+        peer_review_passed = ai_overall >= 7.0
+        rigor_score = ai_overall
+        peer_review_recommendation = (
+            "accept" if ai_overall >= 8 else
+            "minor_revision" if ai_overall >= 7 else
+            "major_revision" if ai_overall >= 5 else
+            "reject"
+        )
+        peer_review_feedback = (
+            f"AI Scientist review: overall={ai_overall:.0f}/10, "
+            f"originality={as_review.get('originality')}/4, "
+            f"significance={as_review.get('significance')}/4, "
+            f"soundness={as_review.get('soundness')}/4. "
+            f"{as_review.get('summary', '')} "
+            f"Key weakness: {as_review.get('main_weakness', '')}"
+        )
+        peer_review_dimensions = {
+            k: as_review.get(k)
+            for k in ("originality", "quality", "clarity", "significance",
+                      "soundness", "presentation", "contribution", "confidence")
+        }
+        logger.info(f"[LocalEngine] AI Scientist review: overall={ai_overall}/10, "
+                    f"rec={peer_review_recommendation}")
+
+    # Fact-check gate: try PaperQA2 first (Tier 2), fall back to SequenceMatcher (Tier 1)
     fact_check_passed = True
     fact_check_score = 10.0
     fact_check_feedback = "No fact-check performed"
+    fact_check_method = "none"
 
     if corpus:
-        checker = ClaimChecker()
-        fact_report = checker.check(paper_data["content_markdown"], corpus)
-        fact_check_passed = fact_report.passed
-        fact_check_score = fact_report.overall_score
-        fact_check_feedback = (
-            f"{fact_report.verified_count}/{fact_report.total_citations} claims verified "
-            f"({fact_report.verification_rate:.0%}). "
-            f"{len(fact_report.contradictions)} contradictions detected."
-        )
+        pqa_report = check_claims_sync(paper_data["content_markdown"], corpus)
+        if pqa_report is not None:
+            fact_check_passed = pqa_report.passed
+            fact_check_score = pqa_report.overall_score
+            fact_check_method = "paperqa2"
+            fact_check_feedback = (
+                f"{pqa_report.verified_count}/{pqa_report.total_citations} claims verified "
+                f"({pqa_report.verification_rate:.0%}) via PaperQA2 RAG."
+            )
+            logger.info(f"[LocalEngine] PaperQA2 fact-check: {pqa_report.verified_count}/"
+                        f"{pqa_report.total_citations} verified, score={pqa_report.overall_score:.1f}")
+        else:
+            checker = ClaimChecker()
+            fact_report = checker.check(paper_data["content_markdown"], corpus)
+            fact_check_passed = fact_report.passed
+            fact_check_score = fact_report.overall_score
+            fact_check_method = "sequencematcher"
+            fact_check_feedback = (
+                f"{fact_report.verified_count}/{fact_report.total_citations} claims verified "
+                f"({fact_report.verification_rate:.0%}). "
+                f"{len(fact_report.contradictions)} contradictions detected."
+            )
 
     overall = "accepted" if (novelty_passed and citation_passed and peer_review_passed and fact_check_passed) else "revision_requested"
     if not novelty_passed and not peer_review_passed:
@@ -171,16 +314,15 @@ def _run_quality_gates(
         "peer_review": {
             "passed": peer_review_passed,
             "score": round(min(rigor_score, 10.0), 1),
-            "recommendation": "accept" if peer_review_passed else "minor_revision",
-            "feedback": (
-                f"Paper contains {word_count} words, {finding_count} key findings, "
-                f"{gap_count} identified gaps. Rigor proxy score: {rigor_score:.1f}/10."
-            ),
+            "recommendation": peer_review_recommendation,
+            "feedback": peer_review_feedback,
+            "dimensions": peer_review_dimensions,
         },
         "fact_check": {
             "passed": fact_check_passed,
             "score": fact_check_score,
             "feedback": fact_check_feedback,
+            "method": fact_check_method,
         },
         "overall_status": overall,
     }

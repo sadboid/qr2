@@ -1,12 +1,137 @@
-"""Template-based IMRAD paper writer using real literature data."""
+"""Template-based IMRAD paper writer using real literature data.
 
+Tier 2 (ANTHROPIC_API_KEY present): uses AI Scientist per-section tips + 2-pass refinement.
+Tier 1 (no API key): falls back to fully-extractive template generation.
+"""
+
+import json as _json
 import logging
+import os
 import re
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from .corpus import Paper
 from .synthesizer import SynthesisResult
 from .domain_config import get_vocab, domain_metrics_sentence, domain_context_phrase, domain_practical_sentence
+
+# ---------------------------------------------------------------------------
+# Tier-2 availability flags
+# ---------------------------------------------------------------------------
+
+_HAS_ANTHROPIC = False
+_HAS_LLM_KEY = bool(os.environ.get("ANTHROPIC_API_KEY"))
+try:
+    import anthropic as _anthropic  # type: ignore
+    _HAS_ANTHROPIC = True
+except ImportError:
+    pass
+
+
+# ---------------------------------------------------------------------------
+# AI Scientist per-section tips (adapted for Business+AI systematic reviews)
+# ---------------------------------------------------------------------------
+
+_PER_SECTION_TIPS: Dict[str, str] = {
+    "abstract": (
+        "Write a structured abstract (Background / Objective / Methods / Results / Conclusion). "
+        "State the exact research question. Mention N papers and the databases searched. "
+        "Summarise 2–3 key findings with specific evidence where possible. "
+        "End with a sentence on practical implications. Target 200–250 words. "
+        "Avoid hedging in the opening sentence — open with a statement, not 'This paper…'."
+    ),
+    "introduction": (
+        "Follow the CARS model (Swales 1990): "
+        "(1) Move 1 — Establish territory: show the field is important and active (cite 5+ papers, mention growth or scope). "
+        "(2) Move 2 — Establish niche: use gap-indicating language ('no study has examined…', 'it remains unclear whether…') or counter-claiming. "
+        "(3) Move 3 — Occupy the niche: state the contribution explicitly. "
+        "End with a brief paragraph mapping the paper's structure. "
+        "Target 800–1000 words, 8–12 citations. Avoid a long 'In recent years…' opener."
+    ),
+    "discussion": (
+        "Open with 2–3 sentences summarising the core empirical finding. "
+        "Then structure as three explicit subsections: "
+        "**Theoretical Implications** — name the theory advanced (e.g. RBV, TAM, Social Exchange) and how findings extend it; "
+        "**Practical Implications** — give 3–4 specific, actionable recommendations for domain practitioners; "
+        "**Limitations and Future Research** — list at least 5 limitations (scope, databases, cross-sectional design, publication bias, measurement), then propose 3–4 concrete future directions tied to each gap identified in the literature review. "
+        "Target 1200–1500 words. Avoid generic phrases like 'This paper contributes to the literature'."
+    ),
+}
+
+
+def _write_section_with_claude(section_name: str, context: dict) -> Optional[str]:
+    """
+    AI Scientist-style section generation: Claude Haiku + per-section system prompt.
+    Returns generated text or None if unavailable.
+    """
+    if not (_HAS_ANTHROPIC and _HAS_LLM_KEY):
+        return None
+    tips = _PER_SECTION_TIPS.get(section_name, "")
+    if not tips:
+        return None
+    try:
+        findings_txt = "\n".join(f"- {f}" for f in context.get("findings", [])[:6])
+        gaps_txt = "\n".join(f"- {g}" for g in context.get("gaps", [])[:4])
+        papers_txt = context.get("papers_sample", "")
+        system_prompt = (
+            f"You are an academic writer generating a '{section_name}' section for a Q1 systematic "
+            f"literature review in Business and AI.\n\nSection requirements:\n{tips}\n\n"
+            "Write in formal academic English. Use hedged language ('suggests', 'indicates', 'may'). "
+            "Cite in-text as [Author, Year]. Do not add a section header — return body text only."
+        )
+        user_prompt = (
+            f"Research question: {context['research_question']}\n"
+            f"Domain: {context['domain']}\n"
+            f"Keywords: {', '.join(context['keywords'][:4])}\n"
+            f"Corpus: {context['n_papers']} papers ({context.get('recency_pct', 0):.0f}% from last 3 years)\n"
+            f"Methodologies identified: {', '.join(context.get('methodologies', [])[:4])}\n\n"
+            f"Key findings:\n{findings_txt}\n\n"
+            f"Research gaps:\n{gaps_txt}\n\n"
+            f"Representative papers:\n{papers_txt}\n\n"
+            f"Write the {section_name} section now."
+        )
+        client = _anthropic.Anthropic()
+        msg = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=2048,
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_prompt}],
+        )
+        return msg.content[0].text.strip()
+    except Exception as e:
+        logger.debug(f"[AI Scientist writer] {section_name} draft failed: {e}")
+    return None
+
+
+def _refine_section_with_claude(section_name: str, draft: str, context: dict) -> str:
+    """
+    AI Scientist refinement pass: improve quality, add specifics, fix flow.
+    Returns refined text; falls back to draft on any error.
+    """
+    if not (_HAS_ANTHROPIC and _HAS_LLM_KEY) or not draft:
+        return draft
+    try:
+        refine_requirements = {
+            "abstract": "ensure structured format (Background/Objective/Methods/Results/Conclusion), add N papers count, make findings specific",
+            "introduction": "ensure CARS structure (territory → niche → contribution), tighten gap statement, verify paper structure preview is present",
+            "discussion": "ensure all three subsections (Theoretical / Practical / Limitations+Future), make recommendations actionable, ensure at least 5 limitations listed",
+        }.get(section_name, "improve clarity and logical flow, add specifics where missing")
+        prompt = (
+            f"Refine this {section_name} section of a Q1 Business+AI paper.\n"
+            f"Research question: {context['research_question']}\n\n"
+            f"Refinement requirements: {refine_requirements}\n\n"
+            f"DRAFT:\n{draft}\n\n"
+            "Return only the improved section text. No commentary, no headers."
+        )
+        client = _anthropic.Anthropic()
+        msg = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=2048,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return msg.content[0].text.strip()
+    except Exception as e:
+        logger.debug(f"[AI Scientist writer] {section_name} refine failed: {e}")
+    return draft
 
 logger = logging.getLogger(__name__)
 
@@ -314,18 +439,68 @@ def write_full_paper(
     n_raw: int = 0,
     n_included: int = None,
 ) -> dict:
-    """Assemble all IMRAD sections including Literature Review and Future Directions. Returns dict of section strings."""
+    """Assemble all IMRAD sections including Literature Review and Future Directions.
+
+    Tier 2 (ANTHROPIC_API_KEY set): abstract, introduction, discussion generated by
+    Claude with AI Scientist per-section tips + one refinement pass.
+    Tier 1 (no key): all sections from extractive templates.
+    """
     ref_papers = synthesis.top_papers
+    n = len(synthesis.all_papers)
+    recent = sum(1 for p in synthesis.all_papers if p.is_recent)
+    recency_pct = round(recent / n * 100) if n else 0
 
-    abstract = write_abstract(research_question, synthesis, domain)
-    introduction = write_introduction(research_question, synthesis, keywords, domain)
+    # Build shared context for Claude section generation (Tier 2)
+    _ctx: dict = {
+        "research_question": research_question,
+        "domain": domain,
+        "keywords": keywords,
+        "n_papers": n,
+        "recency_pct": recency_pct,
+        "findings": [re.sub(r"\[.*?\]", "", f).strip() for f in synthesis.key_findings[:8]],
+        "gaps": [re.sub(r"\[.*?\]", "", g).strip() for g in synthesis.research_gaps[:4]],
+        "methodologies": synthesis.methodologies[:4],
+        "trends": synthesis.trends,
+        "papers_sample": "\n".join(
+            f"- {(p.authors[0].split(',')[0] if p.authors else 'Author').strip()} ({p.year}): {p.title[:70]}"
+            for p in synthesis.top_papers[:8]
+        ),
+    }
 
-    # Use provided literature review or generate default
+    # --- Abstract ---
+    abstract_draft = _write_section_with_claude("abstract", _ctx)
+    if abstract_draft:
+        abstract = _refine_section_with_claude("abstract", abstract_draft, _ctx)
+        logger.info("[Writer] Abstract: AI Scientist (2-pass)")
+    else:
+        abstract = write_abstract(research_question, synthesis, domain)
+
+    # --- Introduction ---
+    intro_draft = _write_section_with_claude("introduction", _ctx)
+    if intro_draft:
+        introduction = _refine_section_with_claude("introduction", intro_draft, _ctx)
+        logger.info("[Writer] Introduction: AI Scientist (2-pass)")
+    else:
+        introduction = write_introduction(research_question, synthesis, keywords, domain)
+
+    # --- Literature Review (always from lit_review_generator — richer than what Claude can do here) ---
     if literature_review is None:
         literature_review = write_literature_review(synthesis, keywords, domain)
+
+    # --- Methods (structured data — keep template) ---
     methods = write_methods(research_question, synthesis, keywords, n_raw=n_raw, n_included=n_included)
+
+    # --- Results (extractive findings — keep template) ---
     results = write_results(research_question, synthesis, domain)
-    discussion = write_discussion(research_question, synthesis, keywords, domain)
+
+    # --- Discussion ---
+    disc_draft = _write_section_with_claude("discussion", _ctx)
+    if disc_draft:
+        discussion = _refine_section_with_claude("discussion", disc_draft, _ctx)
+        logger.info("[Writer] Discussion: AI Scientist (2-pass)")
+    else:
+        discussion = write_discussion(research_question, synthesis, keywords, domain)
+
     future_directions = write_future_directions(synthesis, keywords, research_question, domain)
     references = build_references(ref_papers)
 

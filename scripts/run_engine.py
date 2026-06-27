@@ -150,7 +150,11 @@ async def run(args):
     print(f"  Words        : {result.word_count:,}")
     print(f"  Corpus       : {result.corpus_size} real papers from Semantic Scholar + arXiv")
     print(f"  Elapsed      : {result.elapsed_seconds:.1f}s")
-    print(f"  Cost         : $0.00  (no LLM API used)")
+    has_api = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    cost_note = "~$0.05–0.20 (Haiku API calls)" if has_api else "$0.00  (no LLM API used)"
+    tier_note = "Tier 2 (API + Extractive)" if has_api else "Tier 1 (Extractive only)"
+    print(f"  Cost         : {cost_note}")
+    print(f"  Mode         : {tier_note}")
     print()
     print("  Source Quality:")
     gate_sym = "✓" if sq.get("gate_passed") else "⚠"
@@ -166,10 +170,15 @@ async def run(args):
     ct = qr["citation"]
     print(f"    Citations   : {draft.citation_count}     {'✓ PASS' if ct['passed'] else '✗ FAIL'}  (recency {ct['metrics']['recency_ratio']:.0%}, h≈{ct['metrics']['avg_h_index']:.1f})")
     pr = qr["peer_review"]
-    print(f"    Peer Review : {pr['score']:.1f}/10 {'✓ PASS' if pr['passed'] else '✗ FAIL'}  ({pr['recommendation']})")
+    pr_dims = pr.get("dimensions", {})
+    pr_dim_str = ""
+    if pr_dims:
+        pr_dim_str = f"  [orig={pr_dims.get('originality')}/4 sig={pr_dims.get('significance')}/4 sound={pr_dims.get('soundness')}/4]"
+    print(f"    Peer Review : {pr['score']:.1f}/10 {'✓ PASS' if pr['passed'] else '✗ FAIL'}  ({pr['recommendation']}){pr_dim_str}")
     fc = qr.get("fact_check", {})
     if fc:
-        print(f"    Fact Check  : {fc['score']:.1f}/10 {'✓ PASS' if fc['passed'] else '✗ FAIL'}  ({fc['feedback'][:55]})")
+        method_tag = f" [{fc.get('method', 'n/a')}]" if fc.get("method") else ""
+        print(f"    Fact Check  : {fc['score']:.1f}/10 {'✓ PASS' if fc['passed'] else '✗ FAIL'}{method_tag}  ({fc['feedback'][:55]})")
     lrv = result.lit_review_verification
     if lrv:
         lr_sym = "✓" if lrv.get("passed") else "✗"
