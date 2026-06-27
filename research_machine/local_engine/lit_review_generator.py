@@ -10,6 +10,15 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+# Gap signal phrases — mirrored from synthesizer._GAP_SIGNALS (avoid circular import)
+_GAP_SIGNALS_LIST = [
+    "however", "despite", "little is known", "limited research", "gap in",
+    "future research", "future work", "remains unclear", "underexplored",
+    "understudied", "lacks", "need for", "we call for", "we suggest future",
+    "further research", "limited understanding", "no study", "few studies",
+    "scarce literature", "to our knowledge", "to date",
+]
+
 
 class LiteratureReviewGenerator:
     """Generate coherent literature review from quality-ranked sources."""
@@ -23,7 +32,8 @@ class LiteratureReviewGenerator:
                            papers: List[Dict[str, Any]],
                            quality_scores: List[Any],
                            min_quality_threshold: float = 0.30,
-                           papers_with_fulltext: Optional[List["Paper"]] = None) -> str:
+                           papers_with_fulltext: Optional[List["Paper"]] = None,
+                           synthesis_gaps: Optional[List[str]] = None) -> str:
         """
         Generate literature review section from quality-filtered papers.
 
@@ -36,6 +46,7 @@ class LiteratureReviewGenerator:
             papers: All papers in corpus
             quality_scores: Quality scores for each paper (from SourceQualityScorer)
             min_quality_threshold: Minimum quality score to include (0.0-1.0)
+            synthesis_gaps: Pre-extracted gap sentences from synthesizer (with citations)
 
         Returns:
             Markdown-formatted literature review section (1200-1500 words)
@@ -89,7 +100,7 @@ class LiteratureReviewGenerator:
             self._intro_section(research_question),
             self._methodological_section(quality_papers, clusters, fulltext_map, keywords),
             self._findings_section(quality_papers, clusters, keywords, fulltext_map),
-            self._gap_section(quality_papers, research_question),
+            self._gap_section(quality_papers, research_question, synthesis_gaps, fulltext_map),
         ]
 
         return "\n\n".join(sections)
@@ -289,9 +300,81 @@ Across the selected sources, four convergent patterns emerge:
 
     def _gap_section(self,
                     quality_papers: List[Dict[str, Any]],
-                    research_question: str) -> str:
-        """Generate section identifying research gaps, citing papers that acknowledge each gap."""
-        # Find papers whose abstracts mention common gap indicators
+                    research_question: str,
+                    synthesis_gaps: Optional[List[str]] = None,
+                    fulltext_map: Optional[Dict[str, str]] = None) -> str:
+        """
+        Generate research gaps section.
+
+        Primary: uses synthesis_gaps (real sentences from paper abstracts, pre-cited).
+        Enhancement: mines full-text discussion/conclusion sections for additional gaps.
+        Fallback: keyword-scan + template if synthesis_gaps is empty.
+        """
+        if not synthesis_gaps:
+            return self._gap_section_fallback(quality_papers, research_question)
+
+        fulltext_map = fulltext_map or {}
+        corpus_size = len(quality_papers)
+
+        # Quantitative framing: count papers exhibiting each signal group
+        signal_groups = {
+            "future work": ["future research", "future work", "further research", "further study",
+                            "we call for", "we suggest future"],
+            "understudied areas": ["little is known", "underexplored", "understudied",
+                                   "no study", "few studies", "scarce literature"],
+            "uncertain mechanisms": ["remains unclear", "limited understanding",
+                                     "limited research", "to our knowledge"],
+        }
+        counts = self._count_gap_signals(quality_papers, signal_groups)
+        total_signal_papers = max(counts.values()) if counts else 0
+        signal_pct = round(total_signal_papers / corpus_size * 100) if corpus_size else 0
+
+        # Format primary gap items from synthesis_gaps (already cited)
+        gap_items = []
+        for raw_gap in synthesis_gaps[:5]:
+            # Extract trailing [Author, Year] tag and truncate body
+            m = re.search(r'\s*\[([A-Za-z][A-Za-z\s\-]+,?\s*\d{4})\]\s*$', raw_gap)
+            if m:
+                body = raw_gap[:m.start()].strip()
+                tag = m.group(0).strip()
+                item = f"{body[:280]} {tag}"
+            else:
+                item = raw_gap[:300]
+            gap_items.append(item)
+
+        numbered = "\n\n".join(f"{i}. {item}" for i, item in enumerate(gap_items, 1))
+
+        # Optional full-text gap block (from discussion/conclusion sections)
+        ft_gaps = self._extract_fulltext_gaps(quality_papers, fulltext_map, _GAP_SIGNALS_LIST, n=6)
+        ft_block = ""
+        if ft_gaps:
+            ft_lines = "\n".join(f"- {g}" for g in ft_gaps[:3])
+            ft_block = f"\n\n**Additional gaps identified from full-text analysis:**\n\n{ft_lines}"
+
+        # Quantitative framing sentence
+        future_count = counts.get("future work", 0)
+        under_count = counts.get("understudied areas", 0)
+        mech_count = counts.get("uncertain mechanisms", 0)
+        framing = (
+            f"Across the {corpus_size}-paper corpus, gap indicators appear in "
+            f"approximately {total_signal_papers} papers ({signal_pct}%), "
+            f"with {future_count} calling for future work, {under_count} noting "
+            f"understudied areas, and {mech_count} flagging uncertain mechanisms. "
+            f"The following gaps are identified from explicit statements in source papers:"
+        )
+
+        return f"""### Research Gaps and Opportunities
+
+{framing}
+
+{numbered}{ft_block}
+
+These gaps, extracted directly from the source literature, represent productive opportunities for addressing: **{research_question}**"""
+
+    def _gap_section_fallback(self,
+                              quality_papers: List[Dict[str, Any]],
+                              research_question: str) -> str:
+        """Fallback gap section using keyword scan + template prose (used when no synthesis_gaps)."""
         gap_signals = {
             "Theoretical Development": ["theoretical framework", "theory", "mechanism", "how and why"],
             "Generalizability": ["generali", "sample", "context", "cross-national", "limitation"],
@@ -334,6 +417,73 @@ Despite substantial progress, several important gaps remain:
 5. **Reproducibility & Replication**: Replication studies and open datasets remain scarce, limiting cumulative knowledge-building{_cite('Reproducibility')}.
 
 These gaps represent productive opportunities for directly addressing: **{research_question}**"""
+
+    def _count_gap_signals(self,
+                           quality_papers: List[Dict[str, Any]],
+                           signal_groups: Dict[str, List[str]]) -> Dict[str, int]:
+        """Count papers (by abstract) containing at least one phrase from each signal group."""
+        counts: Dict[str, int] = {group: 0 for group in signal_groups}
+        for qpaper in quality_papers:
+            abstract = qpaper["paper"].get("abstract", "").lower()
+            for group, signals in signal_groups.items():
+                if any(s in abstract for s in signals):
+                    counts[group] += 1
+        return counts
+
+    def _extract_fulltext_gaps(self,
+                               quality_papers: List[Dict[str, Any]],
+                               fulltext_map: Dict[str, str],
+                               gap_signals: List[str],
+                               n: int = 8) -> List[str]:
+        """
+        Extract gap sentences from discussion/conclusion sections of full-text papers.
+
+        Returns list of strings formatted as "sentence [Author, Year]".
+        """
+        from .fulltext_extractor import FullTextExtractor
+        extractor = FullTextExtractor()
+
+        scored: List[Tuple[float, str]] = []
+        seen_prefixes: set = set()
+
+        for qpaper in quality_papers:
+            paper = qpaper["paper"]
+            title_key = paper.get("title", "").lower().strip()[:80]
+            full_text = fulltext_map.get(title_key, "")
+            if not full_text:
+                continue
+
+            sections = extractor.extract_sections(full_text)
+            target = (sections.get("discussion", "") + " " + sections.get("conclusion", "")).strip()
+            if not target:
+                continue
+
+            # Build citation
+            authors_raw = paper.get("authors", [])
+            year = paper.get("year", 2026)
+            if authors_raw and isinstance(authors_raw[0], dict):
+                last = authors_raw[0].get("name", "Unknown").split(",")[0].strip().split()[-1]
+            elif authors_raw:
+                last = str(authors_raw[0]).split(",")[0].strip().split()[-1]
+            else:
+                last = "Unknown"
+            citation = f"[{last}, {year}]"
+
+            # Score sentences by gap signal count
+            sents = [s.strip() for s in re.split(r'(?<=[.!?])\s+', target) if len(s.strip()) > 40]
+            for sent in sents:
+                sent_lower = sent.lower()
+                score = sum(1 for sig in gap_signals if sig in sent_lower)
+                if score == 0:
+                    continue
+                prefix = re.sub(r'\s+', ' ', sent_lower[:60])
+                if prefix in seen_prefixes:
+                    continue
+                seen_prefixes.add(prefix)
+                scored.append((score + qpaper["quality_score"], f"{sent[:200]} {citation}"))
+
+        scored.sort(key=lambda x: x[0], reverse=True)
+        return [item for _, item in scored[:n]]
 
     def _cluster_by_theme(self,
                          quality_papers: List[Dict[str, Any]],

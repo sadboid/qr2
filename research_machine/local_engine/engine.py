@@ -389,6 +389,7 @@ class LocalResearchEngine:
             quality_scores=quality_scores,
             min_quality_threshold=0.30,  # Adaptive: lowers if too few papers pass
             papers_with_fulltext=corpus,  # Pass Paper objects with full_text field
+            synthesis_gaps=synthesis.research_gaps,  # Real gap sentences from synthesizer
         )
 
         # 3.7. Verify lit review citations against source papers
