@@ -21,8 +21,10 @@ _SS_API_KEY = os.environ.get("SEMANTIC_SCHOLAR_API_KEY", "")
 
 _CURRENT_YEAR = 2026
 _SS_BASE = "https://api.semanticscholar.org/graph/v1"
-_SS_FIELDS = "paperId,title,abstract,authors,year,citationCount,venue,externalIds,url"
+_SS_FIELDS = "paperId,title,abstract,authors,year,citationCount,venue,externalIds,url,openAccessPdf"
 _ARXIV_BASE = "http://export.arxiv.org/api/query"
+
+_FULLTEXT_SEMAPHORE = asyncio.Semaphore(3)  # max 3 concurrent full-text fetches
 
 
 @dataclass
@@ -38,6 +40,8 @@ class Paper:
     source: str  # "semantic_scholar" | "arxiv"
     keywords_matched: List[str] = field(default_factory=list)
     author_h_index: int = 0  # Lead author h-index (from Semantic Scholar)
+    open_access_url: Optional[str] = None  # PDF URL from SS openAccessPdf field
+    full_text: Optional[str] = None  # Full text fetched from arXiv HTML or open-access PDF
 
     @property
     def is_recent(self) -> bool:
@@ -209,6 +213,12 @@ def _to_paper(raw: Dict[str, Any], keywords: List[str]) -> Optional[Paper]:
         if isinstance(lead_author, dict):
             author_h_index = lead_author.get("hIndex") or 0
 
+    # Extract open-access PDF URL from Semantic Scholar response
+    oa_pdf = raw.get("openAccessPdf")
+    open_access_url: Optional[str] = None
+    if isinstance(oa_pdf, dict) and oa_pdf.get("url"):
+        open_access_url = oa_pdf["url"]
+
     return Paper(
         paper_id=raw.get("paperId") or raw.get("url") or title[:20],
         title=title,
@@ -221,6 +231,7 @@ def _to_paper(raw: Dict[str, Any], keywords: List[str]) -> Optional[Paper]:
         source=raw.get("_source", "semantic_scholar"),
         keywords_matched=_extract_keywords(title + " " + abstract, keywords),
         author_h_index=author_h_index,
+        open_access_url=open_access_url,
     )
 
 
@@ -320,6 +331,128 @@ async def fetch_corpus(
         f"[Corpus] Final: {len(final_papers)} papers (from {len(raw_all)} initial + network expansion)"
     )
     return final_papers
+
+
+def _extract_arxiv_id(paper: Paper) -> Optional[str]:
+    """Extract arXiv ID from paper URL or paper_id field."""
+    for text in [paper.url, paper.paper_id]:
+        if not text:
+            continue
+        m = re.search(r'arxiv\.org/(?:abs|pdf)/([0-9]{4}\.[0-9]{4,5}(?:v\d+)?)', text, re.IGNORECASE)
+        if m:
+            return re.sub(r'v\d+$', '', m.group(1))  # strip version suffix
+    return None
+
+
+async def _fetch_arxiv_html(arxiv_id: str) -> Optional[str]:
+    """Fetch full text for an arXiv paper from the HTML export endpoint."""
+    url = f"https://arxiv.org/html/{arxiv_id}"
+    try:
+        async with _FULLTEXT_SEMAPHORE:
+            await asyncio.sleep(3.0)  # arXiv rate limit
+            async with httpx.AsyncClient(follow_redirects=True, timeout=30) as client:
+                r = await client.get(url, headers={"User-Agent": "research-machine/1.0 (academic use)"})
+                if r.status_code != 200:
+                    logger.debug(f"arXiv HTML {arxiv_id}: HTTP {r.status_code}")
+                    return None
+                html = r.text
+    except Exception as e:
+        logger.debug(f"arXiv HTML fetch failed for {arxiv_id}: {e}")
+        return None
+
+    from .fulltext_extractor import FullTextExtractor
+    text = FullTextExtractor().clean_html(html)
+    # Keep up to 12,000 chars (intro + methods + results covers most papers)
+    return text[:12000] if len(text) > 200 else None
+
+
+async def _fetch_pdf_text(pdf_url: str) -> Optional[str]:
+    """Download a PDF and extract plain text (first 12KB of content)."""
+    try:
+        import pypdf  # type: ignore
+        import io
+    except Exception:
+        logger.debug("pypdf unavailable — PDF full-text extraction skipped")
+        return None
+
+    try:
+        async with _FULLTEXT_SEMAPHORE:
+            await asyncio.sleep(1.0)
+            async with httpx.AsyncClient(follow_redirects=True, timeout=30) as client:
+                r = await client.get(
+                    pdf_url,
+                    headers={"User-Agent": "research-machine/1.0 (academic use)"},
+                )
+                if r.status_code != 200:
+                    return None
+                content_length = int(r.headers.get("content-length", 0))
+                if content_length > 10 * 1024 * 1024:  # skip > 10MB
+                    return None
+                pdf_bytes = r.content
+    except Exception as e:
+        logger.debug(f"PDF download failed ({pdf_url[:60]}): {e}")
+        return None
+
+    try:
+        reader = pypdf.PdfReader(io.BytesIO(pdf_bytes))
+        pages_text = []
+        for page in reader.pages[:15]:  # first 15 pages cover intro+methods+results
+            try:
+                pages_text.append(page.extract_text() or "")
+            except Exception:
+                pass
+        text = "\n".join(pages_text)
+        return text[:12000] if len(text) > 200 else None
+    except Exception as e:
+        logger.debug(f"PDF parse error: {e}")
+        return None
+
+
+async def fetch_full_texts(papers: List[Paper], max_papers: int = 15) -> List[Paper]:
+    """
+    Fetch full text for papers that have open-access content.
+
+    Priority:
+    1. ALL arXiv papers — fetch HTML from arxiv.org/html/{id} (free, always available)
+    2. Top SS papers with openAccessPdf — download and extract PDF text
+
+    Modifies papers in-place (sets paper.full_text). Returns the same list.
+    """
+    # arXiv: take ALL papers with an arXiv ID (regardless of relevance rank)
+    arxiv_candidates = [p for p in papers if _extract_arxiv_id(p)]
+
+    # OA PDF: take top ranked papers with open-access PDF URL (up to remaining budget)
+    oa_budget = max(0, max_papers - len(arxiv_candidates))
+    top_by_relevance = sorted(papers, key=lambda p: p.relevance_score, reverse=True)
+    oa_candidates = [
+        p for p in top_by_relevance
+        if p.open_access_url and p not in arxiv_candidates
+    ][:oa_budget]
+
+    logger.info(
+        f"[Corpus] Full-text fetch: {len(arxiv_candidates)} arXiv + {len(oa_candidates)} OA-PDF candidates"
+    )
+
+    async def _fetch_one(paper: Paper) -> None:
+        arxiv_id = _extract_arxiv_id(paper)
+        if arxiv_id:
+            text = await _fetch_arxiv_html(arxiv_id)
+            if text:
+                paper.full_text = text
+                logger.debug(f"  ✓ arXiv full text: {paper.title[:50]} ({len(text)} chars)")
+                return
+        if paper.open_access_url:
+            text = await _fetch_pdf_text(paper.open_access_url)
+            if text:
+                paper.full_text = text
+                logger.debug(f"  ✓ OA PDF full text: {paper.title[:50]} ({len(text)} chars)")
+
+    tasks = [_fetch_one(p) for p in arxiv_candidates + oa_candidates]
+    await asyncio.gather(*tasks, return_exceptions=True)
+
+    full_text_count = sum(1 for p in papers if p.full_text)
+    logger.info(f"[Corpus] Full text fetched for {full_text_count}/{len(papers)} papers")
+    return papers
 
 
 def _paper_to_dict(paper: Paper) -> Dict[str, Any]:

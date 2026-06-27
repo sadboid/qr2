@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 
-from .corpus import fetch_corpus, Paper
+from .corpus import fetch_corpus, fetch_full_texts, Paper
 from .synthesizer import synthesize, SynthesisResult
 from .writer import write_full_paper
 from .claim_checker import ClaimChecker
@@ -359,6 +359,15 @@ class LocalResearchEngine:
             for issue in gate_result.issues:
                 logger.warning(f"  - {issue}")
 
+        # 2.7. Fetch full text for top arXiv + open-access papers
+        logger.info("[LocalEngine] Fetching full text for top papers (arXiv HTML + open-access PDFs)...")
+        try:
+            corpus = await fetch_full_texts(corpus, max_papers=15)
+            ft_count = sum(1 for p in corpus if p.full_text)
+            logger.info(f"[LocalEngine] Full text available for {ft_count}/{len(corpus)} papers")
+        except Exception as e:
+            logger.warning(f"[LocalEngine] Full-text fetch error (non-fatal): {e}")
+
         # 3. Synthesize
         logger.info("[LocalEngine] Synthesizing corpus...")
         synthesis = synthesize(corpus, research_question, keywords)
@@ -368,14 +377,15 @@ class LocalResearchEngine:
             f"methods: {synthesis.methodologies[:3]}"
         )
 
-        # 3.5. Generate literature review from verified sources
+        # 3.5. Generate literature review from verified sources (with full text if available)
         lit_gen = LiteratureReviewGenerator()
         lit_review = lit_gen.generate_lit_review(
             research_question=research_question,
             keywords=keywords,
             papers=[_paper_to_dict(p) for p in corpus],
             quality_scores=quality_scores,
-            min_quality_threshold=0.30  # Adaptive: lowers if too few papers pass
+            min_quality_threshold=0.30,  # Adaptive: lowers if too few papers pass
+            papers_with_fulltext=corpus,  # Pass Paper objects with full_text field
         )
 
         # 4. Write paper (with literature review)

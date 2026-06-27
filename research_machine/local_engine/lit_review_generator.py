@@ -1,8 +1,12 @@
 """Literature review generation from high-quality verified sources."""
 
 import logging
-from typing import List, Dict, Any, Tuple
+import re
+from typing import List, Dict, Any, Tuple, Optional, TYPE_CHECKING
 from collections import defaultdict
+
+if TYPE_CHECKING:
+    from .corpus import Paper
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +22,8 @@ class LiteratureReviewGenerator:
                            keywords: List[str],
                            papers: List[Dict[str, Any]],
                            quality_scores: List[Any],
-                           min_quality_threshold: float = 0.30) -> str:
+                           min_quality_threshold: float = 0.30,
+                           papers_with_fulltext: Optional[List["Paper"]] = None) -> str:
         """
         Generate literature review section from quality-filtered papers.
 
@@ -35,6 +40,14 @@ class LiteratureReviewGenerator:
         Returns:
             Markdown-formatted literature review section (1200-1500 words)
         """
+        # Build full-text lookup by paper title (for cross-referencing)
+        fulltext_map: Dict[str, str] = {}
+        if papers_with_fulltext:
+            for p in papers_with_fulltext:
+                if p.full_text:
+                    # Normalize title key for matching
+                    key = p.title.lower().strip()[:80]
+                    fulltext_map[key] = p.full_text
 
         # Build (paper, quality) pairs sorted by score
         scored = sorted(
@@ -74,8 +87,8 @@ class LiteratureReviewGenerator:
         # Generate review sections
         sections = [
             self._intro_section(research_question),
-            self._methodological_section(quality_papers, clusters),
-            self._findings_section(quality_papers, clusters, keywords),
+            self._methodological_section(quality_papers, clusters, fulltext_map, keywords),
+            self._findings_section(quality_papers, clusters, keywords, fulltext_map),
             self._gap_section(quality_papers, research_question),
         ]
 
@@ -93,29 +106,59 @@ Research in this domain has grown substantially in recent years, reflecting incr
 
     def _methodological_section(self,
                                quality_papers: List[Dict[str, Any]],
-                               clusters: Dict[str, List[Dict[str, Any]]]) -> str:
-        """Generate section on methodological approaches."""
-        # Count methodology types
-        methods = defaultdict(int)
-        for qpaper in quality_papers:
-            abstract = qpaper["paper"].get("abstract", "").lower()
+                               clusters: Dict[str, List[Dict[str, Any]]],
+                               fulltext_map: Dict[str, str] = None,
+                               keywords: List[str] = None) -> str:
+        """Generate section on methodological approaches, enhanced with full text when available."""
+        from .fulltext_extractor import FullTextExtractor
+        extractor = FullTextExtractor()
+        fulltext_map = fulltext_map or {}
+        keywords = keywords or []
 
-            if any(x in abstract for x in ["regression", "logistic", "linear model"]):
+        # Count methodology types (check abstract + methods section if available)
+        methods = defaultdict(int)
+        sample_sizes: List[str] = []
+
+        for qpaper in quality_papers:
+            paper = qpaper["paper"]
+            abstract = paper.get("abstract", "").lower()
+            title_key = paper.get("title", "").lower().strip()[:80]
+            full_text = fulltext_map.get(title_key, "")
+
+            # Prefer methods section from full text if available
+            search_text = abstract
+            if full_text:
+                sections = extractor.extract_sections(full_text)
+                methods_text = sections.get("methods", "")
+                if methods_text:
+                    search_text = methods_text.lower()
+                    # Extract sample sizes from methods section
+                    stats = extractor.extract_statistics(methods_text)
+                    sample_sizes.extend([s for s in stats if re.search(r'\b[Nn]\s*=|\bfirm|startup|entrepreneur', s, re.I)][:2])
+
+            if any(x in search_text for x in ["regression", "logistic", "linear model", "ols", "fixed effect"]):
                 methods["Quantitative (Regression)"] += 1
-            elif any(x in abstract for x in ["machine learning", "neural", "classification"]):
+            elif any(x in search_text for x in ["machine learning", "neural", "classification", "random forest", "xgboost"]):
                 methods["Machine Learning"] += 1
-            elif any(x in abstract for x in ["case study", "qualitative", "interview"]):
+            elif any(x in search_text for x in ["case study", "qualitative", "interview", "ethnograph"]):
                 methods["Qualitative/Case Study"] += 1
-            elif any(x in abstract for x in ["survey", "questionnaire"]):
+            elif any(x in search_text for x in ["survey", "questionnaire", "likert"]):
                 methods["Survey"] += 1
+            elif any(x in search_text for x in ["experiment", "randomized", "rct", "a/b test"]):
+                methods["Experimental"] += 1
             else:
                 methods["Mixed/Other"] += 1
 
         methods_text = ", ".join([f"{k} ({v})" for k, v in sorted(methods.items(), key=lambda x: x[1], reverse=True)])
 
+        # Add sample size detail if available
+        sample_note = ""
+        if sample_sizes:
+            sample_note = f"\n\nSample sizes from full-text examination include: {'; '.join(sample_sizes[:4])}."
+
         return f"""### Methodological Approaches
 
-The corpus reveals diverse methodological traditions: {methods_text}.
+The corpus reveals diverse methodological traditions: {methods_text}.{sample_note}
 
 Recent literature demonstrates increasing sophistication in research design, with growing adoption of:
 - Longitudinal and panel designs to capture temporal dynamics
@@ -128,8 +171,12 @@ This methodological diversity reflects both disciplinary maturation and recognit
     def _findings_section(self,
                          quality_papers: List[Dict[str, Any]],
                          clusters: Dict[str, List[Dict[str, Any]]],
-                         keywords: List[str]) -> str:
-        """Generate section on key findings from the highest-quality papers."""
+                         keywords: List[str],
+                         fulltext_map: Dict[str, str] = None) -> str:
+        """Generate section on key findings, enhanced with specific stats from full text."""
+        from .fulltext_extractor import FullTextExtractor
+        extractor = FullTextExtractor()
+        fulltext_map = fulltext_map or {}
         top_papers = quality_papers[:10]
 
         findings_list = []
@@ -150,8 +197,25 @@ This methodological diversity reflects both disciplinary maturation and recognit
 
             citation_note = f"{cites} citations" if cites > 0 else "recent"
             venue_note = f", *{venue[:40]}*" if venue else ""
+
+            # Try to get a specific evidence snippet from full text
+            title_key = title.lower().strip()[:80]
+            full_text = fulltext_map.get(title_key, "")
+            evidence_note = ""
+            if full_text:
+                sections = extractor.extract_sections(full_text)
+                results_text = sections.get("results", "") or sections.get("methods", "")
+                if results_text:
+                    stats = extractor.extract_statistics(results_text)
+                    if stats:
+                        evidence_note = f" — *Evidence*: \"{stats[0][:120]}\""
+                    else:
+                        key_sents = extractor.extract_key_sentences(results_text, keywords, n=1)
+                        if key_sents:
+                            evidence_note = f" — \"{key_sents[0][:100]}...\""
+
             findings_list.append(
-                f"- **{first_author} ({year})**: \"{title[:70]}...\" [{citation_note}{venue_note}] — *{tier}*"
+                f"- **{first_author} ({year})**: \"{title[:70]}...\" [{citation_note}{venue_note}] — *{tier}*{evidence_note}"
             )
 
         findings_text = "\n".join(findings_list)

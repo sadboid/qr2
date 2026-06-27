@@ -111,16 +111,19 @@ class ClaimChecker:
                 unverified.append(result)
                 continue
 
-            # Fuzzy-match claim against abstract sentences
-            score, matched_sent = self._fuzzy_match_to_abstract(claim_text, paper.abstract)
+            # Prefer full text for matching (more accurate); fall back to abstract
+            search_text = paper.full_text if (hasattr(paper, "full_text") and paper.full_text) else paper.abstract
+            effective_threshold = self.threshold * 0.85 if search_text != paper.abstract else self.threshold
+            score, matched_sent = self._fuzzy_match_to_abstract(claim_text, search_text)
 
-            verified_flag = score >= self.threshold
-            reason = f"Match score: {score:.2f} (threshold: {self.threshold})"
+            verified_flag = score >= effective_threshold
+            source_label = "full text" if search_text != paper.abstract else "abstract"
+            reason = f"Match score: {score:.2f} (threshold: {effective_threshold:.2f}, source: {source_label})"
 
             result = ClaimCheckResult(
                 citation_ref=citation_ref,
                 claim_text=claim_text,
-                paper_abstract=paper.abstract,
+                paper_abstract=search_text[:500],  # Store first 500 chars of search text
                 match_score=score,
                 verified=verified_flag,
                 matched_sentence=matched_sent,
