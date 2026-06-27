@@ -16,6 +16,7 @@ from .claim_checker import ClaimChecker
 from .source_verifier import SourceVerifier
 from .source_quality import SourceQualityScorer
 from .lit_review_generator import LiteratureReviewGenerator
+from .lit_review_verifier import LitReviewVerifier
 from .source_quality_gates import SourceQualityGates
 
 _METRICS_LOG = Path(__file__).parent.parent.parent / "logs" / "paper_metrics.jsonl"
@@ -200,7 +201,8 @@ class EngineResult:
     synthesis: SynthesisResult
     elapsed_seconds: float
     corpus_size: int
-    source_quality: dict = field(default_factory=dict)   # source quality gate results
+    source_quality: dict = field(default_factory=dict)         # source quality gate results
+    lit_review_verification: dict = field(default_factory=dict)  # lit review claim verification
 
     @property
     def status(self) -> str:
@@ -247,6 +249,7 @@ class EngineResult:
                 "markdown": self.paper_data.get("content_markdown", ""),
                 "latex": "",
             },
+            "lit_review_verification": self.lit_review_verification,
             "generation_metrics": {
                 "cost_usd": 0.00,
                 "generation_time_seconds": round(self.elapsed_seconds, 1),
@@ -388,6 +391,18 @@ class LocalResearchEngine:
             papers_with_fulltext=corpus,  # Pass Paper objects with full_text field
         )
 
+        # 3.7. Verify lit review citations against source papers
+        logger.info("[LocalEngine] Verifying literature review claims against source papers...")
+        lit_verifier = LitReviewVerifier()
+        lit_review_report = lit_verifier.verify(lit_review, corpus)
+        logger.info(
+            f"[LocalEngine] Lit review: {lit_review_report.verified_count}/{lit_review_report.total_citations} "
+            f"claims verified ({lit_review_report.verification_rate:.0%}), "
+            f"score={lit_review_report.overall_score}/10"
+        )
+        # Replace lit review with annotated version (includes ✓/⚠ markers + verification table)
+        lit_review = lit_review_report.annotated_lit_review
+
         # 4. Write paper (with literature review)
         title = _make_title(research_question, domain)
         logger.info(f"[LocalEngine] Writing paper: '{title}'")
@@ -432,6 +447,14 @@ class LocalResearchEngine:
                 "gate_passed": gate_result.passed,
                 "gate_score": gate_result.score,
                 "issues": gate_result.issues,
+            },
+            lit_review_verification={
+                "verified_count": lit_review_report.verified_count,
+                "total_citations": lit_review_report.total_citations,
+                "not_found_count": lit_review_report.not_found_count,
+                "verification_rate": lit_review_report.verification_rate,
+                "overall_score": lit_review_report.overall_score,
+                "passed": lit_review_report.passed,
             },
         )
         _append_metrics_log(result)

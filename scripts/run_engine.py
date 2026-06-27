@@ -170,6 +170,13 @@ async def run(args):
     fc = qr.get("fact_check", {})
     if fc:
         print(f"    Fact Check  : {fc['score']:.1f}/10 {'✓ PASS' if fc['passed'] else '✗ FAIL'}  ({fc['feedback'][:55]})")
+    lrv = result.lit_review_verification
+    if lrv:
+        lr_sym = "✓" if lrv.get("passed") else "✗"
+        print(
+            f"    Lit Review  : {lrv.get('overall_score', 0):.1f}/10 {lr_sym} {'PASS' if lrv.get('passed') else 'FAIL'}"
+            f"  ({lrv.get('verified_count', 0)}/{lrv.get('total_citations', 0)} lit review claims verified)"
+        )
     print()
     print("  Output Files:")
     for fmt, path in outputs.items():
