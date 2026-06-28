@@ -110,12 +110,65 @@ def _build_queries(research_question: str, keywords: List[str], domain: str) -> 
     return [q for q in dict.fromkeys(queries) if q.strip()]
 
 
+def _question_to_title_fallback(question: str, domain: str) -> str:
+    """Rule-based: strip interrogative opener, form noun-phrase title."""
+    q = question.strip().rstrip("?")
+    strips = [
+        (r'^How\s+do\s+', ''),
+        (r'^How\s+does\s+', ''),
+        (r'^How\s+can\s+', ''),
+        (r'^What\s+(?:are|is)\s+(?:the\s+)?(?:effects?|impacts?|roles?|relationships?|factors?)\s+of\s+', ''),
+        (r'^What\s+(?:organizational\s+)?(?:factors?|elements?|aspects?)\s+', 'Key Factors in '),
+        (r'^Can\s+(?:\w+\s+)?(?:machine\s+learning|ai|models?)\s+', 'Machine Learning–Based '),
+        (r'^Can\s+', ''),
+        (r'^Does\s+', ''),
+        (r'^Why\s+do\s+', 'Drivers of '),
+    ]
+    for pattern, repl in strips:
+        new_q, n = re.subn(pattern, repl, q, count=1, flags=re.IGNORECASE)
+        if n:
+            q = new_q
+            break
+    q = q[0].upper() + q[1:] if q else q
+    subtitles = {
+        "startup": f"{q}: Evidence from Early-Stage Ventures",
+        "enterprise": f"{q}: Insights from Large Organizations",
+    }
+    return subtitles.get(domain, f"{q}: A Systematic Review")
+
+
 def _make_title(research_question: str, domain: str) -> str:
-    templates = _TITLE_TEMPLATES.get(domain, _TITLE_TEMPLATES["default"])
-    template = templates[0]
-    # Trim question mark from end of question for title
-    q = research_question.rstrip("?")
-    return template.format(question=q)
+    """Convert research question → declarative noun-phrase title.
+
+    Q1 papers never use interrogative titles. Tier 2 delegates to Claude CLI
+    for a polished noun phrase; Tier 1 uses rule-based stripping as fallback.
+    """
+    if claude_cli.is_available():
+        try:
+            prompt = (
+                f"Convert this research question into a declarative academic paper title.\n"
+                f"Domain: {domain}. Format: '[Core Topic]: [Subtitle]'\n"
+                f"Rules:\n"
+                f"- Noun phrase only — no verb-sentences, no questions\n"
+                f"- Do NOT start with How / What / Can / Does / Why\n"
+                f"- Subtitle uses 'A Systematic Review', 'Evidence from [Context]', "
+                f"or 'Insights from [Context]'\n"
+                f"- 10–16 words total, Title Case\n"
+                f"Examples:\n"
+                f"  'How do AI tools affect startup decisions?' "
+                f"→ 'AI Tools and Founder Decision-Making: A Systematic Review'\n"
+                f"  'Can ML predict startup failure?' "
+                f"→ 'Machine Learning Prediction of Startup Failure: Evidence from Early-Stage Ventures'\n"
+                f"Research question: {research_question}\n"
+                f"Return ONLY the title text."
+            )
+            title = claude_cli.call(prompt, timeout=30).strip().strip('"').strip("'")
+            # Reject if Claude still returned a question
+            if title and not re.match(r'^(how|what|can|does|why|do)\b', title, re.I):
+                return title
+        except Exception:
+            pass
+    return _question_to_title_fallback(research_question, domain)
 
 
 # ---------------------------------------------------------------------------

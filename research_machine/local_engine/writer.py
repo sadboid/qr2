@@ -21,19 +21,33 @@ from . import claude_cli
 
 _PER_SECTION_TIPS: Dict[str, str] = {
     "abstract": (
-        "Write a structured abstract (Background / Objective / Methods / Results / Conclusion). "
-        "State the exact research question. Mention N papers and the databases searched. "
-        "Summarise 2–3 key findings with specific evidence where possible. "
-        "End with a sentence on practical implications. Target 200–250 words. "
-        "Avoid hedging in the opening sentence — open with a statement, not 'This paper…'."
+        "Write a structured abstract with exactly these five bold labels: "
+        "**Background** / **Objective** / **Methods** / **Results** / **Conclusion**. "
+        "Background (2–3 sentences): establish why the topic matters, cite growth/scope. "
+        "Objective (1 sentence): state what this review examines — as a DECLARATIVE noun "
+        "phrase, NEVER as a question ('This review examines X' not 'We ask: How does X?'). "
+        "Methods (2–3 sentences): name the databases (Semantic Scholar, arXiv, Crossref), "
+        "state N papers reviewed, PRISMA flow, inclusion criteria keywords. "
+        "Results (3–4 sentences): report 2–3 specific findings with evidence where possible "
+        "(percentages, effect directions, themes). "
+        "Conclusion (1–2 sentences): practical implication + one future direction. "
+        "Target 220–260 words. "
+        "CRITICAL RULES: (1) ZERO inline citations — abstracts NEVER contain [Author, Year]; "
+        "(2) do NOT restate the research question verbatim as a question; "
+        "(3) open Background with a factual statement, never 'This paper…' or 'In recent years…'."
     ),
     "introduction": (
         "Follow the CARS model (Swales 1990): "
-        "(1) Move 1 — Establish territory: show the field is important and active (cite 5+ papers, mention growth or scope). "
-        "(2) Move 2 — Establish niche: use gap-indicating language ('no study has examined…', 'it remains unclear whether…') or counter-claiming. "
-        "(3) Move 3 — Occupy the niche: state the contribution explicitly. "
-        "End with a brief paragraph mapping the paper's structure. "
-        "Target 800–1000 words, 8–12 citations. Avoid a long 'In recent years…' opener."
+        "(1) Move 1 — Establish territory (2–3 paragraphs): show the field is important and active; "
+        "cite 8–12 papers with [Author, Year]; mention growth in publication volume or societal scope. "
+        "Open with a bold factual claim, not 'In recent years…' "
+        "(2) Move 2 — Establish niche (1 paragraph): use gap-indicating language "
+        "('no study has yet examined…', 'it remains unclear whether…', 'findings conflict on…'). "
+        "(3) Move 3 — Occupy the niche (1–2 paragraphs): state the paper's contribution as DECLARATIVE "
+        "statements ('This review synthesizes…', 'We contribute three insights…'). "
+        "Do NOT frame the contribution as a question. "
+        "End with a structure paragraph: 'The remainder of the paper is organised as follows…' "
+        "Target 800–1000 words, 8–12 citations evenly distributed across paragraphs."
     ),
     "discussion": (
         "Open with 2–3 sentences summarising the core empirical finding. "
@@ -111,10 +125,13 @@ def _refine_section_with_claude(section_name: str, draft: str, context: dict) ->
         n_papers = context.get("n_papers", "N")
         refine_requirements = {
             "abstract": (
-                f"ensure structured format (Background/Objective/Methods/Results/Conclusion), "
-                f"state exactly {n_papers} papers reviewed, "
-                f"name ONLY these databases: {databases} (remove any mention of Scopus, Web of Science, PubMed, EBSCO, Google Scholar), "
-                f"make findings specific with evidence where possible"
+                f"ensure exactly five bold labels (Background/Objective/Methods/Results/Conclusion); "
+                f"state exactly {n_papers} papers reviewed; "
+                f"name ONLY these databases: {databases} — remove any other database names; "
+                f"REMOVE every [Author, Year] inline citation — abstracts must have zero citations; "
+                f"rewrite any interrogative Objective sentence to a declarative noun phrase "
+                f"('This review examines X' not 'We ask: How does X?'); "
+                f"make Results findings specific with evidence where possible"
             ),
             "introduction": "ensure CARS structure (territory → niche → contribution), tighten gap statement, verify paper structure preview is present",
             "discussion": "ensure all three subsections (Theoretical / Practical / Limitations+Future), make recommendations actionable, ensure at least 5 limitations listed",
@@ -166,16 +183,27 @@ def write_abstract(
         first = re.sub(r"\[.*?\]", "", synthesis.key_findings[0]).strip()
         finding_preview = f" Key findings indicate that {first.lower()}"
 
+    kw2 = ", ".join(synthesis.all_papers[:1][0].keywords_matched[:2] or ["the topic"])
+    # Declarative objective: strip leading question words
+    obj = re.sub(r'^(how\s+do\s+|how\s+does\s+|what\s+are\s+|can\s+|does\s+)', '',
+                 research_question.lower().rstrip("?"), flags=re.I).strip()
+    obj = obj[0].upper() + obj[1:] if obj else research_question
+
     return (
-        f"**Background**: Research on {', '.join(synthesis.all_papers[:1][0].keywords_matched[:2] or ['the topic'])} "
-        f"has grown rapidly, yet systematic evidence addressing the question of {research_question.lower()} remains limited.\n\n"
-        f"**Objective**: This paper synthesizes the current state of knowledge to answer: {research_question}\n\n"
-        f"**Methods**: We conducted a systematic literature review of {n_papers} peer-reviewed papers "
-        f"retrieved from Semantic Scholar and arXiv using {method_str} as primary methodological lenses.\n\n"
-        f"**Results**: Analysis of the corpus ({synthesis.recency_ratio*100:.0f}% from the last 3 years) reveals "
-        f"convergent findings across multiple research groups.{finding_preview}\n\n"
-        f"**Conclusion**: We identify {len(synthesis.research_gaps)} key research gaps and propose directions "
-        f"for future empirical work with implications for {domain} contexts."
+        f"**Background**: Research on {kw2} has grown rapidly in recent years, "
+        f"driven by rapid technological adoption and evolving organizational needs. "
+        f"Despite this growth, systematic syntheses integrating evidence across methodological traditions remain limited.\n\n"
+        f"**Objective**: This systematic review examines {obj}.\n\n"
+        f"**Methods**: A systematic literature review of {n_papers} peer-reviewed papers "
+        f"retrieved from Semantic Scholar, arXiv, and Crossref was conducted following PRISMA guidelines. "
+        f"{method_str.title()} were the dominant methodological approaches identified in the corpus.\n\n"
+        f"**Results**: Analysis of the {n_papers}-paper corpus "
+        f"({synthesis.recency_ratio*100:.0f}% published within the last three years) reveals "
+        f"convergent findings across multiple research groups.{finding_preview} "
+        f"A total of {len(synthesis.research_gaps)} distinct research gaps were identified.\n\n"
+        f"**Conclusion**: These findings carry direct implications for {domain} practitioners and "
+        f"researchers. Future work should prioritise longitudinal designs and cross-contextual "
+        f"replication to strengthen causal inference in this domain."
     )
 
 
@@ -200,7 +228,7 @@ Prior scholarship has examined aspects of this relationship from multiple angles
 
 Despite this growing body of work, the specific question of {research_question.lower()} has not been addressed in a comprehensive, systematic fashion. Existing studies tend to focus on narrow subsets of the phenomenon, employ heterogeneous methodologies, or examine contexts that limit generalizability.
 
-This paper addresses that gap through a systematic review of {n} papers. We ask: **{research_question}** Our contribution is threefold: (1) we synthesize converging evidence across {n} studies; (2) we identify methodological patterns and contradictions in the literature; and (3) we propose a research agenda for advancing knowledge in this area.
+This paper addresses that gap through a systematic review of {n} papers. Our contribution is threefold: (1) we synthesize converging evidence across {n} studies; (2) we identify methodological patterns and contradictions in the literature; and (3) we propose a research agenda for advancing knowledge in this area.
 
 The remainder of this paper is organized as follows: Section 2 describes our methodology; Section 3 presents a systematic literature review; Section 4 synthesizes results and findings; Section 5 discusses implications and limitations; Section 6 outlines future directions; Section 7 concludes."""
 
