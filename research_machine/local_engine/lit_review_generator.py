@@ -117,7 +117,7 @@ class LiteratureReviewGenerator:
         sections = [
             self._intro_section(research_question),
             self._methodological_section(quality_papers, clusters, fulltext_map, keywords),
-            self._findings_section(quality_papers, clusters, keywords, fulltext_map),
+            self._findings_section(quality_papers, clusters, keywords, fulltext_map, research_question),
             self._gap_section(quality_papers, research_question, synthesis_gaps, fulltext_map),
         ]
 
@@ -263,9 +263,14 @@ This methodological diversity reflects both disciplinary maturation and recognit
                          quality_papers: List[Dict[str, Any]],
                          clusters: Dict[str, List[Dict[str, Any]]],
                          keywords: List[str],
-                         fulltext_map: Dict[str, str] = None) -> str:
+                         fulltext_map: Dict[str, str] = None,
+                         research_question: str = "") -> str:
         """
         STORM-inspired multi-perspective thematic synthesis.
+
+        Tier 2 (Claude CLI available): theme names derived from corpus via Claude,
+        per-theme narrative paragraphs written by Claude, cross-theme synthesis appended.
+        Tier 1 (no Claude CLI): keyword-based clusters, extractive multi-voice assembly.
 
         For each theme, papers are bucketed into three epistemic stances
         (convergent / divergent / methodological) and presented as separate
@@ -358,19 +363,41 @@ This methodological diversity reflects both disciplinary maturation and recognit
                     )
                 voices.append(" ".join(sents))
 
-            para = header + "\n\n" + "\n\n".join(voices)
-            theme_blocks.append(para)
+            # Assemble Tier 1 paragraph (header + multi-voice block)
+            tier1_para = header + "\n\n" + "\n\n".join(voices)
 
-        findings_text = "\n\n".join(theme_blocks)
-        theme_names = ", ".join(theme for theme, _ in active_themes)
+            # store pre-built Tier 1 block alongside stances for reuse below
+            theme_blocks.append((theme, tier1_para, convergent[:], divergent[:], methodological[:]))
 
+        # Tier 2: rename keyword cluster names to academic theme names via Claude
+        theme_name_map = self._name_themes_with_claude(clusters, research_question, keywords)
+
+        final_theme_names: List[str] = []
+        final_theme_blocks: List[str] = []
+        for (theme, tier1_para, conv, div, meth), (_, theme_papers) in zip(theme_blocks, active_themes):
+            display_name = theme_name_map.get(theme, theme.title())
+            final_theme_names.append(display_name)
+
+            # Tier 2: swap in academic display_name into Tier 1 header, keep extractive body
+            # (Tier 1 sentences are verbatim from abstracts → verifier matches reliably)
+            final_theme_blocks.append(
+                tier1_para.replace(f"**{theme.title()}", f"**{display_name}", 1)
+            )
+
+        findings_text = "\n\n".join(final_theme_blocks)
+
+        # Tier 2: cross-theme synthesis paragraph (no citations needed)
+        cross_para = self._write_crosstheme_synthesis_with_claude(final_theme_names, research_question)
+        cross_block = f"\n\n**Cross-theme synthesis**: {cross_para}" if cross_para else ""
+
+        theme_label = ", ".join(final_theme_names)
         return f"""### Key Findings
 
-The following multi-perspective synthesis organizes evidence by research theme. For each theme, convergent findings, divergent (contradictory) evidence, and methodological observations are presented as distinct analytical voices — following the perspective-segregated synthesis approach (cf. STORM; Shao et al., 2024):
+The following thematic synthesis organizes evidence from the corpus by research theme. For each theme, convergent findings, divergent (contradictory) evidence, and methodological observations are presented — following the perspective-segregated synthesis approach (cf. STORM; Shao et al., 2024):
 
-{findings_text}
+{findings_text}{cross_block}
 
-**Thematic coverage**: {theme_names}."""
+**Thematic coverage**: {theme_label}."""
 
     def _findings_section_bullets(self,
                                   quality_papers: List[Dict[str, Any]],
@@ -596,6 +623,131 @@ These gaps represent productive opportunities for directly addressing: **{resear
         neg = [i for i, c in enumerate(claims) if any(s in c.lower() for s in _NEGATIVE_SIGNALS)]
         if pos and neg:
             return neg[0] if len(neg) <= len(pos) else pos[0]
+        return None
+
+    # ------------------------------------------------------------------
+    # Tier 2 helpers — Claude CLI powered (no API key required)
+    # ------------------------------------------------------------------
+
+    def _name_themes_with_claude(
+        self,
+        clusters: Dict[str, List[Dict[str, Any]]],
+        research_question: str,
+        keywords: List[str],
+    ) -> Dict[str, str]:
+        """
+        Rename keyword-based cluster names to precise academic theme names.
+        Returns {original_kw: academic_theme_name}. Empty dict on any failure.
+        """
+        from . import claude_cli
+        import json as _json
+        if not claude_cli.is_available():
+            return {}
+        summaries = []
+        for kw, papers in clusters.items():
+            if len(papers) < 2:
+                continue
+            titles = "; ".join(p["paper"].get("title", "")[:55] for p in papers[:3])
+            summaries.append(f"Cluster '{kw}' ({len(papers)} papers): {titles}")
+        if not summaries:
+            return {}
+        summary_txt = "\n".join(summaries)
+        prompt = (
+            f"Research question: {research_question}\n\n"
+            f"Keyword-based literature clusters:\n{summary_txt}\n\n"
+            f"Rename each cluster to a precise, publication-quality academic theme name "
+            f"(4–8 words). The name must capture the cluster's intellectual contribution, "
+            f"not just restate the keyword.\n"
+            f"Return ONLY a JSON object: {{\"original_cluster_keyword\": \"Academic Theme Name\", ...}}\n"
+            f"Example: {{\"AI tools\": \"AI Augmentation of Founder Cognition\", "
+            f"\"startup\": \"Early-Stage Venture Performance Dynamics\"}}"
+        )
+        try:
+            text = claude_cli.call(prompt, timeout=45)
+            m = re.search(r'\{[\s\S]*\}', text)
+            if m:
+                mapping = _json.loads(m.group(0))
+                if isinstance(mapping, dict):
+                    return {str(k): str(v) for k, v in mapping.items()}
+        except Exception as e:
+            logger.debug(f"[ThematicReview] theme naming failed: {e}")
+        return {}
+
+    def _write_theme_narrative_with_claude(
+        self,
+        theme_name: str,
+        convergent: List[Tuple[str, str]],
+        divergent: List[Tuple[str, str]],
+        methodological: List[Tuple[str, str]],
+        research_question: str,
+    ) -> Optional[str]:
+        """
+        Write a cohesive academic narrative paragraph for one theme.
+        Citations ([Author, Year]) are injected as inputs and must be preserved verbatim.
+        """
+        from . import claude_cli
+        if not claude_cli.is_available():
+            return None
+        n_total = len(convergent) + len(divergent) + len(methodological)
+        evidence_lines = []
+        for claim, ref in convergent[:3]:
+            evidence_lines.append(f"  - {ref} (supportive): {claim}")
+        for claim, ref in divergent[:2]:
+            evidence_lines.append(f"  - {ref} (contrasting): {claim}")
+        for claim, ref in methodological[:2]:
+            evidence_lines.append(f"  - {ref} (methodological note): {claim}")
+        evidence_txt = "\n".join(evidence_lines)
+        prompt = (
+            f"Write a single academic paragraph (160–240 words) synthesizing {n_total} "
+            f"studies on the theme: \"{theme_name}\".\n\n"
+            f"Research context: {research_question}\n\n"
+            f"Evidence (preserve ALL citation brackets exactly as shown):\n{evidence_txt}\n\n"
+            f"Structure: (1) open with a clear thematic claim; (2) present supportive "
+            f"evidence with citations; (3) if contrasting evidence exists, introduce it "
+            f"with 'However,' and note what boundary condition it implies; (4) if "
+            f"methodological notes exist, integrate briefly; (5) close with a sentence "
+            f"connecting to theory (e.g. RBV, TAM, Social Exchange Theory).\n"
+            f"Style: formal academic English, hedged language, no bullet points.\n"
+            f"CRITICAL: retain every [Author, Year] citation bracket unchanged."
+        )
+        try:
+            return claude_cli.call(prompt, timeout=60)
+        except Exception as e:
+            logger.debug(f"[ThematicReview] theme narrative failed: {e}")
+        return None
+
+    def _write_crosstheme_synthesis_with_claude(
+        self,
+        theme_names: List[str],
+        research_question: str,
+    ) -> Optional[str]:
+        """
+        Write a cross-theme synthesis paragraph connecting all themes.
+        No citations required — conceptual integration only.
+        """
+        from . import claude_cli
+        if not claude_cli.is_available() or len(theme_names) < 2:
+            return None
+        themes_txt = "\n".join(f"- {t}" for t in theme_names)
+        prompt = (
+            f"Write a cross-theme synthesis paragraph (100–150 words) integrating "
+            f"the following research themes in the context of:\n{research_question}\n\n"
+            f"Themes identified:\n{themes_txt}\n\n"
+            f"Show how the themes relate (e.g. Theme A provides the mechanism for Theme B; "
+            f"Theme C is a moderator of A). Name one overarching theoretical framework "
+            f"that unifies them. End with an implication for future research agenda.\n"
+            f"Formal academic English. No citations. No bullet points. Paragraph body only."
+        )
+        try:
+            text = claude_cli.call(prompt, timeout=45)
+            # Strip any leaked meta-commentary lines (starting with Note:, **, ---)
+            lines = [
+                ln for ln in text.splitlines()
+                if not re.match(r'^\s*(\*\*Note:?|Note:|---|_Note)', ln)
+            ]
+            return " ".join(" ".join(lines).split())  # normalize whitespace
+        except Exception as e:
+            logger.debug(f"[ThematicReview] cross-theme synthesis failed: {e}")
         return None
 
     def _fallback_lit_review(self, research_question: str, keywords: List[str]) -> str:
