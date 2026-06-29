@@ -28,6 +28,38 @@ _NEGATIVE_SIGNALS = frozenset({
     "failed", "lower", "challenges", "limits", "negative", "impedes", "no effect",
 })
 
+# Sentences starting with these phrases are context/intro sentences, not findings
+_CONTEXT_OPENERS = (
+    "this study", "this paper", "this work", "this article", "this research",
+    "in this paper", "in this study", "in this work", "in this article",
+    "we present", "we introduce", "we propose", "we describe", "we develop",
+    "the purpose of this", "the aim of this", "the goal of this",
+    "this review", "this systematic",
+)
+
+# Phrases that signal an empirical finding sentence
+_FINDING_SIGNALS = frozenset({
+    "find that", "found that", "show that", "shows that", "demonstrate that",
+    "demonstrates that", "reveal that", "reveals that", "indicate that",
+    "indicates that", "suggest that", "suggests that", "report that",
+    "reports that", "conclude that", "concludes that", "evidence suggests",
+    "results show", "results indicate", "results demonstrate", "our findings",
+    "we find", "we found", "we show", "we demonstrate",
+    "significantly", "positively associated", "negatively associated",
+    "% higher", "% lower", "% more", "% fewer", "% increase", "% decrease",
+    "improved", "reduced", "increased", "decreased", "enhanced",
+    "β =", "r =", "p <", "p=", "effect size",
+})
+
+# Terms signalling off-domain (medical/clinical) gap sentences
+_OFF_DOMAIN_GAP_TERMS = frozenset({
+    "patient", "patients", "clinical", "clinician", "clinicians",
+    "hospital", "hospitals", "medical", "healthcare", "health care",
+    "nursing", "nurse", "physician", "physicians", "psychosocial",
+    "therapy", "therapeutic", "treatment", "diagnosis", "disease",
+    "symptom", "psychiatric", "mental health", "drug", "medication",
+})
+
 
 def _get_last_name(authors_raw) -> str:
     """Extract last name of first author from authors list (any format)."""
@@ -124,12 +156,17 @@ class LiteratureReviewGenerator:
         return "\n\n".join(sections)
 
     def _intro_section(self, research_question: str) -> str:
-        """Generate introduction to literature review."""
+        """Generate introduction to literature review — no verbatim question restatement."""
+        # Derive a declarative topic phrase from the question
+        q = research_question.strip().rstrip("?")
+        topic = re.sub(
+            r'^(how\s+do\s+|how\s+does\s+|what\s+are\s+(?:the\s+)?|can\s+|does\s+|why\s+do\s+)',
+            '', q, flags=re.I,
+        ).strip()
+        topic = (topic[0].lower() + topic[1:]) if topic else q.lower()
         return f"""### Overview
 
-The following systematic review examines the current state of knowledge relevant to the research question: **{research_question}**
-
-Research in this domain has grown substantially in recent years, reflecting increased scholarly attention to the intersection of the key topics. This section synthesizes evidence from high-quality peer-reviewed sources to establish the theoretical foundation, identify methodological patterns, and highlight unresolved questions that guide this work."""
+This systematic review maps the current state of knowledge on {topic}. Evidence is drawn from peer-reviewed empirical and conceptual work retrieved through systematic search of Semantic Scholar, arXiv, and Crossref. The sections below synthesize methodological traditions in the corpus, organize principal findings by research theme, and identify the unresolved questions that motivate further inquiry."""
 
     def _methodological_section(self,
                                quality_papers: List[Dict[str, Any]],
@@ -205,10 +242,16 @@ This methodological diversity reflects both disciplinary maturation and recognit
         """
         Extract the most informative, verifiable sentence from a paper's abstract or full text.
 
-        Returns a sentence directly traceable to the source paper — ensuring high
-        claim-verification scores when the lit review verifier runs.
+        Preference order:
+          1. Finding-signal sentences from results/discussion (full text)
+          2. Finding-signal sentences from abstract, keyword-ranked
+          3. First non-context sentence from abstract
+          4. TF-IDF top sentence, title fallback
+
+        Returns a sentence directly traceable to the source — ensuring high
+        claim-verification scores from the lit review verifier.
         """
-        # Priority 1: results section of full text (most specific)
+        # Priority 1: results/discussion section of full text
         if full_text:
             sections = extractor.extract_sections(full_text)
             results_text = sections.get("results", "") or sections.get("discussion", "")
@@ -217,18 +260,32 @@ This methodological diversity reflects both disciplinary maturation and recognit
                 if sents and len(sents[0]) > 30:
                     return sents[0][:180]
 
-        # Priority 2: abstract (always available)
         abstract = paper.get("abstract", "")
-        if abstract:
-            sents = extractor.extract_key_sentences(abstract, keywords, n=1)
-            if sents and len(sents[0]) > 30:
-                return sents[0][:180]
-            # Fallback: first meaningful sentence of abstract
-            first_sents = [s.strip() for s in re.split(r'(?<=[.!?])\s+', abstract) if len(s.strip()) > 30]
-            if first_sents:
-                return first_sents[0][:180]
+        if not abstract:
+            return paper.get("title", "")[:120]
 
-        return paper.get("title", "")[:120]
+        all_sents = [s.strip() for s in re.split(r'(?<=[.!?])\s+', abstract) if len(s.strip()) > 30]
+
+        # Remove context/intro sentences (meta-commentary about the study design)
+        non_context = [s for s in all_sents if not s.lower().startswith(_CONTEXT_OPENERS)]
+
+        # Among non-context, prefer sentences with empirical finding signals
+        finding_sents = [s for s in non_context if any(sig in s.lower() for sig in _FINDING_SIGNALS)]
+        if finding_sents:
+            # Rank by keyword overlap to pick the most topically relevant finding
+            best = max(
+                finding_sents,
+                key=lambda s: sum(1 for kw in keywords if kw.lower() in s.lower()),
+            )
+            return best[:180]
+
+        # Fall through: first non-context sentence, then TF-IDF, then first sentence
+        if non_context:
+            return non_context[0][:180]
+        keyed = extractor.extract_key_sentences(abstract, keywords, n=1)
+        if keyed and len(keyed[0]) > 30:
+            return keyed[0][:180]
+        return all_sents[0][:180] if all_sents else paper.get("title", "")[:120]
 
     def _classify_stance(self, claim: str, abstract: str) -> str:
         """
@@ -456,9 +513,18 @@ The following thematic synthesis organizes evidence from the corpus by research 
         total_signal_papers = max(counts.values()) if counts else 0
         signal_pct = round(total_signal_papers / corpus_size * 100) if corpus_size else 0
 
+        # Filter out off-domain gap sentences (e.g. healthcare / clinical contexts)
+        def _is_gap_off_domain(sentence: str) -> bool:
+            lower = sentence.lower()
+            return any(t in lower for t in _OFF_DOMAIN_GAP_TERMS)
+
+        domain_gaps = [g for g in synthesis_gaps if not _is_gap_off_domain(g)]
+        # Keep original list as fallback if filter removes everything
+        gap_source = domain_gaps if domain_gaps else synthesis_gaps
+
         # Format primary gap items from synthesis_gaps (already cited)
         gap_items = []
-        for raw_gap in synthesis_gaps[:5]:
+        for raw_gap in gap_source[:5]:
             # Extract trailing [Author, Year] tag and truncate body
             m = re.search(r'\s*\[([A-Za-z][A-Za-z\s\-]+,?\s*\d{4})\]\s*$', raw_gap)
             if m:
