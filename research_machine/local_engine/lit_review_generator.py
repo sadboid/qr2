@@ -35,6 +35,10 @@ _CONTEXT_OPENERS = (
     "we present", "we introduce", "we propose", "we describe", "we develop",
     "the purpose of this", "the aim of this", "the goal of this",
     "this review", "this systematic",
+    # Section-header fragments that leak from structured abstracts
+    "abstract ", "abstract\n", "purpose\n", "purpose ", "background\n",
+    "background ", "objective\n", "objective ", "aims\n", "aims ",
+    "aim\n", "aim ", "methods\n", "introduction\n",
 )
 
 # Phrases that signal an empirical finding sentence
@@ -42,13 +46,15 @@ _FINDING_SIGNALS = frozenset({
     "find that", "found that", "show that", "shows that", "demonstrate that",
     "demonstrates that", "reveal that", "reveals that", "indicate that",
     "indicates that", "suggest that", "suggests that", "report that",
-    "reports that", "conclude that", "concludes that", "evidence suggests",
-    "results show", "results indicate", "results demonstrate", "our findings",
+    "reports that", "conclude that", "concluded that", "concludes that",
+    "showed that", "evidence suggests", "results show", "results indicate",
+    "results demonstrate", "our findings", "our results",
     "we find", "we found", "we show", "we demonstrate",
-    "significantly", "positively associated", "negatively associated",
+    "positively associated", "negatively associated", "found significant",
     "% higher", "% lower", "% more", "% fewer", "% increase", "% decrease",
     "improved", "reduced", "increased", "decreased", "enhanced",
     "β =", "r =", "p <", "p=", "effect size",
+    "n =", "n=", "sample of",
 })
 
 # Terms signalling off-domain (medical/clinical) gap sentences
@@ -163,7 +169,13 @@ class LiteratureReviewGenerator:
             r'^(how\s+do\s+|how\s+does\s+|what\s+are\s+(?:the\s+)?|can\s+|does\s+|why\s+do\s+)',
             '', q, flags=re.I,
         ).strip()
-        topic = (topic[0].lower() + topic[1:]) if topic else q.lower()
+        # Convert verb clause "X affect/influence/impact Y" → "the effects of X on Y"
+        topic = re.sub(
+            r'^(.+?)\s+(affects?|influences?|impacts?|shapes?|determines?|improves?|'
+            r'supports?|enables?|drives?|moderates?)\s+(.+)$',
+            r'the effects of \1 on \3',
+            topic, flags=re.I,
+        )
         return f"""### Overview
 
 This systematic review maps the current state of knowledge on {topic}. Evidence is drawn from peer-reviewed empirical and conceptual work retrieved through systematic search of Semantic Scholar, arXiv, and Crossref. The sections below synthesize methodological traditions in the corpus, organize principal findings by research theme, and identify the unresolved questions that motivate further inquiry."""
