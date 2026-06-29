@@ -558,15 +558,18 @@ The following thematic synthesis organizes evidence from the corpus by research 
         # Format primary gap items from synthesis_gaps (already cited)
         gap_items = []
         for raw_gap in gap_source[:5]:
-            # Extract trailing [Author, Year] tag from synthesizer and convert to (Author, Year)
-            # Pattern handles: [Smith, 2023] / [Smith & Jones, 2023] / [Smith et al., 2023]
+            # Convert trailing [Author, Year] tag to (Author, Year) parenthetical APA 7.
+            # Primary: anchored pattern at end of string.
+            # Fallback: un-anchored replacement for any remaining bracket citations.
             m = re.search(r'\s*\[([A-Za-z][A-Za-z\s\-\&\.]+,?\s*\d{4})\]\s*$', raw_gap)
             if m:
                 body = raw_gap[:m.start()].strip()
-                inner = m.group(1).strip()  # "Smith, 2023" / "Smith et al., 2023"
-                item = f"{body[:280]} ({inner})"  # parenthetical APA
+                inner = m.group(1).strip()
+                item = f"{body[:280]} ({inner})"
             else:
                 item = raw_gap[:300]
+            # Fallback: convert any remaining [Author, Year] bracket anywhere in item
+            item = re.sub(r'\[([A-Za-z][A-Za-z\s\-\&\.]+,?\s*\d{4})\]', r'(\1)', item)
             gap_items.append(item)
 
         numbered = "\n\n".join(f"{i}. {item}" for i, item in enumerate(gap_items, 1))

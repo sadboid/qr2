@@ -207,6 +207,8 @@ class LitReviewVerifier:
             rf'\(({_author_re}),?\s*(\d{{4}})\)'    # parenthetical
             rf'|'
             rf'({_author_re})\s+\((\d{{4}})\)'      # narrative
+            rf'|'
+            rf'\[([A-Za-z][A-Za-z\s\-\&\.]+,?\s*\d{{4}})\]'  # legacy [Author, Year]
         )
         results: List[Tuple[str, str]] = []
 
@@ -214,33 +216,46 @@ class LitReviewVerifier:
             if m.group(1) is not None:
                 # parenthetical: "(Author, Year)"
                 ref = f"({m.group(1)}, {m.group(2)})"
-            else:
+                is_narrative = False
+            elif m.group(3) is not None:
                 # narrative: "Author (Year)"
                 ref = f"{m.group(3)} ({m.group(4)})"
+                is_narrative = True
+            else:
+                # legacy bracket: "[Author, Year]"
+                ref = f"[{m.group(5)}]"
+                is_narrative = False
             pos = m.start()
             cite_end = m.end()
 
             # Find sentence boundaries around the citation
             before = text[:pos]
 
-            # Sentence start: prefer \n- (bullet start) or \n over '. '
-            # Exclude '. ' candidates that are within 60 chars of the citation — those mark
-            # the END of the claim sentence (when the claim ends with '.' before citation)
-            # and using them as the start would skip the actual claim content entirely.
-            raw_candidates = {
-                'period': before.rfind('. '),
-                'period_newline': before.rfind('.\n'),
-                'bullet': before.rfind('\n- '),
-                'newline': before.rfind('\n'),
-            }
-            valid = []
-            for key, c in raw_candidates.items():
-                if c < 0:
-                    continue
-                if key in ('period', 'period_newline') and (len(before) - c) < 60:
-                    continue  # Skip: this '.' ends the claim sentence, not starts it
-                valid.append(c)
-            sentence_start = max(valid) + 1 if valid else 0
+            if is_narrative:
+                # For narrative citations the author name IS the sentence start.
+                # Using pos avoids capturing text from previous sentences in the same
+                # paragraph (a common failure when multiple narrative citations appear
+                # in a row, each separated by '. ' within 60 chars of the next author).
+                sentence_start = pos
+            else:
+                # Parenthetical / legacy bracket: citation appears at sentence end.
+                # Search backwards for the real sentence start.
+                # Skip '. ' candidates within 60 chars — those mark the end of the
+                # sentence containing the citation, not its start.
+                raw_candidates = {
+                    'period': before.rfind('. '),
+                    'period_newline': before.rfind('.\n'),
+                    'bullet': before.rfind('\n- '),
+                    'newline': before.rfind('\n'),
+                }
+                valid = []
+                for key, c in raw_candidates.items():
+                    if c < 0:
+                        continue
+                    if key in ('period', 'period_newline') and (len(before) - c) < 60:
+                        continue
+                    valid.append(c)
+                sentence_start = max(valid) + 1 if valid else 0
 
             # Sentence end: search AFTER the citation match to avoid hitting '.' in "et al."
             after_cite = text[cite_end:]
@@ -262,15 +277,16 @@ class LitReviewVerifier:
         return results
 
     def _parse_citation(self, citation_ref: str) -> Optional[Tuple[str, int]]:
-        """Parse APA 7 citation ref → (last_name_lower, year) or None.
+        """Parse APA 7 citation ref (or legacy bracket ref) → (last_name_lower, year) or None.
 
         Handles:
-          "(Smith, 2023)"            parenthetical
+          "(Smith, 2023)"           parenthetical
           "(Smith & Jones, 2023)"   parenthetical multi-author
           "(Smith et al., 2023)"    parenthetical et al.
           "Smith (2023)"            narrative
           "Smith & Jones (2023)"    narrative multi-author
           "Smith et al. (2023)"     narrative et al.
+          "[Smith et al., 2023]"    legacy bracket format
         """
         year_m = re.search(r'\b(\d{4})\b', citation_ref)
         if not year_m:
@@ -279,10 +295,17 @@ class LitReviewVerifier:
 
         text = citation_ref.strip()
 
+        # Legacy bracket: "[Author, Year]"
+        bracket_m = re.match(r'^\[(.+?),?\s*\d{4}\s*\]$', text)
+        if bracket_m:
+            author_part = bracket_m.group(1).strip()
         # Parenthetical: "(Author, Year)" or "(Author et al., Year)"
-        paren_m = re.match(r'^\((.+?),?\s*\d{4}\s*\)$', text)
-        if paren_m:
-            author_part = paren_m.group(1).strip()
+        elif re.match(r'^\(', text):
+            paren_m = re.match(r'^\((.+?),?\s*\d{4}\s*\)$', text)
+            if paren_m:
+                author_part = paren_m.group(1).strip()
+            else:
+                return None
         else:
             # Narrative: "Author (Year)"
             narr_m = re.match(r'^(.+?)\s*\(\d{4}\)', text)
