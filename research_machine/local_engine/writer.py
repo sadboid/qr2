@@ -32,14 +32,14 @@ _PER_SECTION_TIPS: Dict[str, str] = {
         "(percentages, effect directions, themes). "
         "Conclusion (1–2 sentences): practical implication + one future direction. "
         "Target 220–260 words. "
-        "CRITICAL RULES: (1) ZERO inline citations — abstracts NEVER contain [Author, Year]; "
+        "CRITICAL RULES: (1) ZERO inline citations — abstracts NEVER contain (Author, Year); "
         "(2) do NOT restate the research question verbatim as a question; "
         "(3) open Background with a factual statement, never 'This paper…' or 'In recent years…'."
     ),
     "introduction": (
         "Follow the CARS model (Swales 1990): "
         "(1) Move 1 — Establish territory (2–3 paragraphs): show the field is important and active; "
-        "cite 8–12 papers with [Author, Year]; mention growth in publication volume or societal scope. "
+        "cite 8–12 papers with (Author, Year); mention growth in publication volume or societal scope. "
         "Open with a bold factual claim, not 'In recent years…' "
         "(2) Move 2 — Establish niche (1 paragraph): use gap-indicating language "
         "('no study has yet examined…', 'it remains unclear whether…', 'findings conflict on…'). "
@@ -82,7 +82,7 @@ def _write_section_with_claude(section_name: str, context: dict) -> Optional[str
             f"You are an academic writer generating a '{section_name}' section for a Q1 systematic "
             f"literature review in Business and AI.\n\nSection requirements:\n{tips}\n\n"
             "Write in formal academic English. Use hedged language ('suggests', 'indicates', 'may'). "
-            "Cite in-text as [Author, Year]. Do not add a section header — return body text only."
+            "Cite in-text as (Author, Year) for parenthetical or Author (Year) for narrative. Do not add a section header — return body text only."
         )
         databases = context.get("databases", "Semantic Scholar, arXiv, and Crossref")
         n_raw = context.get("n_raw", 0)
@@ -128,7 +128,7 @@ def _refine_section_with_claude(section_name: str, draft: str, context: dict) ->
                 f"ensure exactly five bold labels (Background/Objective/Methods/Results/Conclusion); "
                 f"state exactly {n_papers} papers reviewed; "
                 f"name ONLY these databases: {databases} — remove any other database names; "
-                f"REMOVE every [Author, Year] inline citation — abstracts must have zero citations; "
+                f"REMOVE every (Author, Year) inline citation — abstracts must have zero citations; "
                 f"rewrite any interrogative Objective sentence to a declarative noun phrase "
                 f"('This review examines X' not 'We ask: How does X?'); "
                 f"make Results findings specific with evidence where possible"
@@ -447,9 +447,11 @@ def _extract_key_claim(abstract: str) -> str:
 
 
 def build_references(papers: List[Paper]) -> str:
-    lines = []
-    for i, p in enumerate(papers, 1):
-        lines.append(p.apa_ref(i))
+    def _sort_key(p: Paper):
+        last = p.authors[0].split(",")[0].strip().split()[-1].lower() if p.authors else "zzz"
+        return (last, p.year)
+    sorted_papers = sorted(papers, key=_sort_key)
+    lines = [p.apa_ref() for p in sorted_papers]
     return "\n\n".join(lines)
 
 

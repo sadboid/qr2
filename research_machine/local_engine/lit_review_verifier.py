@@ -190,15 +190,33 @@ class LitReviewVerifier:
         self, text: str
     ) -> List[Tuple[str, str]]:
         """
-        Find all [Author, Year] citations and extract the surrounding claim.
+        Find all APA 7 citations and extract the surrounding claim.
+
+        Matches:
+          Narrative:     Smith (2023) / Smith & Jones (2023) / Smith et al. (2023)
+          Parenthetical: (Smith, 2023) / (Smith & Jones, 2023) / (Smith et al., 2023)
 
         Returns list of (citation_ref, claim_sentence).
         """
-        pattern = re.compile(r'\[([A-Za-z][A-Za-z\s\-]+,?\s*\d{4})\]')
+        # APA 7 combined pattern — two alternatives:
+        #   1. Parenthetical: (Author, Year)
+        #   2. Narrative:     Author (Year)
+        # Author can be: single name, "Name & Name", or "Name et al."
+        _author_re = r'[A-Za-z][A-Za-z\.\-]+(?:\s+et\s+al\.|\s*&\s*[A-Za-z][A-Za-z\.\-]+)?'
+        pattern = re.compile(
+            rf'\(({_author_re}),?\s*(\d{{4}})\)'    # parenthetical
+            rf'|'
+            rf'({_author_re})\s+\((\d{{4}})\)'      # narrative
+        )
         results: List[Tuple[str, str]] = []
 
         for m in pattern.finditer(text):
-            ref = f"[{m.group(1)}]"
+            if m.group(1) is not None:
+                # parenthetical: "(Author, Year)"
+                ref = f"({m.group(1)}, {m.group(2)})"
+            else:
+                # narrative: "Author (Year)"
+                ref = f"{m.group(3)} ({m.group(4)})"
             pos = m.start()
 
             # Find sentence boundaries around the citation
@@ -243,13 +261,45 @@ class LitReviewVerifier:
         return results
 
     def _parse_citation(self, citation_ref: str) -> Optional[Tuple[str, int]]:
-        """Parse [Author, Year] → (last_name_lower, year) or None."""
-        content = citation_ref.strip('[]')
-        m = re.match(r'([A-Za-z][A-Za-z.\-\s]+?)[,\s]+(\d{4})', content)
-        if m:
-            last = m.group(1).strip().split()[-1].lower()
-            return (last, int(m.group(2)))
-        return None
+        """Parse APA 7 citation ref → (last_name_lower, year) or None.
+
+        Handles:
+          "(Smith, 2023)"            parenthetical
+          "(Smith & Jones, 2023)"   parenthetical multi-author
+          "(Smith et al., 2023)"    parenthetical et al.
+          "Smith (2023)"            narrative
+          "Smith & Jones (2023)"    narrative multi-author
+          "Smith et al. (2023)"     narrative et al.
+        """
+        year_m = re.search(r'\b(\d{4})\b', citation_ref)
+        if not year_m:
+            return None
+        year = int(year_m.group(1))
+
+        text = citation_ref.strip()
+
+        # Parenthetical: "(Author, Year)" or "(Author et al., Year)"
+        paren_m = re.match(r'^\((.+?),?\s*\d{4}\s*\)$', text)
+        if paren_m:
+            author_part = paren_m.group(1).strip()
+        else:
+            # Narrative: "Author (Year)"
+            narr_m = re.match(r'^(.+?)\s*\(\d{4}\)', text)
+            if narr_m:
+                author_part = narr_m.group(1).strip()
+            else:
+                return None
+
+        # Strip "et al." → keep first author name
+        author_part = re.sub(r'\s+et\s+al\.?', '', author_part)
+        # For multi-author "Smith & Jones" → keep first
+        author_part = re.split(r'\s*&\s*', author_part)[0]
+        # Last word of the author part = last name
+        words = [w.strip('.,') for w in author_part.split() if w.strip('.,')]
+        if not words:
+            return None
+        last = words[-1].lower()
+        return (last, year)
 
     def _normalize_claim(self, claim: str) -> str:
         """
@@ -258,8 +308,18 @@ class LitReviewVerifier:
         Removes: [Author, Year] markers, markdown bullets/bold/italic, venue annotation
         suffixes like "[N citations, *Venue*] — *Tier*", and collapses whitespace.
         """
-        # Remove [Author, Year] citation markers
+        # Remove old [Author, Year] citation markers (legacy)
         claim = re.sub(r'\[[A-Za-z][A-Za-z\s\-]+,?\s*\d{4}\]', '', claim)
+        # Remove APA 7 parenthetical (Author, Year) markers — e.g. "(Smith, 2023)", "(Smith et al., 2023)"
+        claim = re.sub(
+            r'\([A-Za-z][A-Za-z\s\.\-]+(?:\s+et\s+al\.)?(?:\s*&\s*[A-Za-z][A-Za-z\.\-]+)?,?\s*\d{4}\)',
+            '', claim
+        )
+        # Remove APA 7 narrative "Author (Year)" — e.g. "Smith (2023)", "Smith et al. (2023)"
+        claim = re.sub(
+            r'[A-Za-z][A-Za-z\.\-]+(?:\s+et\s+al\.|\s*&\s*[A-Za-z][A-Za-z\.\-]+)?\s+\(\d{4}\)',
+            '', claim
+        )
         # Remove venue/citation count annotation blocks like [5 citations, *Venue*]
         claim = re.sub(r'\[[^\]]*(?:citations|preprint)[^\]]*\]', '', claim)
         # Remove trailing tier/quality annotations: — *Tier 1*, — *preprint*, or — acceptable

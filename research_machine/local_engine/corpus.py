@@ -65,15 +65,49 @@ class Paper:
         return score
 
     def short_ref(self) -> str:
-        first_author = self.authors[0].split(",")[0] if self.authors else "Unknown"
-        return f"{first_author}, {self.year}"
+        """APA 7 author-year key: 'Smith, 2023' / 'Smith & Jones, 2023' / 'Smith et al., 2023'."""
+        def _last(a): return a.split(",")[0].strip().split()[-1]
+        if not self.authors:
+            return f"Unknown, {self.year}"
+        if len(self.authors) == 1:
+            return f"{_last(self.authors[0])}, {self.year}"
+        if len(self.authors) == 2:
+            return f"{_last(self.authors[0])} & {_last(self.authors[1])}, {self.year}"
+        return f"{_last(self.authors[0])} et al., {self.year}"
 
-    def apa_ref(self, idx: int) -> str:
-        author_str = "; ".join(self.authors[:3])
-        if len(self.authors) > 3:
-            author_str += " et al."
-        venue = f" *{self.venue}*." if self.venue else "."
-        return f"{idx}. {author_str} ({self.year}). {self.title}{venue}"
+    def apa_ref(self) -> str:
+        """APA 7th edition reference entry (no number, alphabetical order by caller)."""
+        def _fmt(a: str) -> str:
+            a = a.strip()
+            if "," in a:
+                last, rest = a.split(",", 1)
+                initials = " ".join(p[0].upper() + "." for p in rest.split() if p)
+                return f"{last.strip()}, {initials}" if initials else last.strip()
+            words = a.split()
+            if not words:
+                return "Unknown"
+            last = words[-1]
+            initials = " ".join(w[0].upper() + "." for w in words[:-1] if w)
+            return f"{last}, {initials}" if initials else last
+
+        authors = self.authors or ["Unknown Author"]
+        if len(authors) == 1:
+            author_str = _fmt(authors[0])
+        elif len(authors) <= 20:
+            fmts = [_fmt(a) for a in authors]
+            author_str = ", ".join(fmts[:-1]) + ", & " + fmts[-1]
+        else:
+            fmts = [_fmt(a) for a in authors[:19]]
+            author_str = ", ".join(fmts) + ", . . . " + _fmt(authors[-1])
+
+        # Sentence case: capitalize first word + first word after colon
+        t = self.title or "Untitled"
+        title_sc = t[0].upper() + t[1:].lower() if len(t) > 1 else t.upper()
+        title_sc = re.sub(r'(:\s+)([a-z])', lambda m: m.group(1) + m.group(2).upper(), title_sc)
+
+        venue_str = f" *{self.venue}*." if self.venue else "."
+        url_str = f" {self.url}" if self.url and self.url.startswith("http") else ""
+        return f"{author_str} ({self.year}). {title_sc}.{venue_str}{url_str}"
 
 
 _ss_semaphore = asyncio.Semaphore(1)  # one SS request at a time

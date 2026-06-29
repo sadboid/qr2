@@ -76,6 +76,27 @@ def _get_last_name(authors_raw) -> str:
     return full.split(",")[0].strip().split()[-1]
 
 
+def _apa_author_key(authors_raw) -> str:
+    """APA 7 in-text author string.
+
+    1 author  → 'Smith'
+    2 authors → 'Smith & Jones'
+    3+        → 'Smith et al.'
+    """
+    def _last(entry):
+        full = entry.get("name", "Unknown") if isinstance(entry, dict) else str(entry)
+        return full.split(",")[0].strip().split()[-1]
+
+    if not authors_raw:
+        return "Unknown"
+    n = len(authors_raw)
+    if n == 1:
+        return _last(authors_raw[0])
+    if n == 2:
+        return f"{_last(authors_raw[0])} & {_last(authors_raw[1])}"
+    return f"{_last(authors_raw[0])} et al."
+
+
 class LiteratureReviewGenerator:
     """Generate coherent literature review from quality-ranked sources."""
 
@@ -373,9 +394,9 @@ This methodological diversity reflects both disciplinary maturation and recognit
                 title_key = paper.get("title", "").lower().strip()[:80]
                 full_text = fulltext_map.get(title_key, "")
                 claim = self._extract_grounded_claim(paper, keywords, extractor, full_text)
-                last = _get_last_name(paper.get("authors", []))
+                apa_key = _apa_author_key(paper.get("authors", []))
                 year = paper.get("year", 2026)
-                ref = f"[{last}, {year}]"
+                ref = f"{apa_key} ({year})"
                 abstract = paper.get("abstract", "")
                 stance = self._classify_stance(claim, abstract)
                 if stance == "divergent":
@@ -485,7 +506,7 @@ The following thematic synthesis organizes evidence from the corpus by research 
             title_key = paper.get("title", "").lower().strip()[:80]
             full_text = fulltext_map.get(title_key, "")
             claim = self._extract_grounded_claim(paper, keywords, extractor, full_text)
-            ref = f"[{last}, {year}]"
+            ref = f"({_apa_author_key(paper.get('authors', []))}, {year})"
             cite_note = f"{cites} citations" if cites > 0 else "preprint"
             venue_note = f", *{venue[:35]}*" if venue else ""
             findings_list.append(f"- {claim} {ref} [{cite_note}{venue_note}] — *{tier}*")
@@ -537,12 +558,12 @@ The following thematic synthesis organizes evidence from the corpus by research 
         # Format primary gap items from synthesis_gaps (already cited)
         gap_items = []
         for raw_gap in gap_source[:5]:
-            # Extract trailing [Author, Year] tag and truncate body
+            # Extract trailing [Author, Year] tag from synthesizer and convert to (Author, Year)
             m = re.search(r'\s*\[([A-Za-z][A-Za-z\s\-]+,?\s*\d{4})\]\s*$', raw_gap)
             if m:
                 body = raw_gap[:m.start()].strip()
-                tag = m.group(0).strip()
-                item = f"{body[:280]} {tag}"
+                inner = m.group(1).strip()  # "Smith, 2023"
+                item = f"{body[:280]} ({inner})"  # parenthetical APA
             else:
                 item = raw_gap[:300]
             gap_items.append(item)
@@ -592,29 +613,29 @@ These gaps, extracted directly from the source literature, represent productive 
             abstract = qpaper["paper"].get("abstract", "").lower()
             paper = qpaper["paper"]
             year = paper.get("year", 2026)
-            last = _get_last_name(paper.get("authors", []))
-            citation = f"[{last}, {year}]"
+            apa_key = _apa_author_key(paper.get("authors", []))
+            citation = f"({apa_key}, {year})"
 
             for gap_name, signals in gap_signals.items():
                 if gap_name not in gap_citations and any(s in abstract for s in signals):
                     gap_citations[gap_name] = citation
 
-        def _cite(gap: str) -> str:
+        def _cite_gap(gap: str) -> str:
             return f" {gap_citations[gap]}" if gap in gap_citations else ""
 
         return f"""### Research Gaps and Opportunities
 
 Despite substantial progress, several important gaps remain:
 
-1. **Theoretical Development**: Most empirical work lacks explicit theoretical frameworks explaining *how* and *why* effects occur. Future work should develop and test formal theories{_cite('Theoretical Development')}.
+1. **Theoretical Development**: Most empirical work lacks explicit theoretical frameworks explaining *how* and *why* effects occur. Future work should develop and test formal theories{_cite_gap('Theoretical Development')}.
 
-2. **Generalizability**: Many studies employ convenience samples or specific organizational contexts, limiting generalizability across sectors and countries{_cite('Generalizability')}.
+2. **Generalizability**: Many studies employ convenience samples or specific organizational contexts, limiting generalizability across sectors and countries{_cite_gap('Generalizability')}.
 
-3. **Longitudinal / Dynamic Effects**: Few studies track outcomes over extended periods (5+ years). Understanding duration-dependency and sustainability requires panel data{_cite('Longitudinal / Dynamic')}.
+3. **Longitudinal / Dynamic Effects**: Few studies track outcomes over extended periods (5+ years). Understanding duration-dependency and sustainability requires panel data{_cite_gap('Longitudinal / Dynamic')}.
 
 4. **Mechanism Clarification**: While papers document *that* effects occur, fewer explain the mechanisms *by which* effects emerge. Process-tracing studies would strengthen causal understanding.
 
-5. **Reproducibility & Replication**: Replication studies and open datasets remain scarce, limiting cumulative knowledge-building{_cite('Reproducibility')}.
+5. **Reproducibility & Replication**: Replication studies and open datasets remain scarce, limiting cumulative knowledge-building{_cite_gap('Reproducibility')}.
 
 These gaps represent productive opportunities for directly addressing: **{research_question}**"""
 
@@ -660,8 +681,8 @@ These gaps represent productive opportunities for directly addressing: **{resear
 
             # Build citation
             year = paper.get("year", 2026)
-            last = _get_last_name(paper.get("authors", []))
-            citation = f"[{last}, {year}]"
+            apa_key = _apa_author_key(paper.get("authors", []))
+            citation = f"({apa_key}, {year})"
 
             # Score sentences by gap signal count
             sents = [s.strip() for s in re.split(r'(?<=[.!?])\s+', target) if len(s.strip()) > 40]
