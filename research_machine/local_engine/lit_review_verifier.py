@@ -218,14 +218,14 @@ class LitReviewVerifier:
                 # narrative: "Author (Year)"
                 ref = f"{m.group(3)} ({m.group(4)})"
             pos = m.start()
+            cite_end = m.end()
 
             # Find sentence boundaries around the citation
             before = text[:pos]
-            after = text[pos:]
 
             # Sentence start: prefer \n- (bullet start) or \n over '. '
             # Exclude '. ' candidates that are within 60 chars of the citation — those mark
-            # the END of the claim sentence (when the claim ends with '.' before [Author, Year])
+            # the END of the claim sentence (when the claim ends with '.' before citation)
             # and using them as the start would skip the actual claim content entirely.
             raw_candidates = {
                 'period': before.rfind('. '),
@@ -242,13 +242,14 @@ class LitReviewVerifier:
                 valid.append(c)
             sentence_start = max(valid) + 1 if valid else 0
 
-            # Sentence end: next '.', '\n', or end
+            # Sentence end: search AFTER the citation match to avoid hitting '.' in "et al."
+            after_cite = text[cite_end:]
             end_candidates = [
-                after.find('. '),
-                after.find('.\n'),
-                after.find('\n'),
+                after_cite.find('. '),
+                after_cite.find('.\n'),
+                after_cite.find('\n'),
             ]
-            sentence_end = pos + min(c for c in end_candidates if c >= 0) + 1 if any(c >= 0 for c in end_candidates) else len(text)
+            sentence_end = cite_end + min(c for c in end_candidates if c >= 0) + 1 if any(c >= 0 for c in end_candidates) else len(text)
 
             claim = text[sentence_start:sentence_end].strip()
             # Remove markdown formatting from claim

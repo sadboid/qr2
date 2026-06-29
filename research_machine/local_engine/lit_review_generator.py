@@ -559,10 +559,11 @@ The following thematic synthesis organizes evidence from the corpus by research 
         gap_items = []
         for raw_gap in gap_source[:5]:
             # Extract trailing [Author, Year] tag from synthesizer and convert to (Author, Year)
-            m = re.search(r'\s*\[([A-Za-z][A-Za-z\s\-]+,?\s*\d{4})\]\s*$', raw_gap)
+            # Pattern handles: [Smith, 2023] / [Smith & Jones, 2023] / [Smith et al., 2023]
+            m = re.search(r'\s*\[([A-Za-z][A-Za-z\s\-\&\.]+,?\s*\d{4})\]\s*$', raw_gap)
             if m:
                 body = raw_gap[:m.start()].strip()
-                inner = m.group(1).strip()  # "Smith, 2023"
+                inner = m.group(1).strip()  # "Smith, 2023" / "Smith et al., 2023"
                 item = f"{body[:280]} ({inner})"  # parenthetical APA
             else:
                 item = raw_gap[:300]
