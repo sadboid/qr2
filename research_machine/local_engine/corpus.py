@@ -14,6 +14,7 @@ import httpx
 from . import venue_ranking
 from . import crossref_search
 from . import citation_network
+from . import openalex_search
 
 logger = logging.getLogger(__name__)
 
@@ -276,35 +277,51 @@ async def fetch_corpus(
     enable_citation_network: bool = True,
 ) -> List[Paper]:
     """
-    Fetch and rank papers from multiple sources: SS, arXiv, Crossref, and citation networks.
+    Fetch and rank papers from multiple sources: SS, arXiv, Crossref, OpenAlex,
+    and citation networks.
 
     Multi-source strategy:
     1. Fetch from Semantic Scholar (primary, most comprehensive)
     2. Fetch from arXiv (preprints, recent work)
     3. Fetch from Crossref (additional publisher metadata)
-    4. Expand via citation networks (papers citing/cited by top papers)
-    5. Deduplicate and re-rank by reputation score
-    6. Return top N papers
+    4. Fetch from OpenAlex (250M+ works, strong for management/business journals)
+    5. Expand via citation networks (papers citing/cited by top papers)
+    6. Deduplicate and re-rank by reputation score
+    7. Return top N papers
     """
     raw_all: List[Dict[str, Any]] = []
 
     # Phase 1: Parallel multi-source search
-    logger.info(f"[Corpus] Fetching from 3 sources: Semantic Scholar + arXiv + Crossref")
+    logger.info("[Corpus] Fetching from 4 sources: Semantic Scholar + arXiv + Crossref + OpenAlex")
 
     # Run SS searches sequentially (rate limit: 1 req/1.1s via semaphore)
     for q in queries[:3]:
         res = await _search_semantic_scholar(q, limit=25)
         raw_all.extend(res)
 
-    # arXiv: use second query for better relevance
+    # arXiv + Crossref + OpenAlex run concurrently
     arxiv_q = queries[1] if len(queries) > 1 else queries[0]
-    arxiv_raw = await _search_arxiv(arxiv_q, max_results=20)
-    raw_all.extend(arxiv_raw)
+    oa_queries = queries[:3]  # use all queries for OpenAlex (fast, high rate limit)
 
-    # Crossref: use first query for additional papers
-    crossref_q = queries[0]
-    crossref_raw = await crossref_search.search_crossref(crossref_q, limit=20)
-    raw_all.extend(crossref_raw)
+    arxiv_task = asyncio.create_task(_search_arxiv(arxiv_q, max_results=20))
+    crossref_task = asyncio.create_task(
+        crossref_search.search_crossref(queries[0], limit=20)
+    )
+    oa_task = asyncio.create_task(
+        openalex_search.fetch_openalex_batch(oa_queries, limit_per_query=25)
+    )
+
+    arxiv_raw, crossref_raw, oa_raw = await asyncio.gather(
+        arxiv_task, crossref_task, oa_task, return_exceptions=True
+    )
+
+    if isinstance(arxiv_raw, list):
+        raw_all.extend(arxiv_raw)
+    if isinstance(crossref_raw, list):
+        raw_all.extend(crossref_raw)
+    if isinstance(oa_raw, list):
+        raw_all.extend(oa_raw)
+        logger.info(f"[Corpus] OpenAlex contributed {len(oa_raw) if isinstance(oa_raw, list) else 0} raw papers")
 
     logger.info(f"[Corpus] Phase 1 (multi-source): {len(raw_all)} raw papers")
     n_raw = len(raw_all)
@@ -363,7 +380,7 @@ async def fetch_corpus(
     final_papers = final_papers[:target_size]
 
     logger.info(
-        f"[Corpus] Final: {len(final_papers)} papers (from {len(raw_all)} initial + network expansion)"
+        f"[Corpus] Final: {len(final_papers)} papers (from {n_raw} initial across 4 sources + network expansion)"
     )
     return final_papers, n_raw
 
