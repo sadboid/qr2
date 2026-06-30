@@ -71,6 +71,19 @@ TOPICS = {
         "keywords": ["AI ROI", "enterprise value", "machine learning business impact", "digital transformation"],
         "domain": "enterprise",
     },
+    # Bibliometric topics
+    "biblio_ai_startup": {
+        "question": "How has research on AI tools and startup entrepreneurship evolved over the past decade?",
+        "keywords": ["artificial intelligence", "entrepreneurship", "startup", "machine learning", "founder"],
+        "domain": "startup",
+        "paper_type": "bibliometric",
+    },
+    "biblio_llm_enterprise": {
+        "question": "What are the publication trends and intellectual structure of LLM research in enterprise contexts?",
+        "keywords": ["large language models", "enterprise AI", "organizational performance", "digital transformation"],
+        "domain": "enterprise",
+        "paper_type": "bibliometric",
+    },
 }
 
 
@@ -81,16 +94,19 @@ async def run(args):
         question = topic["question"]
         keywords = topic["keywords"]
         domain = topic["domain"]
+        paper_type = topic.get("paper_type", args.paper_type)
     else:
         question = args.question or TOPICS["ai_startup"]["question"]
         keywords = [k.strip() for k in (args.keywords or "AI tools,startup,entrepreneurship,decision making").split(",")]
         domain = args.domain
+        paper_type = args.paper_type
 
     print("\n" + "=" * 72)
     print("  LOCAL RESEARCH ENGINE  (no LLM API required)")
     print("=" * 72)
     print(f"  Question : {question}")
     print(f"  Domain   : {domain}")
+    print(f"  Type     : {paper_type}")
     print(f"  Keywords : {', '.join(keywords[:4])}")
     print(f"  Output   : {args.output_dir}")
     print("=" * 72 + "\n")
@@ -101,6 +117,7 @@ async def run(args):
         research_question=question,
         keywords=keywords,
         domain=domain,
+        paper_type=paper_type,
     )
 
     # Save outputs
@@ -225,10 +242,11 @@ Examples:
 Available topic keys: ai_startup, ml_failure, llm_enterprise, ai_roi
         """,
     )
-    parser.add_argument("--topic-key", help="Pre-defined topic key (ai_startup, ml_failure, llm_enterprise, ai_roi)")
+    parser.add_argument("--topic-key", help="Pre-defined topic key (ai_startup, ml_failure, llm_enterprise, ai_roi, biblio_ai_startup, biblio_llm_enterprise)")
     parser.add_argument("--question", help="Custom research question")
     parser.add_argument("--keywords", help="Comma-separated keywords")
     parser.add_argument("--domain", default="startup", choices=["startup", "enterprise"], help="Domain context")
+    parser.add_argument("--paper-type", default="imrad", choices=["imrad", "bibliometric"], help="Paper format: imrad (default) or bibliometric")
     parser.add_argument("--output-dir", default="./papers_engine", help="Output directory")
     parser.add_argument("--target-corpus-size", type=int, default=50, help="Target number of papers to fetch (default: 50)")
     parser.add_argument("--format", default="all", choices=["md", "tex", "docx", "json", "all"], help="Output format(s)")

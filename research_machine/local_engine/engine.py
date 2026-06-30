@@ -13,6 +13,7 @@ from typing import List, Optional, Dict, Any
 from .corpus import fetch_corpus, fetch_full_texts, Paper
 from .synthesizer import synthesize, SynthesisResult
 from .writer import write_full_paper
+from .bibliometric_writer import write_bibliometric_paper
 from .claim_checker import ClaimChecker
 from .claim_checker_pqa import check_claims_sync, PaperQAClaimChecker
 from . import claude_cli
@@ -137,12 +138,33 @@ def _question_to_title_fallback(question: str, domain: str) -> str:
     return subtitles.get(domain, f"{q}: A Systematic Review")
 
 
-def _make_title(research_question: str, domain: str) -> str:
+def _make_title(research_question: str, domain: str, paper_type: str = "imrad") -> str:
     """Convert research question → declarative noun-phrase title.
 
     Q1 papers never use interrogative titles. Tier 2 delegates to Claude CLI
     for a polished noun phrase; Tier 1 uses rule-based stripping as fallback.
     """
+    if paper_type == "bibliometric":
+        # Bibliometric titles follow a fixed pattern
+        if claude_cli.is_available():
+            try:
+                prompt = (
+                    f"Convert this research question into a bibliometric analysis paper title.\n"
+                    f"Format: 'A Bibliometric Analysis of [Topic]: [Subtitle]'\n"
+                    f"Subtitle: 'Trends, Influential Works, and Future Directions' or similar.\n"
+                    f"10–18 words, Title Case, no questions.\n"
+                    f"Research question: {research_question}\n"
+                    f"Return ONLY the title text."
+                )
+                title = claude_cli.call(prompt, timeout=30).strip().strip('"').strip("'")
+                if title and not re.match(r'^(how|what|can|does|why|do)\b', title, re.I):
+                    return title
+            except Exception:
+                pass
+        # Tier 1 fallback
+        q = re.sub(r'^(how|what|can|does|why|do|is|are)\s+', '', research_question, flags=re.I).strip()
+        q = q.rstrip("?").strip()
+        return f"A Bibliometric Analysis of {q.title()}: Trends, Influential Works, and Future Directions"
     if claude_cli.is_available():
         try:
             prompt = (
@@ -559,6 +581,7 @@ class LocalResearchEngine:
         research_question: str,
         keywords: List[str],
         domain: str = "startup",
+        paper_type: str = "imrad",
     ) -> EngineResult:
         t0 = time.time()
         logger.info(f"[LocalEngine] START — '{research_question[:70]}'")
@@ -622,44 +645,64 @@ class LocalResearchEngine:
             f"methods: {synthesis.methodologies[:3]}"
         )
 
-        # 3.5. Generate literature review from verified sources (with full text if available)
-        lit_gen = LiteratureReviewGenerator()
-        lit_review = lit_gen.generate_lit_review(
-            research_question=research_question,
-            keywords=keywords,
-            papers=[_paper_to_dict(p) for p in corpus],
-            quality_scores=quality_scores,
-            min_quality_threshold=0.30,  # Adaptive: lowers if too few papers pass
-            papers_with_fulltext=corpus,  # Pass Paper objects with full_text field
-            synthesis_gaps=synthesis.research_gaps,  # Real gap sentences from synthesizer
-        )
+        # 3.5. Generate literature review (IMRAD only — bibliometric has its own structure)
+        if paper_type == "bibliometric":
+            lit_review = ""
+            lit_review_report = type("_LRR", (), {
+                "verified_count": 0, "total_citations": 0, "not_found_count": 0,
+                "verification_rate": 1.0, "overall_score": 10.0, "passed": True,
+                "annotated_lit_review": "",
+            })()
+            logger.info("[LocalEngine] Bibliometric mode — skipping lit review generation")
+        else:
+            lit_gen = LiteratureReviewGenerator()
+            lit_review = lit_gen.generate_lit_review(
+                research_question=research_question,
+                keywords=keywords,
+                papers=[_paper_to_dict(p) for p in corpus],
+                quality_scores=quality_scores,
+                min_quality_threshold=0.30,
+                papers_with_fulltext=corpus,
+                synthesis_gaps=synthesis.research_gaps,
+            )
 
-        # 3.7. Verify lit review citations against source papers
-        logger.info("[LocalEngine] Verifying literature review claims against source papers...")
-        lit_verifier = LitReviewVerifier()
-        lit_review_report = lit_verifier.verify(lit_review, corpus)
-        logger.info(
-            f"[LocalEngine] Lit review: {lit_review_report.verified_count}/{lit_review_report.total_citations} "
-            f"claims verified ({lit_review_report.verification_rate:.0%}), "
-            f"score={lit_review_report.overall_score}/10"
-        )
-        # Replace lit review with annotated version (includes ✓/⚠ markers + verification table)
-        lit_review = lit_review_report.annotated_lit_review
+            # 3.7. Verify lit review citations against source papers
+            logger.info("[LocalEngine] Verifying literature review claims against source papers...")
+            lit_verifier = LitReviewVerifier()
+            lit_review_report = lit_verifier.verify(lit_review, corpus)
+            logger.info(
+                f"[LocalEngine] Lit review: {lit_review_report.verified_count}/{lit_review_report.total_citations} "
+                f"claims verified ({lit_review_report.verification_rate:.0%}), "
+                f"score={lit_review_report.overall_score}/10"
+            )
+            lit_review = lit_review_report.annotated_lit_review
 
         # 4. Write paper (with literature review)
-        title = _make_title(research_question, domain)
-        logger.info(f"[LocalEngine] Writing paper: '{title}'")
+        title = _make_title(research_question, domain, paper_type=paper_type)
+        logger.info(f"[LocalEngine] Writing paper ({paper_type}): '{title}'")
         n_included = sum(1 for q in quality_scores if q.overall_quality >= 0.30)
-        paper_data = write_full_paper(
-            title=title,
-            research_question=research_question,
-            keywords=keywords,
-            domain=domain,
-            synthesis=synthesis,
-            literature_review=lit_review,
-            n_raw=n_raw,
-            n_included=n_included,
-        )
+
+        if paper_type == "bibliometric":
+            paper_data = write_bibliometric_paper(
+                title=title,
+                research_question=research_question,
+                keywords=keywords,
+                domain=domain,
+                synthesis=synthesis,
+                n_raw=n_raw,
+                n_included=n_included,
+            )
+        else:
+            paper_data = write_full_paper(
+                title=title,
+                research_question=research_question,
+                keywords=keywords,
+                domain=domain,
+                synthesis=synthesis,
+                literature_review=lit_review,
+                n_raw=n_raw,
+                n_included=n_included,
+            )
 
         # 5. Quality gates
         quality_results = _run_quality_gates(synthesis, paper_data, corpus)
