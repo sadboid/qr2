@@ -52,7 +52,9 @@ _PER_SECTION_TIPS: Dict[str, str] = {
     "discussion": (
         "Open with 2–3 sentences summarising the core empirical finding. "
         "Then structure as three explicit subsections: "
-        "**Theoretical Implications** — name the theory advanced (e.g. RBV, TAM, Social Exchange) and how findings extend it; "
+        "**Theoretical Implications** — name and explicitly extend the PRIMARY THEORY identified in the corpus "
+        "(provided as `primary_theory` in context — use exactly that theory name and its seminal author). "
+        "Show HOW the findings advance that specific theory; do not mention multiple theories vaguely. "
         "**Practical Implications** — give 3–4 specific, actionable recommendations for domain practitioners; "
         "**Limitations and Future Research** — list at least 5 limitations (scope, databases, cross-sectional design, publication bias, measurement), then propose 3–4 concrete future directions tied to each gap identified in the literature review. "
         "Target 1200–1500 words. Avoid generic phrases like 'This paper contributes to the literature'."
@@ -270,6 +272,152 @@ Despite the expanding literature, several significant gaps remain. """
 These gaps underscore the need for additional research that integrates findings across studies and addresses methodological limitations of prior work. The present review aims to contribute toward closing these gaps by systematically synthesizing evidence and identifying productive directions for future empirical inquiry."""
 
     return intro
+
+
+_THEORY_META: dict = {
+    "Resource-Based View": {
+        "seminal": "Barney (1991)",
+        "core": (
+            "firms achieve sustained competitive advantage by possessing resources that are Valuable, "
+            "Rare, Inimitable, and Non-substitutable (VRIN). Applied to technology-enabled contexts, "
+            "RBV predicts that early AI adopters build proprietary capabilities — data assets, "
+            "algorithmic workflows, and AI-augmented human capital — that competitors cannot easily replicate."
+        ),
+        "hypothesis_stem": "access to AI tools constitutes a strategic resource that enhances",
+    },
+    "Technology Acceptance Model": {
+        "seminal": "Davis (1989)",
+        "core": (
+            "individuals adopt a technology when they perceive it as useful (performance expectancy) "
+            "and easy to use (effort expectancy). In entrepreneurial and organizational settings, "
+            "perceived usefulness is the dominant predictor, while ease of use affects adoption "
+            "indirectly through its impact on perceived usefulness."
+        ),
+        "hypothesis_stem": "perceived usefulness and ease of use of AI tools predict",
+    },
+    "Social Exchange Theory": {
+        "seminal": "Blau (1964)",
+        "core": (
+            "social interactions are governed by norms of reciprocity: actors exchange resources "
+            "and obligations over time, building trust and commitment. In organizational contexts, "
+            "AI-mediated collaboration changes the structure of social exchange by altering "
+            "information asymmetries and the attribution of value between actors."
+        ),
+        "hypothesis_stem": "AI-mediated exchange relationships shape",
+    },
+    "Institutional Theory": {
+        "seminal": "DiMaggio & Powell (1983)",
+        "core": (
+            "organizations conform to institutionalized norms, values, and rules to gain legitimacy. "
+            "Coercive, mimetic, and normative isomorphism drive adoption of AI practices across "
+            "industries, often independent of efficiency considerations. Firms operating in "
+            "high-legitimacy environments face stronger pressure to adopt AI tools even before "
+            "performance benefits are established."
+        ),
+        "hypothesis_stem": "institutional pressures moderate the relationship between AI adoption and",
+    },
+    "Dynamic Capabilities": {
+        "seminal": "Teece, Pisano & Shuen (1997)",
+        "core": (
+            "sustainable competitive advantage stems from an organization's ability to sense "
+            "opportunities, seize them, and reconfigure resources in response to environmental change. "
+            "AI tools function as dynamic capabilities when they enable organizations to process "
+            "information faster, detect patterns in complex data, and adapt strategies in real time."
+        ),
+        "hypothesis_stem": "AI-enabled sensing and reconfiguration capabilities predict",
+    },
+    "Knowledge-Based View": {
+        "seminal": "Grant (1996)",
+        "core": (
+            "the firm's primary purpose is the creation and application of knowledge. Tacit knowledge "
+            "— residing in individual and organizational routines — is the most strategically valuable "
+            "and difficult to transfer. AI systems externalize and codify tacit knowledge, raising "
+            "questions about how absorptive capacity mediates the learning benefits of AI adoption."
+        ),
+        "hypothesis_stem": "absorptive capacity moderates the effect of AI tools on",
+    },
+    "Cognitive Theory": {
+        "seminal": "Simon (1955); Kahneman (2011)",
+        "core": (
+            "human decision-making is subject to cognitive limitations and systematic biases. "
+            "AI tools can augment cognition by offloading information processing, reducing "
+            "cognitive load, and structuring decision environments. However, over-reliance on "
+            "AI recommendations may introduce automation bias and reduce metacognitive engagement."
+        ),
+        "hypothesis_stem": "cognitive load reduction through AI tools mediates improvements in",
+    },
+    "Agency Theory": {
+        "seminal": "Jensen & Meckling (1976)",
+        "core": (
+            "information asymmetry between principals and agents creates incentive misalignment. "
+            "AI monitoring and analytics reduce information asymmetry, enabling more effective "
+            "performance measurement. However, AI surveillance may also alter agent behavior "
+            "through anticipatory compliance or gaming of observable metrics."
+        ),
+        "hypothesis_stem": "information asymmetry reduction through AI tools influences",
+    },
+    "Human Capital Theory": {
+        "seminal": "Becker (1964)",
+        "core": (
+            "investment in education and skill development generates returns through enhanced "
+            "productivity. AI complements high-skill workers by automating routine tasks and "
+            "amplifying complex judgment, while potentially substituting for low-skill routine work. "
+            "The returns to AI adoption therefore depend critically on the existing human capital "
+            "base of the organization."
+        ),
+        "hypothesis_stem": "human capital moderates the productivity effects of AI tools on",
+    },
+    "Upper Echelons Theory": {
+        "seminal": "Hambrick & Mason (1984)",
+        "core": (
+            "organizational outcomes are partially predicted by the characteristics of the top "
+            "management team. In the context of AI adoption, executive cognitive frames, prior "
+            "technology experience, and risk tolerance shape whether and how organizations "
+            "integrate AI into strategic decision-making processes."
+        ),
+        "hypothesis_stem": "top management team characteristics moderate AI adoption and its effects on",
+    },
+}
+
+
+def write_theoretical_framework(
+    synthesis: "SynthesisResult",
+    keywords: List[str],
+    research_question: str,
+    domain: str,
+) -> str:
+    theory = synthesis.primary_theory
+    n_evidence = synthesis.theory_paper_count
+    meta = _THEORY_META.get(theory, _THEORY_META["Resource-Based View"])
+    seminal = meta["seminal"]
+    core = meta["core"]
+    stem = meta["hypothesis_stem"]
+    kw = keywords[0] if keywords else "the focal construct"
+    kw2 = keywords[1] if len(keywords) > 1 else "organizational outcomes"
+    domain_label = {"startup": "entrepreneurial", "enterprise": "organizational"}.get(domain, domain)
+
+    n_note = (
+        f"Of the {len(synthesis.all_papers)} papers in our corpus, {n_evidence} "
+        f"explicitly invoke or build upon {theory} as a theoretical anchor, "
+        f"confirming it as the dominant lens in this research stream."
+        if n_evidence > 0
+        else f"While explicit references to {theory} vary, its core propositions implicitly "
+             f"underpin most empirical designs in the corpus."
+    )
+
+    return f"""This study draws on **{theory}** ({seminal}) as its primary theoretical lens. {n_note}
+
+**Core propositions.** {theory} posits that {core}
+
+**Application to this research.** Applied to the question of {research_question.strip().rstrip("?")}, {theory} predicts that {stem} {kw2}. Specifically, {domain_label} contexts characterized by high uncertainty and rapid change represent ideal conditions under which {kw} most strongly shapes outcomes, because the theory's core mechanisms — {', '.join(kw.lower() for kw in keywords[:3])} — are activated precisely when environmental turbulence demands adaptive responses.
+
+**Hypothesis development.** Drawing on {theory}, we derive the following propositions:
+
+- **H1**: {stem.capitalize()} {kw2}, such that higher levels of {kw.lower()} adoption are associated with superior {domain_label} performance.
+- **H2**: The relationship between {kw.lower()} and {kw2} is moderated by contextual factors (e.g., firm size, industry, prior technology experience), reflecting boundary conditions specified by {theory}.
+- **H3**: {kw.capitalize()} adoption exhibits complementarity with existing {domain_label} resources, with returns increasing as organizational absorptive capacity grows.
+
+These hypotheses are consistent with {theory}'s emphasis on resource heterogeneity and context-dependence, and are operationalized through the measures described in the Methods section."""
 
 
 def write_methods(
@@ -492,6 +640,7 @@ def write_full_paper(
         "gaps": [re.sub(r"\[.*?\]", "", g).strip() for g in synthesis.research_gaps[:4]],
         "methodologies": synthesis.methodologies[:4],
         "trends": synthesis.trends,
+        "primary_theory": synthesis.primary_theory,
         "papers_sample": "\n".join(
             f"- {(p.authors[0].split(',')[0] if p.authors else 'Author').strip()} ({p.year}): {p.title[:70]}"
             for p in synthesis.top_papers[:8]
@@ -517,6 +666,10 @@ def write_full_paper(
     # --- Literature Review (always from lit_review_generator — richer than what Claude can do here) ---
     if literature_review is None:
         literature_review = write_literature_review(synthesis, keywords, domain)
+
+    # --- Theoretical Framework (extractive theory detection — keep template) ---
+    theoretical_framework = write_theoretical_framework(synthesis, keywords, research_question, domain)
+    logger.info(f"[Writer] Theoretical Framework: {synthesis.primary_theory}")
 
     # --- Methods (structured data — keep template) ---
     methods = write_methods(research_question, synthesis, keywords, n_raw=n_raw, n_included=n_included)
@@ -549,6 +702,10 @@ def write_full_paper(
 
 {literature_review}
 
+## Theoretical Framework
+
+{theoretical_framework}
+
 ## Methods
 
 {methods}
@@ -575,6 +732,7 @@ def write_full_paper(
         "abstract": abstract,
         "introduction_md": introduction,
         "literature_review_md": literature_review,
+        "theoretical_framework_md": theoretical_framework,
         "methods_md": methods,
         "results_md": results,
         "discussion_md": discussion,

@@ -44,6 +44,67 @@ _METHOD_SIGNALS = {
     "interview": ["interview", "thematic analysis", "grounded theory"],
 }
 
+# Theory signals — maps canonical theory name to search terms
+_THEORY_SIGNALS: dict = {
+    "Resource-Based View": [
+        "resource-based view", "rbv", "resource based view",
+        "dynamic capabilities", "competitive resources", "vrin", "barney",
+        "firm resources", "resource heterogeneity",
+    ],
+    "Technology Acceptance Model": [
+        "technology acceptance model", "tam", "perceived usefulness",
+        "perceived ease of use", "behavioral intention", "davis 1989",
+    ],
+    "Social Exchange Theory": [
+        "social exchange theory", "social exchange", "reciprocity norm",
+        "blau", "trust and commitment", "relational exchange",
+    ],
+    "Institutional Theory": [
+        "institutional theory", "institutional logic", "isomorphism",
+        "legitimacy", "neo-institutional", "dimaggio", "powell",
+    ],
+    "Dynamic Capabilities": [
+        "dynamic capabilities", "sensing", "seizing capabilities",
+        "reconfiguring", "teece", "knowledge recombination",
+    ],
+    "Knowledge-Based View": [
+        "knowledge-based view", "kbv", "tacit knowledge", "knowledge creation",
+        "absorptive capacity", "organizational learning", "cohen and levinthal",
+    ],
+    "Cognitive Theory": [
+        "cognitive theory", "cognitive load", "bounded rationality",
+        "heuristics", "cognitive bias", "mental model", "sensemaking",
+    ],
+    "Agency Theory": [
+        "agency theory", "principal-agent", "information asymmetry",
+        "moral hazard", "adverse selection", "jensen and meckling",
+    ],
+    "Human Capital Theory": [
+        "human capital theory", "human capital", "education and training",
+        "skill accumulation", "becker", "returns to education",
+    ],
+    "Upper Echelons Theory": [
+        "upper echelons", "managerial cognition", "ceo characteristics",
+        "top management team", "hambrick and mason",
+    ],
+}
+
+
+def _detect_primary_theory(corpus: List[Paper]) -> tuple:
+    """Return (theory_name, count) for the most-cited theory in the corpus.
+    Falls back to Resource-Based View if no signals found."""
+    counts: Counter = Counter()
+    for paper in corpus:
+        text = (paper.title + " " + paper.abstract).lower()
+        for theory, signals in _THEORY_SIGNALS.items():
+            if any(sig in text for sig in signals):
+                counts[theory] += 1
+    if counts:
+        top = counts.most_common(1)[0]
+        return top[0], top[1]
+    return "Resource-Based View", 0
+
+
 # Terms that strongly indicate a paper is outside business/startup/enterprise scope
 _DOMAIN_EXCLUSION_TERMS = {
     "startup": frozenset({
@@ -83,6 +144,8 @@ class SynthesisResult:
     all_papers: List[Paper]
     recency_ratio: float
     avg_citation_count: float
+    primary_theory: str = "Resource-Based View"   # dominant theory detected from corpus
+    theory_paper_count: int = 0                    # how many papers signal this theory
 
 
 def _extract_sentences(text: str) -> List[str]:
@@ -181,6 +244,8 @@ def synthesize(
     findings = _top_sentences(corpus, _FINDING_SIGNALS, n=15)
     gaps = _top_sentences(corpus, _GAP_SIGNALS, n=5)
     methodologies = _detect_methodologies(corpus)
+    primary_theory, theory_count = _detect_primary_theory(corpus)
+    logger.info(f"[Synthesizer] Primary theory detected: {primary_theory} (n={theory_count} papers)")
 
     trends = _build_trends_paragraph(corpus, keywords, research_question)
 
@@ -221,4 +286,6 @@ def synthesize(
         all_papers=corpus,
         recency_ratio=round(recency_ratio, 2),
         avg_citation_count=round(avg_cites, 1),
+        primary_theory=primary_theory,
+        theory_paper_count=theory_count,
     )
