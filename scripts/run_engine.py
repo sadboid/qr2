@@ -207,6 +207,27 @@ async def run(args):
             f"    Lit Review  : {lrv.get('overall_score', 0):.1f}/10 {lr_sym} {'PASS' if lrv.get('passed') else 'FAIL'}"
             f"  ({lrv.get('verified_count', 0)}/{lrv.get('total_citations', 0)} lit review claims verified)"
         )
+    # Consensus.app-style summary
+    if result.consensus:
+        cs = result.consensus
+        direction_arrow = {"YES": "⬆", "NO": "⬇", "MIXED": "↔", "INSUFFICIENT": "?"}.get(
+            cs.consensus_direction, "?"
+        )
+        print()
+        print("  Consensus Analysis (Consensus.app style):")
+        print(f"    {direction_arrow} Direction  : {cs.consensus_direction} — {cs.consensus_label}")
+        print(f"    ▓ Evidence   : {cs.support_count} SUPPORT  {cs.oppose_count} OPPOSE  "
+              f"{cs.mixed_count} MIXED  {cs.neutral_count} NEUTRAL  (n={cs.total_papers})")
+        print(f"    % Consensus  : {cs.consensus_pct:.0f}%")
+        if cs.support_evidence:
+            print(f"    Top evidence : {cs.support_evidence[0][:80]}…")
+    # Research Rabbit-style clusters
+    if result.citation_clusters:
+        print()
+        print("  Research Rabbit — Citation Clusters:")
+        for cl in result.citation_clusters[:4]:
+            print(f"    [{cl['paper_count']:2d} papers] {cl['theme'][:40]:40s} "
+                  f"anchor: {cl['anchor_paper'][:35]}…")
     print()
     print("  Output Files:")
     for fmt, path in outputs.items():

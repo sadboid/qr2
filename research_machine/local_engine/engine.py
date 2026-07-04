@@ -22,6 +22,11 @@ from .source_quality import SourceQualityScorer
 from .lit_review_generator import LiteratureReviewGenerator
 from .lit_review_verifier import LitReviewVerifier
 from .source_quality_gates import SourceQualityGates
+from .consensus_engine import analyze_consensus, ConsensusResult
+from .citation_network import (
+    find_anchor_papers, group_by_theme,
+    generate_reading_path, compute_co_citation_clusters,
+)
 
 _METRICS_LOG = Path(__file__).parent.parent.parent / "logs" / "paper_metrics.jsonl"
 
@@ -467,6 +472,9 @@ class EngineResult:
     corpus_size: int
     source_quality: dict = field(default_factory=dict)         # source quality gate results
     lit_review_verification: dict = field(default_factory=dict)  # lit review claim verification
+    consensus: Optional[ConsensusResult] = None                 # Consensus.app-style analysis
+    citation_clusters: List[dict] = field(default_factory=list) # Research Rabbit clusters
+    reading_path: List[dict] = field(default_factory=list)      # Prioritised reading order
 
     @property
     def status(self) -> str:
@@ -514,6 +522,9 @@ class EngineResult:
                 "latex": "",
             },
             "lit_review_verification": self.lit_review_verification,
+            "consensus": self.consensus.to_dict() if self.consensus else {},
+            "citation_clusters": self.citation_clusters,
+            "reading_path": self.reading_path,
             "generation_metrics": {
                 "cost_usd": 0.00,
                 "generation_time_seconds": round(self.elapsed_seconds, 1),
@@ -704,6 +715,20 @@ class LocalResearchEngine:
                 n_included=n_included,
             )
 
+        # 4.5 Consensus analysis (Consensus.app style) + Research Rabbit features
+        logger.info("[LocalEngine] Running consensus analysis...")
+        consensus = analyze_consensus(corpus, research_question, keywords)
+
+        # Research Rabbit: citation clusters + reading path
+        corpus_dicts = [_paper_to_dict(p) for p in corpus]
+        citation_clusters = compute_co_citation_clusters(corpus_dicts, keywords)
+        reading_path_raw = generate_reading_path(corpus_dicts)
+        reading_path = [
+            {"stage": stage, "title": p.get("title", ""), "year": p.get("year", ""),
+             "citations": p.get("citationCount", 0), "url": p.get("url", "")}
+            for stage, p in reading_path_raw
+        ]
+
         # 5. Quality gates
         quality_results = _run_quality_gates(synthesis, paper_data, corpus)
         logger.info(
@@ -745,6 +770,9 @@ class LocalResearchEngine:
                 "overall_score": lit_review_report.overall_score,
                 "passed": lit_review_report.passed,
             },
+            consensus=consensus,
+            citation_clusters=citation_clusters,
+            reading_path=reading_path,
         )
         _append_metrics_log(result)
         return result
