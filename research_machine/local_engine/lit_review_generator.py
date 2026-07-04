@@ -483,7 +483,7 @@ This methodological diversity reflects both disciplinary maturation and recognit
         theme_label = ", ".join(final_theme_names)
         return f"""### Key Findings
 
-The following thematic synthesis organizes evidence from the corpus by research theme. For each theme, convergent findings, divergent (contradictory) evidence, and methodological observations are presented — following the perspective-segregated synthesis approach (cf. STORM; Shao et al., 2024):
+The following thematic synthesis organizes evidence from the corpus by research theme. For each theme, convergent findings, divergent (contradictory) evidence, and methodological observations are presented:
 
 {findings_text}{cross_block}
 

@@ -405,19 +405,21 @@ def write_theoretical_framework(
              f"underpin most empirical designs in the corpus."
     )
 
-    return f"""This study draws on **{theory}** ({seminal}) as its primary theoretical lens. {n_note}
+    mechanisms = ", ".join(keywords[:3])
+
+    return f"""This review adopts **{theory}** ({seminal}) as the organizing theoretical lens through which the corpus is synthesized. {n_note}
 
 **Core propositions.** {theory} posits that {core}
 
-**Application to this research.** Applied to the question of {research_question.strip().rstrip("?")}, {theory} predicts that {stem} {kw2}. Specifically, {domain_label} contexts characterized by high uncertainty and rapid change represent ideal conditions under which {kw} most strongly shapes outcomes, because the theory's core mechanisms — {', '.join(kw.lower() for kw in keywords[:3])} — are activated precisely when environmental turbulence demands adaptive responses.
+**Relevance to the review.** Applied to the question of {research_question.strip().rstrip("?")}, {theory} suggests that {stem} {kw2}. This lens is useful for organizing the literature because {domain_label} contexts characterized by high uncertainty and rapid change are precisely where the theory's core mechanisms — {mechanisms} — are most salient. We therefore use it to structure the thematic synthesis rather than to derive testable hypotheses, consistent with the review (rather than primary-empirical) nature of this study.
 
-**Hypothesis development.** Drawing on {theory}, we derive the following propositions:
+**Theoretical expectations assessed against the corpus.** Reading the corpus through {theory}, three expectations organize the synthesis that follows:
 
-- **H1**: {stem.capitalize()} {kw2}, such that higher levels of {kw.lower()} adoption are associated with superior {domain_label} performance.
-- **H2**: The relationship between {kw.lower()} and {kw2} is moderated by contextual factors (e.g., firm size, industry, prior technology experience), reflecting boundary conditions specified by {theory}.
-- **H3**: {kw.capitalize()} adoption exhibits complementarity with existing {domain_label} resources, with returns increasing as organizational absorptive capacity grows.
+- **E1**: {stem[0].upper()}{stem[1:]} {kw2}, such that studies reporting greater engagement with {kw} tend to report more favourable {domain_label} outcomes.
+- **E2**: The {kw}–{kw2} relationship is contingent on contextual factors (e.g., firm size, industry, prior technology experience), reflecting the boundary conditions {theory} emphasizes.
+- **E3**: {kw} complements existing {domain_label} resources, with benefits contingent on absorptive capacity.
 
-These hypotheses are consistent with {theory}'s emphasis on resource heterogeneity and context-dependence, and are operationalized through the measures described in the Methods section."""
+The Results and Discussion sections assess how far the synthesized evidence aligns with, qualifies, or contradicts these expectations; they are framing devices for the review, not hypotheses tested on primary data."""
 
 
 def write_methods(
@@ -451,9 +453,9 @@ def write_methods(
 
 Of the {n_included} papers included in synthesis, {n_recent} ({round(n_recent/n*100) if n else 0}%) were published within the last three years ({_CURRENT_YEAR-3}–{_CURRENT_YEAR}), confirming active research momentum. The corpus represents diverse methodological traditions including {", ".join(method_list[:4])}.
 
-Data extraction followed a structured coding scheme capturing: research questions, methodological approaches, key findings, sample characteristics, and identified gaps. Two independent coders reviewed a 20% random subsample (Cohen's κ = 0.84), indicating acceptable inter-rater reliability. Discrepancies were resolved through discussion.
+Data extraction followed a structured, automated coding scheme applied to each paper's title and abstract, capturing: stated research questions, methodological approaches, reported findings, and explicitly signalled research gaps. Extraction and classification were performed programmatically using signal-phrase detection rather than manual coding; consequently, findings are traceable directly to the source abstracts and no inter-rater reliability statistic is reported.
 
-Synthesis employed thematic analysis: findings were grouped into thematic clusters, frequency-weighted by citation count as a proxy for influence, and cross-validated against gap statements in each abstract."""
+Synthesis employed thematic analysis: findings were grouped into thematic clusters, frequency-weighted by citation count as a proxy for influence, and cross-validated against gap statements in each abstract. Because this review synthesizes published abstracts rather than primary data, all reported patterns should be read as characterizations of the existing literature, not as original empirical estimates."""
 
 
 def write_results(

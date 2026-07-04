@@ -38,16 +38,19 @@ _CURRENT_YEAR = 2026
 # Research question templates
 # ---------------------------------------------------------------------------
 
+# NOTE: This engine produces SYSTEMATIC LITERATURE REVIEWS, not primary
+# empirical studies. Titles must not promise primary data ("Evidence from...")
+# — that would misrepresent a synthesis of abstracts as an empirical study.
 _TITLE_TEMPLATES = {
     "startup": [
-        "{question}: Evidence from Early-Stage Ventures",
-        "{question}: A Systematic Review",
+        "{question}: A Systematic Literature Review",
+        "{question}: A Systematic Review of the Entrepreneurship Literature",
         "{question}: Implications for Entrepreneurial Practice",
     ],
     "enterprise": [
-        "{question}: Insights from Large Organizations",
         "{question}: A Systematic Literature Review",
-        "{question}: Frameworks and Evidence",
+        "{question}: A Systematic Review of the Organizational Literature",
+        "{question}: Frameworks and Synthesis",
     ],
     "default": [
         "{question}: A Systematic Review of the Literature",
@@ -137,8 +140,8 @@ def _question_to_title_fallback(question: str, domain: str) -> str:
             break
     q = q[0].upper() + q[1:] if q else q
     subtitles = {
-        "startup": f"{q}: Evidence from Early-Stage Ventures",
-        "enterprise": f"{q}: Insights from Large Organizations",
+        "startup": f"{q}: A Systematic Literature Review",
+        "enterprise": f"{q}: A Systematic Literature Review",
     }
     return subtitles.get(domain, f"{q}: A Systematic Review")
 
@@ -178,14 +181,16 @@ def _make_title(research_question: str, domain: str, paper_type: str = "imrad") 
                 f"Rules:\n"
                 f"- Noun phrase only — no verb-sentences, no questions\n"
                 f"- Do NOT start with How / What / Can / Does / Why\n"
-                f"- Subtitle uses 'A Systematic Review', 'Evidence from [Context]', "
-                f"or 'Insights from [Context]'\n"
+                f"- This is a SYSTEMATIC LITERATURE REVIEW of published research, "
+                f"NOT a primary empirical study. The subtitle MUST signal a review "
+                f"(e.g. 'A Systematic Literature Review', 'A Systematic Review of the Literature'). "
+                f"NEVER use 'Evidence from...' or any phrasing implying primary data collection.\n"
                 f"- 10–16 words total, Title Case\n"
                 f"Examples:\n"
                 f"  'How do AI tools affect startup decisions?' "
-                f"→ 'AI Tools and Founder Decision-Making: A Systematic Review'\n"
+                f"→ 'AI Tools and Founder Decision-Making: A Systematic Literature Review'\n"
                 f"  'Can ML predict startup failure?' "
-                f"→ 'Machine Learning Prediction of Startup Failure: Evidence from Early-Stage Ventures'\n"
+                f"→ 'Machine Learning Prediction of Startup Failure: A Systematic Review'\n"
                 f"Research question: {research_question}\n"
                 f"Return ONLY the title text."
             )
@@ -296,7 +301,7 @@ Return ONLY this JSON object:
 Scoring guide:
 - 1-4 scales: 1=poor 2=below-avg 3=good 4=excellent
 - overall: 1-5=reject 6=borderline/major-revision 7=minor-revision 8=accept 9-10=strong-accept
-- For SLRs with {word_count}+ words and systematic methodology, overall ≥ 7 is typical for well-structured papers."""
+- Score honestly on the SLR's actual merits; do not inflate for length alone."""
         text = claude_cli.call(prompt, system=system, timeout=90)
         m = re.search(r'\{[\s\S]*\}', text)
         if m:
@@ -350,7 +355,12 @@ def _run_quality_gates(
     gap_count = len(synthesis.research_gaps)
 
     rigor_score = min(10.0, (word_count / 400) + finding_count + gap_count)
-    peer_review_passed = rigor_score >= 7.0
+    # peer_review_score is the reported/gating score. It starts as the Tier-1
+    # structural proxy but is REPLACED by the honest blend once the AI reviewer
+    # runs (see below), so a weak review actually lowers the number and can fail
+    # the gate — the real signal is no longer masked.
+    peer_review_score = rigor_score
+    peer_review_passed = peer_review_score >= 7.0
     peer_review_feedback = (
         f"Paper contains {word_count} words, {finding_count} key findings, "
         f"{gap_count} identified gaps. Rigor proxy score: {rigor_score:.1f}/10."
@@ -358,16 +368,21 @@ def _run_quality_gates(
     peer_review_recommendation = "accept" if peer_review_passed else "minor_revision"
     peer_review_dimensions: dict = {}
 
-    # Tier 2: AI Scientist 9-dimension review via Claude CLI (feedback only)
-    # The AI review enriches the output with qualitative dimensions but does NOT
-    # override pass/fail — an LLM reviewing its own SLR excerpt is too noisy for
-    # gating. Structural quality (Tier 1 rigor_score) determines pass/fail.
+    # Tier 2: AI Scientist 9-dimension review via Claude CLI — this IS the real
+    # peer-review signal, so it drives both the reported score and pass/fail.
+    # We blend it 50/50 with the structural proxy so a weak qualitative review
+    # (e.g. 5/10) materially drags the number down instead of being hidden.
     as_review = _ai_scientist_peer_review(content)
     if as_review:
         ai_overall = float(as_review.get("overall", rigor_score))
-        # Report AI score alongside Tier 1 score; use weighted blend for display
-        # (70% Tier 1 structural + 30% AI qualitative) — Tier 1 anchors the gate
-        blended = round(0.70 * rigor_score + 0.30 * ai_overall, 1)
+        blended = round(0.50 * rigor_score + 0.50 * ai_overall, 1)
+        peer_review_score = blended
+        peer_review_passed = peer_review_score >= 6.5
+        peer_review_recommendation = (
+            "accept" if peer_review_score >= 8.0
+            else "minor_revision" if peer_review_score >= 6.5
+            else "major_revision"
+        )
         peer_review_feedback = (
             f"AI Scientist review: overall={ai_overall:.0f}/10, "
             f"originality={as_review.get('originality')}/4, "
@@ -381,8 +396,8 @@ def _run_quality_gates(
             for k in ("originality", "quality", "clarity", "significance",
                       "soundness", "presentation", "contribution", "confidence")
         }
-        logger.info(f"[LocalEngine] AI Scientist review: overall={ai_overall}/10 "
-                    f"(Tier1={rigor_score:.1f}, blended={blended})")
+        logger.info(f"[LocalEngine] Peer review: AI={ai_overall}/10, Tier1={rigor_score:.1f} "
+                    f"→ blended={blended}/10 ({'PASS' if peer_review_passed else 'FAIL'})")
 
     # Fact-check gate: try PaperQA2 first (Tier 2), fall back to SequenceMatcher (Tier 1)
     fact_check_passed = True
@@ -440,7 +455,7 @@ def _run_quality_gates(
         },
         "peer_review": {
             "passed": peer_review_passed,
-            "score": round(min(rigor_score, 10.0), 1),
+            "score": round(min(peer_review_score, 10.0), 1),
             "recommendation": peer_review_recommendation,
             "feedback": peer_review_feedback,
             "dimensions": peer_review_dimensions,
@@ -686,7 +701,12 @@ class LocalResearchEngine:
                 f"claims verified ({lit_review_report.verification_rate:.0%}), "
                 f"score={lit_review_report.overall_score}/10"
             )
-            lit_review = lit_review_report.annotated_lit_review
+            # NOTE: do NOT swap in lit_review_report.annotated_lit_review here.
+            # The annotated version injects ✓/⚠ glyphs after every citation and
+            # appends a "Citation Verification Report" table — internal QA scaffolding
+            # that must never appear in the published manuscript. Verification stats
+            # are preserved in lit_review_report for the gate/metadata; the paper
+            # keeps the clean prose.
 
         # 4. Write paper (with literature review)
         title = _make_title(research_question, domain, paper_type=paper_type)
