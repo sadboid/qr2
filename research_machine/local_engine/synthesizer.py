@@ -95,7 +95,7 @@ def _detect_primary_theory(corpus: List[Paper]) -> tuple:
     Falls back to Resource-Based View if no signals found."""
     counts: Counter = Counter()
     for paper in corpus:
-        text = (paper.title + " " + paper.abstract).lower()
+        text = _scan_text(paper).lower()
         for theory, signals in _THEORY_SIGNALS.items():
             if any(sig in text for sig in signals):
                 counts[theory] += 1
@@ -153,6 +153,18 @@ def _extract_sentences(text: str) -> List[str]:
     return [s.strip() for s in sentences if len(s.strip()) > 30]
 
 
+def _scan_text(paper: Paper) -> str:
+    """Text used for signal detection: abstract plus full text when available.
+
+    Full text (arXiv HTML / OA PDF, capped ~12k chars) gives methodology and
+    theory detection far more signal than the abstract alone.
+    """
+    parts = [paper.title or "", paper.abstract or ""]
+    if getattr(paper, "full_text", None):
+        parts.append(paper.full_text)
+    return " ".join(parts)
+
+
 def _score_sentence(sentence: str, signals: List[str]) -> float:
     s = sentence.lower()
     return sum(1 for sig in signals if sig in s)
@@ -161,10 +173,15 @@ def _score_sentence(sentence: str, signals: List[str]) -> float:
 def _top_sentences(corpus: List[Paper], signals: List[str], n: int = 8) -> List[str]:
     scored: List[Tuple[float, str, Paper]] = []
     for paper in corpus:
-        for sent in _extract_sentences(paper.abstract):
-            score = _score_sentence(sent, signals)
-            if score > 0:
-                scored.append((score + paper.relevance_score, sent, paper))
+        # Abstract sentences first (most reliable), then full-text sentences when present.
+        texts = [paper.abstract]
+        if getattr(paper, "full_text", None):
+            texts.append(paper.full_text)
+        for text in texts:
+            for sent in _extract_sentences(text):
+                score = _score_sentence(sent, signals)
+                if score > 0:
+                    scored.append((score + paper.relevance_score, sent, paper))
 
     scored.sort(key=lambda x: -x[0])
     seen: set = set()
@@ -183,7 +200,7 @@ def _top_sentences(corpus: List[Paper], signals: List[str], n: int = 8) -> List[
 def _detect_methodologies(corpus: List[Paper]) -> List[str]:
     method_counts: Counter = Counter()
     for paper in corpus:
-        text = (paper.title + " " + paper.abstract).lower()
+        text = _scan_text(paper).lower()
         for method, signals in _METHOD_SIGNALS.items():
             if any(sig in text for sig in signals):
                 method_counts[method] += 1

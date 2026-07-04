@@ -26,6 +26,7 @@ _SS_FIELDS = "paperId,title,abstract,authors,year,citationCount,venue,externalId
 _ARXIV_BASE = "http://export.arxiv.org/api/query"
 
 _FULLTEXT_SEMAPHORE = asyncio.Semaphore(3)  # max 3 concurrent full-text fetches
+_UNPAYWALL_EMAIL = os.environ.get("UNPAYWALL_EMAIL", "duy.bui@eiu.edu.vn")
 
 
 @dataclass
@@ -42,6 +43,7 @@ class Paper:
     keywords_matched: List[str] = field(default_factory=list)
     author_h_index: int = 0  # Lead author h-index (from Semantic Scholar)
     open_access_url: Optional[str] = None  # PDF URL from SS openAccessPdf field
+    doi: Optional[str] = None  # DOI (for Unpaywall full-text fallback)
     full_text: Optional[str] = None  # Full text fetched from arXiv HTML or open-access PDF
 
     @property
@@ -166,7 +168,8 @@ async def _search_arxiv(query: str, max_results: int = 20) -> List[Dict[str, Any
             )
             r.raise_for_status()
     except Exception as e:
-        logger.warning(f"arXiv search failed: {e}")
+        # repr(e) so empty-message errors (ConnectError, timeouts) are diagnosable
+        logger.warning(f"arXiv search failed: {e!r}")
         return []
 
     papers = []
@@ -228,6 +231,23 @@ def _deduplicate(papers: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return result
 
 
+def _deduplicate_papers(papers: List[Paper]) -> List[Paper]:
+    """Dedup a list of Paper objects by normalized title, preserving ALL fields.
+
+    Used for final dedup instead of round-tripping through dicts, which silently
+    dropped open_access_url / author_h_index / doi / full_text and killed the
+    full-text pipeline.
+    """
+    seen: Dict[str, bool] = {}
+    result: List[Paper] = []
+    for p in papers:
+        key = re.sub(r"\W+", "", (p.title or "").lower())[:60]
+        if key and key not in seen:
+            seen[key] = True
+            result.append(p)
+    return result
+
+
 def _to_paper(raw: Dict[str, Any], keywords: List[str]) -> Optional[Paper]:
     title = (raw.get("title") or "").strip()
     abstract = (raw.get("abstract") or "").strip()
@@ -248,11 +268,24 @@ def _to_paper(raw: Dict[str, Any], keywords: List[str]) -> Optional[Paper]:
         if isinstance(lead_author, dict):
             author_h_index = lead_author.get("hIndex") or 0
 
-    # Extract open-access PDF URL from Semantic Scholar response
+    # Extract open-access PDF URL from Semantic Scholar / OpenAlex response
     oa_pdf = raw.get("openAccessPdf")
     open_access_url: Optional[str] = None
     if isinstance(oa_pdf, dict) and oa_pdf.get("url"):
         open_access_url = oa_pdf["url"]
+
+    # Extract DOI (SS externalIds.DOI, explicit doi field, or a doi.org url)
+    doi: Optional[str] = None
+    ext = raw.get("externalIds")
+    if isinstance(ext, dict) and ext.get("DOI"):
+        doi = ext["DOI"]
+    elif raw.get("doi"):
+        doi = str(raw["doi"]).replace("https://doi.org/", "")
+    else:
+        url = raw.get("url") or ""
+        m = re.search(r"doi\.org/(10\.\S+)", url)
+        if m:
+            doi = m.group(1)
 
     return Paper(
         paper_id=raw.get("paperId") or raw.get("url") or title[:20],
@@ -267,6 +300,7 @@ def _to_paper(raw: Dict[str, Any], keywords: List[str]) -> Optional[Paper]:
         keywords_matched=_extract_keywords(title + " " + abstract, keywords),
         author_h_index=author_h_index,
         open_access_url=open_access_url,
+        doi=doi,
     )
 
 
@@ -366,14 +400,10 @@ async def fetch_corpus(
         except Exception as e:
             logger.warning(f"[Corpus] Citation network expansion failed: {e}")
 
-    # Phase 3: Final deduplication and ranking
-    # Re-deduplicate in case network expansion added duplicates
-    final_deduped = _deduplicate([_paper_to_dict(p) for p in papers])
-    final_papers = [
-        p
-        for raw in final_deduped
-        if (p := _to_paper(raw, keywords)) is not None
-    ]
+    # Phase 3: Final deduplication and ranking.
+    # Dedup on Paper objects directly — NOT via _paper_to_dict round-trip, which
+    # dropped open_access_url / author_h_index / doi / full_text and broke full-text.
+    final_papers = _deduplicate_papers(papers)
 
     # Sort by reputation score (includes venue tiers, h-index, recency)
     final_papers.sort(key=lambda p: p.relevance_score, reverse=True)
@@ -460,44 +490,74 @@ async def _fetch_pdf_text(pdf_url: str) -> Optional[str]:
         return None
 
 
-async def fetch_full_texts(papers: List[Paper], max_papers: int = 15) -> List[Paper]:
+async def _unpaywall_pdf_url(doi: str) -> Optional[str]:
+    """Resolve an open-access PDF URL for a DOI via Unpaywall."""
+    if not doi:
+        return None
+    doi = doi.replace("https://doi.org/", "").strip()
+    try:
+        async with _FULLTEXT_SEMAPHORE:
+            async with httpx.AsyncClient(follow_redirects=True, timeout=20) as client:
+                r = await client.get(
+                    f"https://api.unpaywall.org/v2/{doi}",
+                    params={"email": _UNPAYWALL_EMAIL},
+                )
+                if r.status_code != 200:
+                    return None
+                loc = r.json().get("best_oa_location") or {}
+                return loc.get("url_for_pdf") or loc.get("url")
+    except Exception as e:
+        logger.debug(f"Unpaywall lookup failed for {doi}: {e!r}")
+        return None
+
+
+async def fetch_full_texts(papers: List[Paper], max_papers: int = 30) -> List[Paper]:
     """
     Fetch full text for papers that have open-access content.
 
-    Priority:
-    1. ALL arXiv papers — fetch HTML from arxiv.org/html/{id} (free, always available)
-    2. Top SS papers with openAccessPdf — download and extract PDF text
+    For each candidate, try in order until one yields text:
+    1. arXiv HTML (arxiv.org/html/{id}) — free, clean, always available
+    2. Known open-access PDF URL (from Semantic Scholar / OpenAlex)
+    3. Unpaywall-resolved PDF URL (DOI → OA PDF)
 
-    Modifies papers in-place (sets paper.full_text). Returns the same list.
+    Candidates = every arXiv paper + top-ranked papers that have an OA url or a DOI,
+    up to max_papers. Modifies papers in-place (sets paper.full_text).
     """
-    # arXiv: take ALL papers with an arXiv ID (regardless of relevance rank)
     arxiv_candidates = [p for p in papers if _extract_arxiv_id(p)]
 
-    # OA PDF: take top ranked papers with open-access PDF URL (up to remaining budget)
-    oa_budget = max(0, max_papers - len(arxiv_candidates))
+    # Any paper with an OA url OR a DOI is a full-text candidate (Unpaywall covers DOIs).
     top_by_relevance = sorted(papers, key=lambda p: p.relevance_score, reverse=True)
+    oa_budget = max(0, max_papers - len(arxiv_candidates))
     oa_candidates = [
         p for p in top_by_relevance
-        if p.open_access_url and p not in arxiv_candidates
+        if (p.open_access_url or p.doi) and p not in arxiv_candidates
     ][:oa_budget]
 
     logger.info(
-        f"[Corpus] Full-text fetch: {len(arxiv_candidates)} arXiv + {len(oa_candidates)} OA-PDF candidates"
+        f"[Corpus] Full-text fetch: {len(arxiv_candidates)} arXiv + {len(oa_candidates)} OA/DOI candidates"
     )
 
     async def _fetch_one(paper: Paper) -> None:
+        # 1. arXiv HTML
         arxiv_id = _extract_arxiv_id(paper)
         if arxiv_id:
             text = await _fetch_arxiv_html(arxiv_id)
             if text:
                 paper.full_text = text
-                logger.debug(f"  ✓ arXiv full text: {paper.title[:50]} ({len(text)} chars)")
                 return
+        # 2. Known OA PDF
         if paper.open_access_url:
             text = await _fetch_pdf_text(paper.open_access_url)
             if text:
                 paper.full_text = text
-                logger.debug(f"  ✓ OA PDF full text: {paper.title[:50]} ({len(text)} chars)")
+                return
+        # 3. Unpaywall fallback via DOI
+        if paper.doi:
+            pdf_url = await _unpaywall_pdf_url(paper.doi)
+            if pdf_url:
+                text = await _fetch_pdf_text(pdf_url)
+                if text:
+                    paper.full_text = text
 
     tasks = [_fetch_one(p) for p in arxiv_candidates + oa_candidates]
     await asyncio.gather(*tasks, return_exceptions=True)
