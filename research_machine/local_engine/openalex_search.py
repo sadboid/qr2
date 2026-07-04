@@ -69,9 +69,11 @@ def _parse_oa_work(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
            or f"https://doi.org/{item['doi']}" if item.get("doi") else ""
            or item.get("id", ""))
 
-    # Open-access PDF
+    # Open-access PDF — prefer a DIRECT pdf_url (best_oa_location) over the
+    # landing-page oa_url, so the downloader gets an actual PDF not an HTML page.
+    best_oa = item.get("best_oa_location") or {}
     oa_info = item.get("open_access") or {}
-    oa_url = oa_info.get("oa_url") or None
+    oa_url = best_oa.get("pdf_url") or oa_info.get("oa_url") or None
 
     # Concept scores (OpenAlex-assigned domain tags)
     concepts = item.get("concepts") or []
@@ -99,6 +101,7 @@ async def search_openalex(
     limit: int = 25,
     from_year: Optional[int] = None,
     filter_concepts: Optional[List[str]] = None,
+    oa_only: bool = False,
 ) -> List[Dict[str, Any]]:
     """
     Search OpenAlex for works matching query.
@@ -120,7 +123,7 @@ async def search_openalex(
             "select": (
                 "id,title,abstract_inverted_index,authorships,"
                 "publication_year,cited_by_count,primary_location,"
-                "open_access,concepts,doi,type"
+                "best_oa_location,open_access,concepts,doi,type"
             ),
             "sort": "relevance_score:desc",
             "mailto": _MAILTO,
@@ -134,6 +137,9 @@ async def search_openalex(
         filters.append("is_retracted:false")
         # Only include journal articles, conference papers, preprints
         filters.append("type:article|preprint|proceedings-article")
+        if oa_only:
+            # Restrict to open-access works so a downloadable full text is likely
+            filters.append("is_oa:true")
         if filter_concepts:
             filters.append(f"concepts.id:{'|'.join(filter_concepts)}")
         if filters:
@@ -176,9 +182,10 @@ async def search_openalex(
 async def fetch_openalex_batch(
     queries: List[str],
     limit_per_query: int = 25,
+    oa_only: bool = False,
 ) -> List[Dict[str, Any]]:
     """Run multiple OpenAlex queries concurrently and merge results."""
-    tasks = [search_openalex(q, limit=limit_per_query) for q in queries]
+    tasks = [search_openalex(q, limit=limit_per_query, oa_only=oa_only) for q in queries]
     results = await asyncio.gather(*tasks, return_exceptions=True)
     merged = []
     for r in results:

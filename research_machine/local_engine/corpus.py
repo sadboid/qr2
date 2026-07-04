@@ -27,6 +27,11 @@ _ARXIV_BASE = "http://export.arxiv.org/api/query"
 
 _FULLTEXT_SEMAPHORE = asyncio.Semaphore(3)  # max 3 concurrent full-text fetches
 _UNPAYWALL_EMAIL = os.environ.get("UNPAYWALL_EMAIL", "duy.bui@eiu.edu.vn")
+# Some publishers block non-browser User-Agents on OA PDF downloads.
+_BROWSER_UA = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/122.0 Safari/537.36"
+)
 
 
 @dataclass
@@ -344,9 +349,14 @@ async def fetch_corpus(
     oa_task = asyncio.create_task(
         openalex_search.fetch_openalex_batch(oa_queries, limit_per_query=25)
     )
+    # Dedicated open-access-only pass so a meaningful share of the corpus has a
+    # downloadable full text (mirrors what makes fetch_papers.py land full PDFs).
+    oa_open_task = asyncio.create_task(
+        openalex_search.fetch_openalex_batch(oa_queries, limit_per_query=15, oa_only=True)
+    )
 
-    arxiv_raw, crossref_raw, oa_raw = await asyncio.gather(
-        arxiv_task, crossref_task, oa_task, return_exceptions=True
+    arxiv_raw, crossref_raw, oa_raw, oa_open_raw = await asyncio.gather(
+        arxiv_task, crossref_task, oa_task, oa_open_task, return_exceptions=True
     )
 
     if isinstance(arxiv_raw, list):
@@ -355,6 +365,8 @@ async def fetch_corpus(
         raw_all.extend(crossref_raw)
     if isinstance(oa_raw, list):
         raw_all.extend(oa_raw)
+    if isinstance(oa_open_raw, list):
+        raw_all.extend(oa_open_raw)
         logger.info(f"[Corpus] OpenAlex contributed {len(oa_raw) if isinstance(oa_raw, list) else 0} raw papers")
 
     logger.info(f"[Corpus] Phase 1 (multi-source): {len(raw_all)} raw papers")
@@ -433,7 +445,7 @@ async def _fetch_arxiv_html(arxiv_id: str) -> Optional[str]:
         async with _FULLTEXT_SEMAPHORE:
             await asyncio.sleep(3.0)  # arXiv rate limit
             async with httpx.AsyncClient(follow_redirects=True, timeout=30) as client:
-                r = await client.get(url, headers={"User-Agent": "research-machine/1.0 (academic use)"})
+                r = await client.get(url, headers={"User-Agent": _BROWSER_UA})
                 if r.status_code != 200:
                     logger.debug(f"arXiv HTML {arxiv_id}: HTTP {r.status_code}")
                     return None
@@ -463,7 +475,7 @@ async def _fetch_pdf_text(pdf_url: str) -> Optional[str]:
             async with httpx.AsyncClient(follow_redirects=True, timeout=30) as client:
                 r = await client.get(
                     pdf_url,
-                    headers={"User-Agent": "research-machine/1.0 (academic use)"},
+                    headers={"User-Agent": _BROWSER_UA},
                 )
                 if r.status_code != 200:
                     return None
@@ -471,6 +483,10 @@ async def _fetch_pdf_text(pdf_url: str) -> Optional[str]:
                 if content_length > 10 * 1024 * 1024:  # skip > 10MB
                     return None
                 pdf_bytes = r.content
+                # Verify it's actually a PDF — many OA urls resolve to HTML
+                # landing pages, which pypdf would choke on with noisy errors.
+                if not pdf_bytes[:5].startswith(b"%PDF"):
+                    return None
     except Exception as e:
         logger.debug(f"PDF download failed ({pdf_url[:60]}): {e}")
         return None
@@ -488,6 +504,50 @@ async def _fetch_pdf_text(pdf_url: str) -> Optional[str]:
     except Exception as e:
         logger.debug(f"PDF parse error: {e}")
         return None
+
+
+async def _europepmc_fulltext(paper: Paper) -> Optional[str]:
+    """Fetch structured full text from Europe PMC (free, no auth).
+
+    Covers the ~6.5M open-access articles Europe PMC hosts full text for —
+    resolves by DOI, retrieves the OA full-text XML, returns clean text.
+    """
+    if not paper.doi:
+        return None
+    doi = paper.doi.replace("https://doi.org/", "").strip()
+    base = "https://www.ebi.ac.uk/europepmc/webservices/rest"
+    try:
+        async with _FULLTEXT_SEMAPHORE:
+            async with httpx.AsyncClient(follow_redirects=True, timeout=20) as client:
+                # 1. Resolve DOI → (source, id) and confirm OA full text exists
+                s = await client.get(
+                    f"{base}/search",
+                    params={"query": f"DOI:{doi}", "format": "json", "resultType": "core"},
+                )
+                if s.status_code != 200:
+                    return None
+                results = (s.json().get("resultList") or {}).get("result") or []
+                if not results:
+                    return None
+                rec = results[0]
+                if rec.get("isOpenAccess") != "Y" and rec.get("hasTextMinedTerms") != "Y":
+                    # fullTextXML only available for OA records
+                    if rec.get("inEPMC") != "Y":
+                        return None
+                src, pmid = rec.get("source"), rec.get("id")
+                if not src or not pmid:
+                    return None
+                # 2. Fetch full-text XML
+                f = await client.get(f"{base}/{src}/{pmid}/fullTextXML")
+                if f.status_code != 200 or len(f.text) < 500:
+                    return None
+    except Exception as e:
+        logger.debug(f"Europe PMC lookup failed for {doi}: {e!r}")
+        return None
+
+    from .fulltext_extractor import FullTextExtractor
+    text = FullTextExtractor().clean_html(f.text)  # strips XML/JATS tags
+    return text[:12000] if len(text) > 200 else None
 
 
 async def _unpaywall_pdf_url(doi: str) -> Optional[str]:
@@ -551,13 +611,19 @@ async def fetch_full_texts(papers: List[Paper], max_papers: int = 30) -> List[Pa
             if text:
                 paper.full_text = text
                 return
-        # 3. Unpaywall fallback via DOI
+        # 3. Unpaywall fallback via DOI → OA PDF
         if paper.doi:
             pdf_url = await _unpaywall_pdf_url(paper.doi)
             if pdf_url:
                 text = await _fetch_pdf_text(pdf_url)
                 if text:
                     paper.full_text = text
+                    return
+        # 4. Europe PMC structured full-text XML (free, no auth)
+        if paper.doi:
+            text = await _europepmc_fulltext(paper)
+            if text:
+                paper.full_text = text
 
     tasks = [_fetch_one(p) for p in arxiv_candidates + oa_candidates]
     await asyncio.gather(*tasks, return_exceptions=True)
