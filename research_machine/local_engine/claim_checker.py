@@ -59,8 +59,12 @@ class ClaimChecker:
         Returns:
             FactCheckReport with verification results
         """
-        # Extract all citations from paper
-        citations = self._extract_citations(generated_paper_md)
+        # Strip the References section — reference entries are not claims, and
+        # the narrative-citation pattern would otherwise match entry headers.
+        body = re.split(r'\n## References\b', generated_paper_md)[0]
+
+        # Extract all citations from the paper body
+        citations = self._extract_citations(body)
         if not citations:
             logger.info("No citations found in paper")
             return FactCheckReport(
@@ -156,20 +160,44 @@ class ClaimChecker:
             passed=passed
         )
 
+    # Bracket [Author, Year], APA parenthetical (Author, 2023) / (Author et al., 2023)
+    # / (Author & Author, 2023), and narrative Author et al. (2023). The old
+    # bracket-only pattern missed every APA citation the lit-review generator
+    # emits, so fact-check silently examined ~2 of 20 citations per paper.
+    _CITATION_PATTERNS = [
+        r'\[([A-Za-z][A-Za-z\s]+,?\s*\d{4})\]',
+        r'\(([A-Z][A-Za-z\-]+(?:\s+(?:et\s+al\.?|&\s*[A-Z][A-Za-z\-]+))?,\s*\d{4}[a-z]?)\)',
+        r'\b([A-Z][A-Za-z\-]+(?:\s+et\s+al\.?)?)\s+\((\d{4}[a-z]?)\)',
+    ]
+
     def _extract_citations(self, text: str) -> List[Tuple[str, str]]:
         """
-        Extract all [Author, Year] citations and their surrounding claim sentences.
+        Extract citations (bracket, APA parenthetical, and narrative styles)
+        with their surrounding claim sentences.
 
         Returns:
-            List of (citation_ref, claim_text) tuples
+            List of (citation_ref, claim_text) tuples, deduplicated by
+            (citation, claim) pair.
         """
-        # Pattern: [Author, Year] or [Author Year]
-        citation_pattern = r'\[([A-Za-z\s]+,?\s*\d{4})\]'
-        citations = []
+        matches = []  # (start_pos, normalized "[Author, Year]" ref)
+        for i, pattern in enumerate(self._CITATION_PATTERNS):
+            for match in re.finditer(pattern, text):
+                if i == 2:  # narrative: groups are (author-part, year)
+                    author, year = match.group(1), match.group(2)
+                else:  # bracket / parenthetical: single group "Author…, Year"
+                    content = match.group(1)
+                    year_m = re.search(r'\d{4}', content)
+                    if not year_m:
+                        continue
+                    year = year_m.group(0)
+                    author = re.split(r'[,&]', content)[0]
+                author = author.replace(' et al.', '').replace(' et al', '').strip()
+                if author:
+                    matches.append((match.start(), f"[{author}, {year}]"))
 
-        for match in re.finditer(citation_pattern, text):
-            citation_ref = f"[{match.group(1)}]"
-            start_pos = match.start()
+        citations = []
+        seen = set()
+        for start_pos, citation_ref in matches:
 
             # Extract sentence containing the citation
             # Find sentence boundaries (., !, ?, newline)
@@ -182,7 +210,9 @@ class ClaimChecker:
                 sentence_end = len(text)
 
             claim_text = text[sentence_start:sentence_end].strip()
-            if len(claim_text) > 20:  # Only include non-trivial claims
+            key = (citation_ref, claim_text[:80])
+            if len(claim_text) > 20 and key not in seen:
+                seen.add(key)
                 citations.append((citation_ref, claim_text))
 
         return citations

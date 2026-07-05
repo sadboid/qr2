@@ -19,45 +19,68 @@ from . import claude_cli
 # AI Scientist per-section tips (adapted for Business+AI systematic reviews)
 # ---------------------------------------------------------------------------
 
+# Section prompts encode the writing patterns extracted from 14 real Q1/WoS
+# AI+entrepreneurship papers (ETP, Small Business Economics, IJEBR, BJM, JBVI,
+# Review of Managerial Science) — see the ai-entrepreneurship-paper skill.
+# The verbatim pivot phrases and move-structures below are what those journals
+# actually publish, not generic academic-writing advice.
 _PER_SECTION_TIPS: Dict[str, str] = {
     "abstract": (
         "Write a structured abstract with exactly these five bold labels: "
         "**Background** / **Objective** / **Methods** / **Results** / **Conclusion**. "
-        "Background (2–3 sentences): establish why the topic matters, cite growth/scope. "
-        "Objective (1 sentence): state what this review examines — as a DECLARATIVE noun "
-        "phrase, NEVER as a question ('This review examines X' not 'We ask: How does X?'). "
+        "Background (2 sentences): a factual claim about why the topic matters, then a "
+        "gap/tension pivot in the Q1 house style — e.g. 'However, existing studies are "
+        "fragmented, making a comprehensive overview challenging' or 'yet it has received "
+        "little scrutiny in entrepreneurship research'. "
+        "Objective (1 sentence): DECLARATIVE noun phrase, never a question "
+        "('This review examines X', not 'We ask: How does X?'). "
         "Methods (2–3 sentences): name the databases (Semantic Scholar, arXiv, Crossref), "
-        "state N papers reviewed, PRISMA flow, inclusion criteria keywords. "
-        "Results (3–4 sentences): report 2–3 specific findings with evidence where possible "
-        "(percentages, effect directions, themes). "
-        "Conclusion (1–2 sentences): practical implication + one future direction. "
+        "state N papers reviewed with the exact count (concreteness signals rigor), PRISMA flow. "
+        "Results (3–4 sentences): 2–3 specific findings with evidence direction/themes. "
+        "Conclusion (1–2 sentences): contribution + one future direction. "
         "Target 220–260 words. "
-        "CRITICAL RULES: (1) ZERO inline citations — abstracts NEVER contain (Author, Year); "
-        "(2) do NOT restate the research question verbatim as a question; "
-        "(3) open Background with a factual statement, never 'This paper…' or 'In recent years…'."
+        "CRITICAL RULES: (1) ZERO inline citations; (2) never invent statistics not present "
+        "in the provided context — no fabricated percentages or effect sizes; (3) open with "
+        "a factual statement, never 'This paper…' or 'In recent years…'."
     ),
     "introduction": (
-        "Follow the CARS model (Swales 1990): "
-        "(1) Move 1 — Establish territory (2–3 paragraphs): show the field is important and active; "
-        "cite 8–12 papers with (Author, Year); mention growth in publication volume or societal scope. "
-        "Open with a bold factual claim, not 'In recent years…' "
-        "(2) Move 2 — Establish niche (1 paragraph): use gap-indicating language "
-        "('no study has yet examined…', 'it remains unclear whether…', 'findings conflict on…'). "
-        "(3) Move 3 — Occupy the niche (1–2 paragraphs): state the paper's contribution as DECLARATIVE "
-        "statements ('This review synthesizes…', 'We contribute three insights…'). "
-        "Do NOT frame the contribution as a question. "
-        "End with a structure paragraph: 'The remainder of the paper is organised as follows…' "
-        "Target 800–1000 words, 8–12 citations evenly distributed across paragraphs."
+        "Follow the CARS funnel exactly as Q1 AI-entrepreneurship papers do: "
+        "(1) HOOK + territory (2–3 paragraphs): open with a vivid, specific factual claim "
+        "(not 'In recent years…'); establish the field is active; cite 8–12 papers (Author, Year). "
+        "Define AI early via the field's canonical definition — Kaplan & Haenlein's (2019) "
+        "'a system's ability to interpret external data correctly, to learn from such data, "
+        "and to use those learnings to achieve specific goals and tasks through flexible "
+        "adaptation' — and distinguish predictive from generative AI if relevant. "
+        "(2) GAP pivot (1 paragraph): FIRST credit who has already worked nearby (this makes "
+        "the gap credible), THEN pivot with the field's stock phrasing: 'Despite the increasing "
+        "ubiquity of…, little has been written specifically on…' / 'While X has received "
+        "growing attention in [adjacent fields], it has not received much scrutiny in…' / "
+        "'However, existing studies are fragmented…'. Hedge novelty: 'To the best of our "
+        "knowledge…, although inspiring contributions have already been produced'. "
+        "(3) OCCUPY (1–2 paragraphs): aim sentence ('The purpose of this review is to…'), then "
+        "ENUMERATED contributions in the house formula: 'This paper's contribution is "
+        "twofold/threefold. First,… Second,… Finally,…'. Never frame contributions as questions. "
+        "End with a roadmap: 'The remainder of the paper is organised as follows…'. "
+        "Target 800–1000 words, 8–12 citations evenly distributed."
     ),
     "discussion": (
-        "Open with 2–3 sentences summarising the core empirical finding. "
-        "Then structure as three explicit subsections: "
-        "**Theoretical Implications** — name and explicitly extend the PRIMARY THEORY identified in the corpus "
-        "(provided as `primary_theory` in context — use exactly that theory name and its seminal author). "
-        "Show HOW the findings advance that specific theory; do not mention multiple theories vaguely. "
-        "**Practical Implications** — give 3–4 specific, actionable recommendations for domain practitioners; "
-        "**Limitations and Future Research** — list at least 5 limitations (scope, databases, cross-sectional design, publication bias, measurement), then propose 3–4 concrete future directions tied to each gap identified in the literature review. "
-        "Target 1200–1500 words. Avoid generic phrases like 'This paper contributes to the literature'."
+        "Open the way strong Q1 papers do — by CHALLENGING a common assumption, not by "
+        "restating findings (exemplar: 'A widespread prejudice is that intelligent systems "
+        "will gradually replace humans… However, AI's greatest potential is in complementing "
+        "and enhancing human capabilities'). Then three explicit subsections: "
+        "**Theoretical Implications** — name and extend the PRIMARY THEORY provided as "
+        "`primary_theory` in context, with its seminal author. Use explicit extension verbs: "
+        "'Our findings extend…', 'This refines…', 'This distinction was not explicated in the "
+        "original formulation of…'. Do not name-drop multiple theories vaguely. "
+        "**Practical Implications** — address NAMED audiences separately (founders/entrepreneurs, "
+        "educators, policymakers, investors), 1–2 actionable recommendations each. "
+        "**Limitations and Future Research** — at least 5 honest limitations (databases searched, "
+        "abstract-level synthesis, cross-sectional corpus, publication bias, measurement "
+        "heterogeneity), each immediately turned toward opportunity in the Q1 style ('However, "
+        "this study can serve as a benchmark for…'). Then 3–4 future directions using the "
+        "field's refrain 'Therefore, future research should…', each tied to a specific gap "
+        "identified in the literature review. "
+        "Target 1200–1500 words. Ban the phrase 'This paper contributes to the literature'."
     ),
 }
 
@@ -275,6 +298,35 @@ These gaps underscore the need for additional research that integrates findings 
 
 
 _THEORY_META: dict = {
+    "External Enabler Framework": {
+        "seminal": "Davidsson, Recker & von Briel (2020)",
+        "core": (
+            "non-trivial technological, regulatory, sociocultural, and other macro-environmental "
+            "changes to the business environment offer benefits for some conceivable business "
+            "ventures. The framework characterizes enablers by their Scope (spatial, sectoral, "
+            "sociodemographic, temporal) and Onset (gradualness, predictability), specifies "
+            "Mechanisms through which they improve ventures' supply, demand, or value "
+            "appropriation, and identifies three enablement Roles in the entrepreneurial "
+            "process: triggering venture creation, shaping the venture and its journey, and "
+            "enhancing outcomes. AI qualifies as a prototypical external enabler: a broad-Scope, "
+            "rapid-Onset technological change whose mechanisms include compression of time and "
+            "cost, resource conservation, uncertainty reduction, and demand expansion."
+        ),
+        "hypothesis_stem": "AI functions as an external enabler whose mechanisms improve",
+    },
+    "Effectuation": {
+        "seminal": "Sarasvathy (2001)",
+        "core": (
+            "under uncertainty, expert entrepreneurs favour a logic of control over a logic of "
+            "prediction: they start from available means (who they are, what they know, whom "
+            "they know), commit only what they can afford to lose, form partnerships to "
+            "co-create the future, and leverage contingencies rather than avoid them. AI tools "
+            "alter this calculus by lowering the cost of prediction, raising the question of "
+            "how entrepreneurs combine causal (prediction-based) and effectual (control-based) "
+            "logics when cheap machine prediction becomes available."
+        ),
+        "hypothesis_stem": "AI-based prediction reshapes the balance of effectual and causal logics in",
+    },
     "Resource-Based View": {
         "seminal": "Barney (1991)",
         "core": (
@@ -388,7 +440,7 @@ def write_theoretical_framework(
 ) -> str:
     theory = synthesis.primary_theory
     n_evidence = synthesis.theory_paper_count
-    meta = _THEORY_META.get(theory, _THEORY_META["Resource-Based View"])
+    meta = _THEORY_META.get(theory, _THEORY_META["External Enabler Framework"])
     seminal = meta["seminal"]
     core = meta["core"]
     stem = meta["hypothesis_stem"]

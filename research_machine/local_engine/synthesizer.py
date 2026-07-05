@@ -44,8 +44,20 @@ _METHOD_SIGNALS = {
     "interview": ["interview", "thematic analysis", "grounded theory"],
 }
 
-# Theory signals — maps canonical theory name to search terms
+# Theory signals — maps canonical theory name to search terms.
+# External Enabler + Effectuation lead: they are the NATIVE theories of the
+# AI-entrepreneurship literature (per our 14-paper Q1 exemplar corpus — ETP,
+# SBE, IJEBR, JBVI all anchor on Davidsson's EE framework, not RBV/TAM).
 _THEORY_SIGNALS: dict = {
+    "External Enabler Framework": [
+        "external enabler", "external enablement", "ee framework",
+        "davidsson", "von briel", "enabling mechanism", "venture idea",
+        "opportunity structure", "environmental change",
+    ],
+    "Effectuation": [
+        "effectuation", "effectual", "sarasvathy", "causation logic",
+        "affordable loss", "bird in hand", "means-driven", "pilot-in-the-plane",
+    ],
     "Resource-Based View": [
         "resource-based view", "rbv", "resource based view",
         "dynamic capabilities", "competitive resources", "vrin", "barney",
@@ -92,7 +104,8 @@ _THEORY_SIGNALS: dict = {
 
 def _detect_primary_theory(corpus: List[Paper]) -> tuple:
     """Return (theory_name, count) for the most-cited theory in the corpus.
-    Falls back to Resource-Based View if no signals found."""
+    Falls back to the External Enabler framework — the native theoretical lens
+    of the AI-entrepreneurship literature — if no signals found."""
     counts: Counter = Counter()
     for paper in corpus:
         text = _scan_text(paper).lower()
@@ -102,35 +115,68 @@ def _detect_primary_theory(corpus: List[Paper]) -> tuple:
     if counts:
         top = counts.most_common(1)[0]
         return top[0], top[1]
-    return "Resource-Based View", 0
+    return "External Enabler Framework", 0
 
 
 # Terms that strongly indicate a paper is outside business/startup/enterprise scope
 _DOMAIN_EXCLUSION_TERMS = {
     "startup": frozenset({
         "hospital", "clinical", "patient", "healthcare", "physician",
-        "nursing", "surgery", "disease", "diagnosis", "treatment",
-        "therapeutic", "epidemiology", "radiology", "pharmacology",
+        "nursing", "surgery", "surgical", "disease", "diagnosis", "treatment",
+        "therapeutic", "epidemiology", "radiology", "pharmacology", "oncology",
+        "forensic", "crime scene", "criminal justice", "courtroom",
+        "metaverse", "6g network", "digital twin",
     }),
     "enterprise": frozenset({
-        "hospital", "clinical", "patient", "nursing", "surgery",
-        "disease", "diagnosis", "therapeutic", "epidemiology",
+        "hospital", "clinical", "patient", "nursing", "surgery", "surgical",
+        "disease", "diagnosis", "therapeutic", "epidemiology", "oncology",
+        "forensic", "crime scene", "criminal justice", "courtroom",
+    }),
+}
+
+# Positive vocabulary a paper must show to count as in-domain. This is the
+# INCLUSION gate the old filter lacked: previously a glioblastoma-surgery paper
+# survived because it mentioned "decision-making" (a query keyword). Now a paper
+# must demonstrate business/venture context, not merely echo a generic keyword.
+_DOMAIN_VOCAB = {
+    "startup": frozenset({
+        "startup", "start-up", "entrepreneur", "entrepreneurship", "venture",
+        "founder", "sme", "small business", "new firm", "incubator",
+        "accelerator", "venture capital", "crowdfunding", "business model",
+        "firm performance", "small firm", "self-employ", "spin-off", "spinoff",
+    }),
+    "enterprise": frozenset({
+        "enterprise", "organization", "organisation", "firm", "corporate",
+        "management", "business", "workplace", "employee", "manager",
+        "industry", "company", "governance",
     }),
 }
 
 
 def _is_off_domain(paper: "Paper", domain: str, keywords: List[str]) -> bool:
-    """Return True if a paper is clearly outside the target domain and should not be cited."""
-    exclusion = _DOMAIN_EXCLUSION_TERMS.get(domain, frozenset())
-    if not exclusion:
+    """Return True if a paper is outside the target domain and should not be cited.
+
+    Logic (inclusion-first):
+    - Paper shows domain vocabulary and no exclusion signal  → in-domain.
+    - Paper shows domain vocabulary but ALSO an exclusion signal (e.g. a
+      healthcare-startup paper) → keep only if ≥2 distinct query keywords match.
+    - Paper shows NO domain vocabulary at all → off-domain unless ≥2 distinct
+      query keywords match (a single generic hit like "AI" no longer rescues it).
+    Unknown domains keep the old permissive behaviour (no filtering).
+    """
+    vocab = _DOMAIN_VOCAB.get(domain)
+    if not vocab:
         return False
     text = ((paper.title or "") + " " + (paper.abstract or "")).lower()
+    exclusion = _DOMAIN_EXCLUSION_TERMS.get(domain, frozenset())
+
+    has_vocab = any(term in text for term in vocab)
     has_exclusion = any(term in text for term in exclusion)
-    if not has_exclusion:
+    kw_hits = sum(1 for kw in keywords[:5] if kw.lower() in text)
+
+    if has_vocab and not has_exclusion:
         return False
-    # Only exclude if none of the core keywords are present (avoids over-filtering)
-    has_required = any(kw.lower() in text for kw in keywords[:4])
-    return not has_required
+    return kw_hits < 2
 
 
 @dataclass
@@ -144,8 +190,8 @@ class SynthesisResult:
     all_papers: List[Paper]
     recency_ratio: float
     avg_citation_count: float
-    primary_theory: str = "Resource-Based View"   # dominant theory detected from corpus
-    theory_paper_count: int = 0                    # how many papers signal this theory
+    primary_theory: str = "External Enabler Framework"  # dominant theory detected from corpus
+    theory_paper_count: int = 0                          # how many papers signal this theory
 
 
 def _extract_sentences(text: str) -> List[str]:
@@ -291,7 +337,9 @@ def synthesize(
     off_domain_count = len(sorted_corpus) - len(in_domain)
     if off_domain_count:
         logger.info(f"[Synthesizer] Filtered {off_domain_count} off-domain papers from citation list")
-    top_papers = (in_domain if len(in_domain) >= 10 else sorted_corpus)[:20]
+    # Q1 empirical/review papers cite 40-60 works; the old [:20] cap threw away
+    # 30 papers that had already passed quality gates. Cite up to 50 in-domain.
+    top_papers = (in_domain if len(in_domain) >= 10 else sorted_corpus)[:50]
 
     return SynthesisResult(
         key_findings=findings,
