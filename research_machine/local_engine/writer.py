@@ -35,7 +35,9 @@ _PER_SECTION_TIPS: Dict[str, str] = {
         "Objective (1 sentence): DECLARATIVE noun phrase, never a question "
         "('This review examines X', not 'We ask: How does X?'). "
         "Methods (2–3 sentences): name the databases (Semantic Scholar, arXiv, Crossref), "
-        "state N papers reviewed with the exact count (concreteness signals rigor), PRISMA flow. "
+        "state the paper count using the n_included value from context — the SAME number "
+        "the PRISMA flow reports as included in synthesis (reviewers reject papers whose "
+        "abstract, PRISMA, and Results counts disagree). "
         "Results (3–4 sentences): 2–3 specific findings with evidence direction/themes. "
         "Conclusion (1–2 sentences): contribution + one future direction. "
         "Target 220–260 words. "
@@ -62,6 +64,29 @@ _PER_SECTION_TIPS: Dict[str, str] = {
         "twofold/threefold. First,… Second,… Finally,…'. Never frame contributions as questions. "
         "End with a roadmap: 'The remainder of the paper is organised as follows…'. "
         "Target 800–1000 words, 8–12 citations evenly distributed."
+    ),
+    "results": (
+        "Write the Results section as INTEGRATED THEMATIC SYNTHESIS — the single most "
+        "common Q1 rejection reason is 'findings reported as isolated single-study "
+        "citations rather than integrated analysis'. "
+        "You are given a list of findings, each an extracted sentence from a real source "
+        "paper with its [Author, Year] tag. Your job: "
+        "(1) Group them into 3–4 NAMED themes (bold header + paper count, e.g. "
+        "'**AI as Decision-Support for Founders (5 studies)**'). "
+        "(2) Within each theme write ONE flowing paragraph that weaves 2–4 findings "
+        "together around a single claim — topic sentence first, then evidence, using "
+        "convergence connectors ('In line with this,…', 'Similarly,…', 'Consistent "
+        "with…') and, where findings diverge, an explicit contradiction pivot "
+        "('However, [Author, Year] find…, suggesting boundary conditions'). "
+        "(3) PRESERVE each finding's factual content closely and keep its [Author, Year] "
+        "tag immediately adjacent to its claim — claims are verified against source "
+        "abstracts, so do not paraphrase beyond recognition and NEVER invent findings, "
+        "statistics, or citations not in the provided list. "
+        "(4) Close with a short cross-theme synthesis paragraph connecting the themes "
+        "into one causal or conceptual chain. "
+        "NUMBER CONSISTENCY: when stating corpus size, use the n_included value from "
+        "context — the SAME number the Methods PRISMA flow reports — never any other count. "
+        "Target 900–1200 words. No subsection numbering, use bold theme headers."
     ),
     "discussion": (
         "Open the way strong Q1 papers do — by CHALLENGING a common assumption, not by "
@@ -100,7 +125,12 @@ def _write_section_with_claude(section_name: str, context: dict) -> Optional[str
     if not tips:
         return None
     try:
-        findings_txt = "\n".join(f"- {f}" for f in context.get("findings", [])[:6])
+        # Results synthesizes findings and must keep [Author, Year] tags so every
+        # claim stays verifiable; other sections get citation-stripped findings.
+        if section_name == "results":
+            findings_txt = "\n".join(f"- {f}" for f in context.get("findings_cited", [])[:12])
+        else:
+            findings_txt = "\n".join(f"- {f}" for f in context.get("findings", [])[:6])
         gaps_txt = "\n".join(f"- {g}" for g in context.get("gaps", [])[:4])
         papers_txt = context.get("papers_sample", "")
         system_prompt = (
@@ -147,11 +177,14 @@ def _refine_section_with_claude(section_name: str, draft: str, context: dict) ->
         return draft
     try:
         databases = context.get("databases", "Semantic Scholar, arXiv, and Crossref")
-        n_papers = context.get("n_papers", "N")
+        # Use n_included — the count PRISMA reports as "included in synthesis".
+        # Using n_papers here caused abstract/PRISMA/Results counts to disagree,
+        # which reviewers flag as an internal inconsistency.
+        n_papers = context.get("n_included", context.get("n_papers", "N"))
         refine_requirements = {
             "abstract": (
                 f"ensure exactly five bold labels (Background/Objective/Methods/Results/Conclusion); "
-                f"state exactly {n_papers} papers reviewed; "
+                f"state exactly {n_papers} papers included in synthesis; "
                 f"name ONLY these databases: {databases} — remove any other database names; "
                 f"REMOVE every (Author, Year) inline citation — abstracts must have zero citations; "
                 f"rewrite any interrogative Objective sentence to a declarative noun phrase "
@@ -691,6 +724,9 @@ def write_full_paper(
         "databases": "Semantic Scholar, arXiv, and Crossref",
         "recency_pct": recency_pct,
         "findings": [re.sub(r"\[.*?\]", "", f).strip() for f in synthesis.key_findings[:8]],
+        # Findings WITH their [Author, Year] tags — required by the Results
+        # section so every synthesized claim stays verifiable against sources.
+        "findings_cited": synthesis.key_findings[:12],
         "gaps": [re.sub(r"\[.*?\]", "", g).strip() for g in synthesis.research_gaps[:4]],
         "methodologies": synthesis.methodologies[:4],
         "trends": synthesis.trends,
@@ -728,8 +764,15 @@ def write_full_paper(
     # --- Methods (structured data — keep template) ---
     methods = write_methods(research_question, synthesis, keywords, n_raw=n_raw, n_included=n_included)
 
-    # --- Results (extractive findings — keep template) ---
-    results = write_results(research_question, synthesis, domain)
+    # --- Results ---
+    # Tier 2: Claude thematic synthesis (Q1 reviewers reject isolated-citation
+    # dumps); Tier 1 fallback: extractive template.
+    results_draft = _write_section_with_claude("results", _ctx)
+    if results_draft:
+        results = results_draft
+        logger.info("[Writer] Results: AI Scientist (thematic synthesis)")
+    else:
+        results = write_results(research_question, synthesis, domain)
 
     # --- Discussion ---
     disc_draft = _write_section_with_claude("discussion", _ctx)

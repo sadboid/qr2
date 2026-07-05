@@ -113,8 +113,13 @@ def _detect_primary_theory(corpus: List[Paper]) -> tuple:
             if any(sig in text for sig in signals):
                 counts[theory] += 1
     if counts:
-        top = counts.most_common(1)[0]
-        return top[0], top[1]
+        top_theory, top_n = counts.most_common(1)[0]
+        if top_n >= 3:
+            return top_theory, top_n
+        # A 1-2 paper signal is too thin to anchor the paper's entire
+        # Theoretical Framework on (it whipsawed between TAM/KBV/RBV across
+        # runs). Below the threshold, use the field's native lens instead.
+        return "External Enabler Framework", counts.get("External Enabler Framework", 0)
     return "External Enabler Framework", 0
 
 
