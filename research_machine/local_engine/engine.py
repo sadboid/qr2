@@ -86,10 +86,17 @@ def _build_queries_with_claude(
     """
     kw_str = ", ".join(keywords[:4])
     dynamic_example = ", ".join(f'"query {i+1}"' for i in range(max_queries))
+    domain_anchor = {
+        "startup": "entrepreneurship, startups, or founders",
+        "enterprise": "organizations, firms, or management",
+    }.get(domain, domain)
     prompt = (
         f'Write {max_queries} search queries to research: "{research_question}"\n'
         f'Each query: plain natural language phrase, 3-7 words, no boolean operators.\n'
         f'Domain: {domain}. Key themes: {kw_str}.\n'
+        f'CRITICAL: every query MUST contain a word anchoring it to {domain_anchor} — '
+        f'generic technology queries retrieve off-domain papers (healthcare, education) '
+        f'that pollute the corpus.\n'
         f'Cover diverse angles: empirical evidence, theoretical frameworks, '
         f'methods, practical applications, and emerging trends.\n'
         f'Respond with ONLY a JSON array: [{dynamic_example}]'
@@ -616,11 +623,33 @@ class LocalResearchEngine:
         queries = _build_queries(research_question, keywords, domain)
         logger.info(f"[LocalEngine] Queries: {queries[:3]}")
 
-        # 2. Fetch corpus
+        # 2. Fetch corpus — over-fetch so the corpus is still substantial after
+        # the domain-relevance filter below (raw retrieval is ~50% off-domain
+        # for business queries; a filtered 35-40 clean papers beats 50 dirty).
         logger.info("[LocalEngine] Fetching papers from Semantic Scholar + arXiv + Crossref...")
-        corpus, n_raw = await fetch_corpus(queries, keywords, target_size=self.target_corpus_size)
+        fetch_target = int(self.target_corpus_size * 1.6)
+        corpus, n_raw = await fetch_corpus(queries, keywords, target_size=fetch_target)
         if not corpus:
             raise RuntimeError("No papers found — check network connectivity and query terms")
+
+        # 2.2. Domain-relevance filter at CORPUS level, before synthesis.
+        # Filtering only the citation list (the old behaviour) still let
+        # off-domain abstracts pollute findings/theory/consensus extraction.
+        from .synthesizer import _is_off_domain
+        in_domain = [p for p in corpus if not _is_off_domain(p, domain, keywords)]
+        n_dropped = len(corpus) - len(in_domain)
+        if len(in_domain) >= 15:
+            corpus = in_domain[: self.target_corpus_size]
+            logger.info(
+                f"[LocalEngine] Domain filter: dropped {n_dropped} off-domain papers, "
+                f"synthesizing on {len(corpus)} in-domain papers"
+            )
+        else:
+            corpus = corpus[: self.target_corpus_size]
+            logger.warning(
+                f"[LocalEngine] Domain filter would leave only {len(in_domain)} papers "
+                f"(<15) — keeping unfiltered corpus of {len(corpus)}"
+            )
         logger.info(f"[LocalEngine] Corpus: {len(corpus)} papers")
 
         # 2.5. Verify source quality
