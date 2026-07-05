@@ -10,7 +10,11 @@ from .corpus import Paper
 
 logger = logging.getLogger(__name__)
 
-MATCH_THRESHOLD = 0.25  # Lowered: claims are often paraphrased from abstracts
+# Calibrated for the 50% SequenceMatcher + 50% token-Jaccard blend — same
+# formula and threshold LitReviewVerifier validated in Week 8. The old 0.25
+# was calibrated for raw SequenceMatcher; with the blend it rejected
+# legitimately paraphrased claims (3/33 verified on an otherwise-sound paper).
+MATCH_THRESHOLD = 0.18
 
 
 @dataclass
@@ -166,8 +170,9 @@ class ClaimChecker:
     # emits, so fact-check silently examined ~2 of 20 citations per paper.
     _CITATION_PATTERNS = [
         r'\[([A-Za-z][A-Za-z\s]+,?\s*\d{4})\]',
-        r'\(([A-Z][A-Za-z\-]+(?:\s+(?:et\s+al\.?|&\s*[A-Z][A-Za-z\-]+))?,\s*\d{4}[a-z]?)\)',
-        r'\b([A-Z][A-Za-z\-]+(?:\s+et\s+al\.?)?)\s+\((\d{4}[a-z]?)\)',
+        r'\(([A-Z][A-Za-z\-]+(?:\s+(?:et\s+al\.?|(?:and|&)\s+[A-Z][A-Za-z\-]+))?,\s*\d{4}[a-z]?)\)',
+        # narrative: "Author (2023)", "Author et al. (2023)", "Author and Author (2023)"
+        r'\b([A-Z][A-Za-z\-]+(?:\s+(?:et\s+al\.?|(?:and|&)\s+[A-Z][A-Za-z\-]+))?)\s+\((\d{4}[a-z]?)\)',
     ]
 
     def _extract_citations(self, text: str) -> List[Tuple[str, str]]:
@@ -190,7 +195,10 @@ class ClaimChecker:
                     if not year_m:
                         continue
                     year = year_m.group(0)
-                    author = re.split(r'[,&]', content)[0]
+                    author = content
+                # FIRST author only — corpus lookup keys on the first author's
+                # last name, so "Giuggioli and Pellegrini" must yield Giuggioli.
+                author = re.split(r',|&|\band\b', author)[0]
                 author = author.replace(' et al.', '').replace(' et al', '').strip()
                 if author:
                     matches.append((match.start(), f"[{author}, {year}]"))
