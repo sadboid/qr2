@@ -737,6 +737,12 @@ class LocalResearchEngine:
             # are preserved in lit_review_report for the gate/metadata; the paper
             # keeps the clean prose.
 
+        # 3.9. Consensus analysis BEFORE writing — the support/oppose split and
+        # its evidence sentences are the raw material the Discussion uses to
+        # articulate a contingency framework (the paper's actual contribution).
+        logger.info("[LocalEngine] Running consensus analysis...")
+        consensus = analyze_consensus(corpus, research_question, keywords)
+
         # 4. Write paper (with literature review)
         title = _make_title(research_question, domain, paper_type=paper_type)
         logger.info(f"[LocalEngine] Writing paper ({paper_type}): '{title}'")
@@ -762,11 +768,8 @@ class LocalResearchEngine:
                 literature_review=lit_review,
                 n_raw=n_raw,
                 n_included=n_included,
+                consensus=consensus,
             )
-
-        # 4.5 Consensus analysis (Consensus.app style) + Research Rabbit features
-        logger.info("[LocalEngine] Running consensus analysis...")
-        consensus = analyze_consensus(corpus, research_question, keywords)
 
         # Research Rabbit: citation clusters + reading path
         corpus_dicts = [_paper_to_dict(p) for p in corpus]

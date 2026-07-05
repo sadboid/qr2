@@ -61,7 +61,10 @@ _PER_SECTION_TIPS: Dict[str, str] = {
         "knowledge…, although inspiring contributions have already been produced'. "
         "(3) OCCUPY (1–2 paragraphs): aim sentence ('The purpose of this review is to…'), then "
         "ENUMERATED contributions in the house formula: 'This paper's contribution is "
-        "twofold/threefold. First,… Second,… Finally,…'. Never frame contributions as questions. "
+        "twofold/threefold. First,… Second,… Finally,…'. One contribution should be that the "
+        "review moves beyond cataloguing evidence to articulate boundary conditions (a "
+        "contingency perspective) that reconcile divergent findings in the literature. "
+        "Never frame contributions as questions. "
         "End with a roadmap: 'The remainder of the paper is organised as follows…'. "
         "Target 800–1000 words, 8–12 citations evenly distributed."
     ),
@@ -93,9 +96,22 @@ _PER_SECTION_TIPS: Dict[str, str] = {
         "Open the way strong Q1 papers do — by CHALLENGING a common assumption, not by "
         "restating findings (exemplar: 'A widespread prejudice is that intelligent systems "
         "will gradually replace humans… However, AI's greatest potential is in complementing "
-        "and enhancing human capabilities'). Then three explicit subsections: "
+        "and enhancing human capabilities'). Then FOUR explicit subsections: "
+        "**Toward a Contingency Perspective** — THIS IS THE PAPER'S CENTRAL CONTRIBUTION. "
+        "You are given the corpus's real evidence split (N papers supporting, M opposing, "
+        "with verbatim evidence sentences and citations). Do what Q1 reviewers demand of a "
+        "review: ADJUDICATE the disagreement instead of merely reporting it. Derive 2–4 "
+        "NAMED boundary conditions that reconcile the supporting and opposing evidence — "
+        "e.g. task programmability, founder experience, data richness of the venture "
+        "context, venture stage — each stated as a numbered contingency proposition "
+        "('C1: The positive effect of X on Y strengthens when…') and each grounded in the "
+        "SPECIFIC cited evidence provided (cite the supporting studies on one side and the "
+        "opposing studies on the other side of each condition). Never invent evidence; use "
+        "only the provided sentences and citations. Close by naming the resulting framework "
+        "(e.g. 'a contingency model of AI-enabled founder decision-making'). "
         "**Theoretical Implications** — name and extend the PRIMARY THEORY provided as "
-        "`primary_theory` in context, with its seminal author. Use explicit extension verbs: "
+        "`primary_theory` in context, with its seminal author, and connect the contingency "
+        "conditions to it. Use explicit extension verbs: "
         "'Our findings extend…', 'This refines…', 'This distinction was not explicated in the "
         "original formulation of…'. Do not name-drop multiple theories vaguely. "
         "**Practical Implications** — address NAMED audiences separately (founders/entrepreneurs, "
@@ -105,8 +121,9 @@ _PER_SECTION_TIPS: Dict[str, str] = {
         "heterogeneity), each immediately turned toward opportunity in the Q1 style ('However, "
         "this study can serve as a benchmark for…'). Then 3–4 future directions using the "
         "field's refrain 'Therefore, future research should…', each tied to a specific gap "
-        "identified in the literature review. "
-        "Target 1200–1500 words. Ban the phrase 'This paper contributes to the literature'."
+        "identified in the literature review — at least one direction must be an empirical "
+        "test of the contingency propositions (C1–Cn) articulated above. "
+        "Target 1400–1800 words. Ban the phrase 'This paper contributes to the literature'."
     ),
 }
 
@@ -158,7 +175,17 @@ def _write_section_with_claude(section_name: str, context: dict) -> Optional[str
             f"Methodologies identified: {', '.join(context.get('methodologies', [])[:4])}\n\n"
             f"Key findings:\n{findings_txt}\n\n"
             f"Research gaps:\n{gaps_txt}\n\n"
-            f"Representative papers:\n{papers_txt}\n\n"
+            + (
+                f"Evidence split across the corpus: {context['consensus_split']}\n"
+                f"Supporting evidence (verbatim, with citations):\n"
+                + "\n".join(f"  - {e}" for e in context.get("support_evidence", []))
+                + "\nOpposing/null evidence (verbatim, with citations):\n"
+                + "\n".join(f"  - {e}" for e in context.get("oppose_evidence", []))
+                + "\n\n"
+                if context.get("consensus_split") and section_name == "discussion"
+                else ""
+            )
+            + f"Representative papers:\n{papers_txt}\n\n"
             f"Write the {section_name} section now. "
             f"IMPORTANT: Use only the databases listed above — do not mention Scopus, Web of Science, "
             f"PubMed, EBSCO, or Google Scholar."
@@ -193,7 +220,13 @@ def _refine_section_with_claude(section_name: str, draft: str, context: dict) ->
                 f"make Results findings specific with evidence where possible"
             ),
             "introduction": "ensure CARS structure (territory → niche → contribution), tighten gap statement, verify paper structure preview is present",
-            "discussion": "ensure all three subsections (Theoretical / Practical / Limitations+Future), make recommendations actionable, ensure at least 5 limitations listed",
+            "discussion": (
+                "ensure all four subsections (Contingency Perspective / Theoretical / "
+                "Practical / Limitations+Future); the contingency propositions must be "
+                "numbered (C1, C2…), each citing supporting evidence on one side and "
+                "opposing evidence on the other; make recommendations actionable; "
+                "ensure at least 5 limitations listed"
+            ),
         }.get(section_name, "improve clarity and logical flow, add specifics where missing")
         prompt = (
             f"Refine this {section_name} section of a Q1 Business+AI paper.\n"
@@ -700,6 +733,7 @@ def write_full_paper(
     literature_review: str = None,  # Optional: use provided lit review instead of default
     n_raw: int = 0,
     n_included: int = None,
+    consensus=None,  # Optional ConsensusResult — fuels the Discussion's contingency framework
 ) -> dict:
     """Assemble all IMRAD sections including Literature Review and Future Directions.
 
@@ -732,6 +766,15 @@ def write_full_paper(
         "methodologies": synthesis.methodologies[:4],
         "trends": synthesis.trends,
         "primary_theory": synthesis.primary_theory,
+        # Real disagreement in the corpus — the raw material for the
+        # Discussion's contingency framework (evidence carries [Author, Year]).
+        "consensus_split": (
+            f"{consensus.support_count} papers SUPPORT, {consensus.oppose_count} OPPOSE, "
+            f"{consensus.mixed_count} MIXED (of {consensus.total_papers})"
+            if consensus else ""
+        ),
+        "support_evidence": list(consensus.support_evidence[:4]) if consensus else [],
+        "oppose_evidence": list(consensus.oppose_evidence[:4]) if consensus else [],
         "papers_sample": "\n".join(
             f"- {(p.authors[0].split(',')[0] if p.authors else 'Author').strip()} ({p.year}): {p.title[:70]}"
             for p in synthesis.top_papers[:8]
