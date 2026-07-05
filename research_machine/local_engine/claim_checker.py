@@ -237,28 +237,45 @@ class ClaimChecker:
 
         return None
 
+    @staticmethod
+    def _normalize_claim(claim: str) -> str:
+        """Strip citation markers and markdown so framing text doesn't dilute matching."""
+        claim = re.sub(r'\[[A-Za-z][A-Za-z\s\-.&]+,?\s*\d{4}\]', '', claim)
+        claim = re.sub(r'\([A-Za-z][A-Za-z\s\-.&]+,\s*\d{4}[a-z]?\)', '', claim)
+        claim = re.sub(r'^[-*#>]+\s*', '', claim.strip())
+        claim = re.sub(r'\*\*?([^*]+)\*\*?', r'\1', claim)
+        return re.sub(r'\s+', ' ', claim).strip()
+
     def _fuzzy_match_to_abstract(self, claim: str, abstract: str) -> Tuple[float, str]:
         """
-        Fuzzy-match claim sentence against abstract sentences using SequenceMatcher.
+        Match a claim against abstract sentences with the blend validated in
+        LitReviewVerifier: 50% character-level SequenceMatcher + 50% token
+        Jaccard. Pure SequenceMatcher under-scored legitimately paraphrased
+        claims (same content words, different order/connectives), which made
+        the thematic Results synthesis look unverified when it wasn't.
 
         Returns:
             (best_match_score, best_matching_sentence)
         """
-        # Split abstract into sentences
         sentences = re.split(r'(?<=[.!?])\s+', abstract)
         sentences = [s.strip() for s in sentences if len(s.strip()) > 20]
-
         if not sentences:
             return 0.0, ""
 
+        clean = self._normalize_claim(claim).lower()
+        claim_words = {w for w in re.findall(r'[a-z]{4,}', clean)}
+
         best_score = 0.0
         best_sentence = ""
-
         for sentence in sentences:
-            # Use SequenceMatcher to compute similarity
-            ratio = SequenceMatcher(None, claim.lower(), sentence.lower()).ratio()
-            if ratio > best_score:
-                best_score = ratio
+            s_low = sentence.lower()
+            sm = SequenceMatcher(None, clean, s_low).ratio()
+            sent_words = {w for w in re.findall(r'[a-z]{4,}', s_low)}
+            union = claim_words | sent_words
+            jaccard = len(claim_words & sent_words) / len(union) if union else 0.0
+            combined = 0.5 * sm + 0.5 * jaccard
+            if combined > best_score:
+                best_score = combined
                 best_sentence = sentence
 
         return best_score, best_sentence
