@@ -69,6 +69,20 @@ _OFF_POPULATIONS: Dict[str, frozenset] = {
 }
 
 
+# Seminal theory works + the canonical AI definition — legitimately citable
+# even though they are not corpus papers (the writer appends their real
+# reference entries to the References section).
+SEMINAL_ALLOWED = {
+    ("davidsson", 2020), ("recker", 2020), ("briel", 2020),
+    ("sarasvathy", 2001), ("barney", 1991), ("davis", 1989),
+    ("blau", 1964), ("dimaggio", 1983), ("powell", 1983),
+    ("teece", 1997), ("grant", 1996), ("simon", 1955),
+    ("jensen", 1976), ("meckling", 1976), ("becker", 1964),
+    ("hambrick", 1984), ("mason", 1984),
+    ("kaplan", 2019), ("haenlein", 2019),
+}
+
+
 @dataclass
 class GroundingIssue:
     section: str          # "Discussion" | "Results" | "Theoretical Framework" | "paper"
@@ -163,9 +177,15 @@ class GroundingReviewer:
         corpus: List[Paper],
         primary_theory: str,
         consensus=None,
+        allowed_extra: Optional[set] = None,
     ) -> GroundingReport:
+        """allowed_extra: {(author_key, year), ...} of citations that are
+        legitimate despite not being corpus papers (seminal theory works and
+        the canonical AI definition, whose reference entries the writer
+        appends to References)."""
         report = GroundingReport()
         sections = _split_sections(paper_md)
+        allowed_extra = allowed_extra or set()
 
         corpus_lookup: Dict[Tuple[str, int], Paper] = {}
         for p in corpus:
@@ -175,14 +195,19 @@ class GroundingReviewer:
 
         references_text = sections.get("References", "")
 
-        # 1 + 2: population fidelity & phantom citations on interpretive sections
-        for sec_name in ("Discussion", "Results"):
+        # 1 + 2: phantom citations across ALL prose sections (library rule:
+        # the manuscript may only cite what the corpus contains) + population
+        # fidelity on the interpretive sections (Discussion/Results).
+        _POPULATION_SECTIONS = {"Discussion", "Results"}
+        for sec_name in ("Discussion", "Results", "Introduction", "Theoretical Framework"):
             body = sections.get(sec_name, "")
             if not body:
                 continue
             cites = _extract_cites_with_sentences(body)
             report.checked_claims += len(cites)
             for author_key, year, sentence in cites:
+                if (author_key, year) in allowed_extra:
+                    continue
                 paper = corpus_lookup.get((author_key, year))
                 if paper is None:
                     # not in corpus — is it at least in the references list?
@@ -204,10 +229,12 @@ class GroundingReviewer:
                             severity="high",
                         ))
                     continue
-                # population fidelity
-                issue = self._population_check(sec_name, sentence, paper)
-                if issue:
-                    report.issues.append(issue)
+                # population fidelity — interpretive sections only (framing
+                # citations in the Introduction are argumentative, not evidence)
+                if sec_name in _POPULATION_SECTIONS:
+                    issue = self._population_check(sec_name, sentence, paper)
+                    if issue:
+                        report.issues.append(issue)
 
         # 3: theory consistency
         report.issues.extend(self._theory_check(sections, primary_theory))

@@ -207,6 +207,20 @@ async def run(args):
             f"    Lit Review  : {lrv.get('overall_score', 0):.1f}/10 {lr_sym} {'PASS' if lrv.get('passed') else 'FAIL'}"
             f"  ({lrv.get('verified_count', 0)}/{lrv.get('total_citations', 0)} lit review claims verified)"
         )
+    gr = qr.get("grounding")
+    if gr:
+        g_sym = "✓" if gr.get("passed") else "✗"
+        print(
+            f"    Grounding   : {gr.get('score', 0):.1f}/10 {g_sym} {'PASS' if gr.get('passed') else 'FAIL'}"
+            f"  ({gr.get('feedback', '')[:90]})"
+        )
+    st = qr.get("style")
+    if st:
+        s_sym = "✓" if st.get("passed") else "✗"
+        print(
+            f"    Style       : {st.get('score', 0):.1f}/10 {s_sym} {'PASS' if st.get('passed') else 'FAIL'}"
+            f"  ({st.get('feedback', '')[:90]})"
+        )
     # Consensus.app-style summary
     if result.consensus:
         cs = result.consensus

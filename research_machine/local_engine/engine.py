@@ -262,36 +262,41 @@ def _extract_review_excerpt(paper_content: str, max_chars: int = 5000) -> str:
     return "\n\n".join(excerpt_parts)
 
 
-def _ai_scientist_peer_review(paper_content: str) -> Optional[dict]:
-    """
-    AI Scientist-style structured peer review using 9 dimensions adapted for
-    Business+AI systematic literature reviews. Calls the running Claude Code
-    session via CLI — no API key needed.
-    Returns score dict or None if CLI unavailable.
-    """
-    if not claude_cli.is_available():
-        return None
-    try:
-        excerpt = _extract_review_excerpt(paper_content, max_chars=5000)
-        word_count = len(paper_content.split())
-        system = (
-            "You are an experienced peer reviewer for Q1 Business+AI journals "
-            "(e.g., Strategic Management Journal, MIS Quarterly, Journal of Management). "
-            "This paper is a Systematic Literature Review (SLR) — it synthesises existing "
-            "research; do NOT penalise it for lacking primary empirical data. "
-            "For SLRs, originality means novel synthesis, thematic organisation, or "
-            "identifying gaps not yet named in prior reviews. "
-            "Return ONLY valid JSON, no prose before or after."
-        )
-        prompt = f"""Review the Systematic Literature Review (SLR) excerpt below.
-The full paper is approximately {word_count} words (excerpt shown for brevity).
+# Three adversarial referee personas (starter-kit pattern): each runs as an
+# INDEPENDENT CLI call on its own section slice — not one mind wearing three
+# hats — so their errors are less correlated than a single self-review.
+_REFEREE_PERSONAS = {
+    "methods_hawk": {
+        "role": (
+            "You are the METHODS HAWK — a sceptical methods reviewer for review papers. "
+            "Interrogate: search completeness and database coverage; screening reliability; "
+            "PRISMA-count coherence; whether synthesis claims overreach what abstracts can "
+            "support; arbitrary thresholds; magnitude/effect claims without evidence."
+        ),
+        "sections": ["Methods", "Results"],
+    },
+    "theory_purist": {
+        "role": (
+            "You are the THEORY PURIST. Interrogate: is there ONE clear contribution or "
+            "several half-papers? Does the Discussion ADVANCE theory or merely restate "
+            "results? Are constructs used consistently? Is mechanism (why) vs correlation "
+            "(what) calibrated honestly? Are boundary conditions stated?"
+        ),
+        "sections": ["Theoretical Framework", "Discussion"],
+    },
+    "desk_editor": {
+        "role": (
+            "You are the DESK EDITOR of a Q1 Business+AI journal. Interrogate: is the "
+            "contribution visible by the end of the introduction? Does the abstract "
+            "oversell? Is hedging calibrated? Are limitations honest rather than cosmetic? "
+            "Is the writing free of filler?"
+        ),
+        "sections": ["Abstract", "Introduction", "Future Directions"],
+    },
+}
 
-PAPER EXCERPT:
-{excerpt}
-
-Score on 9 dimensions for an SLR in a Q1 Business+AI journal.
-Return ONLY this JSON object:
-{{
+_REVIEW_JSON_SPEC = """Return ONLY this JSON object:
+{
   "originality": <1-4>,
   "quality": <1-4>,
   "clarity": <1-4>,
@@ -301,15 +306,88 @@ Return ONLY this JSON object:
   "contribution": <1-4>,
   "overall": <1-10>,
   "confidence": <1-5>,
-  "summary": "<2-sentence assessment of the SLR>",
+  "summary": "<2-sentence assessment>",
   "main_weakness": "<1 specific improvement needed>"
-}}
+}
 
 Scoring guide:
 - 1-4 scales: 1=poor 2=below-avg 3=good 4=excellent
 - overall: 1-5=reject 6=borderline/major-revision 7=minor-revision 8=accept 9-10=strong-accept
-- Score honestly on the SLR's actual merits; do not inflate for length alone."""
-        text = claude_cli.call(prompt, system=system, timeout=90)
+- Score honestly on actual merits; do not inflate for length alone."""
+
+
+def _paper_sections(paper_content: str) -> Dict[str, str]:
+    out: Dict[str, str] = {}
+    for block in re.split(r'\n(?=## )', paper_content):
+        header = block.split("\n", 1)[0].replace("#", "").strip()
+        out[header] = block
+    return out
+
+
+def _ai_scientist_peer_review(paper_content: str) -> Optional[dict]:
+    """
+    Adversarial peer review by three independent referee personas, each an
+    isolated CLI call over its own section slice. Scores are averaged; the
+    per-persona verdicts are preserved. Returns merged dict or None if the
+    CLI is unavailable or every persona call fails.
+    """
+    if not claude_cli.is_available():
+        return None
+    sections = _paper_sections(paper_content)
+    word_count = len(paper_content.split())
+    persona_results: Dict[str, dict] = {}
+
+    for name, cfg in _REFEREE_PERSONAS.items():
+        try:
+            slice_parts = [sections[s] for s in cfg["sections"] if s in sections]
+            excerpt = "\n\n".join(slice_parts)[:6000] or _extract_review_excerpt(paper_content, 5000)
+            system = (
+                f"{cfg['role']} The paper is a Systematic Literature Review (SLR) for a Q1 "
+                f"Business+AI journal — do NOT penalise it for lacking primary empirical "
+                f"data. You are reviewing independently; be adversarial but fair. "
+                f"Return ONLY valid JSON, no prose before or after."
+            )
+            prompt = (
+                f"Review these sections of an SLR (~{word_count} words total; "
+                f"you see {', '.join(cfg['sections'])}).\n\n"
+                f"PAPER EXCERPT:\n{excerpt}\n\n{_REVIEW_JSON_SPEC}"
+            )
+            text = claude_cli.call(prompt, system=system, timeout=90)
+            m = re.search(r'\{[\s\S]*\}', text)
+            if m:
+                persona_results[name] = json.loads(m.group(0))
+        except Exception as e:
+            logger.debug(f"[Referee:{name}] failed: {e}")
+
+    if not persona_results:
+        return None
+
+    dims = ("originality", "quality", "clarity", "significance",
+            "soundness", "presentation", "contribution", "confidence")
+    merged: dict = {}
+    for d in dims + ("overall",):
+        vals = [r.get(d) for r in persona_results.values() if isinstance(r.get(d), (int, float))]
+        if vals:
+            merged[d] = round(sum(vals) / len(vals), 1)
+    merged["summary"] = " | ".join(
+        f"{n.replace('_', '-')}: {r.get('summary', '')}" for n, r in persona_results.items()
+    )
+    merged["main_weakness"] = " | ".join(
+        f"{n.replace('_', '-')}: {r.get('main_weakness', '')}" for n, r in persona_results.items()
+    )
+    merged["personas"] = {
+        n: {"overall": r.get("overall"), "main_weakness": r.get("main_weakness", "")}
+        for n, r in persona_results.items()
+    }
+    logger.info(
+        "[Referee] " + ", ".join(f"{n}={r.get('overall')}/10" for n, r in persona_results.items())
+    )
+    return merged
+
+
+def _legacy_single_review_parse(text: str) -> Optional[dict]:
+    """(kept for reference; unused)"""
+    try:
         m = re.search(r'\{[\s\S]*\}', text)
         if m:
             return json.loads(m.group(0))
@@ -321,6 +399,31 @@ Scoring guide:
 # ---------------------------------------------------------------------------
 # Quality gate (programmatic, no LLM)
 # ---------------------------------------------------------------------------
+
+def _lint_manuscript_style(md_text: str) -> dict:
+    """Style gate: AI-tell (deslop) + academic-prose linting, ported from the
+    research-pipeline-starter-kit (MIT). Deslop HIGH findings (chatbot
+    artifacts, emoji, unfilled placeholders) are never acceptable → hard fail.
+    Prose HIGH findings (unquantified 'significant', asserted novelty) are
+    tolerated up to 3 — 'to the best of our knowledge' is a field-normal hedge.
+    """
+    from . import deslop, prose_check
+    d_findings = deslop.lint(text=md_text)[0]
+    p_findings = prose_check.lint(text=md_text)[0]
+    d_high = [f for f in d_findings if f[0] == "HIGH"]
+    p_high = [f for f in p_findings if f[0] == "HIGH"]
+    medium = [f for f in d_findings + p_findings if f[0] == "MEDIUM"]
+    score = round(max(0.0, 10.0 - 2.0 * len(d_high) - 0.5 * len(p_high) - 0.1 * len(medium)), 1)
+    return {
+        "passed": not d_high and len(p_high) <= 3,
+        "score": score,
+        "feedback": (
+            f"deslop {len(d_findings)} findings ({len(d_high)} high); "
+            f"prose {len(p_findings)} findings ({len(p_high)} high, {len(medium)} medium)."
+        ),
+        "top_findings": [f"{f[0]}: {f[1]} (line {f[2]})" for f in (d_high + p_high + medium)[:8]],
+    }
+
 
 def _run_quality_gates(
     synthesis: SynthesisResult,
@@ -436,7 +539,11 @@ def _run_quality_gates(
                 f"{len(fact_report.contradictions)} contradictions detected."
             )
 
-    overall = "accepted" if (novelty_passed and citation_passed and peer_review_passed and fact_check_passed) else "revision_requested"
+    # Style gate (AI-tell + prose linting)
+    style_result = _lint_manuscript_style(paper_data["content_markdown"])
+
+    overall = "accepted" if (novelty_passed and citation_passed and peer_review_passed
+                             and fact_check_passed and style_result["passed"]) else "revision_requested"
     if not novelty_passed and not peer_review_passed:
         overall = "rejected"
 
@@ -473,6 +580,7 @@ def _run_quality_gates(
             "feedback": fact_check_feedback,
             "method": fact_check_method,
         },
+        "style": style_result,
         "overall_status": overall,
     }
 
@@ -506,12 +614,39 @@ class EngineResult:
     def word_count(self) -> int:
         return len(self.paper_data.get("content_markdown", "").split())
 
+    def _provenance(self) -> dict:
+        """WHAT/WHEN/FROM/IN stamp (starter-kit provenance pattern): the
+        manuscript hash, generation time, producing git commit, and
+        environment — so any artifact can be traced and drift detected."""
+        import hashlib
+        import platform
+        import subprocess
+        import sys
+        from datetime import datetime, timezone
+        try:
+            commit = subprocess.run(
+                ["git", "rev-parse", "--short", "HEAD"],
+                capture_output=True, text=True, timeout=5,
+            ).stdout.strip() or "unknown"
+        except Exception:
+            commit = "unknown"
+        return {
+            "manuscript_sha256": hashlib.sha256(
+                self.paper_data.get("content_markdown", "").encode()
+            ).hexdigest(),
+            "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "git_commit": commit,
+            "python": sys.version.split()[0],
+            "platform": platform.platform(terse=True),
+        }
+
     def to_metadata(self) -> dict:
         qr = self.quality_results
         return {
             "metadata": {
                 "title": self.title,
                 "mode": "local_engine",
+                "provenance": self._provenance(),
                 **{k: v for k, v in qr.items() if k not in ("overall_status", "fact_check")},
                 "fact_check": qr.get("fact_check", {"passed": True, "score": 10.0, "feedback": "No fact-check"}),
                 "domain": self.domain,
@@ -608,6 +743,67 @@ class LocalResearchEngine:
 
     def __init__(self, target_corpus_size: int = 50):
         self.target_corpus_size = target_corpus_size
+
+    def _grounding_review_and_correct(
+        self, paper_data, corpus, synthesis, consensus, domain,
+        keywords, n_included, n_raw,
+    ):
+        """Dedicated reviewer pass + self-correction loop.
+
+        Review the manuscript for grounding defects (population fidelity,
+        phantom citations, theory/number consistency); if high-severity issues
+        are found, rewrite the affected sections with the issues as
+        constraints, then re-review. One correction round — the re-review
+        result is reported honestly either way.
+        """
+        from .grounding_reviewer import GroundingReviewer, SEMINAL_ALLOWED
+        from .writer import revise_section_with_claude
+
+        reviewer = GroundingReviewer(domain=domain)
+        report = reviewer.review(
+            paper_data["content_markdown"], corpus, synthesis.primary_theory,
+            consensus, allowed_extra=SEMINAL_ALLOWED,
+        )
+        logger.info(f"[Grounding] {report.feedback()}")
+
+        if report.high_issues and claude_cli.is_available():
+            ctx = {
+                "primary_theory": synthesis.primary_theory,
+                "consensus_split": (
+                    f"{consensus.support_count} SUPPORT + {consensus.oppose_count} OPPOSE + "
+                    f"{consensus.mixed_count} MIXED + {consensus.neutral_count} NEUTRAL "
+                    f"= {consensus.total_papers} papers with a stance"
+                    if consensus else ""
+                ),
+                "allowed_citations": [p.short_ref() for p in synthesis.top_papers],
+            }
+            section_field = {
+                "Discussion": "discussion_md",
+                "Results": "results_md",
+                "Introduction": "introduction_md",
+                "Theoretical Framework": "theoretical_framework_md",
+            }
+            by_section = {}
+            for iss in report.high_issues:
+                by_section.setdefault(iss.section, []).append(iss)
+            for sec, issues in by_section.items():
+                fld = section_field.get(sec)
+                if not fld or not paper_data.get(fld):
+                    continue
+                revised = revise_section_with_claude(sec, paper_data[fld], issues, ctx)
+                if revised != paper_data[fld]:
+                    paper_data["content_markdown"] = paper_data["content_markdown"].replace(
+                        paper_data[fld], revised
+                    )
+                    paper_data[fld] = revised
+                    logger.info(f"[Grounding] Self-corrected {sec} ({len(issues)} high issues)")
+            report = reviewer.review(
+                paper_data["content_markdown"], corpus, synthesis.primary_theory,
+                consensus, allowed_extra=SEMINAL_ALLOWED,
+            )
+            report.revised = True
+            logger.info(f"[Grounding] Post-correction: {report.feedback()}")
+        return report
 
     async def run(
         self,
@@ -771,6 +967,14 @@ class LocalResearchEngine:
                 consensus=consensus,
             )
 
+        # 4.2 Grounding review + self-correction (dedicated reviewer pass:
+        # population fidelity, phantom citations, theory & number consistency).
+        grounding_report = None
+        if paper_type != "bibliometric":
+            grounding_report = self._grounding_review_and_correct(
+                paper_data, corpus, synthesis, consensus, domain, keywords, n_included, n_raw,
+            )
+
         # Research Rabbit: citation clusters + reading path
         corpus_dicts = [_paper_to_dict(p) for p in corpus]
         citation_clusters = compute_co_citation_clusters(corpus_dicts, keywords)
@@ -783,10 +987,22 @@ class LocalResearchEngine:
 
         # 5. Quality gates
         quality_results = _run_quality_gates(synthesis, paper_data, corpus)
+        if grounding_report is not None:
+            quality_results["grounding"] = {
+                "passed": grounding_report.passed,
+                "score": grounding_report.score,
+                "issues": len(grounding_report.issues),
+                "high_issues": len(grounding_report.high_issues),
+                "revised": grounding_report.revised,
+                "feedback": grounding_report.feedback(),
+            }
+            if not grounding_report.passed and quality_results["overall_status"] == "accepted":
+                quality_results["overall_status"] = "revision_requested"
         logger.info(
             f"[LocalEngine] Gates: novelty={'✓' if quality_results['novelty']['passed'] else '✗'} "
             f"citations={'✓' if quality_results['citation']['passed'] else '✗'} "
             f"peer_review={'✓' if quality_results['peer_review']['passed'] else '✗'} "
+            f"grounding={'✓' if quality_results.get('grounding', {}).get('passed', True) else '✗'} "
             f"→ {quality_results['overall_status']}"
         )
 

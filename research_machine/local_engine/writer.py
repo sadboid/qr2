@@ -165,7 +165,24 @@ def _write_section_with_claude(section_name: str, context: dict) -> Optional[str
             f"{n_included} included in synthesis."
             if n_raw > 0 else ""
         )
+        # SPINE — locked facts every section must respect (prewrite-lock idea:
+        # the skeleton is fixed before prose; text explains it, never re-derives it)
+        allowed_cites = context.get("allowed_citations", [])
+        spine = (
+            f"SPINE (locked — do not contradict or re-derive):\n"
+            f"- PRIMARY THEORY (the ONLY theory this paper adopts/extends): "
+            f"{context.get('primary_theory', 'n/a')}\n"
+            f"- Papers included in synthesis (use this count everywhere): {context.get('n_included', 'n/a')}\n"
+            + (f"- Evidence split (state EXACTLY, incl. neutral): {context['consensus_split']}\n"
+               if context.get("consensus_split") else "")
+            + (f"- ALLOWED CITATIONS — cite ONLY from this list (plus the seminal work of the "
+               f"primary theory and Kaplan & Haenlein, 2019 for the AI definition); any other "
+               f"citation will be rejected as fabricated:\n  "
+               + "; ".join(allowed_cites) + "\n"
+               if allowed_cites else "")
+        )
         user_prompt = (
+            f"{spine}\n"
             f"Research question: {context['research_question']}\n"
             f"Domain: {context['domain']}\n"
             f"Keywords: {', '.join(context['keywords'][:4])}\n"
@@ -239,6 +256,55 @@ def _refine_section_with_claude(section_name: str, draft: str, context: dict) ->
     except Exception as e:
         logger.debug(f"[AI Scientist writer] {section_name} refine failed: {e}")
     return draft
+
+def revise_section_with_claude(section_name: str, draft: str, issues: list, context: dict) -> str:
+    """Self-correction pass: rewrite a section to resolve reviewer-flagged
+    grounding issues (cf. the referee 'fixed/disclosed/rejected' discipline —
+    every issue must be resolved, none may be silently kept).
+
+    Returns the revised section text, or the original draft on any failure.
+    """
+    if not claude_cli.is_available() or not draft or not issues:
+        return draft
+    try:
+        issue_lines = []
+        for i, iss in enumerate(issues, 1):
+            issue_lines.append(
+                f"{i}. [{iss.issue_type}] {iss.citation_ref} — {iss.detail}\n"
+                f"   Offending text: \"{iss.claim_excerpt}\""
+            )
+        allowed = context.get("allowed_citations", [])
+        prompt = (
+            f"You are revising the {section_name} section of a systematic literature review "
+            f"to resolve grounding issues flagged by an independent reviewer. Fix EVERY issue; "
+            f"none may remain.\n\n"
+            f"Resolution rules by issue type:\n"
+            f"- population_mismatch: either reframe the evidence HONESTLY as indirect evidence "
+            f"from an adjacent domain (naming that domain explicitly, e.g. 'evidence from "
+            f"higher-education contexts suggests — though founder-level replication is needed') "
+            f"or remove the claim entirely. NEVER keep a focal-population claim on a "
+            f"non-focal source.\n"
+            f"- phantom_citation: remove the citation, or replace it with one from the allowed "
+            f"list below. Never invent sources.\n"
+            f"- theory_inconsistency: use ONLY this theory throughout: "
+            f"{context.get('primary_theory', 'the adopted theory')}.\n"
+            f"- number_inconsistency: use exactly these numbers: "
+            f"{context.get('consensus_split', 'as flagged in the issue detail')}.\n\n"
+            f"ALLOWED CITATIONS (plus the primary theory's seminal work and Kaplan & Haenlein, "
+            f"2019): {'; '.join(allowed[:40]) if allowed else 'those already verifiable in the draft'}\n\n"
+            f"FLAGGED ISSUES:\n" + "\n".join(issue_lines) + "\n\n"
+            f"SECTION DRAFT:\n{draft}\n\n"
+            f"Return ONLY the revised section text — no commentary, no headers. Preserve "
+            f"everything that was not flagged."
+        )
+        revised = claude_cli.call(prompt, timeout=150)
+        # sanity: refuse suspiciously short rewrites (model returned commentary/refusal)
+        if revised and len(revised) > 0.4 * len(draft):
+            return revised.strip()
+    except Exception as e:
+        logger.debug(f"[Reviewer] revise {section_name} failed: {e}")
+    return draft
+
 
 _CURRENT_YEAR = 2026
 
@@ -496,6 +562,27 @@ _THEORY_META: dict = {
         ),
         "hypothesis_stem": "top management team characteristics moderate AI adoption and its effects on",
     },
+}
+
+
+# Canonical reference entries for seminal theory works and field-standard
+# definitions. These are real, well-known publications; they are appended to
+# the References so in-text seminal citations are never "phantom" — the
+# manuscript must list everything it cites (library rule).
+_CANONICAL_REFS: Dict[str, str] = {
+    "External Enabler Framework": "Davidsson, P., Recker, J., & von Briel, F. (2020). External enablement of new venture creation: A framework. *Academy of Management Perspectives*, 34(3), 311–332. https://doi.org/10.5465/amp.2017.0163",
+    "Effectuation": "Sarasvathy, S. D. (2001). Causation and effectuation: Toward a theoretical shift from economic inevitability to entrepreneurial contingency. *Academy of Management Review*, 26(2), 243–263. https://doi.org/10.5465/amr.2001.4378020",
+    "Resource-Based View": "Barney, J. (1991). Firm resources and sustained competitive advantage. *Journal of Management*, 17(1), 99–120. https://doi.org/10.1177/014920639101700108",
+    "Technology Acceptance Model": "Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of information technology. *MIS Quarterly*, 13(3), 319–340. https://doi.org/10.2307/249008",
+    "Social Exchange Theory": "Blau, P. M. (1964). *Exchange and power in social life*. Wiley.",
+    "Institutional Theory": "DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. *American Sociological Review*, 48(2), 147–160. https://doi.org/10.2307/2095101",
+    "Dynamic Capabilities": "Teece, D. J., Pisano, G., & Shuen, A. (1997). Dynamic capabilities and strategic management. *Strategic Management Journal*, 18(7), 509–533.",
+    "Knowledge-Based View": "Grant, R. M. (1996). Toward a knowledge-based theory of the firm. *Strategic Management Journal*, 17(S2), 109–122. https://doi.org/10.1002/smj.4250171110",
+    "Cognitive Theory": "Simon, H. A. (1955). A behavioral model of rational choice. *The Quarterly Journal of Economics*, 69(1), 99–118. https://doi.org/10.2307/1884852",
+    "Agency Theory": "Jensen, M. C., & Meckling, W. H. (1976). Theory of the firm: Managerial behavior, agency costs and ownership structure. *Journal of Financial Economics*, 3(4), 305–360. https://doi.org/10.1016/0304-405X(76)90026-X",
+    "Human Capital Theory": "Becker, G. S. (1964). *Human capital: A theoretical and empirical analysis*. University of Chicago Press.",
+    "Upper Echelons Theory": "Hambrick, D. C., & Mason, P. A. (1984). Upper echelons: The organization as a reflection of its top managers. *Academy of Management Review*, 9(2), 193–206. https://doi.org/10.5465/amr.1984.4277628",
+    "_ai_definition": "Kaplan, A., & Haenlein, M. (2019). Siri, Siri, in my hand: Who's the fairest in the land? On the interpretations, illustrations, and implications of artificial intelligence. *Business Horizons*, 62(1), 15–25. https://doi.org/10.1016/j.bushor.2018.08.004",
 }
 
 
@@ -769,10 +856,14 @@ def write_full_paper(
         # Real disagreement in the corpus — the raw material for the
         # Discussion's contingency framework (evidence carries [Author, Year]).
         "consensus_split": (
-            f"{consensus.support_count} papers SUPPORT, {consensus.oppose_count} OPPOSE, "
-            f"{consensus.mixed_count} MIXED (of {consensus.total_papers})"
+            f"{consensus.support_count} SUPPORT + {consensus.oppose_count} OPPOSE + "
+            f"{consensus.mixed_count} MIXED + {consensus.neutral_count} NEUTRAL "
+            f"= {consensus.total_papers} papers with a stance"
             if consensus else ""
         ),
+        # Library rule (prevention side): every section prompt carries the
+        # closed list of citable sources.
+        "allowed_citations": [p.short_ref() for p in synthesis.top_papers],
         "support_evidence": list(consensus.support_evidence[:4]) if consensus else [],
         "oppose_evidence": list(consensus.oppose_evidence[:4]) if consensus else [],
         "papers_sample": "\n".join(
@@ -828,6 +919,14 @@ def write_full_paper(
 
     future_directions = write_future_directions(synthesis, keywords, research_question, domain)
     references = build_references(ref_papers)
+    # Library rule: the manuscript must list everything it cites. Seminal
+    # theory works and the canonical AI definition are cited by design, so
+    # their real reference entries are appended here.
+    canonical = [
+        _CANONICAL_REFS.get(synthesis.primary_theory),
+        _CANONICAL_REFS["_ai_definition"],
+    ]
+    references += "\n\n" + "\n\n".join(c for c in canonical if c)
 
     full_md = f"""# {title}
 
