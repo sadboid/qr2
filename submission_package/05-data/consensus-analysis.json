@@ -1,0 +1,24 @@
+{
+  "research_question_direction": "YES",
+  "label": "Moderate Evidence For",
+  "consensus_pct": 34.9,
+  "total_stanced_papers": 43,
+  "support": 15,
+  "oppose": 7,
+  "mixed": 10,
+  "neutral": 11,
+  "support_evidence": [
+    "\"Furthermore, the new conceptual framework introduced in this study enhances understanding of how AI can revolutionize entrepreneurship.\" [\u0627\u0644\u0645\u0639\u0645\u0631\u064a, 2025]",
+    "\"We find that students from the affected universities establish fewer AI startups and raise less funding.\" [Gofman & Jin, 2023]",
+    "\"The results indicate that students with different levels of knowledge use AI tools differently, with ChatGPT being the most popular tool.\" [Annu\u0161, 2025]",
+    "\"Notably, the study highlights the pivotal mediating role of exploitative innovation, AI adoption enhances exploitative innovation, which in turn improves organizational performance\" [Salamzadeh et al., 2025]",
+    "\"The study provides crucial insights for future AI tool design and offers a framework for developing effective organizational implementation strategies.\" [Russo, 2023]"
+  ],
+  "oppose_evidence": [
+    "\"The study mainly adopts the method of literature analysis, exploring the advantages of AI in product innovation, business decision-making, and marketing, as well as the potential t\" [Tong, 2025]",
+    "\"However, venturing into this new educational paradigm necessitates a thorough exploration of potential pitfalls, including questions surrounding educational quality, potential job\" [George & Wooden, 2023]",
+    "\"The argument proceeds through a primary claim about the amplified relevance of expert humans in light of AI, underpinned by the assumed risks of omitting human experts, together mo\" [Davis, 2024]",
+    "\"However, there are ongoing trust concerns highlighting the necessity of keeping final decisions under human control.\" [Merzifonluo\u011flu & Gunes, 2025]",
+    "\"As consumer trust in social media influencers has declined, largely due to concerns about the financial motivations behind endorsements, AI tools such as ChatGPT have emerged as pe\" [Gerlich, 2025]"
+  ]
+}

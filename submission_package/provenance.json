@@ -1,0 +1,8 @@
+{
+  "manuscript_sha256": "f2a95357ea20f15ab047d361ab792a8bb3f2d78412d98a04252edcd2eca08d69",
+  "generated_at": "2026-07-18T06:48:43+00:00",
+  "git_commit": "754879d",
+  "python": "3.11.15",
+  "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+  "package_note": "SHA256 is of manuscript.md content at generation time"
+}
