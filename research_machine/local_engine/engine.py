@@ -466,16 +466,17 @@ def _run_quality_gates(
 
     rigor_score = min(10.0, (word_count / 400) + finding_count + gap_count)
     # peer_review_score is the reported/gating score. It starts as the Tier-1
-    # structural proxy but is REPLACED by the honest blend once the AI reviewer
-    # runs (see below), so a weak review actually lowers the number and can fail
-    # the gate — the real signal is no longer masked.
+    # structural proxy but is REPLACED by the honest blend once the AI referees
+    # run (see below). If the referees never run (CLI down/rate-limited), the
+    # label must say so — a structural proxy is NOT an "accept" verdict.
     peer_review_score = rigor_score
     peer_review_passed = peer_review_score >= 7.0
     peer_review_feedback = (
-        f"Paper contains {word_count} words, {finding_count} key findings, "
-        f"{gap_count} identified gaps. Rigor proxy score: {rigor_score:.1f}/10."
+        f"STRUCTURAL PROXY ONLY (AI referees unavailable this run): {word_count} words, "
+        f"{finding_count} key findings, {gap_count} identified gaps. "
+        f"Rigor proxy score: {rigor_score:.1f}/10 — not a content review."
     )
-    peer_review_recommendation = "accept" if peer_review_passed else "minor_revision"
+    peer_review_recommendation = "structural_only"
     peer_review_dimensions: dict = {}
 
     # Tier 2: AI Scientist 9-dimension review via Claude CLI — this IS the real
