@@ -209,7 +209,7 @@ def _write_section_with_claude(section_name: str, context: dict) -> Optional[str
         )
         return claude_cli.call(user_prompt, system=system_prompt, timeout=120)
     except Exception as e:
-        logger.debug(f"[AI Scientist writer] {section_name} draft failed: {e}")
+        logger.warning(f"[Writer] {section_name}: Claude draft FAILED ({str(e)[:120]}) — falling back to template")
     return None
 
 
@@ -254,7 +254,7 @@ def _refine_section_with_claude(section_name: str, draft: str, context: dict) ->
         )
         return claude_cli.call(prompt, timeout=120)
     except Exception as e:
-        logger.debug(f"[AI Scientist writer] {section_name} refine failed: {e}")
+        logger.warning(f"[Writer] {section_name}: refine pass failed — keeping first draft")
     return draft
 
 def revise_section_with_claude(section_name: str, draft: str, issues: list, context: dict) -> str:
