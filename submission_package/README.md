@@ -12,6 +12,7 @@
 | `03-manuscript/` | Manuscript in **md / docx / tex / pdf** + separate title page (double-blind ready) + highlights |
 | `04-references/` | `references.bib` — BibTeX for all 43 cited sources |
 | `05-data/` | Review matrix (CSV), consensus/stance analysis (JSON), reading list (CSV), machine quality-gate report (JSON) |
+| `07-figures/` | 6 publication figures (PRISMA flow, contingency model, consensus chart, cluster network, publication trend, word cloud) + captions — journal-ready separate files; also embedded in manuscript.md/pdf |
 | `06-declarations/` | AI-use disclosure (required by most journals) + funding/COI/data-availability declarations |
 | `provenance.json` | Manuscript SHA-256, timestamp, producing git commit, environment |
 

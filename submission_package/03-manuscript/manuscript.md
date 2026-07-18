@@ -98,11 +98,21 @@ This review adopts **Technology Acceptance Model** (Davis (1989)) as the organiz
 
 The Results and Discussion sections assess how far the synthesized evidence aligns with, qualifies, or contradicts these expectations; they are framing devices for the review, not hypotheses tested on primary data.
 
+
+![Figure 2. Contingency model.](figures/fig2_framework.png)
+
+*Figure 2. Contingency model of AI-enabled founder decision-making: boundary conditions C1–C3 moderate the relationship between founder AI-tool adoption and decision speed/quality, organized through the Technology Acceptance Model.*
+
 ## Methods
 
 This study employs a systematic literature review methodology following PRISMA guidelines. We searched Semantic Scholar, arXiv, and Crossref using the Boolean search string: ("AI tools") AND ("founder productivity") AND ("startup decision making") AND ("artificial intelligence"). Searches were conducted in 2026, with no lower year bound imposed, to capture the full trajectory of the field.
 
 **PRISMA flow**: Records identified across databases: ~224; after removing duplicates: 43; screened for relevance: 43; included in synthesis: 39.
+
+
+![Figure 1. PRISMA flow of study selection.](figures/fig1_prisma_flow.png)
+
+*Figure 1. PRISMA flow of study selection. Counts correspond to the retrieval, deduplication/domain-filtering, screening, and inclusion stages reported above.*
 
 **Inclusion criteria**: (1) peer-reviewed articles or arXiv preprints with substantive empirical or theoretical content; (2) direct relevance to how do ai tools affect founder decision-making speed and quality in early-stage startups?; (3) English language. **Exclusion criteria**: abstracts with fewer than 50 words; duplicates; editorials.
 
@@ -114,6 +124,15 @@ Synthesis employed thematic analysis: findings were grouped into thematic cluste
 
 ## Results
 
+
+![Figure 3. Evidence stance.](figures/fig3_consensus.png)
+
+*Figure 3. Stance of the included studies on the focal research question, from the structured consensus analysis.*
+
+![Figure 4. Thematic clusters.](figures/fig4_citation_network.png)
+
+*Figure 4. Thematic clusters of the corpus (top-cited papers per cluster; node size proportional to citation count).*
+
 **AI as Decision-Support for Founders and Entrepreneurs (4 studies).** Across the 39 studies included in this synthesis, AI is understood broadly as a system's capacity to interpret external data, learn from it, and apply those learnings toward specific goals (Kaplan & Haenlein, 2019), and a first cluster of evidence converges on the claim that AI tools function primarily as a decision-support layer that sharpens the precision, speed, and creative range of entrepreneurial decision-making. Aziz et al. (2025) find that "AI significantly improves entrepreneurial processes by enhancing decision-making precision, facilitating opportunity recognition and fostering effective idea generation." In line with this, المعمري (2025) reports "significant effects of AI capabilities in decision making, innovation, risk mitigation and competitive advantage, all contributing to the success of entrepreneurial ventures." Indirect evidence from healthcare settings offers a partial parallel here: Scallan et al. (2026), studying clinical rather than founder populations, find that generative AI "significantly reduces the cognitive load and time required to synthesize clinical protocols" — a pattern that, if it generalizes beyond the clinical context in which it was observed, would suggest similar speed gains are available to founders, though direct founder-level replication is still needed. Consistent with this reading of AI's implications for venture creation more broadly, Chalmers et al. (2020) situate such gains within the evolving relationship between artificial intelligence and entrepreneurship. However, this decision-support narrative is not unqualified: emerging evidence indicates that while AI excels at processing information, it lacks the ability to incorporate human judgment, emotions, and creativity, which are essential in certain decision-making scenarios, suggesting boundary conditions on how far the precision and speed gains reported above can be extended.
 
 **Adoption Drivers, Perceived Quality, and Boundary Conditions of AI Uptake (4 studies).** A second theme addresses why and how founders and professionals come to adopt AI tools in the first place, and here the evidence directly qualifies the primary theoretical lens adopted in this review, the Technology Acceptance Model. Russo (2023) finds that "at this early stage of AI integration, the compatibility of AI tools within existing development workflows predominantly drives their adoption, challenging conventional technology acceptance theories," indicating that compatibility, rather than perceived usefulness alone, may be the dominant driver in nascent adoption contexts. In line with this, Gupta (2024) identifies "social influence, domain experience, technology familiarity, system quality, training and support, interaction convenience, and anthropomorphism" as factors shaping "the pre-perception and perception phase of adoption," extending TAM's core constructs with a richer, multi-factor account of pre-adoption cognition. Consistent with a focus on perceived output quality as a precursor to continued use, Uppalapati & Nag (2024) report "a moderate positive relationship between Google Bard's accuracy and relevance (r = 0.550, p = 0.037), suggesting that as Google Bard's accuracy increases, its relevance tends to increase as well," an association consistent with the perceived-usefulness mechanism central to TAM. Marquis et al. (2024) complement this picture with a multifaceted evaluation of user perceptions of the proliferation of AI tools, reinforcing that adoption in this domain is driven by a bundle of compatibility, quality, and social factors rather than a single acceptance pathway.
@@ -123,6 +142,15 @@ Synthesis employed thematic analysis: findings were grouped into thematic cluste
 **Structural and Human-Capital Effects of AI on Entrepreneurial Entry (2 studies).** A final theme shifts from the moment of use to the upstream question of who becomes an AI-capable founder in the first place. Gofman & Jin (2023) find that "students from the affected universities establish fewer AI startups and raise less funding," and further specify that "the brain-drain effect is significant for tenured professors, professors from top universities, and deep-learning professors," while additional evidence suggests that "unobserved city- and university-level shocks are unlikely to drive" these results, strengthening confidence that the observed effect reflects genuine human-capital reallocation rather than confounding local trends. In line with this structural view, McElheran et al. (2024) map AI adoption in America by asking who adopts, what is adopted, and where, reinforcing that access to AI expertise and tools is unevenly distributed across institutional and geographic contexts well before any founder-level decision-making effect can occur.
 
 Read together, these four themes suggest a conceptual chain running from access to adoption to outcome. Structural human-capital dynamics (Gofman & Jin, 2023; McElheran et al., 2024) shape the initial, unevenly distributed pool of AI-capable founders; compatibility-, quality-, and social-influence-driven adoption processes (Russo, 2023; Gupta, 2024; Uppalapati & Nag, 2024; Marquis et al., 2024) determine whether and how this pool actually integrates AI into founder workflows, a process that extends and partly challenges conventional TAM assumptions; and, once adopted, AI functions as a decision-support layer that may improve the precision, speed, and creative range of entrepreneurial decision-making (Aziz et al., 2025; المعمري, 2025), with indirect evidence from healthcare and business intelligence contexts (Scallan et al., 2026; Khosravi et al., 2024; Eboigbe et al., 2023) corroborating this mechanism outside the startup setting. The gaps recurring across themes — AI's limited capacity for human judgment, emotion, and creativity in certain scenarios, its underexplored role in complex psychosocial needs, and the scarcity of dedicated research on tool uptake among founders — indicate that this chain from access to adoption to improved decision quality is neither automatic nor unconditional, underscoring the need for the startup-specific, TAM-grounded evidence that the 39 studies included in this synthesis only partially supply.
+
+
+![Figure 5. Publication trend.](figures/fig6_publication_trend.png)
+
+*Figure 5. Publication trend of the included corpus.*
+
+![Figure 6. Term landscape.](figures/fig5_wordcloud.png)
+
+*Figure 6. Term landscape of the included corpus (titles and key findings).*
 
 ## Discussion
 
