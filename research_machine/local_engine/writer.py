@@ -207,7 +207,10 @@ def _write_section_with_claude(section_name: str, context: dict) -> Optional[str
             f"IMPORTANT: Use only the databases listed above — do not mention Scopus, Web of Science, "
             f"PubMed, EBSCO, or Google Scholar."
         )
-        return claude_cli.call(user_prompt, system=system_prompt, timeout=120)
+        # Long sections (discussion: spine + evidence -> 1400-1800 words) need
+        # more than the default window; 120s caused repeated timeouts -> template fallback.
+        timeout = {"discussion": 300, "results": 240}.get(section_name, 150)
+        return claude_cli.call(user_prompt, system=system_prompt, timeout=timeout)
     except Exception as e:
         logger.warning(f"[Writer] {section_name}: Claude draft FAILED ({str(e)[:120]}) — falling back to template")
     return None
@@ -252,7 +255,8 @@ def _refine_section_with_claude(section_name: str, draft: str, context: dict) ->
             f"DRAFT:\n{draft}\n\n"
             "Return only the improved section text. No commentary, no headers."
         )
-        return claude_cli.call(prompt, timeout=120)
+        timeout = {"discussion": 300, "results": 240}.get(section_name, 150)
+        return claude_cli.call(prompt, timeout=timeout)
     except Exception as e:
         logger.warning(f"[Writer] {section_name}: refine pass failed — keeping first draft")
     return draft
