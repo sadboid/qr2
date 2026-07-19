@@ -118,6 +118,7 @@ async def run(args):
         keywords=keywords,
         domain=domain,
         paper_type=paper_type,
+        seed_dir=args.seed_dir,
     )
 
     # Save outputs
@@ -285,6 +286,7 @@ Available topic keys: ai_startup, ml_failure, llm_enterprise, ai_roi
     parser.add_argument("--output-dir", default="./papers_engine", help="Output directory")
     parser.add_argument("--target-corpus-size", type=int, default=50, help="Target number of papers to fetch (default: 50)")
     parser.add_argument("--format", default="all", choices=["md", "tex", "docx", "json", "all"], help="Output format(s)")
+    parser.add_argument("--seed-dir", help="Seed-corpus mode: folder from fetch_papers.py (README.md + PDFs); corpus grows from these hand-curated papers via citation chaining instead of keyword search")
 
     args = parser.parse_args()
     asyncio.run(run(args))

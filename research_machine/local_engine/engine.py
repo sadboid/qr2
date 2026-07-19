@@ -812,42 +812,59 @@ class LocalResearchEngine:
         keywords: List[str],
         domain: str = "startup",
         paper_type: str = "imrad",
+        seed_dir: Optional[str] = None,
     ) -> EngineResult:
         t0 = time.time()
         logger.info(f"[LocalEngine] START — '{research_question[:70]}'")
 
-        # 1. Build queries
-        queries = _build_queries(research_question, keywords, domain)
-        logger.info(f"[LocalEngine] Queries: {queries[:3]}")
-
-        # 2. Fetch corpus — over-fetch so the corpus is still substantial after
-        # the domain-relevance filter below (raw retrieval is ~50% off-domain
-        # for business queries; a filtered 35-40 clean papers beats 50 dirty).
-        logger.info("[LocalEngine] Fetching papers from Semantic Scholar + arXiv + Crossref...")
-        fetch_target = int(self.target_corpus_size * 1.6)
-        corpus, n_raw = await fetch_corpus(queries, keywords, target_size=fetch_target)
-        if not corpus:
-            raise RuntimeError("No papers found — check network connectivity and query terms")
-
-        # 2.2. Domain-relevance filter at CORPUS level, before synthesis.
-        # Filtering only the citation list (the old behaviour) still let
-        # off-domain abstracts pollute findings/theory/consensus extraction.
-        from .synthesizer import _is_off_domain
-        in_domain = [p for p in corpus if not _is_off_domain(p, domain, keywords)]
-        n_dropped = len(corpus) - len(in_domain)
-        if len(in_domain) >= 15:
-            corpus = in_domain[: self.target_corpus_size]
-            logger.info(
-                f"[LocalEngine] Domain filter: dropped {n_dropped} off-domain papers, "
-                f"synthesizing on {len(corpus)} in-domain papers"
+        if seed_dir:
+            # SEED-CORPUS MODE: grow the corpus from hand-curated exemplar
+            # papers + their citation neighborhood instead of keyword search.
+            # By construction the corpus stays inside the topic's scholarly
+            # conversation — the fix for the adjacent-domain contamination
+            # that capped synthesis quality in keyword mode.
+            from .seed_corpus import load_seeds, expand_seeds
+            logger.info(f"[LocalEngine] Seed-corpus mode: loading seeds from {seed_dir}")
+            seeds = load_seeds(seed_dir, keywords)
+            corpus, n_raw = await expand_seeds(
+                seeds, keywords, domain, target_size=self.target_corpus_size
             )
+            if not corpus:
+                raise RuntimeError("Seed expansion produced no corpus")
+            logger.info(f"[LocalEngine] Corpus: {len(corpus)} papers (seeded)")
         else:
-            corpus = corpus[: self.target_corpus_size]
-            logger.warning(
-                f"[LocalEngine] Domain filter would leave only {len(in_domain)} papers "
-                f"(<15) — keeping unfiltered corpus of {len(corpus)}"
-            )
-        logger.info(f"[LocalEngine] Corpus: {len(corpus)} papers")
+            # 1. Build queries
+            queries = _build_queries(research_question, keywords, domain)
+            logger.info(f"[LocalEngine] Queries: {queries[:3]}")
+
+            # 2. Fetch corpus — over-fetch so the corpus is still substantial after
+            # the domain-relevance filter below (raw retrieval is ~50% off-domain
+            # for business queries; a filtered 35-40 clean papers beats 50 dirty).
+            logger.info("[LocalEngine] Fetching papers from Semantic Scholar + arXiv + Crossref...")
+            fetch_target = int(self.target_corpus_size * 1.6)
+            corpus, n_raw = await fetch_corpus(queries, keywords, target_size=fetch_target)
+            if not corpus:
+                raise RuntimeError("No papers found — check network connectivity and query terms")
+
+            # 2.2. Domain-relevance filter at CORPUS level, before synthesis.
+            # Filtering only the citation list (the old behaviour) still let
+            # off-domain abstracts pollute findings/theory/consensus extraction.
+            from .synthesizer import _is_off_domain
+            in_domain = [p for p in corpus if not _is_off_domain(p, domain, keywords)]
+            n_dropped = len(corpus) - len(in_domain)
+            if len(in_domain) >= 15:
+                corpus = in_domain[: self.target_corpus_size]
+                logger.info(
+                    f"[LocalEngine] Domain filter: dropped {n_dropped} off-domain papers, "
+                    f"synthesizing on {len(corpus)} in-domain papers"
+                )
+            else:
+                corpus = corpus[: self.target_corpus_size]
+                logger.warning(
+                    f"[LocalEngine] Domain filter would leave only {len(in_domain)} papers "
+                    f"(<15) — keeping unfiltered corpus of {len(corpus)}"
+                )
+            logger.info(f"[LocalEngine] Corpus: {len(corpus)} papers")
 
         # 2.5. Verify source quality
         logger.info("[LocalEngine] Verifying source quality...")
