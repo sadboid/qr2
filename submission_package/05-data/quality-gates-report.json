@@ -1,71 +1,63 @@
 {
   "novelty": {
     "passed": true,
-    "score": 0.49,
-    "feedback": "Novelty score 0.49 < 0.70 \u2014 sufficient novelty"
+    "score": 0.64,
+    "feedback": "Novelty score 0.64 < 0.70 \u2014 sufficient novelty"
   },
   "citation": {
     "passed": true,
-    "score": 2.15,
-    "feedback": "43 citations, recency ratio 88%, avg citations/paper 140",
+    "score": 2.5,
+    "feedback": "50 citations, recency ratio 36%, avg citations/paper 267",
     "metrics": {
-      "citation_count": 43,
-      "avg_h_index": 7.0,
-      "recency_ratio": 0.88
+      "citation_count": 50,
+      "avg_h_index": 15.0,
+      "recency_ratio": 0.36
     }
   },
   "peer_review": {
     "passed": true,
-    "score": 6.8,
+    "score": 7.3,
     "recommendation": "minor_revision",
-    "feedback": "AI Scientist review: overall=4/10, originality=2.0/4, significance=2.3/4, soundness=1.7/4. methods-hawk: The PRISMA flow is internally incoherent (post-duplicate-removal count equals the 'screened for relevance' count, implying zero records were excluded at screening, while an 81% duplicate rate from just three databases against a narrow four-phrase Boolean AND string is implausible on its face), and the fully automated, abstract-only 'signal-phrase detection' extraction has no inter-rater or validity check, so the corpus's completeness and the fidelity of the reported themes cannot be trusted. The narrative synthesis itself is reasonably well-hedged (e.g., the healthcare-to-founder generalization is explicitly flagged as unverified), but citation-count 'influence' weighting for a corpus that is 88% published 2023\u20132026 (including the search year itself) is a dubious proxy given citation-accrual lag. | theory-purist: TAM is asserted as the corpus's 'dominant lens' despite only 3 of 43 papers explicitly invoking it, and its constructs (perceived usefulness/ease of use) are loosely substituted with the review's own variables (AI tools, founder productivity) rather than genuinely operationalized. The Discussion's contingency/boundary-condition move is the paper's real theoretical contribution, but E3 and much of the narrative drift into absorptive-capacity/RBV logic unacknowledged as a departure from TAM, and large stretches read as sequential study summaries rather than integrative synthesis. | desk-editor: The Introduction text as submitted contains an embedded, non-manuscript editorial note addressed to 'you' about a locked 'SPINE' and an unresolved arithmetic error (15+7+10+11=43 vs. the stated N=39 retained), which is either a severe production/proofing failure or contaminated input that must be scrubbed before this can be assessed as a manuscript at all. Independent of that contamination, the Abstract promises evidence on decision 'speed' and quality but the Results paragraph never substantiates speed, leans on TAM (an adoption-acceptance theory) to explain decision-outcome findings that are not TAM constructs, and elevates a single study's r=.55 correlation to abstract-level prominence, undermining soundness. Key weakness: methods-hawk: Reconcile and justify the PRISMA numbers (224\u219243\u219243\u219239): explain why zero records were excluded at the screening stage and why the duplicate-removal rate is so high from only three databases, or correct the reported figures; also broaden the search strategy beyond one narrow four-exact-phrase Boolean string and add a validity/reliability check (e.g., manual spot-check against the automated signal-phrase classification) before treating the resulting themes as trustworthy characterizations of the literature. | theory-purist: Resolve the TAM fit problem: either justify TAM's applicability despite its minority usage in the corpus and keep expectations (especially E3) within TAM's actual constructs, or openly frame the theoretical apparatus as a contingency/boundary-condition synthesis that draws on multiple theories (TAM + absorptive capacity) rather than presenting TAM as the singular organizing lens it isn't. | desk-editor: Reconcile the retained-study count (39 vs. the summed subgroup total of 43) and remove the stray editorial/meta text embedded inside the Introduction section before any content review can proceed; separately, align the stated objective (decision speed AND quality) with results that address only quality-related constructs, and clarify why TAM\u2014an adoption theory\u2014is the analytic lens for decision-outcome findings rather than adoption findings.",
+    "feedback": "AI Scientist review: overall=5/10, originality=2.7/4, significance=2.7/4, soundness=1.7/4. methods-hawk: The search strategy (3 databases, an overly narrow 4-phrase AND string) is inadequate for a Business+AI SLR, the PRISMA flow is incoherent (50 screened \u2192 38 included with no stated reason, and a 437\u219250 dedup rate that is implausible for such a restrictive string), and the automated signal-phrase extraction from abstracts alone, with no inter-rater check and no risk-of-bias/quality appraisal, cannot support the confident causal language used ('significantly and positively impacts,' 'convergent evidence') drawn from clusters of only 2-3 studies. Citation-count weighting is also questionable given 2023-2026 papers (including a 2026 preprint) cannot have accumulated meaningful citations. | theory-purist: The paper has one identifiable contribution \u2014 a contingency account of when AI aids founder decision-making \u2014 but the Theoretical Framework's own machinery (Scope, Onset, Mechanism, Role) is abandoned in the Discussion, which instead invents four ad hoc boundary conditions (C1-C4) never explicitly mapped back to External Enabler Framework's constructs. E3 imports 'absorptive capacity,' a construct foreign to External Enabler Framework, without reconciling it with the framework's own vocabulary, and 'founder productivity' (theory section) drifts against 'founder decision-making speed and quality' (stated research question) as if interchangeable. | desk-editor: The gap statement (decision speed/quality as an unexamined construct between AI adoption and outcomes) is a legitimate, reasonably visible contribution, and the abstract's hedging on directionality is appropriately calibrated rather than oversold. But the search strategy \u2014 Semantic Scholar, arXiv, and Crossref, with no Scopus/Web of Science/EBSCO \u2014 is a non-standard and under-justified base for a systematic review in a Q1 business journal, especially given arXiv contributes unreviewed preprints alongside the 38 retained studies with no visible quality-stratification of that mix. Key weakness: methods-hawk: Add manual verification (even partial, sampled) of the automated signal-phrase extraction against source abstracts, broaden database coverage (e.g., Scopus/Web of Science) and search terms, and reconcile the PRISMA counts (why screening removed 0 records but synthesis inclusion removed 12) before drawing thematic conclusions from 2-3 study clusters. | theory-purist: Explicitly derive C1-C4 from External Enabler Framework's own constructs (e.g., tie C1 'AI-readiness' to absorptive-capacity-as-Mechanism-moderator, C3 'trigger type' to the Onset/Role distinction already defined) rather than leaving the contingency analysis as a free-standing typology bolted onto an unused theoretical apparatus; also reconcile the 50-vs-49-paper count and fix the productivity/decision-making construct drift. | desk-editor: Justify (or replace) the database selection: explain why Semantic Scholar/arXiv/Crossref substitute for Scopus/Web of Science, and clarify how preprint (arXiv) sources were quality-screened relative to peer-reviewed ones before being pooled into the same 38-study synthesis.",
     "dimensions": {
-      "originality": 2.0,
+      "originality": 2.7,
       "quality": 2.0,
-      "clarity": 2.7,
-      "significance": 2.3,
+      "clarity": 3.0,
+      "significance": 2.7,
       "soundness": 1.7,
-      "presentation": 2.3,
-      "contribution": 2.0,
-      "confidence": 3.7
+      "presentation": 3.0,
+      "contribution": 2.7,
+      "confidence": 4.0
     }
   },
   "style": {
     "passed": false,
-    "score": 1.9,
-    "feedback": "deslop 6 findings (0 high); prose 62 findings (5 high, 56 medium).",
+    "score": 4.1,
+    "feedback": "deslop 2 findings (0 high); prose 40 findings (5 high, 34 medium).",
     "top_findings": [
-      "HIGH: asserted novelty ('novel') (line 23)",
-      "HIGH: asserted novelty ('to the best of our knowledge') (line 25)",
-      "HIGH: asserted novelty ('novel') (line 135)",
-      "HIGH: 'significant' with no number in sentence (line 81)",
-      "HIGH: 'significant' with no number in sentence (line 183)",
-      "MEDIUM: AI vocabulary ('underscoring') (line 81)",
-      "MEDIUM: AI vocabulary ('underscoring') (line 125)",
-      "MEDIUM: inflation ('very') (line 55)"
+      "HIGH: asserted novelty ('novel') (line 17)",
+      "HIGH: asserted novelty ('to the best of our knowledge') (line 21)",
+      "HIGH: throat-clearing (line 25)",
+      "HIGH: asserted novelty ('novel') (line 184)",
+      "HIGH: 'significant' with no number in sentence (line 198)",
+      "MEDIUM: long sentence (51 words) (line 13)",
+      "MEDIUM: long sentence (52 words) (line 17)",
+      "MEDIUM: long sentence (46 words) (line 17)"
     ]
   },
   "grounding": {
-    "passed": false,
-    "score": 7.0,
-    "issues": 3,
-    "high_issues": 1,
+    "passed": true,
+    "score": 10.0,
+    "issues": 0,
+    "high_issues": 0,
     "revised": true,
-    "feedback": "3 issues (1 high) over 51 checked claims: 3 population_mismatch. Self-correction applied."
+    "feedback": "38 interpretive claims checked \u2014 no grounding issues."
   },
   "fact_check": {
     "passed": true,
-    "score": 7.4,
-    "feedback": "35/47 claims verified (74%). 1 contradictions detected.",
+    "score": 9.0,
+    "feedback": "28/31 claims verified (90%). 3 contradictions detected.",
     "method": "sequencematcher"
   },
-  "overall_status": "revision_requested",
-  "lit_review_verification": {
-    "verified_count": 15,
-    "total_citations": 15,
-    "not_found_count": 0,
-    "verification_rate": 1.0,
-    "overall_score": 10.0,
-    "passed": true
-  }
+  "overall_status": "revision_requested"
 }

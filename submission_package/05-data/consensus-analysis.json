@@ -1,24 +1,24 @@
 {
-  "research_question_direction": "YES",
-  "label": "Moderate Evidence For",
-  "consensus_pct": 34.9,
-  "total_stanced_papers": 43,
-  "support": 15,
-  "oppose": 7,
-  "mixed": 10,
-  "neutral": 11,
+  "direction": "MIXED",
+  "label": "Mixed / Contested Evidence",
+  "consensus_pct": 18.4,
+  "total_stanced_papers": 49,
+  "support": 9,
+  "oppose": 6,
+  "mixed": 1,
+  "neutral": 33,
   "support_evidence": [
-    "\"Furthermore, the new conceptual framework introduced in this study enhances understanding of how AI can revolutionize entrepreneurship.\" [\u0627\u0644\u0645\u0639\u0645\u0631\u064a, 2025]",
-    "\"We find that students from the affected universities establish fewer AI startups and raise less funding.\" [Gofman & Jin, 2023]",
-    "\"The results indicate that students with different levels of knowledge use AI tools differently, with ChatGPT being the most popular tool.\" [Annu\u0161, 2025]",
-    "\"Notably, the study highlights the pivotal mediating role of exploitative innovation, AI adoption enhances exploitative innovation, which in turn improves organizational performance\" [Salamzadeh et al., 2025]",
-    "\"The study provides crucial insights for future AI tool design and offers a framework for developing effective organizational implementation strategies.\" [Russo, 2023]"
+    "\"Building upon the institutional theory literature, we introduce the concept of HRM institutional entrepreneurship to examine the paradoxes and emerging opportunities associated wit\" [Ren & Jackson, 2020]",
+    "\"In addition, extant models from the product design literature, while technically promising, fail to propose methods suitable for opportunity development with high level of uncertai\" [Raneri et al., 2022]",
+    "\"The synthesis indicates that ethical integration enhances legitimacy, trust and investor confidence.\" [Basharat, 2026]",
+    "\"The results show that AI\u2010enabled decision\u2010making significantly and positively impacts the identification of social intrapreneurial opportunities.\" [Cai et al., 2026]",
+    "\"To evaluate the effectiveness of the program, a pre-test and post-test design using a Likert-scale questionnaire was applied.\" [Padmasari et al., 2026]"
   ],
   "oppose_evidence": [
-    "\"The study mainly adopts the method of literature analysis, exploring the advantages of AI in product innovation, business decision-making, and marketing, as well as the potential t\" [Tong, 2025]",
-    "\"However, venturing into this new educational paradigm necessitates a thorough exploration of potential pitfalls, including questions surrounding educational quality, potential job\" [George & Wooden, 2023]",
-    "\"The argument proceeds through a primary claim about the amplified relevance of expert humans in light of AI, underpinned by the assumed risks of omitting human experts, together mo\" [Davis, 2024]",
-    "\"However, there are ongoing trust concerns highlighting the necessity of keeping final decisions under human control.\" [Merzifonluo\u011flu & Gunes, 2025]",
-    "\"As consumer trust in social media influencers has declined, largely due to concerns about the financial motivations behind endorsements, AI tools such as ChatGPT have emerged as pe\" [Gerlich, 2025]"
+    "\"Barriers include resistance to change, lack of AI skills, regulatory uncertainty, cybersecurity concerns, and ethical risks.\" [_Paredes et al., 2026]",
+    "\"Thus, COVID-19 has evolved to be a kind of \u201ccatalyst\u201d for the adoption and increasing use of digitalization in work organization and the office, alongside presenting foreseen and u\" [Amankwah\u2010Amoah et al., 2021]",
+    "\"Abstract As businesses and society navigate the potentials of generative artificial intelligence (GAI), the integration of these technologies introduces unique challenges and oppor\" [Chowdhury et al., 2024]",
+    "\"The technology also has the potential to influence pedagogy, teaching practice, and assessment and has raised concerns and questions within education about how educators can train\" [Bell & Bell, 2023]",
+    "\"Those kinds of approaches are insufficient in the digital era in which provides new business challenges.\" [Abdullah, 2026]"
   ]
 }
