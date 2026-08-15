@@ -78,6 +78,27 @@ def build_norms(library_root: str = "library", out_path: str = _NORMS_PATH,
         )
         return {}
 
+    # Trim papers that are themselves outliers before setting the norm.
+    # Published does not mean clean: the first run of this found a Scopus paper
+    # opening "In today's rapidly evolving business landscape" with 4.6x the
+    # AI-vocabulary rate of its peers. Learning norms from such papers would
+    # drift the standard toward the style the gate exists to catch.
+    totals = sorted(sum(r.values()) for r in per_paper)
+    # Trim the noisiest decile. A fixed multiple of the median stops trimming
+    # as the corpus grows (more papers raise the median, so the outlier slips
+    # back under the bar); a percentile keeps the same standard at any size.
+    cut = totals[int(0.9 * (len(totals) - 1))]
+    kept, trimmed = [], []
+    for e_rates in per_paper:
+        (trimmed if sum(e_rates.values()) >= cut and len(per_paper) > 10
+         else kept).append(e_rates)
+    if len(kept) >= min_papers and trimmed:
+        logger.info(
+            f"[StyleNorms] trimmed {len(trimmed)} style-outlier paper(s) "
+            f"before computing norms ({len(kept)} retained)"
+        )
+        per_paper = kept
+
     categories = {c for rates in per_paper for c in rates}
     norms = {}
     for cat in categories:
@@ -95,6 +116,7 @@ def build_norms(library_root: str = "library", out_path: str = _NORMS_PATH,
             "n_papers": len(per_paper),
             "words_analysed": words_seen,
             "sections": list(_PROSE_SECTIONS),
+            "style_outliers_trimmed": len(trimmed),
         },
         "norms": dict(sorted(norms.items(), key=lambda kv: -kv[1]["p90_per_1k"])),
     }

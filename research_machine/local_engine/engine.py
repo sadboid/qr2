@@ -402,26 +402,74 @@ def _legacy_single_review_parse(text: str) -> Optional[dict]:
 
 def _lint_manuscript_style(md_text: str) -> dict:
     """Style gate: AI-tell (deslop) + academic-prose linting, ported from the
-    research-pipeline-starter-kit (MIT). Deslop HIGH findings (chatbot
-    artifacts, emoji, unfilled placeholders) are never acceptable → hard fail.
-    Prose HIGH findings (unquantified 'significant', asserted novelty) are
-    tolerated up to 3 — 'to the best of our knowledge' is a field-normal hedge.
+    research-pipeline-starter-kit (MIT), judged against measured Q1 practice.
+
+    Counting raw findings judges a manuscript against zero, a standard no
+    published paper meets: measuring real Q1 prose (library/style_norms.json)
+    shows 21 of 22 papers use inflation words and half contain findings this
+    linter marks HIGH. So when norms are available, a category is only a
+    defect where the manuscript's rate per 1,000 words exceeds the published
+    90th percentile.
+
+    Two things stay absolute, because no published paper contains them: deslop
+    HIGH findings (chatbot artefacts, emoji, unfilled placeholders) fail the
+    gate outright, and categories never seen in the Q1 sample count as real.
     """
     from . import deslop, prose_check
+    from ..scholar.style_norms import StyleNorms
+
     d_findings = deslop.lint(text=md_text)[0]
     p_findings = prose_check.lint(text=md_text)[0]
-    d_high = [f for f in d_findings if f[0] == "HIGH"]
-    p_high = [f for f in p_findings if f[0] == "HIGH"]
-    medium = [f for f in d_findings + p_findings if f[0] == "MEDIUM"]
-    score = round(max(0.0, 10.0 - 2.0 * len(d_high) - 0.5 * len(p_high) - 0.1 * len(medium)), 1)
+    all_findings = d_findings + p_findings
+    word_count = max(1, len(md_text.split()))
+
+    # Never normalised: these are not stylistic preferences.
+    hard_fail = [f for f in d_findings if f[0] == "HIGH"]
+
+    norms = StyleNorms.load()
+    if not norms.available:
+        d_high, p_high = hard_fail, [f for f in p_findings if f[0] == "HIGH"]
+        medium = [f for f in all_findings if f[0] == "MEDIUM"]
+        score = round(max(0.0, 10.0 - 2.0 * len(d_high) - 0.5 * len(p_high) - 0.1 * len(medium)), 1)
+        return {
+            "passed": not d_high and len(p_high) <= 3,
+            "score": score,
+            "benchmark": "none (no measured norms — using absolute thresholds)",
+            "feedback": (
+                f"deslop {len(d_findings)} findings ({len(d_high)} high); "
+                f"prose {len(p_findings)} findings ({len(p_high)} high, {len(medium)} medium)."
+            ),
+            "top_findings": [f"{f[0]}: {f[1]} (line {f[2]})" for f in (d_high + p_high + medium)[:8]],
+        }
+
+    assessment = norms.assess(all_findings, word_count)
+    excesses = assessment["excesses"]
+    # Weight by how far past published practice the manuscript sits, so being
+    # slightly over a norm costs little and being 4x over costs a lot.
+    penalty = sum(min(3.0, (e["ratio"] or 2.0) - 1.0) for e in excesses)
+    score = round(max(0.0, 10.0 - 1.2 * penalty - 2.0 * len(hard_fail)), 1)
+    # Pass on the same evidence the score is built from. Counting categories
+    # separately let a paper score 9.7 and still fail on three mild excesses,
+    # which is not a judgement anyone could act on.
+    passed = not hard_fail and score >= 7.0
+
+    worst = "; ".join(
+        f"{e['category']} {e['rate_per_1k']}/1k vs Q1 p90 {e['published_p90']}"
+        for e in excesses[:3]
+    ) or "nothing above Q1 practice"
     return {
-        "passed": not d_high and len(p_high) <= 3,
+        "passed": passed,
         "score": score,
+        "benchmark": f"{assessment['benchmark_papers']} real Q1 papers",
         "feedback": (
-            f"deslop {len(d_findings)} findings ({len(d_high)} high); "
-            f"prose {len(p_findings)} findings ({len(p_high)} high, {len(medium)} medium)."
+            f"{len(all_findings)} raw findings; {len(excesses)} categories exceed Q1 practice, "
+            f"{assessment['n_categories_normal']} within it"
+            + (f"; {len(hard_fail)} unacceptable (chatbot artefact/emoji/placeholder)" if hard_fail else "")
+            + f". Worst: {worst}."
         ),
-        "top_findings": [f"{f[0]}: {f[1]} (line {f[2]})" for f in (d_high + p_high + medium)[:8]],
+        "excesses": excesses[:8],
+        "within_norms": assessment["within_norms"][:8],
+        "top_findings": [f"{f[0]}: {f[1]} (line {f[2]})" for f in (hard_fail + all_findings)[:8]],
     }
 
 

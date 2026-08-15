@@ -1,6 +1,6 @@
 {
- "count": 148,
- "with_pdf": 24,
+ "count": 257,
+ "with_pdf": 34,
  "entries": [
   {
    "doi": "10.1177/1042258720934581",
@@ -18,7 +18,7 @@
    "pdf_sha256": null,
    "pdf_source": null,
    "subjects": [],
-   "harvested_at": "2026-08-15T17:36:16Z"
+   "harvested_at": "2026-08-15T17:49:34Z"
   },
   {
    "doi": "10.1007/s11187-019-00202-4",
@@ -2694,6 +2694,1973 @@
    "pdf_source": null,
    "subjects": [],
    "harvested_at": "2026-08-15T17:49:16Z"
+  },
+  {
+   "doi": "10.1177/1042258719899425",
+   "title": "Digital Sustainability and Entrepreneurship: How Digital Innovations Are Helping Tackle Climate Change and Sustainable Development",
+   "authors": [
+    "Gerard George",
+    "Ryan K. Merrill",
+    "Simon J. D. Schillebeeckx"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 833,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:23Z"
+  },
+  {
+   "doi": "10.1177/1042258721998948",
+   "title": "Toward an Entrepreneurial Ecosystem Research Program",
+   "authors": [
+    "Bernd Wurth",
+    "Erik Stam",
+    "Ben Spigel"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 621,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:28Z"
+  },
+  {
+   "doi": "10.1177/1042258719830310",
+   "title": "The Influence of Formal and Informal Institutional Voids on Entrepreneurship",
+   "authors": [
+    "Justin W. Webb",
+    "Theodore A. Khoury",
+    "Michael A. Hitt"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 342,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:38Z"
+  },
+  {
+   "doi": "10.1177/1042258719839712",
+   "title": "Managing the Tradition and Innovation Paradox in Family Firms: A Family Imprinting Perspective",
+   "authors": [
+    "Irmak Erdogan",
+    "Emanuela Rondi",
+    "Alfredo De Massis"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 332,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_1042258719839712.pdf",
+   "pdf_sha256": "9267958b68d787a9a72e1beeddb4de45a33f5a2edbabe299f62e7aee781e7310",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:41Z"
+  },
+  {
+   "doi": "10.1177/1042258719899415",
+   "title": "The Lean Startup Framework: Closing the Academic\u2013Practitioner Divide",
+   "authors": [
+    "Dean A. Shepherd",
+    "Marc Gruber"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 304,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:45Z"
+  },
+  {
+   "doi": "10.1177/1042258719885368",
+   "title": "Entrepreneurship for Sustainable Development: A Review and Multilevel Causal Mechanism Framework",
+   "authors": [
+    "Matthew P. Johnson",
+    "Stefan Schaltegger"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 295,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:49Z"
+  },
+  {
+   "doi": "10.1177/1042258721998946",
+   "title": "Family Influence and Digital Business Model Innovation: The Enabling Role of Dynamic Capabilities",
+   "authors": [
+    "Jonas Soluk",
+    "Ivan Miroshnychenko",
+    "Nadine Kammerlander",
+    "Alfredo De Massis"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 257,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:52Z"
+  },
+  {
+   "doi": "10.1177/10422587211013795",
+   "title": "Entrepreneurial Identity: A Review and Research Agenda",
+   "authors": [
+    "Miruna Radu-Lefebvre",
+    "Vincent Lefebvre",
+    "Eliana Crosina",
+    "Ulla Hytti"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 253,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:56Z"
+  },
+  {
+   "doi": "10.1177/10422587211028736",
+   "title": "Helping Entrepreneurs Help Themselves: A Review and Relational Research Agenda on Entrepreneurial Support Organizations",
+   "authors": [
+    "Brian J. Bergman",
+    "Jeffery S. McMullen"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 231,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:58Z"
+  },
+  {
+   "doi": "10.1177/10422587221138489",
+   "title": "Signaling Theory in Entrepreneurship Research: A Systematic Review and Research Agenda",
+   "authors": [
+    "Julian Bafera",
+    "Simon Kleinert"
+   ],
+   "year": 2022,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 223,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:00Z"
+  },
+  {
+   "doi": "10.1177/1042258720943051",
+   "title": "Advancing Qualitative Entrepreneurship Research: Leveraging Methodological Plurality for Achieving Scholarly Impact",
+   "authors": [
+    "Elco Van Burg",
+    "Joep Cornelissen",
+    "Wouter Stam",
+    "Sarah Jack"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 214,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:06Z"
+  },
+  {
+   "doi": "10.1177/1042258719864293",
+   "title": "A Growth Mindset Intervention: Enhancing Students\u2019 Entrepreneurial Self-Efficacy and Career Development",
+   "authors": [
+    "Jeni L. Burnette",
+    "Jeffrey M. Pollack",
+    "Rachel B. Forsyth",
+    "Crystal L. Hoyt",
+    "Alexandra D. Babij",
+    "Fanice N. Thomas",
+    "Anthony E. Coy"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 213,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:11Z"
+  },
+  {
+   "doi": "10.1177/10422587211072799",
+   "title": "Happy Entrepreneurs? Everywhere? A Meta-Analysis of Entrepreneurship and Wellbeing",
+   "authors": [
+    "Ute Stephan",
+    "Andreas Rauch",
+    "Isabella Hatak"
+   ],
+   "year": 2022,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 210,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:14Z"
+  },
+  {
+   "doi": "10.1177/1042258719839711",
+   "title": "It\u2019s Time We Talk About Time in Entrepreneurship",
+   "authors": [
+    "Moren L\u00e9vesque",
+    "Ute Stephan"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 195,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:20Z"
+  },
+  {
+   "doi": "10.1177/1042258720930996",
+   "title": "Moving Contexts Onto New Roads: Clues From Other Disciplines",
+   "authors": [
+    "Friederike Welter",
+    "Ted Baker"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 193,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:25Z"
+  },
+  {
+   "doi": "10.1177/1042258720922460",
+   "title": "What Makes an Entrepreneurship Study Entrepreneurial? Toward A Unified Theory of Entrepreneurial Agency",
+   "authors": [
+    "Jeffery S. McMullen",
+    "Katrina M. Brownell",
+    "Joel Adams"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 186,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:29Z"
+  },
+  {
+   "doi": "10.1177/1042258720913028",
+   "title": "Family Business Growth Around the World",
+   "authors": [
+    "Ivan Miroshnychenko",
+    "Alfredo De Massis",
+    "Danny Miller",
+    "Roberto Barontini"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 178,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_1042258720913028.pdf",
+   "pdf_sha256": "4037b100f1035185f15fb56cac4b984eb426d810d9307a9dfecba256cd2affa8",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:31Z"
+  },
+  {
+   "doi": "10.1177/1042258719830314",
+   "title": "Entrepreneurship and Subjective Well-Being: The Mediating Role of Psychological Functioning",
+   "authors": [
+    "Boris Nikolaev",
+    "Christopher John Boudreaux",
+    "Matthew Wood"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 174,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:36Z"
+  },
+  {
+   "doi": "10.1177/10422587211046542",
+   "title": "Integrating Psychological Resilience, Stress, and Coping in Entrepreneurship: A Critical Review and Research Agenda",
+   "authors": [
+    "Ali E. Ahmed",
+    "Deniz Ucbasaran",
+    "Gabriella Cacciotti",
+    "Trenton A. Williams"
+   ],
+   "year": 2022,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 173,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:40Z"
+  },
+  {
+   "doi": "10.1177/1042258719891388",
+   "title": "Enhancing Rigor in Quantitative Entrepreneurship Research",
+   "authors": [
+    "Markku Maula",
+    "Wouter Stam"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 141,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:44Z"
+  },
+  {
+   "doi": "10.1177/10422587211010673",
+   "title": "External Enablers of Entrepreneurship: A Review and Agenda for Accumulation of Strategically Actionable Knowledge",
+   "authors": [
+    "Jiyoung Kimjeon",
+    "Per Davidsson"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 135,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:48Z"
+  },
+  {
+   "doi": "10.1177/1042258720915798",
+   "title": "Planned Luck: How Incubators Can Facilitate Serendipity for Nascent Entrepreneurs Through Fostering Network Embeddedness",
+   "authors": [
+    "Christian Busch",
+    "Harry Barkema"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 134,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:51Z"
+  },
+  {
+   "doi": "10.1177/1042258720930991",
+   "title": "Fulfilling the Process Promise: A Review and Agenda for New Venture Creation Process Research",
+   "authors": [
+    "Per Davidsson",
+    "Jan Henrik Gruenhagen"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 128,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_1042258720930991.pdf",
+   "pdf_sha256": "346611aa05d72da983274b58e2e2534bfddf2d8fa6a1060d2a51dbeee52585a9",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:50:54Z"
+  },
+  {
+   "doi": "10.1177/1042258719838472",
+   "title": "Stewardship Theory: Realism, Relevance, and Family Firm Governance",
+   "authors": [
+    "James J. Chrisman"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 126,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:01Z"
+  },
+  {
+   "doi": "10.1177/1042258720964186",
+   "title": "Family Firms: A Breed of Extremes?",
+   "authors": [
+    "Danny Miller",
+    "Isabelle Le Breton-Miller"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 125,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:07Z"
+  },
+  {
+   "doi": "10.1177/10422587231178885",
+   "title": "Is It Okay to Study Entrepreneurial Orientation (EO) at the Individual Level? Yes!",
+   "authors": [
+    "Daniel R. Clark",
+    "Robert J. Pidduck",
+    "G. T. Lumpkin",
+    "Jeffrey G. Covin"
+   ],
+   "year": 2023,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 122,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:10Z"
+  },
+  {
+   "doi": "10.1177/10422587211006431",
+   "title": "Let\u2019s Focus on Solutions to Entrepreneurial Ill-Being! Recovery Interventions to Enhance Entrepreneurial Well-Being",
+   "authors": [
+    "Amanda Jasmine Williamson",
+    "J. Jeffrey Gish",
+    "Ute Stephan"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 122,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:13Z"
+  },
+  {
+   "doi": "10.1177/1042258720950599",
+   "title": "A Call for Research on the Scaling of Organizations and the Scaling of Social Impact",
+   "authors": [
+    "Dean A. Shepherd",
+    "Holger Patzelt"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 115,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:17Z"
+  },
+  {
+   "doi": "10.1177/1042258720927369",
+   "title": "Pursuing Impactful Entrepreneurship Research Using Artificial Intelligence",
+   "authors": [
+    "Moren L\u00e9vesque",
+    "Martin Obschonka",
+    "Satish Nambisan"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 114,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:22Z"
+  },
+  {
+   "doi": "10.1177/10422587221115365",
+   "title": "Informal Entrepreneurship: An Integrative Review and Future Research Agenda",
+   "authors": [
+    "Esther Salvi",
+    "Frank-Martin Belz",
+    "Sophie Bacq"
+   ],
+   "year": 2022,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 113,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:26Z"
+  },
+  {
+   "doi": "10.1177/1042258720943307",
+   "title": "Democracy and Entrepreneurship",
+   "authors": [
+    "David B. Audretsch",
+    "Petra Moog"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 111,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:32Z"
+  },
+  {
+   "doi": "10.1177/1042258719900774",
+   "title": "Entrepreneurship and Poverty Alleviation: The Importance of Health and Children\u2019s Education for Slum Entrepreneurs",
+   "authors": [
+    "Dean A. Shepherd",
+    "Vinit Parida",
+    "Joakim Wincent"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 105,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_1042258719900774.pdf",
+   "pdf_sha256": "a64ff4d5e93e2521b3069b5011f5bfead2a5a210b0a5aee476b00c891f3ddd42",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:35Z"
+  },
+  {
+   "doi": "10.1177/1042258719899427",
+   "title": "Equity Crowdfunding: High-Quality or Low-Quality Entrepreneurs?",
+   "authors": [
+    "Daniel Blaseg",
+    "Douglas Cumming",
+    "Michael Koetter"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 103,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:41Z"
+  },
+  {
+   "doi": "10.1177/10422587211000336",
+   "title": "Entrepreneurial Framing: A Literature Review and Future Research Directions",
+   "authors": [
+    "Yuliya Snihur",
+    "Llewellyn D. W. Thomas",
+    "Raghu Garud",
+    "Nelson Phillips"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 101,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:47Z"
+  },
+  {
+   "doi": "10.1177/1042258721990331",
+   "title": "Trailing Wives and Constrained Agency Among Women Migrant Entrepreneurs: An Intersectional Perspective",
+   "authors": [
+    "Paul Lassalle",
+    "Eleanor Shaw"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 98,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:51:56Z"
+  },
+  {
+   "doi": "10.1177/1042258719867558",
+   "title": "Many Roads Lead to Rome: How Human, Social, and Financial Capital Are Related to New Venture Survival",
+   "authors": [
+    "Christian Linder",
+    "Christian Lechner",
+    "Frank Pelzel"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 96,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:02Z"
+  },
+  {
+   "doi": "10.1177/1042258719844500",
+   "title": "Measuring Entrepreneurship: Do Established Metrics Capture Schumpeterian Entrepreneurship?",
+   "authors": [
+    "Magnus Henrekson",
+    "Tino Sanandaji"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 96,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:06Z"
+  },
+  {
+   "doi": "10.1177/1042258719867559",
+   "title": "Health as Human Capital in Entrepreneurship: Individual, Extension, and Substitution Effects on Entrepreneurial Success",
+   "authors": [
+    "Isabella Hatak",
+    "Haibo Zhou"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 93,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:09Z"
+  },
+  {
+   "doi": "10.1177/1042258719883995",
+   "title": "Contagion of Entrepreneurial Passion: Effects on Employee Outcomes",
+   "authors": [
+    "Sylvia Hubner",
+    "Matthias Baum",
+    "Michael Frese"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 93,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:23Z"
+  },
+  {
+   "doi": "10.1177/1042258719892987",
+   "title": "ADHD Symptoms, Entrepreneurial Orientation (EO), and Firm Performance",
+   "authors": [
+    "Wei Yu",
+    "Johan Wiklund",
+    "Ana P\u00e9rez-Lu\u00f1o"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 92,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:29Z"
+  },
+  {
+   "doi": "10.1177/1042258720929891",
+   "title": "Entrepreneurial Workaround Practices in Severe Institutional Voids: Evidence From Kenya",
+   "authors": [
+    "Alisa Sydow",
+    "Benedetto Lorenzo Cannatelli",
+    "Alessandro Giudici",
+    "Mario Molteni"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 92,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_1042258720929891.pdf",
+   "pdf_sha256": "6fb51c377cbb0103ad353d376c6148fe6ce7daa7d7d7193e7297ba698f4ce753",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:34Z"
+  },
+  {
+   "doi": "10.1177/1042258719890991",
+   "title": "Self-Compassion When Coping With Venture Obstacles: Loving-Kindness Meditation and Entrepreneurial Fear of Failure",
+   "authors": [
+    "Yuval Engel",
+    "Stephany Noordijk",
+    "Afra Spoelder",
+    "Marco van Gelderen"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 91,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:39Z"
+  },
+  {
+   "doi": "10.1177/1042258719890986",
+   "title": "ADHD-Related Neurodiversity and the Entrepreneurial Mindset",
+   "authors": [
+    "Curt B. Moore",
+    "Nancy H. McIntyre",
+    "Stephen E. Lanivich"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 91,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:43Z"
+  },
+  {
+   "doi": "10.1177/1042258720978386",
+   "title": "Understanding the Life Cycles of Entrepreneurial Teams and Their Ventures: An Agenda for Future Research",
+   "authors": [
+    "Holger Patzelt",
+    "Rebecca Preller",
+    "Nicola Breugst"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 90,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:46Z"
+  },
+  {
+   "doi": "10.1177/10422587211013798",
+   "title": "Entrepreneurship, Self-Organization, and Eudaimonic Well-Being: A Dynamic Approach",
+   "authors": [
+    "Nadav Shir",
+    "Carol D. Ryff"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 90,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:49Z"
+  },
+  {
+   "doi": "10.1177/1042258719891389",
+   "title": "Entrepreneurial Orientation and Environmental Hostility: A Threat Rigidity Perspective",
+   "authors": [
+    "Patrick M. Kreiser",
+    "Brian S. Anderson",
+    "Donald F. Kuratko",
+    "Louis D. Marino"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 90,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:55Z"
+  },
+  {
+   "doi": "10.1177/1042258720945206",
+   "title": "It\u2019s a Peoples Game, Isn\u2019t It?! A Comparison Between the Investment Returns of Business Angels and Machine Learning Algorithms",
+   "authors": [
+    "Ivo Blohm",
+    "Torben Antretter",
+    "Charlotta Sir\u00e9n",
+    "Dietmar Grichnik",
+    "Joakim Wincent"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 89,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:52:58Z"
+  },
+  {
+   "doi": "10.1177/10422587221104820",
+   "title": "Act or Wait-and-See? Adversity, Agility, and Entrepreneur Wellbeing across Countries during the COVID-19 Pandemic",
+   "authors": [
+    "Ute Stephan",
+    "Przemys\u0142aw Zbierowski",
+    "Ana P\u00e9rez-Lu\u00f1o",
+    "Dominika Wach",
+    "Johan Wiklund",
+    "Marisleidy Alba Caba\u00f1as",
+    "Edgard Barki",
+    "Alexandre Benzari",
+    "Claudia Bernhard-Oettel",
+    "Janet A. Boekhorst",
+    "Arobindu Dash",
+    "Adnan Efendic"
+   ],
+   "year": 2022,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 85,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:02Z"
+  },
+  {
+   "doi": "10.1177/1042258719879674",
+   "title": "Combining Internal and External R&amp;D: The Effects on Innovation Performance in Family and Nonfamily Firms",
+   "authors": [
+    "Fernando Mu\u00f1oz-Bull\u00f3n",
+    "Maria J. Sanchez-Bueno",
+    "Alfredo De Massis"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 84,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:08Z"
+  },
+  {
+   "doi": "10.1177/10422587211046545",
+   "title": "Weathering a Crisis: A Multi-Level Analysis of Resilience in Young Ventures",
+   "authors": [
+    "Ali Anwar",
+    "Nicole Coviello",
+    "Maria Rouziou"
+   ],
+   "year": 2021,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 83,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:13Z"
+  },
+  {
+   "doi": "10.1177/1042258718818357",
+   "title": "Dispositional Positive and Negative Affect and Self-Employment Transitions: The Mediating Role of Job Satisfaction",
+   "authors": [
+    "Boris Nikolaev",
+    "Nadav Shir",
+    "Johan Wiklund"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 82,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:16Z"
+  },
+  {
+   "doi": "10.1177/10422587221128271",
+   "title": "Crafting and Assessing Design Science Research for Entrepreneurship",
+   "authors": [
+    "Dimo Dimov",
+    "Markku Maula",
+    "A. Georges L. Romme"
+   ],
+   "year": 2022,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 81,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:19Z"
+  },
+  {
+   "doi": "10.1177/1042258720956384",
+   "title": "An Intergeneration Solidarity Perspective on Succession Intentions in Family Firms",
+   "authors": [
+    "Daniela Gimenez-Jimenez",
+    "Linda F. Edelman",
+    "Tommaso Minola",
+    "Andrea Calabr\u00f2",
+    "Lucio Cassia"
+   ],
+   "year": 2020,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 81,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:24Z"
+  },
+  {
+   "doi": "10.1177/1042258719879635",
+   "title": "Opportunities and Threats in Reviewing Entrepreneurship Theory and Practice",
+   "authors": [
+    "Andreas Rauch"
+   ],
+   "year": 2019,
+   "journal": "Entrepreneurship Theory and Practice",
+   "citations": 80,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:29Z"
+  },
+  {
+   "doi": "10.1177/0266242620945102",
+   "title": "Did you save some cash for a rainy COVID-19 day? The crisis and SMEs",
+   "authors": [
+    "Marc Cowling",
+    "Ross Brown",
+    "Augusto Rocha"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 287,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:37Z"
+  },
+  {
+   "doi": "10.1177/0266242620937464",
+   "title": "Financing entrepreneurship in times of crisis: Exploring the impact of COVID-19 on the market for entrepreneurial finance in the United Kingdom",
+   "authors": [
+    "Ross Brown",
+    "Augusto Rocha",
+    "Marc Cowling"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 254,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:42Z"
+  },
+  {
+   "doi": "10.1177/0266242618807275",
+   "title": "Entrepreneurial orientation and SME international performance: The mediating role of networking capability and experiential learning",
+   "authors": [
+    "Masoud Karami",
+    "Jintong Tang"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 230,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:47Z"
+  },
+  {
+   "doi": "10.1177/0266242620949136",
+   "title": "Pivoting to stay the course: How women entrepreneurs take advantage of opportunities created by the COVID-19 pandemic",
+   "authors": [
+    "Tatiana S Manolova",
+    "Candida G Brush",
+    "Linda F Edelman",
+    "Amanda Elam"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 225,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:50Z"
+  },
+  {
+   "doi": "10.1177/02662426211050796",
+   "title": "SMEs and exogenous shocks: A conceptual literature review and forward research agenda",
+   "authors": [
+    "Jason Miklian",
+    "Kristian Hoelscher"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 181,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:53:54Z"
+  },
+  {
+   "doi": "10.1177/0266242620936590",
+   "title": "SME response to major exogenous shocks: The bright and dark sides of business model pivoting",
+   "authors": [
+    "Todd Morgan",
+    "Sergey Anokhin",
+    "Laurel Ofstein",
+    "Wesley Friske"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 159,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:00Z"
+  },
+  {
+   "doi": "10.1177/0266242620947946",
+   "title": "R&amp;D and innovation after COVID-19: What can we expect? A review of prior research and data trends after the great financial crisis",
+   "authors": [
+    "Stephen Roper",
+    "Joanne Turner"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 135,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:06Z"
+  },
+  {
+   "doi": "10.1177/0266242619829681",
+   "title": "Critical reflections \u2013 The Theory of Planned Behaviour: An interview with Icek Ajzen with implications for entrepreneurship research",
+   "authors": [
+    "Erno Tornikoski",
+    "Adnane Maalaoui"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 134,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:11Z"
+  },
+  {
+   "doi": "10.1177/0266242620960456",
+   "title": "How do resilience and self-efficacy relate to entrepreneurial intentions in countries with varying degrees of fragility? A six-country study",
+   "authors": [
+    "Maija Renko",
+    "Amanda Bullough",
+    "Saadat Saeed"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 113,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:16Z"
+  },
+  {
+   "doi": "10.1177/0266242618813423",
+   "title": "Entrepreneurial orientation: International, global and cross-cultural research",
+   "authors": [
+    "William Wales",
+    "Vishal K Gupta",
+    "Louis Marino",
+    "Galina Shirokova"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 107,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:21Z"
+  },
+  {
+   "doi": "10.1177/0266242620943776",
+   "title": "Strategic entrepreneurship behaviour and the innovation ambidexterity of young technology-based firms in incubators",
+   "authors": [
+    "Mathew Hughes",
+    "Paul Hughes",
+    "Robert E Morgan",
+    "Ian R Hodgkinson",
+    "Younggeun Lee"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 105,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:26Z"
+  },
+  {
+   "doi": "10.1177/0266242620950159",
+   "title": "The impact of the global crisis on the growth of SMEs: A resource system perspective",
+   "authors": [
+    "Dominic SK Lim",
+    "Eric A Morse",
+    "Naryoung Yu"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 102,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:30Z"
+  },
+  {
+   "doi": "10.1177/0266242620962658",
+   "title": "Strategic orientations and digital marketing tactics in cross-border e-commerce: Comparing developed and emerging markets",
+   "authors": [
+    "Sjoukje PK Goldman",
+    "Hester van Herk",
+    "Tibert Verhagen",
+    "Jesse WJ Weltevreden"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 101,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:34Z"
+  },
+  {
+   "doi": "10.1177/0266242620943194",
+   "title": "Perceived institutional support and small venture performance: The mediating role of entrepreneurial persistence",
+   "authors": [
+    "Mujtaba Ahsan",
+    "Samuel Adomako",
+    "Kevin F Mole"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 92,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:38Z"
+  },
+  {
+   "doi": "10.1177/0266242620963942",
+   "title": "COVID-19 and the importance of space in entrepreneurship research and policy",
+   "authors": [
+    "Steffen Korsgaard",
+    "Richard A Hunt",
+    "David M Townsend",
+    "Mads Bruun Ingstrup"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 79,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:43Z"
+  },
+  {
+   "doi": "10.1177/0266242619838936",
+   "title": "Following in parental footsteps? The influence of gender and learning experiences on entrepreneurial intentions",
+   "authors": [
+    "Mira Bloemen-Bekx",
+    "Wim Voordeckers",
+    "Chantal Remery",
+    "Joop Schippers"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 77,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:54:50Z"
+  },
+  {
+   "doi": "10.1177/02662426211055447",
+   "title": "Start-ups\u2019 business model changes during the COVID-19 pandemic: Counteracting adversities and pursuing opportunities",
+   "authors": [
+    "Peter Guckenbiehl",
+    "Graciela Corral de Zubielqui"
+   ],
+   "year": 2022,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 76,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:04Z"
+  },
+  {
+   "doi": "10.1177/0266242621989326",
+   "title": "The geographical impact of the Covid-19 crisis on precautionary savings, firm survival and jobs: Evidence from the United Kingdom\u2019s 100 largest towns and cities",
+   "authors": [
+    "Ross Brown",
+    "Marc Cowling"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 74,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": "pdfs/10.1177_0266242621989326.pdf",
+   "pdf_sha256": "140bcd3326c34e476e5140aa64c66436f4fe433f11dd6f3c153df1717320c259",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:08Z"
+  },
+  {
+   "doi": "10.1177/0266242619831170",
+   "title": "The translation of entrepreneurial intention into start-up behaviour: The moderating role of regional social capital",
+   "authors": [
+    "Jan Weiss",
+    "Tatiana Anisimova",
+    "Galina Shirokova"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 71,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:14Z"
+  },
+  {
+   "doi": "10.1177/0266242620969682",
+   "title": "Dynamic capabilities and performance of emerging market international new ventures: Does international entrepreneurial culture matter?",
+   "authors": [
+    "Dominic Buccieri",
+    "Raj G Javalgi",
+    "Vivien E Jancenelle"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 71,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:18Z"
+  },
+  {
+   "doi": "10.1177/02662426211033270",
+   "title": "Performance stability among small and medium-sized enterprises during COVID-19: A test of the efficacy of dynamic capabilities",
+   "authors": [
+    "Jack A Clampit",
+    "Melanie P Lorenz",
+    "John E Gamble",
+    "Jim Lee"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 70,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:20Z"
+  },
+  {
+   "doi": "10.1177/02662426211063390",
+   "title": "Small Businesses and Entrepreneurship in Times of Crises: The Renaissance of Entrepreneur-Focused Micro Perspectives",
+   "authors": [
+    "Alexander Newman",
+    "Martin Obschonka",
+    "Joern Block"
+   ],
+   "year": 2022,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 69,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:26Z"
+  },
+  {
+   "doi": "10.1177/0266242620986763",
+   "title": "The Covid-19 lockdown in the United Kingdom and subjective well-being: Have the self-employed suffered more due to hours and income reductions?",
+   "authors": [
+    "Wei Yue",
+    "Marc Cowling"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 67,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:31Z"
+  },
+  {
+   "doi": "10.1177/0266242620960711",
+   "title": "Negotiating the female successor\u2013leader role within family business succession in China",
+   "authors": [
+    "Huiping Xian",
+    "Nan Jiang",
+    "Maura McAdam"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 66,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:35Z"
+  },
+  {
+   "doi": "10.1177/0266242618818249",
+   "title": "Pitching a business idea to investors: How new venture founders use micro-level rhetoric to achieve narrative plausibility and resonance",
+   "authors": [
+    "Ruben van Werven",
+    "Onno Bouwmeester",
+    "Joep P Cornelissen"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 64,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:39Z"
+  },
+  {
+   "doi": "10.1177/0266242621997033",
+   "title": "Negotiating stigmatised identities: Enterprising refugee women in the United Kingdom",
+   "authors": [
+    "Nkechi Adeeko",
+    "Lorna Treanor"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 64,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:43Z"
+  },
+  {
+   "doi": "10.1177/0266242618821720",
+   "title": "Advancing conceptualisation of university entrepreneurial ecosystems: The role of knowledge-intensive entrepreneurial firms",
+   "authors": [
+    "Albert N Link",
+    "Riikka M Sarala"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 64,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:47Z"
+  },
+  {
+   "doi": "10.1177/0266242620939935",
+   "title": "<i>Bios, mythoi</i>\n                    and women entrepreneurs: A Wynterian analysis of the intersectional impacts of the COVID-19 pandemic on self-employed women and women-owned businesses",
+   "authors": [
+    "Angela Martinez Dy",
+    "Dilani Jayawarna"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 64,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:52Z"
+  },
+  {
+   "doi": "10.1177/0266242619856809",
+   "title": "The interplay between identity construction and opportunity structures: Narratives of Turkish migrant women entrepreneurs in the Netherlands",
+   "authors": [
+    "Sibel Ozasir Kacar",
+    "Caroline Essers"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 63,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:55:57Z"
+  },
+  {
+   "doi": "10.1177/02662426211013791",
+   "title": "Postfeminism, hybrid mumpreneur identities and the reproduction of masculine entrepreneurship",
+   "authors": [
+    "Patricia Lewis",
+    "Nick Rumens",
+    "Ruth Simpson"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 63,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:01Z"
+  },
+  {
+   "doi": "10.1177/0266242619833540",
+   "title": "The survival of academic spinoff companies: An empirical study of key determinants",
+   "authors": [
+    "Daniel Prokop",
+    "Robert Huggins",
+    "Gillian Bristow"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 59,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:05Z"
+  },
+  {
+   "doi": "10.1177/0266242620967006",
+   "title": "When fear of failure leads to intentions to act entrepreneurially: Insights from threat appraisals and coping efficacy",
+   "authors": [
+    "Erik Hunter",
+    "Anna Jenkins",
+    "Cecilia Mark-Herbert"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 57,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:09Z"
+  },
+  {
+   "doi": "10.1177/02662426241227520",
+   "title": "Start-ups within entrepreneurial ecosystems: Transition towards a circular economy",
+   "authors": [
+    "Magnus Klofsten",
+    "Wisdom Kanda",
+    "Dzamila Bienkowska",
+    "Nancy Bocken",
+    "Sarfraz Mian",
+    "Wadid Lamine"
+   ],
+   "year": 2024,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 56,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:14Z"
+  },
+  {
+   "doi": "10.1177/0266242620904638",
+   "title": "Contesting effectuation theory: Why it does not\n                    <i>explain</i>\n                    new venture creation",
+   "authors": [
+    "John Kitching",
+    "Julia Rouse"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 55,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:17Z"
+  },
+  {
+   "doi": "10.1177/0266242620943371",
+   "title": "Managing the paradox: Individual ambidexterity, paradoxical leadership and multitasking in entrepreneurs across firm life cycle stages",
+   "authors": [
+    "Florian E Klonek",
+    "Thierry Volery",
+    "Sharon K Parker"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 55,
+   "license": "http://www.sagepub.com/licence-information-for-chorus",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:21Z"
+  },
+  {
+   "doi": "10.1177/0266242619901058",
+   "title": "Mentoring for entrepreneurs: A boost or a crutch? Long-term effect of mentoring on self-efficacy",
+   "authors": [
+    "\u00c9tienne St-Jean",
+    "Maripier Tremblay"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 55,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_0266242619901058.pdf",
+   "pdf_sha256": "04e515f9a7ebe8d7b1ed43b585c38faba21a3437868891c139197fe5eb5edfdc",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:29Z"
+  },
+  {
+   "doi": "10.1177/0266242620959073",
+   "title": "The impact of entrepreneurs\u2019s financial literacy on innovation within small and medium-sized enterprises",
+   "authors": [
+    "Baohua Liu",
+    "Jiancheng Wang",
+    "Kam C Chan",
+    "Anna Fung"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 54,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:34Z"
+  },
+  {
+   "doi": "10.1177/0266242619863572",
+   "title": "High-performance work systems and innovation in Vietnamese small firms",
+   "authors": [
+    "Hoa Do",
+    "Helen Shipton"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 54,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_0266242619863572.pdf",
+   "pdf_sha256": "b8c9637cee0bf6325938ff7a8a46c0026c6a7799e9c7aea257d395f83c4c8c9a",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:37Z"
+  },
+  {
+   "doi": "10.1177/0266242618811893",
+   "title": "Autonomy and family business performance: The joint effect of environmental dynamism and national culture",
+   "authors": [
+    "Andy Yu",
+    "GT Lumpkin",
+    "K Praveen Parboteeah",
+    "Jeffrey E Stambaugh"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 53,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:44Z"
+  },
+  {
+   "doi": "10.1177/0266242618809507",
+   "title": "Organisational culture and entrepreneurial orientation: An orthogonal perspective of individualism and collectivism",
+   "authors": [
+    "Younggeun Lee",
+    "Michael Howe",
+    "Patrick M Kreiser"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 52,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:47Z"
+  },
+  {
+   "doi": "10.1177/0266242620952356",
+   "title": "The door swings in and out: The impact of family support and country stability on success of women entrepreneurs in the Arab world",
+   "authors": [
+    "Dianne HB Welsh",
+    "Eugene Kaciak",
+    "Salime Mehtap",
+    "Massimiliano M Pellegrini",
+    "Andrea Caputo",
+    "Siddiga Ahmed"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 52,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_0266242620952356.pdf",
+   "pdf_sha256": "0e303aa098e1822b94467fcd35b33cde27fa90a2d2af1ace88f888f04f95bcf8",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:50Z"
+  },
+  {
+   "doi": "10.1177/0266242619870731",
+   "title": "SME innovation orientation: Evidence from Norwegian exporting SMEs",
+   "authors": [
+    "Simon Norheim Colclough",
+    "\u00d8ystein Moen",
+    "Nina Sakshaug Hovd",
+    "Andrew Chan"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 52,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:55Z"
+  },
+  {
+   "doi": "10.1177/0266242620903007",
+   "title": "The influence of collectivistic personal values on the formation of entrepreneurial intentions",
+   "authors": [
+    "Juan Alberto Hueso",
+    "Inmaculada Ja\u00e9n",
+    "Francisco Li\u00f1\u00e1n",
+    "Whysnianti Basuki"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 51,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:56:58Z"
+  },
+  {
+   "doi": "10.1177/0266242619872883",
+   "title": "Entrepreneurial thinking and action in opportunity development: A conceptual process model",
+   "authors": [
+    "Tommy H\u00f8yvarde Clausen"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 50,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:06Z"
+  },
+  {
+   "doi": "10.1177/02662426211045290",
+   "title": "The synergy of causation and effectuation in the process of entrepreneurial networking: Implications for opportunity development",
+   "authors": [
+    "Tamara Galkina",
+    "Sarah Jack"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 49,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:10Z"
+  },
+  {
+   "doi": "10.1177/02662426211020608",
+   "title": "Richness in diversity: Towards more contemporary research conceptualisations of women\u2019s entrepreneurship",
+   "authors": [
+    "Colette Henry",
+    "Susan Coleman",
+    "Lene Foss",
+    "Barbara J Orser",
+    "Candida G Brush"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 49,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:14Z"
+  },
+  {
+   "doi": "10.1177/0266242620939843",
+   "title": "Recognition of entrepreneurial opportunity using a socio-cognitive approach",
+   "authors": [
+    "Carmen Camelo-Ordaz",
+    "Juan Pablo Di\u00e1nez-Gonz\u00e1lez",
+    "Noelia Franco-Leal",
+    "Jos\u00e9 Ruiz-Navarro"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 48,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:18Z"
+  },
+  {
+   "doi": "10.1177/0266242621997782",
+   "title": "Standing up against crisis-induced entrepreneurial uncertainty: Fewer teams, more habitual entrepreneurs",
+   "authors": [
+    "Andreas Kuckertz"
+   ],
+   "year": 2021,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 48,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:20Z"
+  },
+  {
+   "doi": "10.1177/0266242619846609",
+   "title": "Heteronormativity and the (re)construction of gay male entrepreneurial identities",
+   "authors": [
+    "Nick Rumens",
+    "Mustafa B Ozturk"
+   ],
+   "year": 2019,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 48,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": "pdfs/10.1177_0266242619846609.pdf",
+   "pdf_sha256": "fded2c168c6c7be901d7063f1dcde86ff0a4b3584d00ce7dfd4ce79a948e4edb",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:26Z"
+  },
+  {
+   "doi": "10.1177/02662426211072999",
+   "title": "Effectual market creation in the cross-border e-commerce of small-and medium-sized enterprises",
+   "authors": [
+    "Daniel Tolstoy",
+    "Sara Mel\u00e9n H\u00e5nell",
+    "Nurg\u00fcl \u00d6zbek"
+   ],
+   "year": 2022,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 48,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:32Z"
+  },
+  {
+   "doi": "10.1177/0266242619892793",
+   "title": "Open for business: The impact of creative team environment and innovative behaviour in technology-based start-ups",
+   "authors": [
+    "Zhao Zhou",
+    "Robert Verburg"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 47,
+   "license": "https://journals.sagepub.com/page/policies/text-and-data-mining-license",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:37Z"
+  },
+  {
+   "doi": "10.1177/0266242620913209",
+   "title": "Heroines of enterprise: Post-recession media representations of women and entrepreneurship in a UK newspaper 2008\u20132016",
+   "authors": [
+    "Sara Nadin",
+    "Robert Smith",
+    "Sally Jones"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 47,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:45Z"
+  },
+  {
+   "doi": "10.1177/02662426251314108",
+   "title": "Digital transformation in the SME context: The nexus between leadership, digital capabilities and digital strategy",
+   "authors": [
+    "Samuel Gyamerah",
+    "Leila Afshari",
+    "Dennis Asante"
+   ],
+   "year": 2025,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 47,
+   "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:49Z"
+  },
+  {
+   "doi": "10.1177/02662426231218357",
+   "title": "Bringing the knowledge spillover theory of entrepreneurship to circular economies: Knowledge and values in entrepreneurial ecosystems",
+   "authors": [
+    "David B Audretsch",
+    "Antje Fiedler"
+   ],
+   "year": 2023,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 47,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:57:55Z"
+  },
+  {
+   "doi": "10.1177/0266242620909029",
+   "title": "Knowledge acquisition strategy, speed of capability development and speed of SME internationalisation",
+   "authors": [
+    "Mikael Hilmersson",
+    "Martin Johanson"
+   ],
+   "year": 2020,
+   "journal": "International Small Business Journal: Researching Entrepreneurship",
+   "citations": 47,
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:58:01Z"
   }
  ]
 }
