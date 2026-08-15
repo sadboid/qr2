@@ -1,0 +1,1585 @@
+{
+ "corpus": {
+  "n_papers": 18,
+  "genres": {
+   "empirical": 8,
+   "conceptual": 4,
+   "review": 4,
+   "editorial": 2
+  },
+  "min_papers_per_pattern": 3,
+  "unmineable": 6
+ },
+ "sections": {
+  "empirical": {
+   "abstract": {
+    "n_papers": 8,
+    "words_median": 175,
+    "words_range": [
+     130,
+     262
+    ],
+    "citations_per_1k": 0.0,
+    "integral_share": 0.0,
+    "words_per_sentence": 19.9,
+    "sentences_per_paragraph": 6.0,
+    "paragraph_openers": [],
+    "connectors": [],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 5.0,
+    "boosters_per_1k": 3.8
+   },
+   "introduction": {
+    "n_papers": 8,
+    "words_median": 1154,
+    "words_range": [
+     330,
+     8638
+    ],
+    "citations_per_1k": 15.6,
+    "integral_share": 0.07,
+    "words_per_sentence": 28.0,
+    "sentences_per_paragraph": 9.1,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "however",
+      "papers": 4,
+      "occurrences": 10
+     },
+     {
+      "text": "specifically",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "for instance",
+      "papers": 3,
+      "occurrences": 5
+     }
+    ],
+    "phrases": [
+     {
+      "text": "scholars and practitioners",
+      "papers": 3,
+      "occurrences": 4
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 5.5,
+    "boosters_per_1k": 1.6
+   },
+   "literature": {
+    "n_papers": 3,
+    "words_median": 2011,
+    "words_range": [
+     658,
+     2617
+    ],
+    "citations_per_1k": 23.4,
+    "integral_share": 0.06,
+    "words_per_sentence": 27.2,
+    "sentences_per_paragraph": 8.9,
+    "paragraph_openers": [],
+    "connectors": [],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 7.6,
+    "boosters_per_1k": 3.0
+   },
+   "methods": {
+    "n_papers": 8,
+    "words_median": 2736,
+    "words_range": [
+     684,
+     10496
+    ],
+    "citations_per_1k": 6.6,
+    "integral_share": 0.16,
+    "words_per_sentence": 26.9,
+    "sentences_per_paragraph": 10.6,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "first",
+      "papers": 7,
+      "occurrences": 9
+     },
+     {
+      "text": "moreover",
+      "papers": 5,
+      "occurrences": 12
+     },
+     {
+      "text": "therefore",
+      "papers": 5,
+      "occurrences": 16
+     },
+     {
+      "text": "however",
+      "papers": 5,
+      "occurrences": 9
+     },
+     {
+      "text": "for instance",
+      "papers": 4,
+      "occurrences": 11
+     },
+     {
+      "text": "for example",
+      "papers": 4,
+      "occurrences": 9
+     },
+     {
+      "text": "in other words",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "similarly",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "in this way",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "in addition",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "second",
+      "papers": 3,
+      "occurrences": 4
+     }
+    ],
+    "phrases": [
+     {
+      "text": "shown in fig",
+      "papers": 3,
+      "occurrences": 4
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 5.8,
+    "boosters_per_1k": 1.5
+   },
+   "results": {
+    "n_papers": 8,
+    "words_median": 2408,
+    "words_range": [
+     447,
+     5090
+    ],
+    "citations_per_1k": 7.7,
+    "integral_share": 0.07,
+    "words_per_sentence": 30.2,
+    "sentences_per_paragraph": 6.4,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "finally",
+      "papers": 6,
+      "occurrences": 8
+     },
+     {
+      "text": "however",
+      "papers": 5,
+      "occurrences": 8
+     },
+     {
+      "text": "moreover",
+      "papers": 4,
+      "occurrences": 13
+     },
+     {
+      "text": "second",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "first",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "thus",
+      "papers": 4,
+      "occurrences": 10
+     },
+     {
+      "text": "here",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "in contrast",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "therefore",
+      "papers": 3,
+      "occurrences": 12
+     },
+     {
+      "text": "hence",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 5.7,
+    "boosters_per_1k": 2.3
+   },
+   "discussion": {
+    "n_papers": 6,
+    "words_median": 1542,
+    "words_range": [
+     242,
+     2523
+    ],
+    "citations_per_1k": 9.5,
+    "integral_share": 0.04,
+    "words_per_sentence": 30.0,
+    "sentences_per_paragraph": 6.4,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "moreover",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "finally",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "first",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "second",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "third",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "therefore",
+      "papers": 3,
+      "occurrences": 4
+     }
+    ],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 8.0,
+    "boosters_per_1k": 1.9
+   },
+   "conclusion": {
+    "n_papers": 3,
+    "words_median": 344,
+    "words_range": [
+     315,
+     608
+    ],
+    "citations_per_1k": 3.2,
+    "integral_share": 0.0,
+    "words_per_sentence": 26.2,
+    "sentences_per_paragraph": 6.0,
+    "paragraph_openers": [],
+    "connectors": [],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 6.3,
+    "boosters_per_1k": 0.0
+   }
+  },
+  "conceptual": {
+   "abstract": {
+    "n_papers": 4,
+    "words_median": 254,
+    "words_range": [
+     169,
+     714
+    ],
+    "citations_per_1k": 2.6,
+    "integral_share": 1.0,
+    "words_per_sentence": 25.3,
+    "sentences_per_paragraph": 7.0,
+    "paragraph_openers": [],
+    "connectors": [],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 3.4,
+    "boosters_per_1k": 2.0
+   },
+   "introduction": {
+    "n_papers": 4,
+    "words_median": 3093,
+    "words_range": [
+     1328,
+     6871
+    ],
+    "citations_per_1k": 17.1,
+    "integral_share": 0.08,
+    "words_per_sentence": 29.0,
+    "sentences_per_paragraph": 9.9,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "finally",
+      "papers": 4,
+      "occurrences": 6
+     },
+     {
+      "text": "for example",
+      "papers": 4,
+      "occurrences": 7
+     },
+     {
+      "text": "thus",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "however",
+      "papers": 3,
+      "occurrences": 13
+     },
+     {
+      "text": "first",
+      "papers": 3,
+      "occurrences": 6
+     },
+     {
+      "text": "second",
+      "papers": 3,
+      "occurrences": 7
+     },
+     {
+      "text": "moreover",
+      "papers": 3,
+      "occurrences": 4
+     }
+    ],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 6.4,
+    "boosters_per_1k": 2.5
+   },
+   "results": {
+    "n_papers": 3,
+    "words_median": 3047,
+    "words_range": [
+     2812,
+     4328
+    ],
+    "citations_per_1k": 7.9,
+    "integral_share": 0.08,
+    "words_per_sentence": 30.2,
+    "sentences_per_paragraph": 12.9,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "furthermore",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "however",
+      "papers": 3,
+      "occurrences": 6
+     },
+     {
+      "text": "first",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "accordingly",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 12.5,
+    "boosters_per_1k": 1.6
+   }
+  },
+  "review": {
+   "abstract": {
+    "n_papers": 4,
+    "words_median": 269,
+    "words_range": [
+     128,
+     1540
+    ],
+    "citations_per_1k": 1.5,
+    "integral_share": 0.5,
+    "words_per_sentence": 21.7,
+    "sentences_per_paragraph": 7.3,
+    "paragraph_openers": [],
+    "connectors": [],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 4.7,
+    "boosters_per_1k": 0.0
+   },
+   "introduction": {
+    "n_papers": 4,
+    "words_median": 1052,
+    "words_range": [
+     432,
+     1669
+    ],
+    "citations_per_1k": 13.0,
+    "integral_share": 0.14,
+    "words_per_sentence": 27.4,
+    "sentences_per_paragraph": 9.5,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "thus",
+      "papers": 4,
+      "occurrences": 7
+     },
+     {
+      "text": "hence",
+      "papers": 3,
+      "occurrences": 5
+     }
+    ],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 2.9,
+    "boosters_per_1k": 3.0
+   },
+   "methods": {
+    "n_papers": 3,
+    "words_median": 3724,
+    "words_range": [
+     870,
+     3976
+    ],
+    "citations_per_1k": 11.8,
+    "integral_share": 0.02,
+    "words_per_sentence": 27.8,
+    "sentences_per_paragraph": 12.2,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "however",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "first",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "phrases": [
+     {
+      "text": "systematic literature review",
+      "papers": 3,
+      "occurrences": 5
+     },
+     {
+      "text": "number of citations",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 2.3,
+    "boosters_per_1k": 2.0
+   },
+   "conclusion": {
+    "n_papers": 3,
+    "words_median": 1173,
+    "words_range": [
+     229,
+     2577
+    ],
+    "citations_per_1k": 2.6,
+    "integral_share": 0.5,
+    "words_per_sentence": 22.9,
+    "sentences_per_paragraph": 5.6,
+    "paragraph_openers": [],
+    "connectors": [],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 4.4,
+    "boosters_per_1k": 2.6
+   }
+  },
+  "any": {
+   "abstract": {
+    "n_papers": 18,
+    "words_median": 184,
+    "words_range": [
+     128,
+     1540
+    ],
+    "citations_per_1k": 0.0,
+    "integral_share": 1.0,
+    "words_per_sentence": 25.1,
+    "sentences_per_paragraph": 7.0,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "however",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "moreover",
+      "papers": 3,
+      "occurrences": 6
+     },
+     {
+      "text": "overall",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "phrases": [
+     {
+      "text": "context of entrepreneurship",
+      "papers": 3,
+      "occurrences": 9
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 4.5,
+    "boosters_per_1k": 0.0
+   },
+   "introduction": {
+    "n_papers": 18,
+    "words_median": 1181,
+    "words_range": [
+     330,
+     8638
+    ],
+    "citations_per_1k": 15.1,
+    "integral_share": 0.07,
+    "words_per_sentence": 28.6,
+    "sentences_per_paragraph": 9.2,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "however",
+      "papers": 10,
+      "occurrences": 27
+     },
+     {
+      "text": "thus",
+      "papers": 9,
+      "occurrences": 12
+     },
+     {
+      "text": "first",
+      "papers": 8,
+      "occurrences": 11
+     },
+     {
+      "text": "second",
+      "papers": 8,
+      "occurrences": 12
+     },
+     {
+      "text": "finally",
+      "papers": 7,
+      "occurrences": 9
+     },
+     {
+      "text": "for example",
+      "papers": 7,
+      "occurrences": 15
+     },
+     {
+      "text": "therefore",
+      "papers": 6,
+      "occurrences": 11
+     },
+     {
+      "text": "hence",
+      "papers": 6,
+      "occurrences": 10
+     },
+     {
+      "text": "moreover",
+      "papers": 6,
+      "occurrences": 7
+     },
+     {
+      "text": "in addition",
+      "papers": 5,
+      "occurrences": 7
+     },
+     {
+      "text": "specifically",
+      "papers": 5,
+      "occurrences": 5
+     },
+     {
+      "text": "third",
+      "papers": 5,
+      "occurrences": 7
+     },
+     {
+      "text": "for instance",
+      "papers": 4,
+      "occurrences": 6
+     },
+     {
+      "text": "in particular",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "similarly",
+      "papers": 4,
+      "occurrences": 5
+     },
+     {
+      "text": "furthermore",
+      "papers": 3,
+      "occurrences": 5
+     },
+     {
+      "text": "indeed",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "in doing so",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "overall",
+      "papers": 3,
+      "occurrences": 4
+     }
+    ],
+    "phrases": [
+     {
+      "text": "structured as follows",
+      "papers": 5,
+      "occurrences": 5
+     },
+     {
+      "text": "context of entrepreneurship",
+      "papers": 4,
+      "occurrences": 22
+     },
+     {
+      "text": "paper is structured",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "scholars and practitioners",
+      "papers": 4,
+      "occurrences": 5
+     },
+     {
+      "text": "such as chatgpt",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "one of the most",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "natural language processing",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "over the past",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "field of entrepreneurship",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "guide future research",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "prior research has",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 5.0,
+    "boosters_per_1k": 1.9
+   },
+   "literature": {
+    "n_papers": 9,
+    "words_median": 2232,
+    "words_range": [
+     658,
+     6634
+    ],
+    "citations_per_1k": 17.6,
+    "integral_share": 0.02,
+    "words_per_sentence": 31.5,
+    "sentences_per_paragraph": 9.0,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "however",
+      "papers": 8,
+      "occurrences": 22
+     },
+     {
+      "text": "moreover",
+      "papers": 6,
+      "occurrences": 14
+     },
+     {
+      "text": "furthermore",
+      "papers": 6,
+      "occurrences": 12
+     },
+     {
+      "text": "for example",
+      "papers": 5,
+      "occurrences": 16
+     },
+     {
+      "text": "first",
+      "papers": 5,
+      "occurrences": 6
+     },
+     {
+      "text": "second",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "hence",
+      "papers": 4,
+      "occurrences": 7
+     },
+     {
+      "text": "thus",
+      "papers": 4,
+      "occurrences": 7
+     },
+     {
+      "text": "consequently",
+      "papers": 4,
+      "occurrences": 7
+     },
+     {
+      "text": "indeed",
+      "papers": 3,
+      "occurrences": 7
+     },
+     {
+      "text": "therefore",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "finally",
+      "papers": 3,
+      "occurrences": 5
+     },
+     {
+      "text": "similarly",
+      "papers": 3,
+      "occurrences": 5
+     }
+    ],
+    "phrases": [
+     {
+      "text": "whether or not",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "products or services",
+      "papers": 3,
+      "occurrences": 4
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 7.6,
+    "boosters_per_1k": 3.0
+   },
+   "methods": {
+    "n_papers": 11,
+    "words_median": 2818,
+    "words_range": [
+     684,
+     10496
+    ],
+    "citations_per_1k": 8.2,
+    "integral_share": 0.13,
+    "words_per_sentence": 27.4,
+    "sentences_per_paragraph": 11.1,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "first",
+      "papers": 10,
+      "occurrences": 12
+     },
+     {
+      "text": "however",
+      "papers": 8,
+      "occurrences": 13
+     },
+     {
+      "text": "moreover",
+      "papers": 7,
+      "occurrences": 17
+     },
+     {
+      "text": "therefore",
+      "papers": 7,
+      "occurrences": 20
+     },
+     {
+      "text": "for example",
+      "papers": 6,
+      "occurrences": 13
+     },
+     {
+      "text": "in this way",
+      "papers": 5,
+      "occurrences": 5
+     },
+     {
+      "text": "for instance",
+      "papers": 5,
+      "occurrences": 12
+     },
+     {
+      "text": "in addition",
+      "papers": 5,
+      "occurrences": 6
+     },
+     {
+      "text": "second",
+      "papers": 5,
+      "occurrences": 6
+     },
+     {
+      "text": "in other words",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "finally",
+      "papers": 4,
+      "occurrences": 9
+     },
+     {
+      "text": "additionally",
+      "papers": 4,
+      "occurrences": 11
+     },
+     {
+      "text": "similarly",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "in general",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "hence",
+      "papers": 3,
+      "occurrences": 7
+     },
+     {
+      "text": "consequently",
+      "papers": 3,
+      "occurrences": 6
+     },
+     {
+      "text": "subsequently",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "third",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "furthermore",
+      "papers": 3,
+      "occurrences": 5
+     },
+     {
+      "text": "indeed",
+      "papers": 3,
+      "occurrences": 7
+     }
+    ],
+    "phrases": [
+     {
+      "text": "can be used",
+      "papers": 4,
+      "occurrences": 7
+     },
+     {
+      "text": "natural language processing",
+      "papers": 3,
+      "occurrences": 5
+     },
+     {
+      "text": "systematic literature review",
+      "papers": 3,
+      "occurrences": 5
+     },
+     {
+      "text": "number of citations",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "shown in fig",
+      "papers": 3,
+      "occurrences": 4
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 5.1,
+    "boosters_per_1k": 1.5
+   },
+   "results": {
+    "n_papers": 13,
+    "words_median": 2812,
+    "words_range": [
+     447,
+     7756
+    ],
+    "citations_per_1k": 10.0,
+    "integral_share": 0.08,
+    "words_per_sentence": 30.6,
+    "sentences_per_paragraph": 7.6,
+    "paragraph_openers": [
+     {
+      "text": "open access this",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "connectors": [
+     {
+      "text": "finally",
+      "papers": 10,
+      "occurrences": 19
+     },
+     {
+      "text": "however",
+      "papers": 10,
+      "occurrences": 34
+     },
+     {
+      "text": "moreover",
+      "papers": 8,
+      "occurrences": 26
+     },
+     {
+      "text": "thus",
+      "papers": 8,
+      "occurrences": 19
+     },
+     {
+      "text": "first",
+      "papers": 7,
+      "occurrences": 7
+     },
+     {
+      "text": "furthermore",
+      "papers": 7,
+      "occurrences": 9
+     },
+     {
+      "text": "second",
+      "papers": 6,
+      "occurrences": 7
+     },
+     {
+      "text": "therefore",
+      "papers": 6,
+      "occurrences": 21
+     },
+     {
+      "text": "overall",
+      "papers": 6,
+      "occurrences": 15
+     },
+     {
+      "text": "for example",
+      "papers": 6,
+      "occurrences": 21
+     },
+     {
+      "text": "hence",
+      "papers": 6,
+      "occurrences": 13
+     },
+     {
+      "text": "here",
+      "papers": 5,
+      "occurrences": 8
+     },
+     {
+      "text": "in contrast",
+      "papers": 5,
+      "occurrences": 6
+     },
+     {
+      "text": "in addition",
+      "papers": 5,
+      "occurrences": 17
+     },
+     {
+      "text": "similarly",
+      "papers": 5,
+      "occurrences": 15
+     },
+     {
+      "text": "also",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "as such",
+      "papers": 4,
+      "occurrences": 6
+     },
+     {
+      "text": "in particular",
+      "papers": 4,
+      "occurrences": 5
+     },
+     {
+      "text": "specifically",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "alternatively",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "phrases": [
+     {
+      "text": "one of the most",
+      "papers": 5,
+      "occurrences": 5
+     },
+     {
+      "text": "period of time",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "can be used",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "there is no",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "innovation and entrepreneurship",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "presented in table",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "avenues for future",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "avenues for future research",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "machine learning algorithms",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "access this article",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "commons attribution international",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "distribution and reproduction",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "reproduction in any",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "you give appropriate",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "give appropriate credit",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "source provide link",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "indicate if changes",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "changes were made",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "open access this article",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "reproduction in any medium",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "you give appropriate credit",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "credit to the original",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "author and the source",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "link to the creative",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "if changes were made",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "stream of research",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 6.7,
+    "boosters_per_1k": 1.8
+   },
+   "discussion": {
+    "n_papers": 11,
+    "words_median": 1860,
+    "words_range": [
+     202,
+     2524
+    ],
+    "citations_per_1k": 8.3,
+    "integral_share": 0.0,
+    "words_per_sentence": 30.8,
+    "sentences_per_paragraph": 6.7,
+    "paragraph_openers": [],
+    "connectors": [
+     {
+      "text": "however",
+      "papers": 6,
+      "occurrences": 8
+     },
+     {
+      "text": "finally",
+      "papers": 6,
+      "occurrences": 7
+     },
+     {
+      "text": "moreover",
+      "papers": 5,
+      "occurrences": 8
+     },
+     {
+      "text": "for example",
+      "papers": 5,
+      "occurrences": 13
+     },
+     {
+      "text": "second",
+      "papers": 5,
+      "occurrences": 7
+     },
+     {
+      "text": "therefore",
+      "papers": 5,
+      "occurrences": 8
+     },
+     {
+      "text": "first",
+      "papers": 4,
+      "occurrences": 6
+     },
+     {
+      "text": "third",
+      "papers": 4,
+      "occurrences": 5
+     },
+     {
+      "text": "indeed",
+      "papers": 4,
+      "occurrences": 5
+     },
+     {
+      "text": "thus",
+      "papers": 4,
+      "occurrences": 5
+     },
+     {
+      "text": "in doing so",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "in addition",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "phrases": [],
+    "reporting_verbs": [],
+    "hedges_per_1k": 7.7,
+    "boosters_per_1k": 1.9
+   },
+   "conclusion": {
+    "n_papers": 9,
+    "words_median": 608,
+    "words_range": [
+     229,
+     2577
+    ],
+    "citations_per_1k": 9.3,
+    "integral_share": 0.0,
+    "words_per_sentence": 26.2,
+    "sentences_per_paragraph": 6.0,
+    "paragraph_openers": [
+     {
+      "text": "open access this",
+      "papers": 3,
+      "occurrences": 3
+     }
+    ],
+    "connectors": [
+     {
+      "text": "first",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "second",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "therefore",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "finally",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "moreover",
+      "papers": 3,
+      "occurrences": 4
+     },
+     {
+      "text": "for example",
+      "papers": 3,
+      "occurrences": 7
+     }
+    ],
+    "phrases": [
+     {
+      "text": "access this article",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "distribution and reproduction",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "reproduction in any",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "you give appropriate",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "give appropriate credit",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "source provide link",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "indicate if changes",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "changes were made",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "open access this article",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "reproduction in any medium",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "you give appropriate credit",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "credit to the original",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "author and the source",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "if changes were made",
+      "papers": 4,
+      "occurrences": 4
+     },
+     {
+      "text": "commons attribution international",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "link to the creative",
+      "papers": 3,
+      "occurrences": 3
+     },
+     {
+      "text": "entrepreneurs and investors",
+      "papers": 3,
+      "occurrences": 5
+     }
+    ],
+    "reporting_verbs": [],
+    "hedges_per_1k": 8.1,
+    "boosters_per_1k": 1.3
+   }
+  }
+ },
+ "moves": {
+  "gap_statements": [
+   {
+    "doi": "10.1007/s11846-025-00839-4",
+    "genre": "review",
+    "sentence": "However, existing studies are fragmented, making it challenging to generate a comprehensive and systematic overview."
+   },
+   {
+    "doi": "10.1007/s11187-019-00270-6",
+    "genre": "empirical",
+    "sentence": "As applied to entrepreneurship in a region, the metaphor is loosely defined, highly undertheorized and not adequately measured (Stam 2015)."
+   },
+   {
+    "doi": "10.1007/s11187-020-00316-0",
+    "genre": "review",
+    "sentence": "Despite the usefulness of existing frameworks, the current literature is lacking a clear theoretical foundation for the emergence, development, and change of entrepreneurial ecosystems over time, especially with regard to the transition from an entrepreneurial ecosystem towards a business ecosystem and vice versa."
+   },
+   {
+    "doi": "10.1007/s11187-020-00316-0",
+    "genre": "review",
+    "sentence": "Section 2 provides an overview of existing definitions of entrepreneurial ecosystems and highlights that despite the usefulness of this approach, the concept is undertheorized, especially with regard to the evolution of entrepreneurial ecosystems."
+   },
+   {
+    "doi": "10.1007/s11187-020-00359-3",
+    "genre": "conceptual",
+    "sentence": "We fill this gap in the literature by analyzing bank characteristics that are associated with different forms of alliances with fintech companies."
+   }
+  ],
+  "contribution_statements": [
+   {
+    "doi": "10.1007/s11846-025-00839-4",
+    "genre": "review",
+    "sentence": "This study aims to address these gaps by presenting a comprehensive and rigorous review, employing a hybrid systematic review approach that combines quantitative and qualitative methods to provide a holistic understand - ing of AI's impact on entrepreneurship."
+   },
+   {
+    "doi": "10.1007/s11846-025-00839-4",
+    "genre": "review",
+    "sentence": "Thus, this study provides insight into the direction and pri - oritization that academic research has taken through existing relationships revealed by past studies."
+   },
+   {
+    "doi": "10.1007/s11187-019-00270-6",
+    "genre": "empirical",
+    "sentence": "The purpose of this paper is to develop an operational definition and https://doi.org/10.1007/s11187-019-00270-6 E."
+   },
+   {
+    "doi": "10.1007/s11187-021-00590-6",
+    "genre": "review",
+    "sentence": "This article makes several contributions to litera - ture."
+   },
+   {
+    "doi": "10.1007/s11187-021-00590-6",
+    "genre": "review",
+    "sentence": "Hence, we contribute by summarizing and synthesizing the main findings in previous literature."
+   },
+   {
+    "doi": "10.1016/j.jbusvent.2020.106041",
+    "genre": "conceptual",
+    "sentence": "First, we contribute theoretically by providing a new conceptualization of entrepreneurial fear of failure as being evoked by experience within the performative context of entrepreneurship."
+   },
+   {
+    "doi": "10.1016/j.jbusvent.2020.106041",
+    "genre": "conceptual",
+    "sentence": "Second, we contribute methodologically by developing and validating a scale for future research in entrepreneurship that complements existing measures of fear of failure, while also overcoming the theoretical and operational limitations of these measures."
+   },
+   {
+    "doi": "10.1016/j.jbusvent.2020.106041",
+    "genre": "conceptual",
+    "sentence": "Third, we contribute empirically by demonstrating the multidimensional nature of entrepreneurial fear of failure and providing evidence that fear of failure in entrepreneurship is not stable over time and that it may also differentially affect psychological outcomes and perceived behavioral tendencies. 3."
+   },
+   {
+    "doi": "10.1016/j.jbvi.2020.e00174",
+    "genre": "editorial",
+    "sentence": "Given the need for more rapid insights into how shocks translate into entrepreneurial uncertainty, this paper aims to answer the follow key research question: \u201chow has uncertainty caused by the Covid-19 pandemic affected the levels and dynamics of entrepreneurial finance in China\u201d."
+   },
+   {
+    "doi": "10.1016/j.jbvi.2020.e00174",
+    "genre": "editorial",
+    "sentence": "Therefore, this paper makes an important contribution to the entrepreneurship literature by examining the supply of entrepreneurial finance in China and how this has been impacted by the Covid-19 crisis."
+   },
+   {
+    "doi": "10.1016/j.jbvi.2020.e00159",
+    "genre": "editorial",
+    "sentence": "Thirdly, by countering the \u201csuccess bias\u201d that largely exists in the current literature on ecosystem growth strategy in SEs, this paper provides a foundation for future research on greater un derstanding and management of unintended consequences of this strategy."
+   }
+  ],
+  "discussion_openers": [
+   {
+    "doi": "10.1007/s11187-019-00208-y",
+    "sentence": "for researchers The ongoing datafication, coupled with gigantic technological progress in the domain of AI, is changing all aspects of our lives: work, politics, community interactions, economic transactions, and many more."
+   },
+   {
+    "doi": "10.1007/s11187-019-00204-2",
+    "sentence": "What makes some places more entrepreneurial than others?"
+   },
+   {
+    "doi": "10.1007/s11187-019-00217-x",
+    "sentence": "Despite calls to advance entrepreneurship research as a science of the artificial or design science (e.g., Dimov 2016; V an Burg and Romme2014; V enkataraman et al. 2012; Sarasvathy 2003), progress has been limited."
+   },
+   {
+    "doi": "10.1007/s11846-025-00839-4",
+    "sentence": "7.1 Theoretical propositions In this study, a hybrid literature review was conducted through a combination of different bibliometric and systematic literature analysis techniques, resulting in a description of the progress of the literature analyzed and the deepening of the field through content analysis and the subsequent proposal of a research framework based on the ADO-TCM framework."
+   },
+   {
+    "doi": "10.24136/eq.3074",
+    "sentence": "Built on the SCCT, the current research first revea ls the transformative impact of ChatGPT adoption in entrepreneurship on i ndividuals\u2019 digital entrepreneurial self-efficacy and intention."
+   },
+   {
+    "doi": "10.1007/s11187-019-00181-6",
+    "sentence": "Our systematic and thorough review of the literature identifies important progress in understanding the internationalization of SMEs."
+   },
+   {
+    "doi": "10.1007/s11187-020-00359-3",
+    "sentence": "In this article, we examined the impact of digitalization in the banking industry by analyzing the bank characteristics that play a role in the alliances between banks and fintech startups."
+   },
+   {
+    "doi": "10.1007/s11187-019-00218-w",
+    "sentence": "Because early-stage product financing is often more difficult to secure for new firms due to information asymmetries and other liabilities of newness, an entrepreneur must find ways to meet the expectations of various audiences with differing norms, standards, and values as the venture evolves and grows from the conception stage to potential commercialization (Fisher et al. 2016)."
+   },
+   {
+    "doi": "10.1016/j.jbusvent.2020.106041",
+    "sentence": "Fear of failure is an important part of the entrepreneurial experience (Cacciotti et al., 2016)."
+   },
+   {
+    "doi": "10.1016/j.jbvi.2020.e00159",
+    "sentence": "This study intends to stimulate a broader and deeper conversation around ecosystem growth as a social impact scaling strategy."
+   }
+  ]
+ }
+}

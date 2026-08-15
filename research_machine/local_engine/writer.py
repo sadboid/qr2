@@ -151,10 +151,25 @@ def _write_section_with_claude(section_name: str, context: dict) -> Optional[str
             findings_txt = "\n".join(f"- {f}" for f in context.get("findings", [])[:6])
         gaps_txt = "\n".join(f"- {g}" for g in context.get("gaps", [])[:4])
         papers_txt = context.get("papers_sample", "")
+        # Measured house style from the harvested Q1 library. Where these
+        # measurements contradict the hand-written tips above, they win — the
+        # numbers come from real published papers, the tips from priors.
+        measured = _style_guide().constraints_for(section_name, context.get("paper_type", "imrad"))
+        exemplars = ""
+        if section_name == "introduction":
+            exemplars = "\n\n".join(x for x in (
+                _style_guide().move_exemplars("gap_statements", 5),
+                _style_guide().move_exemplars("contribution_statements", 4),
+            ) if x)
+        elif section_name == "discussion":
+            exemplars = _style_guide().move_exemplars("discussion_openers", 5)
+
         system_prompt = (
             f"You are an academic writer generating a '{section_name}' section for a Q1 systematic "
-            f"literature review in Business and AI.\n\nSection requirements:\n{tips}\n\n"
-            "Write in formal academic English. Use hedged language ('suggests', 'indicates', 'may'). "
+            f"literature review in Business and AI.\n\nSection requirements:\n{tips}\n"
+            + (f"\n{measured}\n" if measured else "")
+            + (f"\n{exemplars}\n" if exemplars else "")
+            + "\nWrite in formal academic English. Use hedged language ('suggests', 'indicates', 'may'). "
             "Cite in-text as (Author, Year) for parenthetical or Author (Year) for narrative. Do not add a section header — return body text only."
         )
         databases = context.get("databases", "Semantic Scholar, arXiv, and Crossref")
@@ -311,6 +326,17 @@ def revise_section_with_claude(section_name: str, draft: str, issues: list, cont
 
 
 _CURRENT_YEAR = 2026
+
+_STYLE_GUIDE = None
+
+
+def _style_guide():
+    """Lazily load the mined style profile once per process."""
+    global _STYLE_GUIDE
+    if _STYLE_GUIDE is None:
+        from ..scholar.style_guide import StyleGuide
+        _STYLE_GUIDE = StyleGuide.load()
+    return _STYLE_GUIDE
 
 
 def _cite(paper: Paper, ref_map: dict) -> str:

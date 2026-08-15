@@ -1,6 +1,6 @@
 {
- "count": 94,
- "with_pdf": 22,
+ "count": 148,
+ "with_pdf": 24,
  "entries": [
   {
    "doi": "10.1177/1042258720934581",
@@ -141,7 +141,7 @@
    "pdf_sha256": null,
    "pdf_source": null,
    "subjects": [],
-   "harvested_at": "2026-08-15T17:37:11Z"
+   "harvested_at": "2026-08-15T17:46:21Z"
   },
   {
    "doi": "10.1007/s11187-019-00217-x",
@@ -1708,6 +1708,992 @@
    "pdf_source": null,
    "subjects": [],
    "harvested_at": "2026-08-15T17:45:11Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00169",
+   "title": "Startups in times of crisis \u2013 A rapid response to the COVID-19 pandemic",
+   "authors": [
+    "Andreas Kuckertz",
+    "Leif Br\u00e4ndle",
+    "Anja Gaudig",
+    "Sebastian Hinderer",
+    "Carlos Arturo Morales Reyes",
+    "Alicia Prochotta",
+    "Kathrin M. Steinbrink",
+    "Elisabeth S.C. Berger"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 777,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:19Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2019.e00151",
+   "title": "Blockchain disruption and decentralized finance: The rise of decentralized business models",
+   "authors": [
+    "Yan Chen",
+    "Cristiano Bellavitis"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 611,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:26Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00186",
+   "title": "Revising entrepreneurial action in response to exogenous shocks: Considering the COVID-19 pandemic",
+   "authors": [
+    "Ferran Giones",
+    "Alexander Brem",
+    "Jeffrey M. Pollack",
+    "Timothy L. Michaelis",
+    "Kim Klyver",
+    "Jan Brinckmann"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 225,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:29Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00174",
+   "title": "Entrepreneurial uncertainty during the Covid-19 crisis: Mapping the temporal dynamics of entrepreneurial finance",
+   "authors": [
+    "Ross Brown",
+    "Augusto Rocha"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 220,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.jbvi.2020.e00174.pdf",
+   "pdf_sha256": "3360b20ab0fed7ebd3cb62eada46bef08de8f0037abde7103e0a58251dec85fc",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:35Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2022.e00309",
+   "title": "Beyond the bubble: Will NFTs and digital proof of ownership empower creative industry entrepreneurs?",
+   "authors": [
+    "Dominic Chalmers",
+    "Christian Fisch",
+    "Russell Matthews",
+    "William Quinn",
+    "Jan Recker"
+   ],
+   "year": 2022,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 210,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:42Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2023.e00388",
+   "title": "The artificially intelligent entrepreneur: ChatGPT, prompt engineering, and entrepreneurial rhetoric creation",
+   "authors": [
+    "Cole E. Short",
+    "Jeremy C. Short"
+   ],
+   "year": 2023,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 195,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:47Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00187",
+   "title": "Staying alive during an unfolding crisis: How SMEs ward off impending disaster",
+   "authors": [
+    "Sara Thorgren",
+    "Trenton Alma Williams"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 192,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:50Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2019.e00126",
+   "title": "Entrepreneurial action, creativity, &amp; judgment in the age of artificial intelligence",
+   "authors": [
+    "David M. Townsend",
+    "Richard A. Hunt"
+   ],
+   "year": 2019,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 150,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:54Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2019.e00124",
+   "title": "Let's take the entrepreneurial ecosystem metaphor seriously!",
+   "authors": [
+    "Andreas Kuckertz"
+   ],
+   "year": 2019,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 144,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:45:57Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2022.e00323",
+   "title": "Non-fungible token-enabled entrepreneurship: A conceptual framework",
+   "authors": [
+    "Yanto Chandra"
+   ],
+   "year": 2022,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 117,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:01Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00239",
+   "title": "Bringing creativity back to entrepreneurship education: Creative self-efficacy, creative process engagement, and entrepreneurial intentions",
+   "authors": [
+    "Maha Tantawy",
+    "Kendall Herbert",
+    "Jeffrey J. McNally",
+    "Thomas Mengel",
+    "Panagiotis Piperopoulos",
+    "David Foord"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 109,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:05Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2019.e00119",
+   "title": "Why believe? The promise of research on the role of religion in entrepreneurial action",
+   "authors": [
+    "Brett R. Smith",
+    "Michael J. Conger",
+    "Jeffery S. McMullen",
+    "Mitchell J. Neubert"
+   ],
+   "year": 2019,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 102,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:10Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00213",
+   "title": "A comprehensive review of the global development of initial coin offerings (ICOs) and their regulation",
+   "authors": [
+    "Cristiano Bellavitis",
+    "Christian Fisch",
+    "Johan Wiklund"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 98,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:12Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2023.e00375",
+   "title": "Metaverse-enabled entrepreneurship",
+   "authors": [
+    "J\u00f6rg Weking",
+    "Kevin C. Desouza",
+    "Erwin Fielt",
+    "Marek Kowalkiewicz"
+   ],
+   "year": 2023,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 88,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:16Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00211",
+   "title": "Social enterprise crowdfunding in an acute crisis",
+   "authors": [
+    "Mohamed Farhoud",
+    "Sheeza Shah",
+    "Pekka Stenholm",
+    "Ewald Kibler",
+    "Maija Renko",
+    "Siri Terjesen"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 74,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:25Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00273",
+   "title": "Which crisis strategies are (expectedly) effective among SMEs during COVID-19?",
+   "authors": [
+    "Kim Klyver",
+    "Suna L\u00f8we Nielsen"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 73,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:29Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00168",
+   "title": "\u201cWho is an entrepreneur?\u201d is (still) the wrong question",
+   "authors": [
+    "Stratos Ramoglou",
+    "William B. Gartner",
+    "Eric W.K. Tsang"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 72,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:34Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2022.e00365",
+   "title": "Chasing mythical creatures \u2013 A (not-so-sympathetic) critique of entrepreneurship's obsession with unicorn startups",
+   "authors": [
+    "Andreas Kuckertz",
+    "Maximilian Scheu",
+    "Per Davidsson"
+   ],
+   "year": 2023,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 71,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:38Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00164",
+   "title": "Towards an integrative definition of scaling social impact in social enterprises",
+   "authors": [
+    "Syrus M. Islam"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 68,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:43Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00222",
+   "title": "Crises and entrepreneurial opportunities: Digital social innovation in response to physical distancing",
+   "authors": [
+    "Katharina Scheidgen",
+    "Ali Aslan G\u00fcm\u00fcsay",
+    "Franziska G\u00fcnzel-Jensen",
+    "Gorgi Krlev",
+    "Miriam Wolf"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 66,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:45Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2018.e00109",
+   "title": "Predicting new venture survival: A Twitter-based machine learning approach to measuring online legitimacy",
+   "authors": [
+    "Torben Antretter",
+    "Ivo Blohm",
+    "Dietmar Grichnik",
+    "Joakim Wincent"
+   ],
+   "year": 2019,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 63,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:49Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2019.e00117",
+   "title": "Do social enterprises walk the talk? Assessing microfinance performances with mission statements",
+   "authors": [
+    "Roy Mersland",
+    "Samuel Anokye Nyarko",
+    "Ariane Szafarz"
+   ],
+   "year": 2019,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 63,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:53Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00159",
+   "title": "Unintended consequences of scaling social impact through ecosystem growth strategy in social enterprise and social entrepreneurship",
+   "authors": [
+    "Syrus M. Islam"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 62,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.jbvi.2020.e00159.pdf",
+   "pdf_sha256": "38a85c0184decc0d8324f4189921db468f5c82e57a8bfdd414635c33647fefc5",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:46:57Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2019.e00154",
+   "title": "What do they think and what do they say? Gender bias, entrepreneurial attitude in writing and venture capitalists\u2019 funding decisions",
+   "authors": [
+    "Malin Malmstr\u00f6m",
+    "Aija Voitkane",
+    "Jeaneth Johansson",
+    "Joakim Wincent"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 61,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:04Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00231",
+   "title": "Everybody hurts: Self-employment, financial concerns, mental distress, and well-being during COVID-19",
+   "authors": [
+    "Marcus T. Wolfe",
+    "Pankaj C. Patel"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 59,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:08Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2022.e00310",
+   "title": "Dark Triad traits affecting entrepreneurial intentions: The roles of opportunity recognition and locus of control",
+   "authors": [
+    "Giang Hoang",
+    "Tuan Trong Luu",
+    "Thuy Thu Thi Le",
+    "Anh Kim Thi Tran"
+   ],
+   "year": 2022,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 59,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:13Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00189",
+   "title": "Oh, the places you\u2019ll go: A schema theory perspective on cross-cultural experience and entrepreneurship",
+   "authors": [
+    "Robert J. Pidduck",
+    "Lowell W. Busenitz",
+    "Yejun Zhang",
+    "Abhisekh Ghosh Moulick"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 58,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:17Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00207",
+   "title": "Determinants of social entrepreneurial intentions in a developing country context",
+   "authors": [
+    "Jos\u00e9 Milton de Sousa-Filho",
+    "Stelvia Matos",
+    "Samara da Silva Trajano",
+    "Bruno de Souza Lessa"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 57,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:22Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00235",
+   "title": "A whole new world: Counterintuitive crowdfunding insights for female founders",
+   "authors": [
+    "Henrik Wesemann",
+    "Joakim Wincent"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 55,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:25Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2023.e00406",
+   "title": "Bridging worlds: The intersection of religion and entrepreneurship as meaningful heterodoxy",
+   "authors": [
+    "Brett Smith",
+    "Ali Aslan G\u00fcm\u00fcsay",
+    "David M. Townsend"
+   ],
+   "year": 2023,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 55,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:29Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00224",
+   "title": "Do (women\u2019s) words matter? The influence of gendered language in entrepreneurial pitching",
+   "authors": [
+    "Lakshmi Balachandra",
+    "Katrin Fischer",
+    "Candida Brush"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 54,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:34Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00197",
+   "title": "Expanding entrepreneurial solution spaces in times of crisis: Business model experimentation amongst packaged food and beverage ventures",
+   "authors": [
+    "Tua A. Bj\u00f6rklund",
+    "Maria Mikkonen",
+    "Pauliina Mattila",
+    "Floris van der Marel"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 53,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:37Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00267",
+   "title": "The missing capital: The case for psychological capital in entrepreneurship research",
+   "authors": [
+    "Chris Welter",
+    "Alex Scrimpshire"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 52,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:42Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2023.e00394",
+   "title": "Entrepreneurial alertness: A meta-analysis and empirical review",
+   "authors": [
+    "Cl\u00e9cio Falc\u00e3o Araujo",
+    "Masoud Karami",
+    "Jintong Tang",
+    "Lucas Bonacina Roldan",
+    "Julia Aita dos Santos"
+   ],
+   "year": 2023,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 52,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:45Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2019.e00121",
+   "title": "Is leadership language \u2018rewarded\u2019 in crowdfunding? Replicating social entrepreneurship research in a rewards-based context",
+   "authors": [
+    "Jeremy C. Short",
+    "Aaron H. Anglin"
+   ],
+   "year": 2019,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 51,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:50Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2022.e00319",
+   "title": "Meaningful heterodoxies: Advancing entrepreneurship through engagement with unorthodox phenomena",
+   "authors": [
+    "Robert J. Pidduck",
+    "Reginald Tucker"
+   ],
+   "year": 2022,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 49,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:53Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00162",
+   "title": "Do the United Nations\u2019 Sustainable Development Goals matter for social entrepreneurial ventures? A bottom-up perspective",
+   "authors": [
+    "Franziska G\u00fcnzel-Jensen",
+    "Nicole Siebold",
+    "Arne Kroeger",
+    "Steffen Korsgaard"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 48,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:47:58Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00194",
+   "title": "Assessing the complex dynamics of entrepreneurial ecosystems: A nonstationary approach",
+   "authors": [
+    "Tim Haarhaus",
+    "Guido Strunk",
+    "Andreas Liening"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 48,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:03Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00275",
+   "title": "To reopen or not to reopen? How entrepreneurial alertness influences small business reopening after the COVID-19 lockdown",
+   "authors": [
+    "Jintong Tang",
+    "Stephen X. Zhang",
+    "Song Lin"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 48,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:06Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00158",
+   "title": "Exploring the relation between family involvement and firms\u2019 financial performance: A replication and extension meta-analysis",
+   "authors": [
+    "Christopher Hansen",
+    "Joern Block"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 48,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:10Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00270",
+   "title": "The promise of entrepreneurial passion to advance social entrepreneurship research",
+   "authors": [
+    "Yanto Chandra",
+    "Fandy Tjiptono",
+    "Andhy Setyawan"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 46,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:16Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00192",
+   "title": "A dynamic analysis of the role of entrepreneurial ecosystems in reducing innovation obstacles for startups",
+   "authors": [
+    "Franco-Leal Noelia",
+    "Diaz-Carrion Rosalia"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 46,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:24Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00198",
+   "title": "The dark side of sustainability orientation for SME performance",
+   "authors": [
+    "Teemu Kautonen",
+    "Simon J.D. Schillebeeckx",
+    "Johannes Gartner",
+    "Henri Hakala",
+    "Katariina Salmela-Aro",
+    "Kirsi Snellman"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 46,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:27Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00206",
+   "title": "The impact of financial insecurity on the self-employed\u2019s short-term psychological distress: Evidence from the COVID-19 pandemic",
+   "authors": [
+    "Pankaj C. Patel",
+    "Cornelius A. Rietveld"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 45,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:32Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00268",
+   "title": "Does gender matter? Evidence from crowdfunding",
+   "authors": [
+    "Ramy Elitzur",
+    "Eliran Solodoha"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 45,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:35Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00200",
+   "title": "Exploring the future of startup leadership development",
+   "authors": [
+    "Lisa Prommer",
+    "Victor Tiberius",
+    "Sascha Kraus"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 44,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:38Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00221",
+   "title": "Knocked down but not out and fighting to go the distance: Small business responses to an unfolding crisis in the initial impact period",
+   "authors": [
+    "Rachel Doern"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 44,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:44Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00216",
+   "title": "Narcissism and entrepreneurship: Evidence from six datasets",
+   "authors": [
+    "Yik Kiu Leung",
+    "Ingmar Franken",
+    "Roy Thurik",
+    "Martijn Driessen",
+    "Katsuyuki Kamei",
+    "Olivier Torr\u00e8s",
+    "Ingrid Verheul"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 43,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:49Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2021.e00251",
+   "title": "Low-code entrepreneurship: Shopify and the alternative path to growth",
+   "authors": [
+    "Gary Dushnitsky",
+    "Bryan K. Stroube"
+   ],
+   "year": 2021,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 42,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:53Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2019.e00115",
+   "title": "Identifying design principles for business incubation in the European space sector",
+   "authors": [
+    "Daniel Sagath",
+    "Elco van Burg",
+    "Joep P. Cornelissen",
+    "Christina Giannopapa"
+   ],
+   "year": 2019,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 42,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:48:57Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00182",
+   "title": "Beyond profit vs. purpose: Transactional-relational practices in impact investing",
+   "authors": [
+    "Suwen Chen",
+    "Richard Harrison"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 42,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:02Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2024.e00487",
+   "title": "The dawn of geographically unbounded entrepreneurial ecosystems",
+   "authors": [
+    "David B. Audretsch",
+    "Antje Fiedler",
+    "Benjamin Fath",
+    "Martie-Louise Verreynne"
+   ],
+   "year": 2024,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 41,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:07Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00181",
+   "title": "Reorienting entrepreneurial support infrastructure to tackle a social crisis: A rapid response",
+   "authors": [
+    "Pablo Mu\u00f1oz",
+    "Wim Naud\u00e9",
+    "Nick Williams",
+    "Trenton Williams",
+    "Rodrigo Fr\u00edas"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 40,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:12Z"
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00191",
+   "title": "Trust-based banking and SMEs\u2019 access to credit",
+   "authors": [
+    "Teemu Kautonen",
+    "Antti Fredriksson",
+    "Maria Minniti",
+    "Andrea Moro"
+   ],
+   "year": 2020,
+   "journal": "Journal of Business Venturing Insights",
+   "citations": 40,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:49:16Z"
   }
  ]
 }

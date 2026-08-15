@@ -31,12 +31,17 @@ _SECTION_PATTERNS = [
 ]
 _COMPILED = [(name, re.compile(pat, re.IGNORECASE)) for name, pat in _SECTION_PATTERNS]
 
-# (Author, 2020) / (Author & Author, 2020) / (Author et al., 2020)
-_CITE_PAREN = re.compile(r"\(([^()]{0,120}?\b(?:19|20)\d{2}[a-z]?)\)")
-# Author (2020) / Author et al. (2020) / Author and Author (2020)
+# (Author, 2020) / (Author & Author, 2020) / (Author et al., 2020).
+# The author part is required: a bare "(2020)" is the tail of an INTEGRAL
+# citation ("Chalmers et al. (2020)"), and counting it here both inflates the
+# parenthetical count and hides the integral one.
+_CITE_PAREN = re.compile(
+    r"\(([^()]{0,120}?[A-Za-zÀ-ɏ]{2,}[^()]{0,40}?\b(?:19|20)\d{2}[a-z]?)\)")
+# Author (2020) / Author et al. (2020) / Author and Author (2020).
+# "et al." ends the name — nothing follows it before the year.
 _CITE_INTEGRAL = re.compile(
     r"\b([A-Z][A-Za-zÀ-ɏ'’-]+"
-    r"(?:\s+(?:et\s+al\.?|and|&)\s+[A-Z][A-Za-zÀ-ɏ'’-]+)?)"
+    r"(?:\s+(?:et\s+al\.?|(?:and|&)\s+[A-Z][A-Za-zÀ-ɏ'’-]+))?)"
     r"\s*\((?:19|20)\d{2}[a-z]?\)")
 _SENT_SPLIT = re.compile(r"(?<=[.!?])\s+(?=[A-Z(\"'“])")
 
