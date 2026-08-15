@@ -1,0 +1,1180 @@
+"""Main orchestrator for the local (no-API) research engine."""
+
+import asyncio
+import json
+import logging
+import os
+import re
+import time
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import List, Optional, Dict, Any
+
+from .corpus import fetch_corpus, fetch_full_texts, Paper
+from .synthesizer import synthesize, SynthesisResult
+from .writer import write_full_paper
+from .bibliometric_writer import write_bibliometric_paper
+from .claim_checker import ClaimChecker
+from .claim_checker_pqa import check_claims_sync, PaperQAClaimChecker
+from . import claude_cli
+from .source_verifier import SourceVerifier
+from .source_quality import SourceQualityScorer
+from .lit_review_generator import LiteratureReviewGenerator
+from .lit_review_verifier import LitReviewVerifier
+from .source_quality_gates import SourceQualityGates
+from .consensus_engine import analyze_consensus, ConsensusResult
+from .citation_network import (
+    find_anchor_papers, group_by_theme,
+    generate_reading_path, compute_co_citation_clusters,
+)
+
+_METRICS_LOG = Path(__file__).parent.parent.parent / "logs" / "paper_metrics.jsonl"
+
+logger = logging.getLogger(__name__)
+
+_CURRENT_YEAR = 2026
+
+# ---------------------------------------------------------------------------
+# Research question templates
+# ---------------------------------------------------------------------------
+
+# NOTE: This engine produces SYSTEMATIC LITERATURE REVIEWS, not primary
+# empirical studies. Titles must not promise primary data ("Evidence from...")
+# — that would misrepresent a synthesis of abstracts as an empirical study.
+_TITLE_TEMPLATES = {
+    "startup": [
+        "{question}: A Systematic Literature Review",
+        "{question}: A Systematic Review of the Entrepreneurship Literature",
+        "{question}: Implications for Entrepreneurial Practice",
+    ],
+    "enterprise": [
+        "{question}: A Systematic Literature Review",
+        "{question}: A Systematic Review of the Organizational Literature",
+        "{question}: Frameworks and Synthesis",
+    ],
+    "default": [
+        "{question}: A Systematic Review of the Literature",
+        "{question}: Synthesis and Future Directions",
+    ],
+}
+
+_QUERY_EXPANSIONS = {
+    "startup": [
+        "startup entrepreneur AI productivity",
+        "founder decision making machine learning",
+        "early stage venture artificial intelligence",
+    ],
+    "enterprise": [
+        "enterprise AI adoption organizational performance",
+        "large organization machine learning governance",
+        "corporate AI strategy digital transformation",
+    ],
+    "default": [
+        "artificial intelligence business performance",
+        "machine learning organizational outcomes",
+    ],
+}
+
+
+def _build_queries_with_claude(
+    research_question: str, keywords: List[str], domain: str, max_queries: int = 5
+) -> List[str]:
+    """
+    GPT-Researcher-style sub-question decomposition via Claude CLI.
+    Generates N targeted search queries covering different research angles.
+    No API key required — uses the running Claude Code session.
+    """
+    kw_str = ", ".join(keywords[:4])
+    dynamic_example = ", ".join(f'"query {i+1}"' for i in range(max_queries))
+    domain_anchor = {
+        "startup": "entrepreneurship, startups, or founders",
+        "enterprise": "organizations, firms, or management",
+    }.get(domain, domain)
+    prompt = (
+        f'Write {max_queries} search queries to research: "{research_question}"\n'
+        f'Each query: plain natural language phrase, 3-7 words, no boolean operators.\n'
+        f'Domain: {domain}. Key themes: {kw_str}.\n'
+        f'CRITICAL: every query MUST contain a word anchoring it to {domain_anchor} — '
+        f'generic technology queries retrieve off-domain papers (healthcare, education) '
+        f'that pollute the corpus.\n'
+        f'Cover diverse angles: empirical evidence, theoretical frameworks, '
+        f'methods, practical applications, and emerging trends.\n'
+        f'Respond with ONLY a JSON array: [{dynamic_example}]'
+    )
+    text = claude_cli.call(prompt, timeout=60)
+    m = re.search(r'\[[\s\S]*?\]', text)
+    if m:
+        queries = json.loads(m.group(0))
+        if isinstance(queries, list) and all(isinstance(q, str) for q in queries):
+            fallbacks = _QUERY_EXPANSIONS.get(domain, _QUERY_EXPANSIONS["default"])[:1]
+            return [q for q in queries[:max_queries] if q.strip()] + fallbacks
+    raise ValueError(f"Could not parse query list: {text[:100]}")
+
+
+def _build_queries(research_question: str, keywords: List[str], domain: str) -> List[str]:
+    # Tier 2: GPT-Researcher-style sub-question decomposition via Claude CLI
+    if claude_cli.is_available():
+        try:
+            return _build_queries_with_claude(research_question, keywords, domain)
+        except Exception as e:
+            logger.warning(f"[LocalEngine] Claude query decomp failed, using fallback: {e}")
+    # Tier 1: keyword-based queries (no API required)
+    keyword_query = " ".join(keywords[:4])
+    short_kw = " ".join(keywords[:2])
+    domain_expansions = _QUERY_EXPANSIONS.get(domain, _QUERY_EXPANSIONS["default"])
+    queries = [keyword_query, short_kw] + domain_expansions[:2]
+    return [q for q in dict.fromkeys(queries) if q.strip()]
+
+
+def _question_to_title_fallback(question: str, domain: str) -> str:
+    """Rule-based: strip interrogative opener, form noun-phrase title."""
+    q = question.strip().rstrip("?")
+    strips = [
+        (r'^How\s+do\s+', ''),
+        (r'^How\s+does\s+', ''),
+        (r'^How\s+can\s+', ''),
+        (r'^What\s+(?:are|is)\s+(?:the\s+)?(?:effects?|impacts?|roles?|relationships?|factors?)\s+of\s+', ''),
+        (r'^What\s+(?:organizational\s+)?(?:factors?|elements?|aspects?)\s+', 'Key Factors in '),
+        (r'^Can\s+(?:\w+\s+)?(?:machine\s+learning|ai|models?)\s+', 'Machine Learning–Based '),
+        (r'^Can\s+', ''),
+        (r'^Does\s+', ''),
+        (r'^Why\s+do\s+', 'Drivers of '),
+    ]
+    for pattern, repl in strips:
+        new_q, n = re.subn(pattern, repl, q, count=1, flags=re.IGNORECASE)
+        if n:
+            q = new_q
+            break
+    q = q[0].upper() + q[1:] if q else q
+    subtitles = {
+        "startup": f"{q}: A Systematic Literature Review",
+        "enterprise": f"{q}: A Systematic Literature Review",
+    }
+    return subtitles.get(domain, f"{q}: A Systematic Review")
+
+
+def _make_title(research_question: str, domain: str, paper_type: str = "imrad") -> str:
+    """Convert research question → declarative noun-phrase title.
+
+    Q1 papers never use interrogative titles. Tier 2 delegates to Claude CLI
+    for a polished noun phrase; Tier 1 uses rule-based stripping as fallback.
+    """
+    if paper_type == "bibliometric":
+        # Bibliometric titles follow a fixed pattern
+        if claude_cli.is_available():
+            try:
+                prompt = (
+                    f"Convert this research question into a bibliometric analysis paper title.\n"
+                    f"Format: 'A Bibliometric Analysis of [Topic]: [Subtitle]'\n"
+                    f"Subtitle: 'Trends, Influential Works, and Future Directions' or similar.\n"
+                    f"10–18 words, Title Case, no questions.\n"
+                    f"Research question: {research_question}\n"
+                    f"Return ONLY the title text."
+                )
+                title = claude_cli.call(prompt, timeout=30).strip().strip('"').strip("'")
+                if title and not re.match(r'^(how|what|can|does|why|do)\b', title, re.I):
+                    return title
+            except Exception:
+                pass
+        # Tier 1 fallback
+        q = re.sub(r'^(how|what|can|does|why|do|is|are)\s+', '', research_question, flags=re.I).strip()
+        q = q.rstrip("?").strip()
+        return f"A Bibliometric Analysis of {q.title()}: Trends, Influential Works, and Future Directions"
+    if claude_cli.is_available():
+        try:
+            prompt = (
+                f"Convert this research question into a declarative academic paper title.\n"
+                f"Domain: {domain}. Format: '[Core Topic]: [Subtitle]'\n"
+                f"Rules:\n"
+                f"- Noun phrase only — no verb-sentences, no questions\n"
+                f"- Do NOT start with How / What / Can / Does / Why\n"
+                f"- This is a SYSTEMATIC LITERATURE REVIEW of published research, "
+                f"NOT a primary empirical study. The subtitle MUST signal a review "
+                f"(e.g. 'A Systematic Literature Review', 'A Systematic Review of the Literature'). "
+                f"NEVER use 'Evidence from...' or any phrasing implying primary data collection.\n"
+                f"- 10–16 words total, Title Case\n"
+                f"Examples:\n"
+                f"  'How do AI tools affect startup decisions?' "
+                f"→ 'AI Tools and Founder Decision-Making: A Systematic Literature Review'\n"
+                f"  'Can ML predict startup failure?' "
+                f"→ 'Machine Learning Prediction of Startup Failure: A Systematic Review'\n"
+                f"Research question: {research_question}\n"
+                f"Return ONLY the title text."
+            )
+            title = claude_cli.call(prompt, timeout=30).strip().strip('"').strip("'")
+            # Reject if Claude still returned a question
+            if title and not re.match(r'^(how|what|can|does|why|do)\b', title, re.I):
+                return title
+        except Exception:
+            pass
+    return _question_to_title_fallback(research_question, domain)
+
+
+# ---------------------------------------------------------------------------
+# AI Scientist 9-dimension peer review (Tier 2 — requires claude CLI)
+# ---------------------------------------------------------------------------
+
+def _extract_review_excerpt(paper_content: str, max_chars: int = 5000) -> str:
+    """
+    Build a representative excerpt for peer review from different paper sections.
+    Extracts abstract + intro start + findings/results start + discussion start
+    rather than just the first N characters.
+    """
+    sections: dict = {}
+    # Split on ## section headers
+    parts = re.split(r'\n(## [^\n]+)\n', paper_content)
+    current = "preamble"
+    buf = []
+    for part in parts:
+        if part.startswith("## "):
+            if buf:
+                sections[current] = "\n".join(buf).strip()
+            current = part.strip()
+            buf = []
+        else:
+            buf.append(part)
+    if buf:
+        sections[current] = "\n".join(buf).strip()
+
+    priority = [
+        "## Abstract", "## Introduction",
+        "## Results", "## Key Findings", "## Findings",
+        "## Discussion", "## Conclusion",
+        "## Methods", "## Literature Review",
+    ]
+    excerpt_parts = []
+    chars_used = 0
+    for key in priority:
+        for sec_key, sec_text in sections.items():
+            if key.lower() in sec_key.lower() and sec_text:
+                budget = min(800, max_chars - chars_used)
+                if budget < 100:
+                    break
+                snip = sec_text[:budget]
+                excerpt_parts.append(f"{sec_key}\n{snip}")
+                chars_used += len(snip)
+                break
+        if chars_used >= max_chars:
+            break
+
+    if not excerpt_parts:
+        return paper_content[:max_chars]
+    return "\n\n".join(excerpt_parts)
+
+
+# Three adversarial referee personas (starter-kit pattern): each runs as an
+# INDEPENDENT CLI call on its own section slice — not one mind wearing three
+# hats — so their errors are less correlated than a single self-review.
+_REFEREE_PERSONAS = {
+    "methods_hawk": {
+        "role": (
+            "You are the METHODS HAWK — a sceptical methods reviewer for review papers. "
+            "Interrogate: search completeness and database coverage; screening reliability; "
+            "PRISMA-count coherence; whether synthesis claims overreach what abstracts can "
+            "support; arbitrary thresholds; magnitude/effect claims without evidence."
+        ),
+        "sections": ["Methods", "Results"],
+    },
+    "theory_purist": {
+        "role": (
+            "You are the THEORY PURIST. Interrogate: is there ONE clear contribution or "
+            "several half-papers? Does the Discussion ADVANCE theory or merely restate "
+            "results? Are constructs used consistently? Is mechanism (why) vs correlation "
+            "(what) calibrated honestly? Are boundary conditions stated?"
+        ),
+        "sections": ["Theoretical Framework", "Discussion"],
+    },
+    "desk_editor": {
+        "role": (
+            "You are the DESK EDITOR of a Q1 Business+AI journal. Interrogate: is the "
+            "contribution visible by the end of the introduction? Does the abstract "
+            "oversell? Is hedging calibrated? Are limitations honest rather than cosmetic? "
+            "Is the writing free of filler?"
+        ),
+        "sections": ["Abstract", "Introduction", "Future Directions"],
+    },
+}
+
+_REVIEW_JSON_SPEC = """Return ONLY this JSON object:
+{
+  "originality": <1-4>,
+  "quality": <1-4>,
+  "clarity": <1-4>,
+  "significance": <1-4>,
+  "soundness": <1-4>,
+  "presentation": <1-4>,
+  "contribution": <1-4>,
+  "overall": <1-10>,
+  "confidence": <1-5>,
+  "summary": "<2-sentence assessment>",
+  "main_weakness": "<1 specific improvement needed>"
+}
+
+Scoring guide:
+- 1-4 scales: 1=poor 2=below-avg 3=good 4=excellent
+- overall: 1-5=reject 6=borderline/major-revision 7=minor-revision 8=accept 9-10=strong-accept
+- Score honestly on actual merits; do not inflate for length alone."""
+
+
+def _paper_sections(paper_content: str) -> Dict[str, str]:
+    out: Dict[str, str] = {}
+    for block in re.split(r'\n(?=## )', paper_content):
+        header = block.split("\n", 1)[0].replace("#", "").strip()
+        out[header] = block
+    return out
+
+
+def _ai_scientist_peer_review(paper_content: str) -> Optional[dict]:
+    """
+    Adversarial peer review by three independent referee personas, each an
+    isolated CLI call over its own section slice. Scores are averaged; the
+    per-persona verdicts are preserved. Returns merged dict or None if the
+    CLI is unavailable or every persona call fails.
+    """
+    if not claude_cli.is_available():
+        return None
+    sections = _paper_sections(paper_content)
+    word_count = len(paper_content.split())
+    persona_results: Dict[str, dict] = {}
+
+    for name, cfg in _REFEREE_PERSONAS.items():
+        try:
+            slice_parts = [sections[s] for s in cfg["sections"] if s in sections]
+            excerpt = "\n\n".join(slice_parts)[:6000] or _extract_review_excerpt(paper_content, 5000)
+            system = (
+                f"{cfg['role']} The paper is a Systematic Literature Review (SLR) for a Q1 "
+                f"Business+AI journal — do NOT penalise it for lacking primary empirical "
+                f"data. You are reviewing independently; be adversarial but fair. "
+                f"Return ONLY valid JSON, no prose before or after."
+            )
+            prompt = (
+                f"Review these sections of an SLR (~{word_count} words total; "
+                f"you see {', '.join(cfg['sections'])}).\n\n"
+                f"PAPER EXCERPT:\n{excerpt}\n\n{_REVIEW_JSON_SPEC}"
+            )
+            text = claude_cli.call(prompt, system=system, timeout=90)
+            m = re.search(r'\{[\s\S]*\}', text)
+            if m:
+                persona_results[name] = json.loads(m.group(0))
+        except Exception as e:
+            logger.debug(f"[Referee:{name}] failed: {e}")
+
+    if not persona_results:
+        return None
+
+    dims = ("originality", "quality", "clarity", "significance",
+            "soundness", "presentation", "contribution", "confidence")
+    merged: dict = {}
+    for d in dims + ("overall",):
+        vals = [r.get(d) for r in persona_results.values() if isinstance(r.get(d), (int, float))]
+        if vals:
+            merged[d] = round(sum(vals) / len(vals), 1)
+    merged["summary"] = " | ".join(
+        f"{n.replace('_', '-')}: {r.get('summary', '')}" for n, r in persona_results.items()
+    )
+    merged["main_weakness"] = " | ".join(
+        f"{n.replace('_', '-')}: {r.get('main_weakness', '')}" for n, r in persona_results.items()
+    )
+    merged["personas"] = {
+        n: {"overall": r.get("overall"), "main_weakness": r.get("main_weakness", "")}
+        for n, r in persona_results.items()
+    }
+    logger.info(
+        "[Referee] " + ", ".join(f"{n}={r.get('overall')}/10" for n, r in persona_results.items())
+    )
+    return merged
+
+
+def _legacy_single_review_parse(text: str) -> Optional[dict]:
+    """(kept for reference; unused)"""
+    try:
+        m = re.search(r'\{[\s\S]*\}', text)
+        if m:
+            return json.loads(m.group(0))
+    except Exception as e:
+        logger.debug(f"[AI Scientist review] failed: {e}")
+    return None
+
+
+# ---------------------------------------------------------------------------
+# Quality gate (programmatic, no LLM)
+# ---------------------------------------------------------------------------
+
+def _lint_manuscript_style(md_text: str) -> dict:
+    """Style gate: AI-tell (deslop) + academic-prose linting, ported from the
+    research-pipeline-starter-kit (MIT), judged against measured Q1 practice.
+
+    Counting raw findings judges a manuscript against zero, a standard no
+    published paper meets: measuring real Q1 prose (library/style_norms.json)
+    shows 21 of 22 papers use inflation words and half contain findings this
+    linter marks HIGH. So when norms are available, a category is only a
+    defect where the manuscript's rate per 1,000 words exceeds the published
+    90th percentile.
+
+    Two things stay absolute, because no published paper contains them: deslop
+    HIGH findings (chatbot artefacts, emoji, unfilled placeholders) fail the
+    gate outright, and categories never seen in the Q1 sample count as real.
+    """
+    from . import deslop, prose_check
+    from ..scholar.style_norms import StyleNorms
+
+    d_findings = deslop.lint(text=md_text)[0]
+    p_findings = prose_check.lint(text=md_text)[0]
+    all_findings = d_findings + p_findings
+    word_count = max(1, len(md_text.split()))
+
+    # Never normalised: these are not stylistic preferences.
+    hard_fail = [f for f in d_findings if f[0] == "HIGH"]
+
+    norms = StyleNorms.load()
+    if not norms.available:
+        d_high, p_high = hard_fail, [f for f in p_findings if f[0] == "HIGH"]
+        medium = [f for f in all_findings if f[0] == "MEDIUM"]
+        score = round(max(0.0, 10.0 - 2.0 * len(d_high) - 0.5 * len(p_high) - 0.1 * len(medium)), 1)
+        return {
+            "passed": not d_high and len(p_high) <= 3,
+            "score": score,
+            "benchmark": "none (no measured norms — using absolute thresholds)",
+            "feedback": (
+                f"deslop {len(d_findings)} findings ({len(d_high)} high); "
+                f"prose {len(p_findings)} findings ({len(p_high)} high, {len(medium)} medium)."
+            ),
+            "top_findings": [f"{f[0]}: {f[1]} (line {f[2]})" for f in (d_high + p_high + medium)[:8]],
+        }
+
+    assessment = norms.assess(all_findings, word_count)
+    excesses = assessment["excesses"]
+    # Weight by how far past published practice the manuscript sits, so being
+    # slightly over a norm costs little and being 4x over costs a lot.
+    penalty = sum(min(3.0, (e["ratio"] or 2.0) - 1.0) for e in excesses)
+    score = round(max(0.0, 10.0 - 1.2 * penalty - 2.0 * len(hard_fail)), 1)
+    # Pass on the same evidence the score is built from. Counting categories
+    # separately let a paper score 9.7 and still fail on three mild excesses,
+    # which is not a judgement anyone could act on.
+    passed = not hard_fail and score >= 7.0
+
+    worst = "; ".join(
+        f"{e['category']} {e['rate_per_1k']}/1k vs Q1 p90 {e['published_p90']}"
+        for e in excesses[:3]
+    ) or "nothing above Q1 practice"
+    return {
+        "passed": passed,
+        "score": score,
+        "benchmark": f"{assessment['benchmark_papers']} real Q1 papers",
+        "feedback": (
+            f"{len(all_findings)} raw findings; {len(excesses)} categories exceed Q1 practice, "
+            f"{assessment['n_categories_normal']} within it"
+            + (f"; {len(hard_fail)} unacceptable (chatbot artefact/emoji/placeholder)" if hard_fail else "")
+            + f". Worst: {worst}."
+        ),
+        "excesses": excesses[:8],
+        "within_norms": assessment["within_norms"][:8],
+        "top_findings": [f"{f[0]}: {f[1]} (line {f[2]})" for f in (hard_fail + all_findings)[:8]],
+    }
+
+
+def _run_quality_gates(
+    synthesis: SynthesisResult,
+    paper_data: dict,
+    corpus: list = None,
+) -> dict:
+    # Novelty gate: if we found 15+ unique papers, the topic is addressable
+    # Use recency ratio as proxy for novelty gap
+    novelty_score = round(max(0.30, 0.75 - synthesis.recency_ratio * 0.3), 2)
+    novelty_passed = novelty_score < 0.70
+
+    # Citation gate
+    citation_count = paper_data["citation_count"]
+    # h-index proxy for a literature review of recent papers:
+    # Recent papers (< 3 years) haven't accumulated citations yet — that's normal.
+    # If recency_ratio >= 0.5, we give credit; authors with >10 avg cites score higher.
+    ss_papers = [p for p in synthesis.all_papers if p.source == "semantic_scholar"]
+    if ss_papers:
+        avg_cites = sum(p.citation_count for p in ss_papers) / len(ss_papers)
+        # Recent-adjusted h-index: recent corpus with low cites is still valid
+        if synthesis.recency_ratio >= 0.60:
+            avg_h = max(5.0, min(avg_cites / 5, 15.0))
+        else:
+            avg_h = min(max(avg_cites / 10, 1.0), 15.0)
+    else:
+        # All arXiv: scholarly preprints in active CS/econ fields → conservative h=5
+        avg_h = 5.0
+    recency_ratio = synthesis.recency_ratio
+    citation_passed = (
+        citation_count >= 15
+        and avg_h >= 5.0
+        and recency_ratio >= 0.30
+    )
+
+    # Peer review gate — Tier 1: section length + finding count proxy
+    content = paper_data["content_markdown"]
+    word_count = len(content.split())
+    finding_count = len(synthesis.key_findings)
+    gap_count = len(synthesis.research_gaps)
+
+    rigor_score = min(10.0, (word_count / 400) + finding_count + gap_count)
+    # peer_review_score is the reported/gating score. It starts as the Tier-1
+    # structural proxy but is REPLACED by the honest blend once the AI referees
+    # run (see below). If the referees never run (CLI down/rate-limited), the
+    # label must say so — a structural proxy is NOT an "accept" verdict.
+    peer_review_score = rigor_score
+    # A length proxy is not a peer review. If the AI referees never run, this
+    # gate has no evidence and must not report a pass (v13 scored 10.0/10
+    # "accept" on a paper no referee had read).
+    peer_review_passed = False
+    peer_review_feedback = (
+        f"STRUCTURAL PROXY ONLY (AI referees unavailable this run): {word_count} words, "
+        f"{finding_count} key findings, {gap_count} identified gaps. "
+        f"Rigor proxy score: {rigor_score:.1f}/10 — not a content review."
+    )
+    peer_review_recommendation = "structural_only"
+    peer_review_dimensions: dict = {}
+
+    # Tier 2: AI Scientist 9-dimension review via Claude CLI — this IS the real
+    # peer-review signal, so it drives both the reported score and pass/fail.
+    # We blend it 50/50 with the structural proxy so a weak qualitative review
+    # (e.g. 5/10) materially drags the number down instead of being hidden.
+    as_review = _ai_scientist_peer_review(content)
+    if as_review:
+        ai_overall = float(as_review.get("overall", rigor_score))
+        blended = round(0.50 * rigor_score + 0.50 * ai_overall, 1)
+        peer_review_score = blended
+        peer_review_passed = peer_review_score >= 6.5
+        peer_review_recommendation = (
+            "accept" if peer_review_score >= 8.0
+            else "minor_revision" if peer_review_score >= 6.5
+            else "major_revision"
+        )
+        peer_review_feedback = (
+            f"AI Scientist review: overall={ai_overall:.0f}/10, "
+            f"originality={as_review.get('originality')}/4, "
+            f"significance={as_review.get('significance')}/4, "
+            f"soundness={as_review.get('soundness')}/4. "
+            f"{as_review.get('summary', '')} "
+            f"Key weakness: {as_review.get('main_weakness', '')}"
+        )
+        peer_review_dimensions = {
+            k: as_review.get(k)
+            for k in ("originality", "quality", "clarity", "significance",
+                      "soundness", "presentation", "contribution", "confidence")
+        }
+        logger.info(f"[LocalEngine] Peer review: AI={ai_overall}/10, Tier1={rigor_score:.1f} "
+                    f"→ blended={blended}/10 ({'PASS' if peer_review_passed else 'FAIL'})")
+
+    # Fact-check gate: try PaperQA2 first (Tier 2), fall back to SequenceMatcher (Tier 1)
+    fact_check_passed = True
+    fact_check_score = 10.0
+    fact_check_feedback = "No fact-check performed"
+    fact_check_method = "none"
+
+    if corpus:
+        pqa_report = check_claims_sync(paper_data["content_markdown"], corpus)
+        if pqa_report is not None:
+            fact_check_passed = pqa_report.passed
+            fact_check_score = pqa_report.overall_score
+            fact_check_method = "paperqa2"
+            fact_check_feedback = (
+                f"{pqa_report.verified_count}/{pqa_report.total_citations} claims verified "
+                f"({pqa_report.verification_rate:.0%}) via PaperQA2 RAG."
+            )
+            logger.info(f"[LocalEngine] PaperQA2 fact-check: {pqa_report.verified_count}/"
+                        f"{pqa_report.total_citations} verified, score={pqa_report.overall_score:.1f}")
+        else:
+            checker = ClaimChecker()
+            fact_report = checker.check(paper_data["content_markdown"], corpus)
+            fact_check_passed = fact_report.passed
+            fact_check_score = fact_report.overall_score
+            fact_check_method = "sequencematcher"
+            fact_check_feedback = (
+                f"{fact_report.verified_count}/{fact_report.total_citations} claims verified "
+                f"({fact_report.verification_rate:.0%}). "
+                f"{len(fact_report.contradictions)} contradictions detected."
+            )
+
+    # Style gate (AI-tell + prose linting)
+    style_result = _lint_manuscript_style(paper_data["content_markdown"])
+
+    # Degradation gate. When the CLI is unavailable the writer falls back to
+    # extractive templates, and templates pass every other gate by construction
+    # — they cite nothing they cannot cite, claim nothing they cannot ground,
+    # and contain no AI tells. A fully degraded run therefore scored ACCEPTED
+    # while a real one scored REVISION_REQUESTED. Absence of content is not
+    # absence of defects, and the pipeline has to say so.
+    gen_mode = paper_data.get("generation_mode") or {}
+    core = ("introduction", "results", "discussion")
+    templated = [s for s in core if gen_mode.get(s) == "template"]
+    generation_result = {
+        "passed": not templated,
+        "sections": gen_mode,
+        "templated_sections": templated,
+        "feedback": (
+            "All core sections generated at full capability."
+            if not templated else
+            f"DEGRADED RUN — {', '.join(templated)} fell back to extractive templates "
+            f"(the Claude CLI was unavailable). The other gates cannot detect this: "
+            f"templates pass them by construction. Treat this draft as incomplete."
+        ),
+    }
+
+    overall = "accepted" if (novelty_passed and citation_passed and peer_review_passed
+                             and fact_check_passed and style_result["passed"]
+                             and generation_result["passed"]) else "revision_requested"
+    if not novelty_passed and not peer_review_passed:
+        overall = "rejected"
+    if not generation_result["passed"]:
+        # Not a verdict on the writing — a statement that the writing did not
+        # happen. It outranks the other gates rather than averaging with them.
+        overall = "degraded_incomplete"
+
+    return {
+        "novelty": {
+            "passed": novelty_passed,
+            "score": novelty_score,
+            "feedback": (
+                f"Novelty score {novelty_score:.2f} {'< 0.70 — sufficient novelty' if novelty_passed else '>= 0.70 — too similar to existing work'}"
+            ),
+        },
+        "citation": {
+            "passed": citation_passed,
+            "score": round(citation_count / 20, 2),
+            "feedback": (
+                f"{citation_count} citations, recency ratio {recency_ratio:.0%}, avg citations/paper {synthesis.avg_citation_count:.0f}"
+            ),
+            "metrics": {
+                "citation_count": citation_count,
+                "avg_h_index": round(avg_h, 1),
+                "recency_ratio": recency_ratio,
+            },
+        },
+        "peer_review": {
+            "passed": peer_review_passed,
+            "score": round(min(peer_review_score, 10.0), 1),
+            "recommendation": peer_review_recommendation,
+            "feedback": peer_review_feedback,
+            "dimensions": peer_review_dimensions,
+        },
+        "fact_check": {
+            "passed": fact_check_passed,
+            "score": fact_check_score,
+            "feedback": fact_check_feedback,
+            "method": fact_check_method,
+        },
+        "style": style_result,
+        "generation": generation_result,
+        "overall_status": overall,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Result type
+# ---------------------------------------------------------------------------
+
+@dataclass
+class EngineResult:
+    research_question: str
+    title: str
+    domain: str
+    keywords: List[str]
+    paper_data: dict                    # title, sections, citations, markdown
+    quality_results: dict               # gate results
+    synthesis: SynthesisResult
+    elapsed_seconds: float
+    corpus_size: int
+    source_quality: dict = field(default_factory=dict)         # source quality gate results
+    lit_review_verification: dict = field(default_factory=dict)  # lit review claim verification
+    consensus: Optional[ConsensusResult] = None                 # Consensus.app-style analysis
+    citation_clusters: List[dict] = field(default_factory=list) # Research Rabbit clusters
+    reading_path: List[dict] = field(default_factory=list)      # Prioritised reading order
+
+    @property
+    def status(self) -> str:
+        return self.quality_results.get("overall_status", "unknown")
+
+    @property
+    def word_count(self) -> int:
+        return len(self.paper_data.get("content_markdown", "").split())
+
+    def _provenance(self) -> dict:
+        """WHAT/WHEN/FROM/IN stamp (starter-kit provenance pattern): the
+        manuscript hash, generation time, producing git commit, and
+        environment — so any artifact can be traced and drift detected."""
+        import hashlib
+        import platform
+        import subprocess
+        import sys
+        from datetime import datetime, timezone
+        try:
+            commit = subprocess.run(
+                ["git", "rev-parse", "--short", "HEAD"],
+                capture_output=True, text=True, timeout=5,
+            ).stdout.strip() or "unknown"
+        except Exception:
+            commit = "unknown"
+        return {
+            "manuscript_sha256": hashlib.sha256(
+                self.paper_data.get("content_markdown", "").encode()
+            ).hexdigest(),
+            "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "git_commit": commit,
+            "python": sys.version.split()[0],
+            "platform": platform.platform(terse=True),
+        }
+
+    def to_metadata(self) -> dict:
+        qr = self.quality_results
+        return {
+            "metadata": {
+                "title": self.title,
+                "mode": "local_engine",
+                "provenance": self._provenance(),
+                **{k: v for k, v in qr.items() if k not in ("overall_status", "fact_check")},
+                "fact_check": qr.get("fact_check", {"passed": True, "score": 10.0, "feedback": "No fact-check"}),
+                "domain": self.domain,
+                "keywords": self.keywords,
+            },
+            "abstract": self.paper_data.get("abstract", ""),
+            "sections": {
+                "introduction": self.paper_data.get("introduction_md", ""),
+                "methods": self.paper_data.get("methods_md", ""),
+                "results": self.paper_data.get("results_md", ""),
+                "discussion": self.paper_data.get("discussion_md", ""),
+            },
+            "citations": {
+                "count": self.paper_data.get("citation_count", 0),
+                "metrics": qr.get("citation", {}).get("metrics", {}),
+                "references": [
+                    {
+                        "id": i + 1,
+                        "title": p.title,
+                        "year": p.year,
+                        "authors": p.authors[:3],
+                        "venue": p.venue,
+                        "citation_count": p.citation_count,
+                    }
+                    for i, p in enumerate(self.synthesis.top_papers)
+                ],
+            },
+            "full_content": {
+                "markdown": self.paper_data.get("content_markdown", ""),
+                "latex": "",
+            },
+            "lit_review_verification": self.lit_review_verification,
+            "consensus": self.consensus.to_dict() if self.consensus else {},
+            "citation_clusters": self.citation_clusters,
+            "reading_path": self.reading_path,
+            "generation_metrics": {
+                "cost_usd": 0.00,
+                "generation_time_seconds": round(self.elapsed_seconds, 1),
+                "corpus_size": self.corpus_size,
+                "word_count": self.word_count,
+                "mode": "local_engine_no_llm",
+            },
+            "overall_status": self.status,
+        }
+
+
+# ---------------------------------------------------------------------------
+# Metrics logging
+# ---------------------------------------------------------------------------
+
+def _append_metrics_log(result: "EngineResult") -> None:
+    """Append one-line JSON record to logs/paper_metrics.jsonl."""
+    try:
+        _METRICS_LOG.parent.mkdir(parents=True, exist_ok=True)
+        qr = result.quality_results
+        fc = qr.get("fact_check", {})
+        record = {
+            "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "title": result.title,
+            "domain": result.domain,
+            "status": result.status,
+            "word_count": result.word_count,
+            "corpus_size": result.corpus_size,
+            "citation_count": result.paper_data.get("citation_count", 0),
+            "novelty_score": qr.get("novelty", {}).get("score", 0.0),
+            "peer_review_score": qr.get("peer_review", {}).get("score", 0.0),
+            "fact_check_score": fc.get("score", 10.0),
+            "fact_check_passed": fc.get("passed", True),
+            "elapsed_seconds": round(result.elapsed_seconds, 1),
+            "cost_usd": 0.00,
+            "keywords": result.keywords[:4],
+        }
+        with open(_METRICS_LOG, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+    except Exception as e:
+        logger.warning(f"[LocalEngine] Could not write metrics log: {e}")
+
+
+# ---------------------------------------------------------------------------
+# Main engine
+# ---------------------------------------------------------------------------
+
+class LocalResearchEngine:
+    """
+    Self-contained research engine. No LLM API required.
+
+    Workflow:
+        1. Build search queries from research question + keywords
+        2. Fetch real papers from Semantic Scholar + arXiv
+        3. Extractive synthesis: findings, gaps, trends
+        4. Template-based IMRAD writing with real citations
+        5. Programmatic quality gates
+    """
+
+    def __init__(self, target_corpus_size: int = 50):
+        self.target_corpus_size = target_corpus_size
+
+    def _grounding_review_and_correct(
+        self, paper_data, corpus, synthesis, consensus, domain,
+        keywords, n_included, n_raw,
+    ):
+        """Dedicated reviewer pass + self-correction loop.
+
+        Review the manuscript for grounding defects (population fidelity,
+        phantom citations, theory/number consistency); if high-severity issues
+        are found, rewrite the affected sections with the issues as
+        constraints, then re-review. One correction round — the re-review
+        result is reported honestly either way.
+        """
+        from .grounding_reviewer import GroundingReviewer, SEMINAL_ALLOWED
+        from .writer import revise_section_with_claude
+
+        reviewer = GroundingReviewer(domain=domain)
+        report = reviewer.review(
+            paper_data["content_markdown"], corpus, synthesis.primary_theory,
+            consensus, allowed_extra=SEMINAL_ALLOWED,
+        )
+        logger.info(f"[Grounding] {report.feedback()}")
+
+        if report.high_issues and claude_cli.is_available():
+            ctx = {
+                "primary_theory": synthesis.primary_theory,
+                "consensus_split": (
+                    f"{consensus.support_count} SUPPORT + {consensus.oppose_count} OPPOSE + "
+                    f"{consensus.mixed_count} MIXED + {consensus.neutral_count} NEUTRAL "
+                    f"= {consensus.total_papers} papers with a stance"
+                    if consensus else ""
+                ),
+                "allowed_citations": [p.short_ref() for p in synthesis.top_papers],
+            }
+            section_field = {
+                "Discussion": "discussion_md",
+                "Results": "results_md",
+                "Introduction": "introduction_md",
+                "Theoretical Framework": "theoretical_framework_md",
+            }
+            by_section = {}
+            for iss in report.high_issues:
+                by_section.setdefault(iss.section, []).append(iss)
+            rewritten, attempted = [], []
+            for sec, issues in by_section.items():
+                fld = section_field.get(sec)
+                if not fld or not paper_data.get(fld):
+                    continue
+                attempted.append(sec)
+                revised = revise_section_with_claude(sec, paper_data[fld], issues, ctx)
+                if revised != paper_data[fld]:
+                    paper_data["content_markdown"] = paper_data["content_markdown"].replace(
+                        paper_data[fld], revised
+                    )
+                    paper_data[fld] = revised
+                    rewritten.append(sec)
+                    logger.info(f"[Grounding] Self-corrected {sec} ({len(issues)} high issues)")
+            if attempted and not rewritten:
+                # Every rewrite returned its input — the CLI failed or refused.
+                # Reporting "self-correction applied" here would claim work that
+                # did not happen, which is the exact failure this gate exists to
+                # catch in the manuscript.
+                logger.warning(
+                    f"[Grounding] Self-correction FAILED on {', '.join(attempted)} — "
+                    f"no section changed; the issues below stand uncorrected"
+                )
+            report = reviewer.review(
+                paper_data["content_markdown"], corpus, synthesis.primary_theory,
+                consensus, allowed_extra=SEMINAL_ALLOWED,
+            )
+            report.revised = bool(rewritten)
+            report.revision_note = (
+                f"rewrote {', '.join(rewritten)}" if rewritten
+                else f"attempted {', '.join(attempted)}; no rewrite succeeded" if attempted
+                else ""
+            )
+            logger.info(f"[Grounding] Post-correction: {report.feedback()}")
+        return report
+
+    async def run(
+        self,
+        research_question: str,
+        keywords: List[str],
+        domain: str = "startup",
+        paper_type: str = "imrad",
+        seed_dir: Optional[str] = None,
+    ) -> EngineResult:
+        t0 = time.time()
+        logger.info(f"[LocalEngine] START — '{research_question[:70]}'")
+
+        if seed_dir:
+            # SEED-CORPUS MODE: grow the corpus from hand-curated exemplar
+            # papers + their citation neighborhood instead of keyword search.
+            # By construction the corpus stays inside the topic's scholarly
+            # conversation — the fix for the adjacent-domain contamination
+            # that capped synthesis quality in keyword mode.
+            from .seed_corpus import load_seeds, expand_seeds
+            logger.info(f"[LocalEngine] Seed-corpus mode: loading seeds from {seed_dir}")
+            seeds = load_seeds(seed_dir, keywords)
+            corpus, n_raw = await expand_seeds(
+                seeds, keywords, domain, target_size=self.target_corpus_size
+            )
+            if not corpus:
+                raise RuntimeError("Seed expansion produced no corpus")
+            logger.info(f"[LocalEngine] Corpus: {len(corpus)} papers (seeded)")
+        else:
+            # 1. Build queries
+            queries = _build_queries(research_question, keywords, domain)
+            logger.info(f"[LocalEngine] Queries: {queries[:3]}")
+
+            # 2. Fetch corpus — over-fetch so the corpus is still substantial after
+            # the domain-relevance filter below (raw retrieval is ~50% off-domain
+            # for business queries; a filtered 35-40 clean papers beats 50 dirty).
+            logger.info("[LocalEngine] Fetching papers from Semantic Scholar + arXiv + Crossref...")
+            fetch_target = int(self.target_corpus_size * 1.6)
+            corpus, n_raw = await fetch_corpus(queries, keywords, target_size=fetch_target)
+            if not corpus:
+                raise RuntimeError("No papers found — check network connectivity and query terms")
+
+            # 2.2. Domain-relevance filter at CORPUS level, before synthesis.
+            # Filtering only the citation list (the old behaviour) still let
+            # off-domain abstracts pollute findings/theory/consensus extraction.
+            from .synthesizer import _is_off_domain
+            in_domain = [p for p in corpus if not _is_off_domain(p, domain, keywords)]
+            n_dropped = len(corpus) - len(in_domain)
+            if len(in_domain) >= 15:
+                corpus = in_domain[: self.target_corpus_size]
+                logger.info(
+                    f"[LocalEngine] Domain filter: dropped {n_dropped} off-domain papers, "
+                    f"synthesizing on {len(corpus)} in-domain papers"
+                )
+            else:
+                corpus = corpus[: self.target_corpus_size]
+                logger.warning(
+                    f"[LocalEngine] Domain filter would leave only {len(in_domain)} papers "
+                    f"(<15) — keeping unfiltered corpus of {len(corpus)}"
+                )
+            logger.info(f"[LocalEngine] Corpus: {len(corpus)} papers")
+
+        # 2.5. Verify source quality
+        logger.info("[LocalEngine] Verifying source quality...")
+        verifier = SourceVerifier()
+        verifications, verification_rate = await verifier.verify_corpus(
+            [_paper_to_dict(p) for p in corpus]
+        )
+
+        scorer = SourceQualityScorer()
+        quality_scores, quality_stats = scorer.score_corpus(
+            [_paper_to_dict(p) for p in corpus]
+        )
+
+        # Source quality gates
+        gates = SourceQualityGates()
+        gate_result = gates.validate_corpus(
+            [_paper_to_dict(p) for p in corpus],
+            verifications,
+            quality_scores
+        )
+
+        logger.info(
+            f"[LocalEngine] Source Quality: {gate_result.verification_rate:.0%} verified, "
+            f"{gate_result.quality_rate:.0%} high-quality (score: {gate_result.score:.2f})"
+        )
+
+        if not gate_result.passed:
+            logger.warning(f"[LocalEngine] ⚠ Source quality gates: {len(gate_result.issues)} issues")
+            for issue in gate_result.issues:
+                logger.warning(f"  - {issue}")
+
+        # 2.7. Fetch full text for top arXiv + open-access papers
+        logger.info("[LocalEngine] Fetching full text for top papers (arXiv HTML + open-access PDFs)...")
+        try:
+            corpus = await fetch_full_texts(corpus, max_papers=15)
+            ft_count = sum(1 for p in corpus if p.full_text)
+            logger.info(f"[LocalEngine] Full text available for {ft_count}/{len(corpus)} papers")
+        except Exception as e:
+            logger.warning(f"[LocalEngine] Full-text fetch error (non-fatal): {e}")
+
+        # 3. Synthesize
+        logger.info("[LocalEngine] Synthesizing corpus...")
+        synthesis = synthesize(corpus, research_question, keywords, domain=domain)
+        logger.info(
+            f"[LocalEngine] {len(synthesis.key_findings)} findings, "
+            f"{len(synthesis.research_gaps)} gaps, "
+            f"methods: {synthesis.methodologies[:3]}"
+        )
+
+        # 3.5. Generate literature review (IMRAD only — bibliometric has its own structure)
+        if paper_type == "bibliometric":
+            lit_review = ""
+            lit_review_report = type("_LRR", (), {
+                "verified_count": 0, "total_citations": 0, "not_found_count": 0,
+                "verification_rate": 1.0, "overall_score": 10.0, "passed": True,
+                "annotated_lit_review": "",
+            })()
+            logger.info("[LocalEngine] Bibliometric mode — skipping lit review generation")
+        else:
+            lit_gen = LiteratureReviewGenerator()
+            lit_review = lit_gen.generate_lit_review(
+                research_question=research_question,
+                keywords=keywords,
+                papers=[_paper_to_dict(p) for p in corpus],
+                quality_scores=quality_scores,
+                min_quality_threshold=0.30,
+                papers_with_fulltext=corpus,
+                synthesis_gaps=synthesis.research_gaps,
+            )
+
+            # 3.7. Verify lit review citations against source papers
+            logger.info("[LocalEngine] Verifying literature review claims against source papers...")
+            lit_verifier = LitReviewVerifier()
+            lit_review_report = lit_verifier.verify(lit_review, corpus)
+            logger.info(
+                f"[LocalEngine] Lit review: {lit_review_report.verified_count}/{lit_review_report.total_citations} "
+                f"claims verified ({lit_review_report.verification_rate:.0%}), "
+                f"score={lit_review_report.overall_score}/10"
+            )
+            # NOTE: do NOT swap in lit_review_report.annotated_lit_review here.
+            # The annotated version injects ✓/⚠ glyphs after every citation and
+            # appends a "Citation Verification Report" table — internal QA scaffolding
+            # that must never appear in the published manuscript. Verification stats
+            # are preserved in lit_review_report for the gate/metadata; the paper
+            # keeps the clean prose.
+
+        # 3.9. Consensus analysis BEFORE writing — the support/oppose split and
+        # its evidence sentences are the raw material the Discussion uses to
+        # articulate a contingency framework (the paper's actual contribution).
+        logger.info("[LocalEngine] Running consensus analysis...")
+        consensus = analyze_consensus(corpus, research_question, keywords)
+
+        # 4. Write paper (with literature review)
+        title = _make_title(research_question, domain, paper_type=paper_type)
+        logger.info(f"[LocalEngine] Writing paper ({paper_type}): '{title}'")
+        n_included = sum(1 for q in quality_scores if q.overall_quality >= 0.30)
+
+        if paper_type == "bibliometric":
+            paper_data = write_bibliometric_paper(
+                title=title,
+                research_question=research_question,
+                keywords=keywords,
+                domain=domain,
+                synthesis=synthesis,
+                n_raw=n_raw,
+                n_included=n_included,
+            )
+        else:
+            paper_data = write_full_paper(
+                title=title,
+                research_question=research_question,
+                keywords=keywords,
+                domain=domain,
+                synthesis=synthesis,
+                literature_review=lit_review,
+                n_raw=n_raw,
+                n_included=n_included,
+                consensus=consensus,
+            )
+
+        # 4.2 Grounding review + self-correction (dedicated reviewer pass:
+        # population fidelity, phantom citations, theory & number consistency).
+        grounding_report = None
+        if paper_type != "bibliometric":
+            grounding_report = self._grounding_review_and_correct(
+                paper_data, corpus, synthesis, consensus, domain, keywords, n_included, n_raw,
+            )
+
+        # Research Rabbit: citation clusters + reading path
+        corpus_dicts = [_paper_to_dict(p) for p in corpus]
+        citation_clusters = compute_co_citation_clusters(corpus_dicts, keywords)
+        reading_path_raw = generate_reading_path(corpus_dicts)
+        reading_path = [
+            {"stage": stage, "title": p.get("title", ""), "year": p.get("year", ""),
+             "citations": p.get("citationCount", 0), "url": p.get("url", "")}
+            for stage, p in reading_path_raw
+        ]
+
+        # 5. Quality gates
+        quality_results = _run_quality_gates(synthesis, paper_data, corpus)
+        if grounding_report is not None:
+            quality_results["grounding"] = {
+                "passed": grounding_report.passed,
+                "score": grounding_report.score,
+                "issues": len(grounding_report.issues),
+                "high_issues": len(grounding_report.high_issues),
+                "revised": grounding_report.revised,
+                "feedback": grounding_report.feedback(),
+            }
+            if not grounding_report.passed and quality_results["overall_status"] == "accepted":
+                quality_results["overall_status"] = "revision_requested"
+        logger.info(
+            f"[LocalEngine] Gates: novelty={'✓' if quality_results['novelty']['passed'] else '✗'} "
+            f"citations={'✓' if quality_results['citation']['passed'] else '✗'} "
+            f"peer_review={'✓' if quality_results['peer_review']['passed'] else '✗'} "
+            f"grounding={'✓' if quality_results.get('grounding', {}).get('passed', True) else '✗'} "
+            f"→ {quality_results['overall_status']}"
+        )
+
+        elapsed = time.time() - t0
+        word_count = len(paper_data['content_markdown'].split())
+        logger.info(f"[LocalEngine] DONE in {elapsed:.1f}s ({paper_data['citation_count']} citations, "
+                    f"{word_count} words)")
+
+        result = EngineResult(
+            research_question=research_question,
+            title=title,
+            domain=domain,
+            keywords=keywords,
+            paper_data=paper_data,
+            quality_results=quality_results,
+            synthesis=synthesis,
+            elapsed_seconds=elapsed,
+            corpus_size=len(corpus),
+            source_quality={
+                "verification_rate": gate_result.verification_rate,
+                "quality_rate": gate_result.quality_rate,
+                "high_quality_papers": gate_result.high_quality_papers,
+                "verified_papers": gate_result.verified_papers,
+                "gate_passed": gate_result.passed,
+                "gate_score": gate_result.score,
+                "issues": gate_result.issues,
+            },
+            lit_review_verification={
+                "verified_count": lit_review_report.verified_count,
+                "total_citations": lit_review_report.total_citations,
+                "not_found_count": lit_review_report.not_found_count,
+                "verification_rate": lit_review_report.verification_rate,
+                "overall_score": lit_review_report.overall_score,
+                "passed": lit_review_report.passed,
+            },
+            consensus=consensus,
+            citation_clusters=citation_clusters,
+            reading_path=reading_path,
+        )
+        _append_metrics_log(result)
+        return result
+
+
+# ---------------------------------------------------------------------------
+# Helper functions
+# ---------------------------------------------------------------------------
+
+def _paper_to_dict(paper: Paper) -> Dict[str, Any]:
+    """Convert Paper object to dictionary for use in verification/quality functions."""
+    return {
+        "paperId": paper.paper_id,
+        "title": paper.title,
+        "abstract": paper.abstract,
+        "authors": [{"name": a} for a in paper.authors],
+        "year": paper.year,
+        "citationCount": paper.citation_count,
+        "venue": paper.venue,
+        "url": paper.url,
+        "_source": paper.source,
+        "author_h_index": paper.author_h_index,
+    }

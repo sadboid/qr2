@@ -20,6 +20,7 @@ class Settings(BaseSettings):
 
     # External APIs
     semantic_scholar_api_url: str = "https://api.semanticscholar.org/graph/v1"
+    semantic_scholar_api_key: Optional[str] = None
     arxiv_api_url: str = "https://export.arxiv.org/api/query"
     serpapi_key: Optional[str] = None
 

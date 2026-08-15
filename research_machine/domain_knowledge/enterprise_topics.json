@@ -1,0 +1,135 @@
+{
+  "domain": "enterprise",
+  "version": "1.0",
+  "description": "Curated research topics for enterprise AI adoption — Business + AI intersection",
+  "topics": [
+    {
+      "id": "enterprise_llm_governance",
+      "title": "LLM Governance Frameworks in Fortune 500 Organizations",
+      "question": "What organizational structures and governance frameworks best support responsible LLM adoption in Fortune 500 enterprises?",
+      "keywords": ["LLM governance", "enterprise AI", "responsible AI", "organizational structure", "AI ethics"],
+      "query_expansions": [
+        "LLM governance enterprise organization",
+        "large language model enterprise deployment governance",
+        "responsible AI framework corporate",
+        "AI ethics board Fortune 500"
+      ],
+      "expected_venues": ["MIS Quarterly", "Journal of Management Information Systems"],
+      "novelty_angle": "Most governance frameworks are prescriptive; empirical evidence on which structures actually work is limited",
+      "business_metrics": ["governance maturity score", "AI incident rate", "compliance cost", "model deployment velocity"],
+      "priority": "high"
+    },
+    {
+      "id": "enterprise_ai_roi",
+      "title": "Measuring ROI from Enterprise AI Adoption: Frameworks and Evidence",
+      "question": "How do enterprises measure ROI from AI adoption and what organizational factors drive value creation?",
+      "keywords": ["AI ROI", "enterprise value", "machine learning business impact", "digital transformation", "value realization"],
+      "query_expansions": [
+        "enterprise AI ROI measurement framework",
+        "machine learning business value Fortune 500",
+        "AI adoption organizational performance",
+        "digital transformation ROI analytics"
+      ],
+      "expected_venues": ["Harvard Business Review", "MIT Sloan Management Review"],
+      "novelty_angle": "ROI measurement in AI differs from traditional IT — probabilistic outcomes, long payback periods",
+      "business_metrics": ["ROI", "NPV", "TCO", "operational efficiency", "revenue uplift"],
+      "priority": "high"
+    },
+    {
+      "id": "enterprise_mlops",
+      "title": "MLOps Maturity and Model Deployment Efficiency in Large Organizations",
+      "question": "How does MLOps maturity level affect model deployment efficiency and business value realization in large enterprises?",
+      "keywords": ["MLOps", "model deployment", "machine learning operations", "AI maturity", "DevOps"],
+      "query_expansions": [
+        "MLOps maturity model enterprise",
+        "machine learning deployment operations scale",
+        "AI production model monitoring enterprise",
+        "DataOps MLOps integration large organization"
+      ],
+      "expected_venues": ["Journal of Systems and Software", "IEEE Transactions on Software Engineering"],
+      "novelty_angle": "MLOps maturity models exist but quantitative links to business outcomes are sparse",
+      "business_metrics": ["deployment frequency", "model drift rate", "inference latency", "MTTR", "model accuracy"],
+      "priority": "high"
+    },
+    {
+      "id": "enterprise_data_governance",
+      "title": "Data Governance Impact on LLM Deployment Quality in Enterprise Settings",
+      "question": "How does enterprise data governance maturity impact the quality and reliability of LLM deployments at scale?",
+      "keywords": ["data governance", "LLM deployment", "data quality", "enterprise AI", "data management"],
+      "query_expansions": [
+        "data governance LLM enterprise quality",
+        "data management AI deployment enterprise",
+        "data quality machine learning production",
+        "enterprise data strategy AI reliability"
+      ],
+      "expected_venues": ["Information & Management", "Journal of Management Information Systems"],
+      "novelty_angle": "LLM-specific data governance requirements differ fundamentally from traditional ML — training data provenance, RLHF quality",
+      "business_metrics": ["data quality score", "model hallucination rate", "data lineage coverage", "compliance rate"],
+      "priority": "high"
+    },
+    {
+      "id": "enterprise_change_management",
+      "title": "Change Management Strategies for Successful Enterprise AI Adoption",
+      "question": "What change management strategies are most effective in driving successful AI adoption and minimizing resistance in large enterprises?",
+      "keywords": ["change management", "AI adoption", "organizational change", "resistance", "digital transformation"],
+      "query_expansions": [
+        "change management AI adoption enterprise",
+        "organizational resistance artificial intelligence",
+        "digital transformation change management large organization",
+        "AI implementation success factors"
+      ],
+      "expected_venues": ["Harvard Business Review", "Organizational Science"],
+      "novelty_angle": "AI-specific change management differs from ERP/CRM rollouts due to opacity and evolving capabilities",
+      "business_metrics": ["adoption rate", "employee satisfaction score", "productivity change", "training ROI"],
+      "priority": "medium"
+    },
+    {
+      "id": "enterprise_ai_strategy",
+      "title": "AI Strategy Alignment and Competitive Positioning in Large Enterprises",
+      "question": "How do enterprises align AI strategy with corporate strategy to achieve sustainable competitive positioning?",
+      "keywords": ["AI strategy", "competitive advantage", "enterprise strategy", "digital transformation", "strategic alignment"],
+      "query_expansions": [
+        "enterprise AI strategy competitive advantage",
+        "artificial intelligence corporate strategy alignment",
+        "AI capability building large organization",
+        "machine learning strategic positioning"
+      ],
+      "expected_venues": ["Strategic Management Journal", "MIT Sloan Management Review"],
+      "novelty_angle": "Strategic alignment frameworks need updating for AI's distinctive characteristics (rapid depreciation, emergent capabilities)",
+      "business_metrics": ["market share", "TSR", "R&D efficiency", "AI patent portfolio", "product launch cadence"],
+      "priority": "medium"
+    },
+    {
+      "id": "enterprise_ai_talent",
+      "title": "AI Talent Acquisition and Retention Challenges in Enterprise Organizations",
+      "question": "What talent acquisition and retention strategies are most effective for building AI capabilities in large enterprises?",
+      "keywords": ["AI talent", "data scientist", "enterprise hiring", "human capital", "skills gap"],
+      "query_expansions": [
+        "AI talent acquisition enterprise data scientist",
+        "machine learning engineer retention large company",
+        "AI skills gap enterprise organization",
+        "data science team building corporate"
+      ],
+      "expected_venues": ["Human Resource Management", "Journal of Applied Psychology"],
+      "novelty_angle": "Competition for AI talent between tech startups and enterprises creates structural asymmetry rarely studied",
+      "business_metrics": ["time-to-hire", "retention rate", "skill gap score", "training effectiveness", "team velocity"],
+      "priority": "medium"
+    },
+    {
+      "id": "enterprise_federated_learning",
+      "title": "Federated Learning Adoption for Privacy-Preserving AI in Regulated Industries",
+      "question": "How are regulated industries (banking, healthcare, insurance) adopting federated learning to balance AI performance with privacy compliance?",
+      "keywords": ["federated learning", "privacy", "regulated industries", "compliance", "distributed AI"],
+      "query_expansions": [
+        "federated learning enterprise privacy regulation",
+        "distributed machine learning compliance healthcare finance",
+        "privacy preserving AI regulated industry",
+        "GDPR HIPAA machine learning enterprise"
+      ],
+      "expected_venues": ["IEEE Transactions on Neural Networks", "Journal of Financial Regulation"],
+      "novelty_angle": "Federated learning literature is technical; business adoption barriers and governance models are underexplored",
+      "business_metrics": ["model accuracy vs privacy trade-off", "compliance cost", "audit readiness", "data residency"],
+      "priority": "low"
+    }
+  ]
+}

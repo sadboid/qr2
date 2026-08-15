@@ -1,0 +1,135 @@
+{
+  "domain": "startup",
+  "version": "1.0",
+  "description": "Curated research topics for startup and entrepreneurship domain — Business + AI intersection",
+  "topics": [
+    {
+      "id": "startup_ai_founder",
+      "title": "AI Tools and Founder Decision-Making Speed in Early-Stage Startups",
+      "question": "How do AI tools affect founder decision-making speed and quality in early-stage startups?",
+      "keywords": ["AI tools", "founder productivity", "startup decision making", "artificial intelligence", "entrepreneurship"],
+      "query_expansions": [
+        "AI founder productivity startup",
+        "machine learning entrepreneurship decision",
+        "artificial intelligence early stage venture",
+        "generative AI startup founder"
+      ],
+      "expected_venues": ["Journal of Business Venturing", "Entrepreneurship Theory and Practice"],
+      "novelty_angle": "Most prior work examines AI at firm level; founder-level cognitive augmentation is underexplored",
+      "business_metrics": ["decision speed", "decision accuracy", "pivot rate", "time-to-market"],
+      "priority": "high"
+    },
+    {
+      "id": "startup_failure_ml",
+      "title": "Machine Learning Predictors of Startup Failure: Early Warning Signals",
+      "question": "Can machine learning models predict startup failure using early warning signals in financial and operational data?",
+      "keywords": ["startup failure prediction", "machine learning", "early warning", "entrepreneurship analytics", "survival analysis"],
+      "query_expansions": [
+        "startup failure machine learning prediction",
+        "venture survival deep learning",
+        "entrepreneurship failure early warning system",
+        "startup mortality predictors"
+      ],
+      "expected_venues": ["Strategic Management Journal", "Small Business Economics"],
+      "novelty_angle": "High-frequency operational signals (hiring, product updates, web traffic) rarely used as predictors",
+      "business_metrics": ["survival rate", "runway", "burn rate", "failure probability"],
+      "priority": "high"
+    },
+    {
+      "id": "startup_ai_innovation",
+      "title": "AI-Enabled Business Model Innovation and Competitive Advantage in Startups",
+      "question": "How does AI-enabled business model innovation create sustainable competitive advantage in technology startups?",
+      "keywords": ["AI business model", "competitive advantage", "business model innovation", "platform economy", "startup strategy"],
+      "query_expansions": [
+        "AI business model innovation startup",
+        "machine learning platform competitive advantage",
+        "digital business model AI disruption",
+        "generative AI startup strategy"
+      ],
+      "expected_venues": ["Strategic Management Journal", "Journal of Business Venturing"],
+      "novelty_angle": "Dynamic capability theory extended to AI-native business model configurations",
+      "business_metrics": ["TAM", "market share", "revenue growth", "network effects"],
+      "priority": "high"
+    },
+    {
+      "id": "startup_ai_roi",
+      "title": "Return on AI Investment in Series A and B Startups",
+      "question": "What are the ROI implications of AI adoption in Series A and B funded startups and what factors drive value creation?",
+      "keywords": ["AI ROI", "startup investment", "Series A", "venture returns", "AI value creation"],
+      "query_expansions": [
+        "AI investment return startup venture capital",
+        "machine learning ROI early stage company",
+        "AI adoption value creation startup",
+        "venture capital AI portfolio performance"
+      ],
+      "expected_venues": ["Journal of Business Venturing", "Venture Capital Journal"],
+      "novelty_angle": "Longitudinal VC portfolio-level AI ROI data rarely synthesized",
+      "business_metrics": ["CAC", "LTV", "MRR", "gross margin", "investor returns"],
+      "priority": "medium"
+    },
+    {
+      "id": "startup_ai_hiring",
+      "title": "AI-Augmented Hiring Practices and Talent Acquisition in High-Growth Startups",
+      "question": "How do AI-augmented hiring practices affect talent quality and organizational performance in high-growth startups?",
+      "keywords": ["AI hiring", "talent acquisition", "startup HR", "algorithmic recruiting", "human capital"],
+      "query_expansions": [
+        "AI hiring startup talent acquisition",
+        "algorithmic recruitment performance startup",
+        "machine learning HR high growth",
+        "AI human capital early stage"
+      ],
+      "expected_venues": ["Journal of Applied Psychology", "Human Resource Management"],
+      "novelty_angle": "Startup-specific hiring constraints (speed, culture fit) interact with AI tools differently than enterprise",
+      "business_metrics": ["time-to-hire", "employee retention", "quality of hire", "headcount growth"],
+      "priority": "medium"
+    },
+    {
+      "id": "startup_resilience",
+      "title": "Big Data Analytics and Entrepreneurial Resilience in High-Tech Startups",
+      "question": "How do big data analytics capabilities contribute to entrepreneurial resilience and survival during economic downturns?",
+      "keywords": ["big data analytics", "entrepreneurial resilience", "startup survival", "high-tech startups", "economic downturn"],
+      "query_expansions": [
+        "big data startup resilience survival",
+        "analytics entrepreneurial adaptation crisis",
+        "data driven startup pivot recession",
+        "machine learning startup financial distress"
+      ],
+      "expected_venues": ["Journal of Business Venturing", "Small Business Economics"],
+      "novelty_angle": "Crisis-period data from COVID-19 and subsequent downturns offers natural experiment",
+      "business_metrics": ["survival rate", "revenue recovery", "pivot success rate", "burn rate reduction"],
+      "priority": "high"
+    },
+    {
+      "id": "startup_product_market_fit",
+      "title": "AI-Assisted Product-Market Fit Identification in Early-Stage Startups",
+      "question": "How can AI-assisted analytics accelerate product-market fit identification in early-stage startups?",
+      "keywords": ["product-market fit", "AI analytics", "startup product", "customer validation", "lean startup"],
+      "query_expansions": [
+        "product market fit AI startup analytics",
+        "machine learning customer segmentation startup",
+        "AI user behavior analysis early stage",
+        "predictive analytics product iteration startup"
+      ],
+      "expected_venues": ["Journal of Product Innovation Management", "Entrepreneurship Theory and Practice"],
+      "novelty_angle": "PMF is a foundational startup concept rarely studied with AI-augmented measurement tools",
+      "business_metrics": ["NPS score", "retention rate", "DAU/MAU", "viral coefficient", "conversion rate"],
+      "priority": "medium"
+    },
+    {
+      "id": "startup_funding_prediction",
+      "title": "Predicting Startup Funding Success Using Natural Language Processing and Financial Signals",
+      "question": "To what extent can NLP analysis of pitch decks and financial signals predict startup funding success at seed and Series A rounds?",
+      "keywords": ["startup funding", "NLP pitch deck", "funding prediction", "venture capital", "machine learning"],
+      "query_expansions": [
+        "startup funding prediction machine learning NLP",
+        "pitch deck analysis natural language processing",
+        "venture capital decision AI model",
+        "seed funding success prediction algorithm"
+      ],
+      "expected_venues": ["Strategic Management Journal", "Journal of Finance"],
+      "novelty_angle": "Pitch deck linguistic features combined with founder signals provide predictive power beyond financials",
+      "business_metrics": ["funding amount", "round completion rate", "valuation", "investor conversion"],
+      "priority": "medium"
+    }
+  ]
+}

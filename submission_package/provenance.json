@@ -1,0 +1,8 @@
+{
+  "manuscript_sha256": "bb8f3e0a93fa5760e57cf529c743780fb75e1681342d17662851f845d404134e",
+  "generated_at": "2026-07-19T13:14:32+00:00",
+  "git_commit": "e4f5e0a",
+  "python": "3.11.15",
+  "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+  "source_run": "papers_v11_seeded (seed-corpus mode, 14 Q1 exemplar seeds)"
+}
