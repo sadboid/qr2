@@ -69,3 +69,6 @@ npm-debug.log
 .AppleDouble
 .LSOverride
 submission_package.zip
+
+# Harvested library: PDFs are copyrighted and re-fetchable from the manifest.
+library/pdfs/
