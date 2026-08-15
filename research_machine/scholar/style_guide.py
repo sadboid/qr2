@@ -132,6 +132,19 @@ class StyleGuide:
                 "- Discourse connectors actually used in this section: "
                 + ", ".join(f"'{c}'" for c in conns) + "."
             )
+        verbs = [v["text"] for v in (s.get("reporting_verbs") or [])[:10]]
+        if verbs:
+            lines.append(
+                "- Reporting verbs these authors use when attributing a claim to a "
+                "source: " + ", ".join(verbs) + ". Vary them; do not attribute "
+                "everything with the same verb."
+            )
+        openers = [o["text"] for o in (s.get("paragraph_openers") or [])[:8]]
+        if openers:
+            lines.append(
+                "- Paragraph openings attested in this section: "
+                + "; ".join(f"'{o}…'" for o in openers) + "."
+            )
         phrases = [p["text"] for p in (s.get("phrases") or [])[:12]]
         if phrases:
             lines.append(

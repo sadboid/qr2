@@ -908,21 +908,32 @@ def write_full_paper(
         ),
     }
 
+    # Which tier actually produced each section. A run where the CLI is
+    # unavailable silently degrades to extractive templates, and templates
+    # cannot fail the quality gates — they invent nothing — so a fully
+    # degraded paper scores better than a real one. The engine needs this
+    # record to refuse that verdict.
+    generation_mode: Dict[str, str] = {}
+
     # --- Abstract ---
     abstract_draft = _write_section_with_claude("abstract", _ctx)
     if abstract_draft:
         abstract = _refine_section_with_claude("abstract", abstract_draft, _ctx)
+        generation_mode["abstract"] = "claude"
         logger.info("[Writer] Abstract: AI Scientist (2-pass)")
     else:
         abstract = write_abstract(research_question, synthesis, domain)
+        generation_mode["abstract"] = "template"
 
     # --- Introduction ---
     intro_draft = _write_section_with_claude("introduction", _ctx)
     if intro_draft:
         introduction = _refine_section_with_claude("introduction", intro_draft, _ctx)
+        generation_mode["introduction"] = "claude"
         logger.info("[Writer] Introduction: AI Scientist (2-pass)")
     else:
         introduction = write_introduction(research_question, synthesis, keywords, domain)
+        generation_mode["introduction"] = "template"
 
     # --- Literature Review (always from lit_review_generator — richer than what Claude can do here) ---
     if literature_review is None:
@@ -941,17 +952,21 @@ def write_full_paper(
     results_draft = _write_section_with_claude("results", _ctx)
     if results_draft:
         results = results_draft
+        generation_mode["results"] = "claude"
         logger.info("[Writer] Results: AI Scientist (thematic synthesis)")
     else:
         results = write_results(research_question, synthesis, domain)
+        generation_mode["results"] = "template"
 
     # --- Discussion ---
     disc_draft = _write_section_with_claude("discussion", _ctx)
     if disc_draft:
         discussion = _refine_section_with_claude("discussion", disc_draft, _ctx)
+        generation_mode["discussion"] = "claude"
         logger.info("[Writer] Discussion: AI Scientist (2-pass)")
     else:
         discussion = write_discussion(research_question, synthesis, keywords, domain)
+        generation_mode["discussion"] = "template"
 
     future_directions = write_future_directions(synthesis, keywords, research_question, domain)
     references = build_references(ref_papers)
@@ -1017,4 +1032,5 @@ def write_full_paper(
         "content_markdown": full_md,
         "citation_count": len(ref_papers),
         "citations": ref_papers,
+        "generation_mode": generation_mode,
     }

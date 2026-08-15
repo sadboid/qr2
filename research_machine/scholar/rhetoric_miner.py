@@ -49,6 +49,30 @@ _CONTRIB_MARKERS = re.compile(
 _REPORTING = re.compile(
     r"\((?:19|20)\d{2}[a-z]?\)\s+(\w+(?:s|ed)?)\b")
 
+# The pattern above captures whatever word follows the year, which is often not
+# a verb at all ("also", "study", "and"). Restrict to the reporting verbs
+# academic writing actually uses, so the mined list is a usable inventory
+# rather than a frequency table of adjacent tokens.
+_REPORTING_VERBS = {
+    "argue", "argues", "argued", "find", "finds", "found", "show", "shows",
+    "showed", "shown", "suggest", "suggests", "suggested", "demonstrate",
+    "demonstrates", "demonstrated", "report", "reports", "reported", "propose",
+    "proposes", "proposed", "note", "notes", "noted", "observe", "observes",
+    "observed", "claim", "claims", "claimed", "conclude", "concludes",
+    "concluded", "examine", "examines", "examined", "explore", "explores",
+    "explored", "highlight", "highlights", "highlighted", "identify",
+    "identifies", "identified", "indicate", "indicates", "indicated",
+    "emphasize", "emphasizes", "emphasise", "emphasises", "contend",
+    "contends", "posit", "posits", "posited", "document", "documents",
+    "documented", "describe", "describes", "described", "provide", "provides",
+    "provided", "develop", "develops", "developed", "define", "defines",
+    "defined", "call", "calls", "called", "point", "points", "pointed",
+    "estimate", "estimates", "estimated", "test", "tests", "tested",
+    "investigate", "investigates", "investigated", "assess", "assesses",
+    "assessed", "reveal", "reveals", "revealed", "confirm", "confirms",
+    "confirmed", "challenge", "challenges", "challenged", "warn", "warns",
+}
+
 _HEDGES = ["may", "might", "could", "appear", "appears", "seem", "seems", "suggest",
            "suggests", "indicate", "indicates", "likely", "possibly", "potentially",
            "arguably", "tend to", "relatively", "somewhat", "partially"]
@@ -194,7 +218,7 @@ class RhetoricMiner:
 
             verbs[p.doi] = Counter(
                 m.group(1).lower() for m in _REPORTING.finditer(body)
-                if len(m.group(1)) > 3)
+                if m.group(1).lower() in _REPORTING_VERBS)
 
         if not word_counts:
             return None

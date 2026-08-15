@@ -518,7 +518,10 @@ def _run_quality_gates(
     # run (see below). If the referees never run (CLI down/rate-limited), the
     # label must say so — a structural proxy is NOT an "accept" verdict.
     peer_review_score = rigor_score
-    peer_review_passed = peer_review_score >= 7.0
+    # A length proxy is not a peer review. If the AI referees never run, this
+    # gate has no evidence and must not report a pass (v13 scored 10.0/10
+    # "accept" on a paper no referee had read).
+    peer_review_passed = False
     peer_review_feedback = (
         f"STRUCTURAL PROXY ONLY (AI referees unavailable this run): {word_count} words, "
         f"{finding_count} key findings, {gap_count} identified gaps. "
@@ -591,10 +594,37 @@ def _run_quality_gates(
     # Style gate (AI-tell + prose linting)
     style_result = _lint_manuscript_style(paper_data["content_markdown"])
 
+    # Degradation gate. When the CLI is unavailable the writer falls back to
+    # extractive templates, and templates pass every other gate by construction
+    # — they cite nothing they cannot cite, claim nothing they cannot ground,
+    # and contain no AI tells. A fully degraded run therefore scored ACCEPTED
+    # while a real one scored REVISION_REQUESTED. Absence of content is not
+    # absence of defects, and the pipeline has to say so.
+    gen_mode = paper_data.get("generation_mode") or {}
+    core = ("introduction", "results", "discussion")
+    templated = [s for s in core if gen_mode.get(s) == "template"]
+    generation_result = {
+        "passed": not templated,
+        "sections": gen_mode,
+        "templated_sections": templated,
+        "feedback": (
+            "All core sections generated at full capability."
+            if not templated else
+            f"DEGRADED RUN — {', '.join(templated)} fell back to extractive templates "
+            f"(the Claude CLI was unavailable). The other gates cannot detect this: "
+            f"templates pass them by construction. Treat this draft as incomplete."
+        ),
+    }
+
     overall = "accepted" if (novelty_passed and citation_passed and peer_review_passed
-                             and fact_check_passed and style_result["passed"]) else "revision_requested"
+                             and fact_check_passed and style_result["passed"]
+                             and generation_result["passed"]) else "revision_requested"
     if not novelty_passed and not peer_review_passed:
         overall = "rejected"
+    if not generation_result["passed"]:
+        # Not a verdict on the writing — a statement that the writing did not
+        # happen. It outranks the other gates rather than averaging with them.
+        overall = "degraded_incomplete"
 
     return {
         "novelty": {
@@ -630,6 +660,7 @@ def _run_quality_gates(
             "method": fact_check_method,
         },
         "style": style_result,
+        "generation": generation_result,
         "overall_status": overall,
     }
 
