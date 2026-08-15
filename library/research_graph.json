@@ -1,0 +1,972 @@
+{
+ "corpus": {
+  "n_coded_papers": 27,
+  "theories": [
+   [
+    "Effectuation",
+    3
+   ],
+   [
+    "Self-Efficacy",
+    2
+   ],
+   [
+    "Dynamic Capabilities",
+    1
+   ],
+   [
+    "Resource-Based View",
+    1
+   ],
+   [
+    "Transaction Cost Economics",
+    1
+   ],
+   [
+    "Opportunity Recognition",
+    1
+   ]
+  ],
+  "methods": [
+   [
+    "causal-identification",
+    7
+   ],
+   [
+    "survey",
+    6
+   ],
+   [
+    "content/text analysis",
+    5
+   ],
+   [
+    "machine learning",
+    5
+   ],
+   [
+    "regression",
+    3
+   ],
+   [
+    "qualitative coding",
+    3
+   ],
+   [
+    "systematic review",
+    3
+   ],
+   [
+    "bibliometric",
+    3
+   ],
+   [
+    "interviews",
+    3
+   ],
+   [
+    "panel data",
+    2
+   ],
+   [
+    "SEM/PLS",
+    2
+   ],
+   [
+    "case study",
+    1
+   ]
+  ],
+  "populations": [
+   [
+    "founders/entrepreneurs",
+    26
+   ],
+   [
+    "startups/new ventures",
+    16
+   ],
+   [
+    "employees/managers",
+    15
+   ],
+   [
+    "investors/VCs",
+    12
+   ],
+   [
+    "SMEs",
+    7
+   ],
+   [
+    "students",
+    6
+   ],
+   [
+    "platforms/gig",
+    3
+   ],
+   [
+    "emerging economies",
+    3
+   ],
+   [
+    "large firms",
+    1
+   ]
+  ],
+  "outcomes": [
+   [
+    "decision-making",
+    7
+   ],
+   [
+    "funding/finance",
+    5
+   ],
+   [
+    "innovation output",
+    4
+   ],
+   [
+    "opportunity/idea generation",
+    3
+   ],
+   [
+    "sustainability/impact",
+    3
+   ],
+   [
+    "intention/adoption",
+    2
+   ],
+   [
+    "performance/growth",
+    2
+   ],
+   [
+    "productivity/efficiency",
+    1
+   ],
+   [
+    "survival/failure",
+    1
+   ],
+   [
+    "internationalisation",
+    1
+   ]
+  ]
+ },
+ "gaps": {
+  "theory_x_population": [],
+  "theory_x_outcome": [],
+  "method_x_population": [
+   {
+    "type": "method x population",
+    "row": "survey",
+    "col": "emerging economies",
+    "row_papers": 19,
+    "col_papers": 12,
+    "strength": 12,
+    "claim": "No paper in this corpus applies survey to emerging economies, although survey appears in 19 papers and emerging economies in 12."
+   },
+   {
+    "type": "method x population",
+    "row": "regression",
+    "col": "students",
+    "row_papers": 9,
+    "col_papers": 9,
+    "strength": 9,
+    "claim": "No paper in this corpus applies regression to students, although regression appears in 9 papers and students in 9."
+   },
+   {
+    "type": "method x population",
+    "row": "regression",
+    "col": "SMEs",
+    "row_papers": 9,
+    "col_papers": 17,
+    "strength": 9,
+    "claim": "No paper in this corpus applies regression to SMEs, although regression appears in 9 papers and SMEs in 17."
+   },
+   {
+    "type": "method x population",
+    "row": "regression",
+    "col": "emerging economies",
+    "row_papers": 9,
+    "col_papers": 12,
+    "strength": 9,
+    "claim": "No paper in this corpus applies regression to emerging economies, although regression appears in 9 papers and emerging economies in 12."
+   },
+   {
+    "type": "method x population",
+    "row": "systematic review",
+    "col": "students",
+    "row_papers": 14,
+    "col_papers": 9,
+    "strength": 9,
+    "claim": "No paper in this corpus applies systematic review to students, although systematic review appears in 14 papers and students in 9."
+   },
+   {
+    "type": "method x population",
+    "row": "bibliometric",
+    "col": "students",
+    "row_papers": 14,
+    "col_papers": 9,
+    "strength": 9,
+    "claim": "No paper in this corpus applies bibliometric to students, although bibliometric appears in 14 papers and students in 9."
+   },
+   {
+    "type": "method x population",
+    "row": "qualitative coding",
+    "col": "platforms/gig",
+    "row_papers": 13,
+    "col_papers": 7,
+    "strength": 7,
+    "claim": "No paper in this corpus applies qualitative coding to platforms/gig, although qualitative coding appears in 13 papers and platforms/gig in 7."
+   },
+   {
+    "type": "method x population",
+    "row": "systematic review",
+    "col": "platforms/gig",
+    "row_papers": 14,
+    "col_papers": 7,
+    "strength": 7,
+    "claim": "No paper in this corpus applies systematic review to platforms/gig, although systematic review appears in 14 papers and platforms/gig in 7."
+   },
+   {
+    "type": "method x population",
+    "row": "bibliometric",
+    "col": "platforms/gig",
+    "row_papers": 14,
+    "col_papers": 7,
+    "strength": 7,
+    "claim": "No paper in this corpus applies bibliometric to platforms/gig, although bibliometric appears in 14 papers and platforms/gig in 7."
+   },
+   {
+    "type": "method x population",
+    "row": "interviews",
+    "col": "platforms/gig",
+    "row_papers": 11,
+    "col_papers": 7,
+    "strength": 7,
+    "claim": "No paper in this corpus applies interviews to platforms/gig, although interviews appears in 11 papers and platforms/gig in 7."
+   }
+  ],
+  "mono_method_outcomes": [],
+  "stale_topics": [
+   {
+    "outcome": "innovation output",
+    "papers": 4,
+    "latest_year": 2020,
+    "claim": "Evidence on innovation output in this corpus stops at 2020 (4 papers) \u2014 nothing since."
+   }
+  ]
+ },
+ "coding": [
+  {
+   "doi": "10.1007/s11187-019-00208-y",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "survey",
+    "content/text analysis",
+    "machine learning"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "students",
+    "employees/managers",
+    "investors/VCs",
+    "platforms/gig"
+   ],
+   "outcomes": [],
+   "evidence": {
+    "method:survey": "Usinginformation from the National Survey of Small Business Finances (NSSBF), Rutherford et al. ( 2001) classify small firms (having less than 500 employees) into multiple groups based on size and ownership as well as firm characteristics.",
+    "method:content/text analysis": "Section2 is complemented by the Appendix, where we provide links to literature and Internet resources and where we also delineate key technical terms and list the most relevant text mining tools and download resources for self-starters.",
+    "method:machine learning": "A notable example is the use of machine learning techniques on the huge United States Patent and Trademark Office (USPTO) database.",
+    "population:startups/new ventures": "A classical question in entrepreneurship research relates to the factors predicting a start-ups\u2019success (Stuart and Abetti 1987; Hisrich et al. 2007).",
+    "population:founders/entrepreneurs": "The increased output from efficiency gains and innovations could be passed to workers in the form of wages and to entrepreneurs and firms in the form of profits. 3 These rapid and ongoing changes in the economic, political, and social spheres also affect the domain of research.",
+    "population:students": "Results from a survey administered among 200 business undergraduates served as training and testing data to model entrepreneurial inclination in an individual.",
+    "population:employees/managers": "The increased output from efficiency gains and innovations could be passed to workers in the form of wages and to entrepreneurs and firms in the form of profits. 3 These rapid and ongoing changes in the economic, political, and social spheres also affect the domain of research.",
+    "population:investors/VCs": "ML and/or text analytics have been applied to issues such as funding (via venture capital and via crowdfunding), (product) innovation, inventors\u2019 disambiguation, and entrepreneurial traits.",
+    "population:platforms/gig": "ML and/or text analytics have been applied to issues such as funding (via venture capital and via crowdfunding), (product) innovation, inventors\u2019 disambiguation, and entrepreneurial traits."
+   }
+  },
+  {
+   "doi": "10.1007/s41959-023-00099-x",
+   "year": 2023,
+   "genre": "conceptual",
+   "theories": [],
+   "methods": [],
+   "populations": [
+    "founders/entrepreneurs",
+    "students"
+   ],
+   "outcomes": [],
+   "evidence": {
+    "population:founders/entrepreneurs": "Generative artificial intelligence has seen fast paced developments, with it being utilised in numerous contexts, including both entrepreneurship and education.",
+    "population:students": "This has led to calls to integrate generative artificial intelligence into entrepreneurship education, to help prepare students to take advantage of future entrepreneurial opportunities."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-019-00204-2",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "regression",
+    "panel data",
+    "survey",
+    "machine learning"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs"
+   ],
+   "outcomes": [],
+   "evidence": {
+    "method:regression": "We fed these variables as predic tors into five (machine learning) ridge regression models, one model for each survey-reported personality di mension as the dependent variable.",
+    "method:panel data": "Column 1 considers simply the entrepreneurial personality profile, without any controls and no state fixed effects.",
+    "method:survey": "The results suggest, for example, that social media datasets and artificial intelligence methods have the potential to deliver comparable information on the personality and culture of regions than studi es based on millions of questionnaire-based personality tests.",
+    "method:machine learning": "We use a machine learning model based on 1.5 bi llion tweets by 5.25 million users to estimate the Big Five personality traits and a n entrepreneurial personality profile for 1,772 U.S. counties.",
+    "population:startups/new ventures": "Plac es scoring higher in the entrepreneurial profile before the crisis showed a lower or no economic dec line (in terms of decreasing start-up rates) during the recession.",
+    "population:founders/entrepreneurs": "But can artifici al intelligence models based on publicly available Big Data identify geographical diff erences in entrepreneurial personality or culture?"
+   }
+  },
+  {
+   "doi": "10.1007/s11187-019-00217-x",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [
+    "Effectuation"
+   ],
+   "methods": [],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "employees/managers",
+    "investors/VCs"
+   ],
+   "outcomes": [
+    "decision-making"
+   ],
+   "evidence": {
+    "theory:Effectuation": "We illustrate the analogous transfer process by identifying complementary design principles for one exemplary entrepreneurship theory, namely effectuation.",
+    "population:startups/new ventures": "Therefore, researchers have called to study the general design principles in the processes of designing new ventures (Dimov 2016 ; Romme and Endenburg 2006 ; Sarasvathy 2003).",
+    "population:founders/entrepreneurs": "In particular, we show that entrepreneurship research can learn from one branch of artificial intelligence studies calledBgenetic algorithm,^ which is a design field that creates solutions for complex, nonanalytical, and ill-structured problems.",
+    "population:employees/managers": "O31 Scholars have advocated that entrepreneurship research needs to be developed as a design science, in order to increase a focus on relevant (design) questions and to help with developing practical tools for managers (e.g., Jelinek et al. 2008;R o m m e2003; V an de V en2007).",
+    "population:investors/VCs": "Still, these angel investors could introduce her to other investors who are more interested in restaurants.",
+    "outcome:decision-making": "In contrast to descriptive and explanatory sciences, design sciences focus on the process of making choices on what is possible and useful for the creation of possible futures, rather than on what currently prevails (Hevner et al. 2004;R o m m e2003)."
+   }
+  },
+  {
+   "doi": "10.1007/s11846-025-00839-4",
+   "year": 2025,
+   "genre": "review",
+   "theories": [
+    "Dynamic Capabilities"
+   ],
+   "methods": [
+    "SEM/PLS",
+    "qualitative coding",
+    "content/text analysis",
+    "machine learning",
+    "systematic review",
+    "bibliometric"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "SMEs",
+    "investors/VCs",
+    "emerging economies"
+   ],
+   "outcomes": [
+    "decision-making",
+    "productivity/efficiency",
+    "opportunity/idea generation",
+    "sustainability/impact"
+   ],
+   "evidence": {
+    "theory:Dynamic Capabilities": "In addition, theories such as dynamic capabilities theory explain how entrepre - neurs can integrate, build and reconfigure competencies to adapt to environmental opportunities and threats (Ciampi et al. 2021; Dubey et al. 2020).",
+    "method:SEM/PLS": "In quantitative studies, regression analyses such as logistic or linear regressions (e.g., Jabeur et al. 2022), structural equation models (e.g., Chatterjee et al. 2022) and AI-based methods such as neural networks or machine learning algorithms (e.g., Arshi et al. 2022) are employed.",
+    "method:content/text analysis": "Methodologically, it employs a hybrid systematic review approach, combining bibliometric analysis with qualitative content analysis, and applies the SPAR-4-SLR protocol to ensure trans - parency and reproducibility.",
+    "method:machine learning": "Since 2016, the field has developed progressively, with studies focused on the potential and impact of technologies such as automation (Sorgner 2017), the Internet of Things (e.g., Krotov 2017; Yu et al. 2016), big data (Hartmann et al. 2016), and machine learning (e.g., Shams 2018) for entrepreneurs.",
+    "method:systematic review": "Methodologically, it employs a hybrid systematic review approach, combining bibliometric analysis with qualitative content analysis, and applies the SPAR-4-SLR protocol to ensure trans - parency and reproducibility.",
+    "method:bibliometric": "Methodologically, it employs a hybrid systematic review approach, combining bibliometric analysis with qualitative content analysis, and applies the SPAR-4-SLR protocol to ensure trans - parency and reproducibility.",
+    "population:startups/new ventures": "Moreover, aspects such as the IT infrastructure, the knowledge and competence of the owners of AI-based technologies, and data considerations are key to successful start-ups and fundraising (e.g., Gofman and Jin 2023).",
+    "population:founders/entrepreneurs": "The disruptive potential of artificial intelligence (AI) technologies involves creat - ing new entrepreneurial opportunities and reshaping the entrepreneurial process.",
+    "population:SMEs": "Their findings identify four key research clusters: AI promoting industrial transformation, AI applications in entrepreneurial management, AI algorithms for business management, and the impact of e-commerce on SMEs.",
+    "population:investors/VCs": "Moreover, entrepreneurs could attract more venture capital if they demonstrate that the integration of AI improves profitability and operational efficiency (e.g., Reshetnikova et al. 2019).",
+    "population:emerging economies": "In addition, except for China and India, collaboration among authors from developing countries is scarce. 4.2.3 Conceptual structure Conceptual structure analysis makes it possible to highlight the connections between the same terms that appear in a specific collection, i.e., co-occurrences.",
+    "outcome:decision-making": "The antecedents related to entrepreneurs' sociodemo - graphic characteristics, experience, and education level have been studied as deter - minants of both decision-making and outcomes (e.g., Kim and You 2020).",
+    "outcome:productivity/efficiency": "Specifically, AI-driven insights can lead to more informed decision-making, increased efficiency and reduced costs (Kulkov et al. 2023).",
+    "outcome:opportunity/idea generation": "Moreover, the skills required to engage in AI technology-based entrepreneurship, such as creativity and imagination, a learning mindset or a strategic vision, are important mechanisms for mitigating risk factors (e.g., Gofman and Jin 2023).",
+    "outcome:sustainability/impact": "This application can be extended to ESG assessment, enabling a holistic view of a venture's environmental manage - ment, social responsibility, and governance quality (e.g., Mansouri and Momtaz 2022)."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-019-00205-1",
+   "year": 2019,
+   "genre": "conceptual",
+   "theories": [],
+   "methods": [
+    "machine learning"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "investors/VCs"
+   ],
+   "outcomes": [
+    "decision-making"
+   ],
+   "evidence": {
+    "method:machine learning": "SSP has a number of advantages as compared with those more traditional data processing Second, SSP can easily process large volumes of data through machine learning algorithms.",
+    "population:startups/new ventures": "Given the informality of the hiring process in a new venture, entrepreneurs are more likely to put heavier weight on exchanged information in an interview as compared to more established large companies.",
+    "population:founders/entrepreneurs": "modern data science techniques can advance our understanding of important decisions in the context of entrepreneurship that involve social interactions.",
+    "population:investors/VCs": "This paper discusses and illustrates their potential value for future research on decision-making by entrepreneurs as well as by others yet directly affecting them (e.g., investors).",
+    "outcome:decision-making": "We know that individuals\u2019decision-making is strongly affected by nonverbal behavior."
+   }
+  },
+  {
+   "doi": "10.24136/eq.3074",
+   "year": 2024,
+   "genre": "empirical",
+   "theories": [
+    "Self-Efficacy"
+   ],
+   "methods": [
+    "survey",
+    "SEM/PLS"
+   ],
+   "populations": [
+    "founders/entrepreneurs",
+    "students"
+   ],
+   "outcomes": [
+    "intention/adoption"
+   ],
+   "evidence": {
+    "theory:Self-Efficacy": "Moreover, digital entrepreneurial self-efficacy is found to significantly mediate the impact of ChatGPT adoption in entrepreneurship on digital ent repreneurial intention.",
+    "method:survey": "Second, with the assistance of lecturers from these universities, we then identified and selected two to three MBA classes within each institution to facilitate t he distribution of questionnaires.",
+    "method:SEM/PLS": "First, to confirm the reliab ility and validity of the scales used in this study, we estimated Cronbach\u2019s alpha for each variable and conducted confirmatory factor analysis (CFA).",
+    "population:founders/entrepreneurs": "Research background: In the rapidly evolving milieu of digital entrepreneurship, the integration of artificial intelligence (AI) technologies, exemplified by ChatGPT, has witnessed burgeoning prominence.",
+    "population:students": "This collaborative effort allowed us to access a broad crosssection of MBA students, ensuring the inclusion of participants from diverse educational backgrounds.",
+    "outcome:intention/adoption": "Findings & value added: Our findings reveal positive impacts of ChatGPT adoption in entrepreneurship on digital entrepreneurial self-efficac y and digital entrepreneurial intentions."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-019-00270-6",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "employees/managers",
+    "investors/VCs"
+   ],
+   "outcomes": [
+    "survival/failure",
+    "decision-making"
+   ],
+   "evidence": {
+    "population:startups/new ventures": "Similarly, Spigel \u2019s( 2017) study of entrepreneurial ecosystems in Waterloo and Calgary, Canada, suggests that while ecosystems can have different structures and origins, their success lies in their ability to create a cohesive social and economic system that supports the creation and growth of new ventures.",
+    "population:founders/entrepreneurs": "an approach for understanding the context of entrepreneurship at the macro level of an organizational community.",
+    "population:employees/managers": "Empirically, this claim seems too exclusive: networks of innovative start-ups or entrepreneurial employees can also be forms of productive entrepreneurship (Baumol 1993), even failed ventures can be productive for society (Davidsson 2004).",
+    "population:investors/VCs": "Access to financing \u2014preferably provided by investors with entrepreneurial knowledge \u2014is crucial for investments in uncertain entrepreneurial projects with a long-term horizon (see e.g. Kerr and Nanda 2009).",
+    "outcome:survival/failure": "Links between component subsystems are only as rich or tight as is necessary to ensure the survival of the system (Aldrich and Fiol 1994).",
+    "outcome:decision-making": "Entrepreneurship culture could also be measured with the degree to which self-employment is seen as a viable career choice and the degree to which successful entrepreneurs are valued (both derived from the Global Entrepreneurship Monitor)."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-019-00181-6",
+   "year": 2019,
+   "genre": "review",
+   "theories": [
+    "Resource-Based View",
+    "Transaction Cost Economics"
+   ],
+   "methods": [
+    "causal-identification",
+    "content/text analysis",
+    "systematic review",
+    "bibliometric"
+   ],
+   "populations": [
+    "founders/entrepreneurs",
+    "SMEs",
+    "employees/managers",
+    "emerging economies"
+   ],
+   "outcomes": [
+    "internationalisation"
+   ],
+   "evidence": {
+    "theory:Resource-Based View": "In terms of theoretical perspectives, the resourcebased view (RBV) perspective (Barney 1991 ; Wernerfelt1984) is used to explain the internationalization of a SME (McDougall et al. 1994)b yl o o k i n ga t resources and characteristics that SMEs may employ to grant them success in going abroad or global.",
+    "theory:Transaction Cost Economics": "Finally, transaction cost theory has also been used to explain why SMEs engage in internationalization (Ruzzier et al. 2006), where both antecedents and consequences of the decision of internationalization have been associated as a response to market failures (Brouthers and Nakos2004).",
+    "method:causal-identification": "While the method level will be determined by the researchers\u2019 desire to explore a new phenomenon or generalize an existing phenomenon (Collis and Hussey 2013)\u2014and we did detect that multiple research designs have been used in the empirical studies\u2014the vast majority of studies in our analysis were quantitative.",
+    "method:content/text analysis": "The content analysis of the results could conceivably identify novel directions for future research in the SMR and IE field.",
+    "method:systematic review": "Our bibliometric and systematic review classifies SME and IE research findings into three echelons: (i) subjects, (ii) theories, and (iii) methods.",
+    "method:bibliometric": "Our bibliometric and systematic review classifies SME and IE research findings into three echelons: (i) subjects, (ii) theories, and (iii) methods.",
+    "population:founders/entrepreneurs": "What is the current state of the knowledge about internationalization of SMEs and international entrepreneurship?",
+    "population:SMEs": "SMEs and IEs are increasingly fueling economic growth and innovation, and these trends are presenting both opportunities and challenges to both MNCs and SMEs in the global arena.",
+    "population:employees/managers": "Human capital theory (Becker 1964)p o s t u - lates that human capital increases a worker\u2019sp r o d u c t i v - ity in all tasks and that people with higher-quality human capital perform better at executing relevant tasks.",
+    "population:emerging economies": "The first conspicuous gap in the literature concerns emerging markets.",
+    "outcome:internationalisation": "Similarly, the rapid development of technology has made internationalization strategies more accessible to SMEs."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-020-00316-0",
+   "year": 2020,
+   "genre": "review",
+   "theories": [],
+   "methods": [],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "large firms"
+   ],
+   "outcomes": [],
+   "evidence": {
+    "population:startups/new ventures": "When most of the relevant ideas are commercialized outside established firms by new venture creation, then entrepreneurship is the primary function activity within a regional ecosystem.",
+    "population:founders/entrepreneurs": "has been used as a framework to explain entrepreneurial activities within regions and industrial sectors.",
+    "population:large firms": "Our dynamic lifecycle model may thus serve as a starting point for future empirical studies focusing on ecosystems and provide the basis for a further understanding of the interrelatedness between and coexistence of new and incumbent firms."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-020-00359-3",
+   "year": 2020,
+   "genre": "conceptual",
+   "theories": [],
+   "methods": [
+    "regression",
+    "panel data"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "employees/managers",
+    "investors/VCs"
+   ],
+   "outcomes": [
+    "performance/growth",
+    "innovation output"
+   ],
+   "evidence": {
+    "population:startups/new ventures": "Many banks tackle the challenges of digitalization by cooperating with startup firms that offer technology-driven financial services and novel service packages (fintechs).",
+    "population:founders/entrepreneurs": "L26 In the past two decades, digitalization has influenced many industries, offering new entrepreneurial opportunities and creating new systems of innovation (Barrett et al. 2015;A u t i oe ta l .2018).",
+    "population:employees/managers": "As a robustness check and as a way to exclude large, established fintechs, we ran the same analysis for the subsample of fintechs with fewer than 1000 employees or which were less than 10 years old at the time of forming the alliance.",
+    "population:investors/VCs": "Haddad and Hornuf (2019) analyze fintechs in 55 countries and provide evidence that markets witness more fintech formations when the economy is well-developed and venture capital is easily accessible.",
+    "outcome:performance/growth": "This, in turn, may affect the relative stability, profitability, and, thus, viability of incumbent banks, a development that should be closely monitored by supervisory authorities. 6.2 Limitations and future research avenues Our analysis also has clear limitations and thus offers avenues for future research.",
+    "outcome:innovation output": "Lerner ( 2002) and Miller ( 1986)p r o - vide empirical evidence that financial innovation, as measured by the filing of financial patents, has been increasing since the late 1970s."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-019-00188-z",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "regression"
+   ],
+   "populations": [
+    "founders/entrepreneurs",
+    "investors/VCs",
+    "platforms/gig"
+   ],
+   "outcomes": [
+    "funding/finance"
+   ],
+   "evidence": {
+    "method:regression": "Given that the dependent variable in equation 2 is a dummy variable, the system composed by equation 1 and 2 is a probit model8 with sample selection, and can be estimated according to Van de Ven and Van Pragg ( 1988).",
+    "population:founders/entrepreneurs": "On the contrary, female entrepreneurs do not have higher chances to raise funds in equity crowdfunding.",
+    "population:investors/VCs": "Minority entrepreneurs do not have higher chances of successfully raising capital but do attract a higher number of investors.",
+    "population:platforms/gig": "This paper investigates whether gender, age, ethnicity, and geography affect the choice of equity crowdfunding offerings vs initial public offerings (IPO) on traditional stock markets and whether these characteristics increase the likelihood of a successful offering.",
+    "outcome:funding/finance": "Overall, our evidence provides empirical guidance for the first time to the oft-repeated policy claim that equity crowdfunding democratizes entrepreneurial finance by providing access to funding to underrepresented groups of potential entrepreneurs."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-021-00590-6",
+   "year": 2022,
+   "genre": "review",
+   "theories": [],
+   "methods": [
+    "content/text analysis",
+    "systematic review",
+    "bibliometric"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "SMEs",
+    "employees/managers",
+    "investors/VCs"
+   ],
+   "outcomes": [
+    "performance/growth",
+    "funding/finance"
+   ],
+   "evidence": {
+    "method:content/text analysis": "This approach is consistent with previous literature (Antoncic & Hisrich, 2001; Ireland et al., 2009; Kuratko et al., 2015; Zahra, 1991) and allows to provide a systematic content analysis as well as an organizing framework to analyze CE literature cur - rent status (Keupp & Gassmann, 2009).",
+    "method:systematic review": "Keywords Corporate entrepreneurship \u00b7 Intrapreneurship \u00b7 Corporate venturing \u00b7 Strategic renewal \u00b7 Systematic literature review \u00b7 Bibliometrics JEL Classification L25 \u00b7 L26 We conducted a systematic literature review and used a bibliometric approach to analyze and describe the findings.",
+    "method:bibliometric": "Keywords Corporate entrepreneurship \u00b7 Intrapreneurship \u00b7 Corporate venturing \u00b7 Strategic renewal \u00b7 Systematic literature review \u00b7 Bibliometrics JEL Classification L25 \u00b7 L26 We conducted a systematic literature review and used a bibliometric approach to analyze and describe the findings.",
+    "population:startups/new ventures": "Guth and Ginsberg ( 1990) explained that CE embodies two different phenomena: new venture creation within existing organizations and the transformation of ongoing organizations through strategic renewal.",
+    "population:founders/entrepreneurs": "the research on corporate entrepreneurship, develops a conceptual framework that connects its antecedents and consequences, and offers an agenda for future research.",
+    "population:SMEs": "Subsequently, we searched the top entrepreneur - ship and small business journals with the highest five-year impact factor in the 2020 JCR.",
+    "population:employees/managers": "Following Pinchot ( 1985), Stam refers to intrapreneurship or entrepreneurial employee activity as the development of new business activities by an employee; hence, it follows a bottom-up approach.",
+    "population:investors/VCs": "But private ownership is more nuanced and includes family firms, venture capital and private equity backed firms, and even socially owned and hybrid enterprises that may engage in CE related activities (Zahra et al., 2009).",
+    "outcome:performance/growth": "Subsequently, they measure the effect of corporate entrepreneurial activity on firm growth and profitability.",
+    "outcome:funding/finance": "Therefore, future research could deepen more specifically the outcomes and consequences of different types of CE funding (e.g., inhouse vs outside), given that managers\u2019 incentives could potentially determine their preferences for par - ticular types of venturing and other CE activities."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-019-00153-w",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [
+    "Effectuation"
+   ],
+   "methods": [
+    "causal-identification"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "students",
+    "employees/managers",
+    "investors/VCs"
+   ],
+   "outcomes": [],
+   "evidence": {
+    "theory:Effectuation": "In an attempt to organize and bring clarity to the range and diversity of entrepreneurial methods, this article compares effectuation with five other entrepreneurial methods along nine conceptual dimensions.",
+    "method:causal-identification": "The methods of scholarly origin outlined above did not seem to diffuse much outside academic circles (Arend et al. 2015; Frank and Landstr\u00f6m 2016).",
+    "population:startups/new ventures": "A prominent example of an entrepreneurial method is effectuation, presented as a set of heuristics any entrepreneur could use to develop a new venture in the face of u ncertainty (Sarasvathy 2001).",
+    "population:founders/entrepreneurs": "trepreneurs and students in explicit guidance for entrepreneurial action.",
+    "population:students": "trepreneurs and students in explicit guidance for entrepreneurial action.",
+    "population:employees/managers": "An illustrative example is a recent debate concerning effectuation, which has been cast as an underdeveloped theory lacking practical managerial tools and with the potential to lead to dangerous practices among entrepreneurs (Arend et al. 2015).",
+    "population:investors/VCs": "The prevailing bias of venture capitalists and other funding agencies at the time put business planning at the forefront of the agenda for aspiring entrepreneurs (Upton et al. 2001)."
+   }
+  },
+  {
+   "doi": "10.1007/s11187-019-00218-w",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "causal-identification",
+    "content/text analysis",
+    "machine learning"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "investors/VCs",
+    "platforms/gig"
+   ],
+   "outcomes": [
+    "innovation output",
+    "funding/finance",
+    "decision-making"
+   ],
+   "evidence": {
+    "method:causal-identification": "Logistic regression did not only perform as each one of the best two classification models but it is also a well-interpretable algorithm that is used in subsequent penalized feature analyses in this paper.",
+    "method:content/text analysis": "natural language processing approach to predict the outcome of crowdfunding startup pitches using text, speech, and video metadata in 20,188 crowdfunding campaigns.",
+    "method:machine learning": "All project descriptions are cleaned from HTML syntax and formatted to enable their use by machine learning models subsequently.",
+    "population:startups/new ventures": "natural language processing approach to predict the outcome of crowdfunding startup pitches using text, speech, and video metadata in 20,188 crowdfunding campaigns.",
+    "population:founders/entrepreneurs": "The information available to potential backers can assist to form expectations and may induce the belief that the campaign founder possesses the relevant skills and knowledge to perform the project task for a shared mutual benefit.",
+    "population:investors/VCs": "Our study emphasizes the need to understand crowdfunding from an investor\u2019s perspective.",
+    "population:platforms/gig": "natural language processing approach to predict the outcome of crowdfunding startup pitches using text, speech, and video metadata in 20,188 crowdfunding campaigns.",
+    "outcome:innovation output": "At the contrary, higher uncertainty perceptions about the state of product development may substantially reduce evaluations of new products and reduce purchasing intentions among potential funders.",
+    "outcome:funding/finance": "In order to increase their funding success, we believe that project owners have a propensity to strategically use project descriptions and video pitches as marketing tool to influence potential backers\u2019 contribution decisions.",
+    "outcome:decision-making": "Therefore, the act of crowdfunding by entrepreneurs may be seen as means to gain strategic legitimacy, as the entrepreneur looks to purposefully manipulate and deploy symbols in order to garner positive legitimacy judgments (Suchman 1995)."
+   }
+  },
+  {
+   "doi": "10.1016/j.jbusvent.2020.106041",
+   "year": 2020,
+   "genre": "conceptual",
+   "theories": [],
+   "methods": [],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs"
+   ],
+   "outcomes": [
+    "funding/finance"
+   ],
+   "evidence": {
+    "population:startups/new ventures": "Yet past research has mainly investigated fear of failure in entrepreneurship among non entrepreneurs or nascent entrepreneurs and has done so by asking for reactions to hypothetical future failure.",
+    "population:founders/entrepreneurs": "Fear of failure is an important part of the experience of entrepreneurship."
+   }
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00174",
+   "year": 2020,
+   "genre": "editorial",
+   "theories": [],
+   "methods": [],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "SMEs",
+    "investors/VCs"
+   ],
+   "outcomes": [
+    "funding/finance"
+   ],
+   "evidence": {
+    "population:startups/new ventures": "This paper illustrates how chronic uncertainty caused by crisis events affects the availability of entrepreneurial sources of finance for start-ups and small and medium-sized enterprises (SMEs).",
+    "population:founders/entrepreneurs": "This paper illustrates how chronic uncertainty caused by crisis events affects the availability of entrepreneurial sources of finance for start-ups and small and medium-sized enterprises (SMEs).",
+    "population:SMEs": "This paper illustrates how chronic uncertainty caused by crisis events affects the availability of entrepreneurial sources of finance for start-ups and small and medium-sized enterprises (SMEs).",
+    "population:investors/VCs": "During shocks and crisis events, levels of uncertainty escalate at such velocity their impacts become highly debilitating for entrepreneurs and entrepreneurial actors such as banks and investors (McMullen and Shepherd, 2006; Block and Sandner, 2009; Packard et al, 2018; Conti et al, 2019).",
+    "outcome:funding/finance": "The source of RTD explored within the current paper is Crunchbase data, which collated 13,729 funding transactions in China between 1994 and quarter 1 in 2020."
+   }
+  },
+  {
+   "doi": "10.1016/j.jbvi.2020.e00159",
+   "year": 2020,
+   "genre": "editorial",
+   "theories": [],
+   "methods": [],
+   "populations": [
+    "founders/entrepreneurs"
+   ],
+   "outcomes": [
+    "sustainability/impact"
+   ],
+   "evidence": {
+    "population:founders/entrepreneurs": "Scaling social impact is regarded as the main currency in social enterprise and social entrepreneurship.",
+    "outcome:sustainability/impact": "Scaling social impact is regarded as the main currency in social enterprise and social entrepreneurship."
+   }
+  },
+  {
+   "doi": "10.1177/1042258719839712",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "case study"
+   ],
+   "populations": [
+    "founders/entrepreneurs",
+    "employees/managers"
+   ],
+   "outcomes": [
+    "innovation output",
+    "decision-making"
+   ],
+   "evidence": {
+    "method:case study": "To address our research question, we designed an empirical qualitativ e study based on multiple cases (Yin, 2003; Eisenhardt, 1989).",
+    "population:founders/entrepreneurs": "The preservation approach to tradition denotes firms in which the family shows continuous commitment to the founder\u2019s values, beliefs, and craftsmanship.",
+    "population:employees/managers": "A follow-up interview with a family member was conducted in one case in 2018, yielding a total 17 interviews (14 with family members , 3 with nonfamily managers).",
+    "outcome:innovation output": "Recently, De Massis, Kotlar, Frattini, Messeni Petruzzelli , and Wright (2016) investigated how family firms can create and nurture competitive advantage by leveraging their tradition , conceptualizing a new product innovation strategy labeled \u201cinnovation through tradition\u201d.",
+    "outcome:decision-making": "Therefore, family firm leaders need to learn how to manage such paradoxical tension to avoid decision making paralysis (Ingram, Lewis, Barton, & Gartner, 2016)."
+   }
+  },
+  {
+   "doi": "10.1177/1042258720913028",
+   "year": 2020,
+   "genre": "conceptual",
+   "theories": [],
+   "methods": [],
+   "populations": [
+    "founders/entrepreneurs",
+    "employees/managers"
+   ],
+   "outcomes": [
+    "innovation output"
+   ],
+   "evidence": {
+    "population:founders/entrepreneurs": "The few studies of growth are cross - sectional (Campopiano, Brumana, Minola, & Cas sia, 2019; Lee, 2006; McConaughy & Phillips, 1999), and have focused mainly on small and medium -sized entrepreneurial firms (Chen et al., 2014; Chrisman, Chua, & Litz, 2004).",
+    "population:employees/managers": "After that, we draw theoretical, managerial and policy implications from our study, also discussing limitations and future research avenues. 2.",
+    "outcome:innovation output": "They also may generously invest in renewing the business via new product offerings and market extensions (Miller, Le Breton-Miller, & Lester, 2007)."
+   }
+  },
+  {
+   "doi": "10.1177/1042258720930991",
+   "year": 2020,
+   "genre": "review",
+   "theories": [
+    "Effectuation"
+   ],
+   "methods": [],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs"
+   ],
+   "outcomes": [
+    "decision-making"
+   ],
+   "evidence": {
+    "theory:Effectuation": "Process model and path dependence have notable prevalence, and effectuation (Sarasvathy, 2001) stands out as a recurring theoretical perspective in this literature.8 Finding objective criteria for distilling a more deeply process focused subset of articles based on this information is no easy task.",
+    "population:startups/new ventures": "It is increasingly agreed that the phenomenon of new venture creation (NVC) should be a core focus in entrepreneurship research (Carlsson et al., 2013; Wiklund, Davidsson, Audretsch, & Karlsson, 2011).",
+    "population:founders/entrepreneurs": "It is increasingly agreed that the phenomenon of new venture creation (NVC) should be a core focus in entrepreneurship research (Carlsson et al., 2013; Wiklund, Davidsson, Audretsch, & Karlsson, 2011).",
+    "outcome:decision-making": "Some focus on a single stage, such as early search for and choice among ideas (Fiet, Piskounov & Patel, 2005; Gruber, MacMillan & Thompson, 2008)."
+   }
+  },
+  {
+   "doi": "10.1177/1042258719900774",
+   "year": 2020,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "causal-identification",
+    "interviews",
+    "qualitative coding"
+   ],
+   "populations": [
+    "founders/entrepreneurs",
+    "students",
+    "employees/managers"
+   ],
+   "outcomes": [],
+   "evidence": {
+    "method:causal-identification": "While they did not complain about their lives, the slum entrepreneurs told us that they had faced many hardships, which motivated them to ensure that their children would not also have to face such hardships (e.g., Sarkar, Vadekar, Bajpai, Gopal).",
+    "method:interviews": "We collected data through (1) semi-structured interviews, (2) field notes, and (3) archival reports (largely government and NGO reports but occasionally materials provided by the entrepreneurs and schools).",
+    "method:qualitative coding": "We started with open coding to identify initial concepts and then began grouping these concepts into categories.",
+    "population:founders/entrepreneurs": "Recent research has focused on the role of entrepreneurial action in alleviating poverty.",
+    "population:students": "Finally, because of entrepreneurs\u2019 belief in the link between obtaining an education and finding a \u201cgood\u201d job, we contacted employers of graduating students.",
+    "population:employees/managers": "Specifically, we began by interviewing the employees of nongovernmental organizations (NGOs) working to improve living conditions for residents of urban slums in Mumbai and Delhi (10 interviews)."
+   }
+  },
+  {
+   "doi": "10.1177/1042258720929891",
+   "year": 2020,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "causal-identification",
+    "interviews",
+    "qualitative coding"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "employees/managers",
+    "investors/VCs",
+    "emerging economies"
+   ],
+   "outcomes": [
+    "sustainability/impact"
+   ],
+   "evidence": {
+    "method:causal-identification": "For instance, we asked \u201cIf you cannot rely on governmental support nor on your family, how did you get your key resources to get started?",
+    "method:interviews": "We briefed all interviewees about the academic nature of the research and assured them that all personal information would be anonymized to encourage open information sharing.",
+    "method:qualitative coding": "Figure 1 illustrates our final coding structure. ------------------------------------ Insert Figure 1 about here --------------------------------- Step 1: Decision-event analysis and open coding.",
+    "population:startups/new ventures": "Second round (2019)5 Interviews with 10 new entrepreneurs and 2 from the first round (14 hours) Gaining insights into the new venture creation process by looking at perceived uncertainty and entrepreneurial behavior.",
+    "population:founders/entrepreneurs": "We investigate the practices followed by 47 commercial entrepreneurs in Kenya to \u2018work around\u2019 these severe institutional voids to achieve their goals of business creation and growth.",
+    "population:employees/managers": "The second dimension \u2013 orchestrating business relationships carefully \u2013 emphasizes that the uncertainty posed by severe institutional voids pressures entrepreneurs to become extra judicious when managing employees, especially if family members, or when reaching out to form new relationships.",
+    "population:investors/VCs": "TABLE 3 \u2013 PURSUING COMMERCIAL AND SOCIAL GOALS SIMULTANEOUSLY: SELECTED EVIDENCE Second-order themes Selected evidence on first-order codes Pursuing commercial and social goals simultaneously Trying to be attractive for investors & partners \u201cGetting financed is difficult.",
+    "population:emerging economies": "We contribute by unveiling the important role of entrepreneurs as microinstitutional agents in developing economies and by detailing how commercial and social goals become intertwined in the context of African entrepreneurship.",
+    "outcome:sustainability/impact": "Most business presentations included at least one slide dedicated to social impact."
+   }
+  },
+  {
+   "doi": "10.1177/0266242621989326",
+   "year": 2021,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "survey"
+   ],
+   "populations": [
+    "founders/entrepreneurs",
+    "SMEs",
+    "employees/managers"
+   ],
+   "outcomes": [],
+   "evidence": {
+    "method:survey": "The article draws on UK survey data of 1500 firms of different size classes examining levels of firm-level precautionary savings.",
+    "population:founders/entrepreneurs": "Email: Ross.Brown@st-andrews.ac.uk 989326 ISB0010.1177/0266242621989326International Small Business JournalBrown and Cowling research-article2021 Full Paper 2 International Small Business Journal: Researching Entrepreneurship 00(0) 2020).",
+    "population:SMEs": "Email: Ross.Brown@st-andrews.ac.uk 989326 ISB0010.1177/0266242621989326International Small Business JournalBrown and Cowling research-article2021 Full Paper 2 International Small Business Journal: Researching Entrepreneurship 00(0) 2020).",
+    "population:employees/managers": "The sample only refers to firms with employees and excludes the self-employed."
+   }
+  },
+  {
+   "doi": "10.1177/0266242619901058",
+   "year": 2020,
+   "genre": "empirical",
+   "theories": [
+    "Opportunity Recognition",
+    "Self-Efficacy"
+   ],
+   "methods": [
+    "survey"
+   ],
+   "populations": [
+    "startups/new ventures",
+    "founders/entrepreneurs",
+    "students",
+    "employees/managers"
+   ],
+   "outcomes": [
+    "opportunity/idea generation",
+    "intention/adoption"
+   ],
+   "evidence": {
+    "theory:Opportunity Recognition": "This study focuses on whether a mentor can facilitate the development of entrepreneurial self-efficacy, in particular with regard to opportunity recognition (ESE-OR) for novice entrepreneurs and whether their level of learning goal orientation (LGO) has a moderating effect.",
+    "theory:Self-Efficacy": "This study focuses on whether a mentor can facilitate the development of entrepreneurial self-efficacy, in particular with regard to opportunity recognition (ESE-OR) for novice entrepreneurs and whether their level of learning goal orientation (LGO) has a moderating effect.",
+    "method:survey": "It should be noted that, in further analysis of this sample, we retained only respondents who completed the questionnaire in its entirety, lowering the sample to 219 individuals to test our hypotheses.",
+    "population:startups/new ventures": "Public organisations have implemented programmes to support entrepreneurs during the first years of their business start-up; mentoring s part of such programmes.",
+    "population:founders/entrepreneurs": "This study focuses on whether a mentor can facilitate the development of entrepreneurial self-efficacy, in particular with regard to opportunity recognition (ESE-OR) for novice entrepreneurs and whether their level of learning goal orientation (LGO) has a moderating effect.",
+    "population:students": "In school, students who adopt or endorse LGO (or mastery goalorientation) engage in more self-regulated learning than others (Pintrich and Schunk, 1996; Ames, 1992).",
+    "population:employees/managers": "Businesses had few employees, with an average of 4.48 (standard deviation of 9.69, median of 2).",
+    "outcome:opportunity/idea generation": "This study focuses on whether a mentor can facilitate the development of entrepreneurial self-efficacy, in particular with regard to opportunity recognition (ESE-OR) for novice entrepreneurs and whether their level of learning goal orientation (LGO) has a moderating effect.",
+    "outcome:intention/adoption": "As mentoring is more about developing the entrepreneur, on one hand, and ESE has been heavily investigated in the field of entrepreneurship as a key driver of entrepreneurial intention and action (Schmutzler et al., 2019), on the other hand, it seems more relevant to focus on this outcome."
+   }
+  },
+  {
+   "doi": "10.1177/0266242619863572",
+   "year": 2019,
+   "genre": "empirical",
+   "theories": [],
+   "methods": [
+    "causal-identification",
+    "survey"
+   ],
+   "populations": [
+    "SMEs",
+    "employees/managers"
+   ],
+   "outcomes": [
+    "opportunity/idea generation"
+   ],
+   "evidence": {
+    "method:causal-identification": "We did not receive responses from the rest (34 firms) because they withdrew from the research.",
+    "method:survey": "The employee questionnaire asked the employees to rate their perceptions of HPWS p ractices and LGO.",
+    "population:SMEs": "This article examines the interplay between high-performance work systems (HPWS) and the innovation of Vietnamese small and medium-sized enterprises (SMEs).",
+    "population:employees/managers": "Using a sample of 133 SMEs, we find that (1) employee creativity mediates the pathway between HPWS and firm innovation; and (2) LGO moderates the HPWS - employee creativity relationship.",
+    "outcome:opportunity/idea generation": "Our conceptual model relies on the componential theory of creativity along with HPWS, learning goal orientation (LGO), creativity and innovation to hypothesis e both mediation and moderation mechanisms linking such a relationship."
+   }
+  },
+  {
+   "doi": "10.1177/0266242619846609",
+   "year": 2019,
+   "genre": "conceptual",
+   "theories": [],
+   "methods": [
+    "causal-identification",
+    "interviews"
+   ],
+   "populations": [
+    "founders/entrepreneurs",
+    "SMEs",
+    "employees/managers"
+   ],
+   "outcomes": [],
+   "evidence": {
+    "method:causal-identification": "But I persuaded him to back me...it was sheer force of personality that did it.",
+    "method:interviews": "Regarding method, we chose semi -structured interviews for the ir capacity to enable interviewers and interviewees to shape and direct the flow of questions and conversation (Rubin and Rubin, 2005).",
+    "population:founders/entrepreneurs": "Heteronormativity is seldom acknowledged and examined empirically by entrepreneurship studies scholars (Galloway, 2007, 2011; McAdam, 2013; Marlow , Greene and Coad, 2018; Wood, Davidson and Fielden, 2013).",
+    "population:SMEs": "In light of the above, our principal research question is : how does heteronormativity shape the discursive (re)construction of entrepreneurial identities among UK gay male small business owners?",
+    "population:employees/managers": "For example, Schindehutte et al. (2005: 33) found that \u201857.6% of their 300 respondents\u2019 reported impediments in \u2018obtaining suppliers/vendors, obtaining licenses and approvals, marketing and advertising, obtaining premises, hiring employees, and obtaining business loans from bank\u2019."
+   }
+  }
+ ]
+}
