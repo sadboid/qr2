@@ -1,85 +1,95 @@
 {
  "corpus": {
-  "n_papers": 22,
-  "words_analysed": 140578,
+  "n_papers": 91,
+  "words_analysed": 620012,
   "sections": [
    "introduction",
    "literature",
    "discussion",
    "conclusion"
   ],
-  "style_outliers_trimmed": 4
+  "style_outliers_trimmed": 12
  },
  "norms": {
   "MEDIUM:long sentence": {
-   "median_per_1k": 3.42,
-   "p90_per_1k": 6.21,
-   "papers_triggering": 22
+   "median_per_1k": 3.02,
+   "p90_per_1k": 5.17,
+   "papers_triggering": 91
   },
   "MEDIUM:inflation": {
-   "median_per_1k": 1.11,
+   "median_per_1k": 1.0,
    "p90_per_1k": 2.47,
-   "papers_triggering": 21
+   "papers_triggering": 89
   },
   "LOW:weasel": {
    "median_per_1k": 0.38,
-   "p90_per_1k": 0.89,
-   "papers_triggering": 19
+   "p90_per_1k": 1.18,
+   "papers_triggering": 77
+  },
+  "HIGH:'significant' with no number in sentence": {
+   "median_per_1k": 0.17,
+   "p90_per_1k": 1.1,
+   "papers_triggering": 55
+  },
+  "HIGH:asserted novelty": {
+   "median_per_1k": 0.16,
+   "p90_per_1k": 0.96,
+   "papers_triggering": 55
+  },
+  "MEDIUM:ai vocabulary": {
+   "median_per_1k": 0.25,
+   "p90_per_1k": 0.92,
+   "papers_triggering": 59
   },
   "LOW:filler": {
    "median_per_1k": 0.22,
-   "p90_per_1k": 0.86,
-   "papers_triggering": 14
-  },
-  "MEDIUM:ai vocabulary": {
-   "median_per_1k": 0.18,
-   "p90_per_1k": 0.67,
-   "papers_triggering": 14
-  },
-  "HIGH:asserted novelty": {
-   "median_per_1k": 0.0,
-   "p90_per_1k": 0.62,
-   "papers_triggering": 9
-  },
-  "LOW:copula-avoidance": {
-   "median_per_1k": 0.05,
-   "p90_per_1k": 0.52,
-   "papers_triggering": 11
+   "p90_per_1k": 0.75,
+   "papers_triggering": 60
   },
   "MEDIUM:em-dash pile-up": {
    "median_per_1k": 0.0,
-   "p90_per_1k": 0.51,
-   "papers_triggering": 8
+   "p90_per_1k": 0.45,
+   "papers_triggering": 29
   },
-  "HIGH:'significant' with no number in sentence": {
-   "median_per_1k": 0.11,
-   "p90_per_1k": 0.36,
-   "papers_triggering": 14
+  "LOW:copula-avoidance": {
+   "median_per_1k": 0.0,
+   "p90_per_1k": 0.38,
+   "papers_triggering": 45
   },
   "MEDIUM:negative parallelism": {
-   "median_per_1k": 0.18,
-   "p90_per_1k": 0.3,
-   "papers_triggering": 13
+   "median_per_1k": 0.11,
+   "p90_per_1k": 0.35,
+   "papers_triggering": 49
   },
   "HIGH:throat-clearing": {
    "median_per_1k": 0.0,
    "p90_per_1k": 0.25,
-   "papers_triggering": 7
+   "papers_triggering": 29
   },
   "LOW:uniform sentence rhythm": {
    "median_per_1k": 0.0,
-   "p90_per_1k": 0.19,
-   "papers_triggering": 4
+   "p90_per_1k": 0.12,
+   "papers_triggering": 12
+  },
+  "HIGH:chatbot artifact": {
+   "median_per_1k": 0.0,
+   "p90_per_1k": 0.0,
+   "papers_triggering": 3
+  },
+  "HIGH:emoji": {
+   "median_per_1k": 0.0,
+   "p90_per_1k": 0.0,
+   "papers_triggering": 3
   },
   "HIGH:unfilled placeholder / artifact": {
    "median_per_1k": 0.0,
    "p90_per_1k": 0.0,
-   "papers_triggering": 1
+   "papers_triggering": 3
   },
   "MEDIUM:hedge-stacking": {
    "median_per_1k": 0.0,
    "p90_per_1k": 0.0,
-   "papers_triggering": 2
+   "papers_triggering": 6
   }
  }
 }
