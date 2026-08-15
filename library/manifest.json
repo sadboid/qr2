@@ -1,6 +1,6 @@
 {
- "count": 312,
- "with_pdf": 39,
+ "count": 389,
+ "with_pdf": 59,
  "entries": [
   {
    "doi": "10.1177/1042258720934581",
@@ -5665,6 +5665,1404 @@
    "pdf_source": null,
    "subjects": [],
    "harvested_at": "2026-08-15T18:03:26Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1883036",
+   "title": "The influence of a digital strategy on the digitalization of new ventures: The mediating effect of digital capabilities and a digital culture",
+   "authors": [
+    "Dorian Proksch",
+    "Anna Frieda Rosin",
+    "Stephan Stubner",
+    "Andreas Pinkwart"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 264,
+   "license": "",
+   "pdf_path": "pdfs/10.1080_00472778.2021.1883036.pdf",
+   "pdf_sha256": "45a60661a922d85a79fc323000a7e4ebc5e48a6f4a7e62388b306fc86f9b8bb4",
+   "pdf_source": "unpaywall",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:33Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.2024216",
+   "title": "Psychological resilience of entrepreneurs: A review and agenda for future research",
+   "authors": [
+    "Silja Hartmann",
+    "Julia Backmann",
+    "Alexander Newman",
+    "Kyle M. Brykman",
+    "Robert J. Pidduck"
+   ],
+   "year": 2022,
+   "journal": "Journal of Small Business Management",
+   "citations": 226,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:40Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1955122",
+   "title": "Corporate social responsibility in family firms: A systematic literature review",
+   "authors": [
+    "Marcello M. Mariani",
+    "Khowlah Al-Sultan",
+    "Alfredo De Massis"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 201,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:45Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12474",
+   "title": "Dynamic capabilities and SME performance: The moderating effect of market orientation",
+   "authors": [
+    "Remedios Hern\u00e1ndez-Linares",
+    "Franz W. Kellermanns",
+    "Mar\u00eda Concepci\u00f3n L\u00f3pez-Fern\u00e1ndez"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 192,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:48Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1955123",
+   "title": "A systematic literature review on SME financing: Trends and future directions",
+   "authors": [
+    "Purnima Rao",
+    "Satish Kumar",
+    "Meena Chavan",
+    "Weng Marc Lim"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 186,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:54Z"
+  },
+  {
+   "doi": "10.1080/00472778.2024.2379999",
+   "title": "The new normal: The status quo of AI adoption in SMEs",
+   "authors": [
+    "Julia Schwaeke",
+    "Anna Peters",
+    "Dominik K. Kanbach",
+    "Sascha Kraus",
+    "Paul Jones"
+   ],
+   "year": 2024,
+   "journal": "Journal of Small Business Management",
+   "citations": 179,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:57Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1907582",
+   "title": "Entrepreneurial mindset: Dispositional beliefs, opportunity beliefs, and entrepreneurial behavior",
+   "authors": [
+    "Robert J. Pidduck",
+    "Daniel R. Clark",
+    "G. T. Lumpkin"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 174,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:02Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1938098",
+   "title": "Women entrepreneurship in developing economies: A gender-based growth model",
+   "authors": [
+    "Oyedele Martins Ogundana",
+    "Amon Simba",
+    "Leo-Paul Dana",
+    "Eric Liguori"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 161,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:04Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1907583",
+   "title": "Entrepreneurial mindset: An integrated definition, a review of current insights, and directions for future research",
+   "authors": [
+    "Joshua J. Daspit",
+    "Corey J. Fox",
+    "S. Kyle Findley"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 158,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:08Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1844494",
+   "title": "Exploring digital transformation and dynamic capabilities in agrifood SMEs",
+   "authors": [
+    "Rita Cannas"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 140,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:10Z"
+  },
+  {
+   "doi": "10.1080/00472778.2022.2089676",
+   "title": "Entrepreneurial challenges of COVID-19: Re-thinking entrepreneurship after the crisis",
+   "authors": [
+    "Gagan Deep Sharma",
+    "Sascha Kraus",
+    "Eric Liguori",
+    "Umesh Kumar Bamel",
+    "Ritika Chopra"
+   ],
+   "year": 2022,
+   "journal": "Journal of Small Business Management",
+   "citations": 135,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:13Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1955127",
+   "title": "Digital marketing in SMEs via data-driven strategies: Reviewing the current state of research",
+   "authors": [
+    "Jose Ramon Saura",
+    "Daniel Palacios-Marqu\u00e9s",
+    "Domingo Ribeiro-Soriano"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 132,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:17Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1659671",
+   "title": "The interrelationship between SME government support programs, entrepreneurial orientation, and performance: A developing economy perspective",
+   "authors": [
+    "Victoria B. Nakku",
+    "Frank W. Agbola",
+    "Morgan P. Miles",
+    "Amir Mahmood"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 127,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:50Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1704489",
+   "title": "Who wants to be a social entrepreneur? The role of gender and sustainability orientation",
+   "authors": [
+    "Petra Dickel",
+    "Gordon Eckardt"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 127,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:53Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1737094",
+   "title": "Entrepreneurial leadership of CEOs and employees\u2019 innovative behavior in high-technology new ventures",
+   "authors": [
+    "Afsaneh Bagheri",
+    "Alexander Newman",
+    "Nathan Eva"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 124,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:04:56Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12482",
+   "title": "The Impact of Environmental Turbulence on the Perceived Importance of Innovation and Innovativeness in SMEs",
+   "authors": [
+    "Mateja Bodlaj",
+    "Barbara \u010cater"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 119,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:00Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1955128",
+   "title": "The importance of literature reviews in small business and entrepreneurship research",
+   "authors": [
+    "Sascha Kraus",
+    "Raj V. Mahto",
+    "Steven T. Walsh"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 118,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:02Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12485",
+   "title": "Entrepreneurship Education in a Poverty Context: An Empowerment Perspective",
+   "authors": [
+    "Susana C. Santos",
+    "Xaver Neumeyer",
+    "Michael H. Morris"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 115,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:06Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1965615",
+   "title": "Gender and entrepreneurship: Research frameworks, barriers and opportunities for women entrepreneurship worldwide",
+   "authors": [
+    "Joyce A. Strawser",
+    "Diana M. Hechavarr\u00eda",
+    "Katia Passerini"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 115,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:09Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1661682",
+   "title": "In crowdfunding we trust: A trust-building model in lending crowdfunding",
+   "authors": [
+    "Krystallia Moysidou",
+    "J. Piet Hausberg"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 110,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:13Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1666532",
+   "title": "Entrepreneurial persistence beyond survival: Measurement and determinants",
+   "authors": [
+    "Marco Caliendo",
+    "Maximilian Goethner",
+    "Martin Wei\u00dfenberger"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 107,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:16Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1844493",
+   "title": "What motivates social entrepreneurs? A meta-analysis on predictors of the intention to found a social enterprise",
+   "authors": [
+    "Philipp Kruse",
+    "Dominika Wach",
+    "J\u00fcrgen Wegge"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 104,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:20Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1659675",
+   "title": "The role of family support in work-family balance and subjective well-being of SME owners",
+   "authors": [
+    "Yik Kiu Leung",
+    "Jinia Mukerjee",
+    "Roy Thurik"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 103,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:23Z"
+  },
+  {
+   "doi": "10.1080/00472778.2022.2147190",
+   "title": "FsQCA in entrepreneurship research: Opportunities and best practices",
+   "authors": [
+    "Shahrokh Nikou",
+    "Jozsef Mezei",
+    "Eric W. Liguori",
+    "Ayman El Tarabishy"
+   ],
+   "year": 2022,
+   "journal": "Journal of Small Business Management",
+   "citations": 103,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:26Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12541",
+   "title": "Design Thinking and Entrepreneurship Education: Where Are We, and What Are the Possibilities?",
+   "authors": [
+    "Hessam Sarooghi",
+    "Sanwar Sunny",
+    "Jeffrey Hornsby",
+    "Stephanie Fernhaber"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 102,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:30Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1913595",
+   "title": "Open innovation in SMEs: A process view towards business model innovation",
+   "authors": [
+    "Ekaterina Albats",
+    "Daria Podmetina",
+    "Wim Vanhaverbeke"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 97,
+   "license": "",
+   "pdf_path": "pdfs/10.1080_00472778.2021.1913595.pdf",
+   "pdf_sha256": "0ca0342416c3b7632f84308b7916ca2b78e1da48c1399d260f334b5a71040496",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:32Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12388",
+   "title": "Small Firms in Regional Clusters: Local Networks and Internationalization in the Southern Hemisphere",
+   "authors": [
+    "Christian Felzensztein",
+    "Kenneth R. Deans",
+    "L\u00e9o\u2010paul Dana"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 97,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:37Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12501",
+   "title": "Environmental support and entrepreneurial behavior among Iranian farmers: The mediating roles of social and human capital",
+   "authors": [
+    "Mojgan Khoshmaram",
+    "Nematollah Shiri",
+    "Rachel S. Shinnar",
+    "Moslem Savari"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 97,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:42Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12473",
+   "title": "Policy Support for Women Entrepreneurs\u2019 Access to Financial Capital: Evidence from Canada, Germany, Ireland, Norway, and the United States",
+   "authors": [
+    "Susan Coleman",
+    "Colette Henry",
+    "Barbara Orser",
+    "Lene Foss",
+    "Friederike Welter"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 96,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:44Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1700691",
+   "title": "What can education bring to entrepreneurship? Formal versus non-formal education",
+   "authors": [
+    "Stojan Debarliev",
+    "Aleksandra Janeska-Iliev",
+    "Osvaldas Stripeikis",
+    "Bla\u017e Zupan"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 95,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:52Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1659680",
+   "title": "Intellectual capital and SMEs\u2019 performance: A structured literature review",
+   "authors": [
+    "Maria Chiara Demartini",
+    "Valentina Beretta"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 94,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:57Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1844491",
+   "title": "Process innovation in small- and medium-sized enterprises: The critical roles of external knowledge sourcing and absorptive capacity",
+   "authors": [
+    "Omid Aliasghar",
+    "Arash Sadeghi",
+    "Elizabeth L. Rose"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 93,
+   "license": "",
+   "pdf_path": "pdfs/10.1080_00472778.2020.1844491.pdf",
+   "pdf_sha256": "c3584992c5349ffbdf475567f8b353a8055230d17f9839826706fa495f4e482e",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:05:59Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12397",
+   "title": "Entrepreneurial Leadership, Patriarchy, Gender, and Identity in the Arab World: Lebanon in Focus",
+   "authors": [
+    "Hayfaa A. Tlaiss",
+    "Saleema Kauser"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 91,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:04Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1969657",
+   "title": "Serial entrepreneurs: A review of literature and guidance for future research",
+   "authors": [
+    "Marina Dabi\u0107",
+    "Bo\u017eidar Vla\u010di\u0107",
+    "Timothy Kiessling",
+    "Andrea Caputo",
+    "Massimiliano Pellegrini"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 84,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:11Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12507",
+   "title": "Family, community, and ethnic capital as entrepreneurial resources: Toward an integrated model",
+   "authors": [
+    "Leo-Paul Dana",
+    "Calin Gurau",
+    "Ivan Light",
+    "Nabeel Muhammad"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 84,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:16Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1725814",
+   "title": "Founder-CEOs: Succession planning for the success, growth, and legacy of family firms",
+   "authors": [
+    "John F. LeCounte"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 82,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:19Z"
+  },
+  {
+   "doi": "10.1080/00472778.2023.2195463",
+   "title": "Business model scaling and growth hacking in digital entrepreneurship",
+   "authors": [
+    "Angelo Cavallo",
+    "Federico Cosenz",
+    "Guido Noto"
+   ],
+   "year": 2023,
+   "journal": "Journal of Small Business Management",
+   "citations": 79,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:21Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12408",
+   "title": "Immigrant Entrepreneurship in an Emerging Economy: The Case of Turkey",
+   "authors": [
+    "Rachel S. Shinnar",
+    "Dilek Zamant\u0131l\u0131 nay\u0131r"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 79,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:25Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1928149",
+   "title": "Transitional entrepreneurship: Elevating research into marginalized entrepreneurs",
+   "authors": [
+    "Robert J. Pidduck",
+    "Daniel R. Clark"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 77,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:28Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1668722",
+   "title": "SMEs\u2019 growth under financing constraints and banking markets integration in the euro area",
+   "authors": [
+    "Maricica Moscalu",
+    "Claudia Girardone",
+    "Raffaella Calabrese"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 76,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:31Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1945071",
+   "title": "Entrepreneurial alertness: Exploring its psychological antecedents and effects on firm outcomes",
+   "authors": [
+    "Jintong Tang",
+    "Robert A. Baron",
+    "Andy Yu"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 76,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:35Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12319",
+   "title": "Born\u2010Global SMEs, Performance, and Dynamic Absorptive Capacity: Evidence from Spanish Firms",
+   "authors": [
+    "M. \u00c1ngeles Rodr\u00edguez\u2010Serrano",
+    "Enrique Mart\u00edn\u2010Armario"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 76,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:37Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1735252",
+   "title": "Performance, working capital management, and the liability of smallness: A question of opportunity costs?",
+   "authors": [
+    "Vivien Lefebvre"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 75,
+   "license": "",
+   "pdf_path": "pdfs/10.1080_00472778.2020.1735252.pdf",
+   "pdf_sha256": "67c27fe3dc3b86f5fe69026f0eab855621d1ef1f392cdf4aba3d1aabc34eae08",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:41Z"
+  },
+  {
+   "doi": "10.1080/00472778.2023.2218435",
+   "title": "Environmental practice adoption in SMEs: The effects of firm proactive orientation and regulatory pressure",
+   "authors": [
+    "Beverly B. Tyler",
+    "Brooke Lahneman",
+    "Daniele Cerrato",
+    "Allan Discua Cruz",
+    "Karin Beukel",
+    "Nathalie Spielmann",
+    "Marco Minciullo"
+   ],
+   "year": 2023,
+   "journal": "Journal of Small Business Management",
+   "citations": 74,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:47Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1745536",
+   "title": "The digitalization of micro, small, and medium-sized enterprises (MSMEs): An institutional theory perspective",
+   "authors": [
+    "Abu Amar Fauzi",
+    "Margaret L. Sheng"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 74,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:52Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1867734",
+   "title": "\u201cLet them not make me a stone\u201d\u2014repositioning entrepreneurship",
+   "authors": [
+    "Sarah Dodd",
+    "Alistair Anderson",
+    "Sarah Jack"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 74,
+   "license": "",
+   "pdf_path": "pdfs/10.1080_00472778.2020.1867734.pdf",
+   "pdf_sha256": "2451651474db0c9a2168740662723979d051d6f0b726af8d314f740cb304e057",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:54Z"
+  },
+  {
+   "doi": "10.1080/00472778.2020.1780728",
+   "title": "Does Industry 4.0 really matter for SME innovation?",
+   "authors": [
+    "Francisco M. Somohano-Rodr\u00edguez",
+    "Antonia Madrid-Guijarro",
+    "Jos\u00e9 Manuel L\u00f3pez-Fern\u00e1ndez"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 73,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:06:59Z"
+  },
+  {
+   "doi": "10.1080/00472778.2022.2082456",
+   "title": "Challenges for growing SMEs: A managerial perspective",
+   "authors": [
+    "Daniel Kindstr\u00f6m",
+    "Per Carlborg",
+    "Tomas Nord"
+   ],
+   "year": 2022,
+   "journal": "Journal of Small Business Management",
+   "citations": 72,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:03Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1659677",
+   "title": "Lean Startup: Operationalizing Lean Startup Capability and testing its performance implications",
+   "authors": [
+    "Rainer Harms",
+    "Mario Schwery"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 72,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:06Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1924381",
+   "title": "Entrepreneurial mindset shift and the role of cycles of learning",
+   "authors": [
+    "Matthew P. Lynch",
+    "Andrew C. Corbett"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 71,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:10Z"
+  },
+  {
+   "doi": "10.1080/00472778.2019.1659678",
+   "title": "Prior entrepreneurial exposure and the emergence of entrepreneurial passion: The moderating role of learning orientation",
+   "authors": [
+    "Sarah T\u00fcrk",
+    "Florian B. Zapkau",
+    "Christian Schwens"
+   ],
+   "year": 2019,
+   "journal": "Journal of Small Business Management",
+   "citations": 68,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:14Z"
+  },
+  {
+   "doi": "10.1111/jsbm.12510",
+   "title": "How do innovation, internationalization, and organizational learning interact and co-evolve in small firms? a complex systems approach",
+   "authors": [
+    "Joan Freixanet",
+    "Alex Rialp",
+    "Iya Churakova"
+   ],
+   "year": 2020,
+   "journal": "Journal of Small Business Management",
+   "citations": 67,
+   "license": "http://doi.wiley.com/10.1002/tdm_license_1.1",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:19Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1934849",
+   "title": "The why and the how: A nexus on how opportunity, risk and personality affect entrepreneurial intention",
+   "authors": [
+    "Sabine Bergner",
+    "Julia Auburger",
+    "Dominik Paleczek"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 67,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:21Z"
+  },
+  {
+   "doi": "10.1080/00472778.2021.1955125",
+   "title": "\u201cHasta la vista, baby\u201d \u2013 will machine learning terminate human literature reviews in entrepreneurship?",
+   "authors": [
+    "Sebastian Robledo",
+    "Andr\u00e9s Mauricio Grisales Aguirre",
+    "Mathew Hughes",
+    "Fabian Eggers"
+   ],
+   "year": 2021,
+   "journal": "Journal of Small Business Management",
+   "citations": 66,
+   "license": "",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:25Z"
+  },
+  {
+   "doi": "10.1080/00472778.2024.2418026",
+   "title": "Exploitative and exploratory search: Dynamic capabilities enhancing SME adaptation, new product development, and environmental performance",
+   "authors": [
+    "Christian Sarfo",
+    "Mohammad Fakhar Manesh",
+    "Andrea Caputo"
+   ],
+   "year": 2024,
+   "journal": "Journal of Small Business Management",
+   "citations": 65,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": "pdfs/10.1080_00472778.2024.2418026.pdf",
+   "pdf_sha256": "9d8750c3c7e9f38539cc965b4e9487fabfdba31152a14ed4a0b497b4b7484ff1",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:29Z"
+  },
+  {
+   "doi": "10.1007/s11846-022-00588-8",
+   "title": "Literature reviews as independent studies: guidelines for academic practice",
+   "authors": [
+    "Sascha Kraus",
+    "Matthias Breier",
+    "Weng Marc Lim",
+    "Marina Dabi\u0107",
+    "Satish Kumar",
+    "Dominik Kanbach",
+    "Debmalya Mukherjee",
+    "Vincenzo Corvello",
+    "Juan Pi\u00f1eiro-Chousa",
+    "Eric Liguori",
+    "Daniel Palacios-Marqu\u00e9s",
+    "Francesco Schiavone"
+   ],
+   "year": 2022,
+   "journal": "Review of Managerial Science",
+   "citations": 860,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-022-00588-8.pdf",
+   "pdf_sha256": "7144d31ef97c909bc0441c246b64df1543b11dc31ba2403c48779325525403d1",
+   "pdf_source": "publisher_open_licence",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:38Z"
+  },
+  {
+   "doi": "10.1007/s11846-024-00738-0",
+   "title": "How to design bibliometric research: an overview and a framework proposal",
+   "authors": [
+    "O\u011fuzhan \u00d6zt\u00fcrk",
+    "R\u0131dvan Kocaman",
+    "Dominik K. Kanbach"
+   ],
+   "year": 2024,
+   "journal": "Review of Managerial Science",
+   "citations": 582,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-024-00738-0.pdf",
+   "pdf_sha256": "690dbcde94e9d89a4d959b13c337198787fd5e73d04f680a3c9d69ab41772d7b",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:45Z"
+  },
+  {
+   "doi": "10.1007/s11846-023-00696-z",
+   "title": "The GenAI is out of the bottle: generative artificial intelligence from a business model innovation perspective",
+   "authors": [
+    "Dominik K. Kanbach",
+    "Louisa Heiduk",
+    "Georg Blueher",
+    "Maximilian Schreiter",
+    "Alexander Lahmann"
+   ],
+   "year": 2023,
+   "journal": "Review of Managerial Science",
+   "citations": 367,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-023-00696-z.pdf",
+   "pdf_sha256": "84e1a77864ad72d67d8d83a6437f59b0d19bcd53650220d5bbe9aa13b03a0d2e",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:50Z"
+  },
+  {
+   "doi": "10.1007/s11846-023-00668-3",
+   "title": "How to conduct systematic literature reviews in management\u00a0research: a guide in 6 steps and 14 decisions",
+   "authors": [
+    "Philipp C. Sauer",
+    "Stefan Seuring"
+   ],
+   "year": 2023,
+   "journal": "Review of Managerial Science",
+   "citations": 343,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-023-00668-3.pdf",
+   "pdf_sha256": "84581649705cb896dc4abf56423a7ceede4f7c5f18b69955df891bdffcfc6e9a",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:54Z"
+  },
+  {
+   "doi": "10.1007/s11846-019-00366-z",
+   "title": "Knowledge- and innovation-based business models for future growth: digitalized business models and portfolio considerations",
+   "authors": [
+    "Ricarda B. Bouncken",
+    "Sascha Kraus",
+    "Norat Roig-Tierno"
+   ],
+   "year": 2019,
+   "journal": "Review of Managerial Science",
+   "citations": 303,
+   "license": "http://www.springer.com/tdm",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:07:59Z"
+  },
+  {
+   "doi": "10.1007/s11846-023-00628-x",
+   "title": "Necessary condition analysis (NCA): review of research topics and guidelines for good practice",
+   "authors": [
+    "Jan Dul",
+    "Sven Hauff",
+    "Ricarda B. Bouncken"
+   ],
+   "year": 2023,
+   "journal": "Review of Managerial Science",
+   "citations": 241,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-023-00628-x.pdf",
+   "pdf_sha256": "a02142ddc010945abec2dae8b6de0eb90083d839e1235f1c7ddce4fb31653857",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:03Z"
+  },
+  {
+   "doi": "10.1007/s11846-019-00333-8",
+   "title": "Digital innovation and venturing: an introduction into the digitalization of entrepreneurship",
+   "authors": [
+    "Sascha Kraus",
+    "Norat Roig-Tierno",
+    "Ricarda B. Bouncken"
+   ],
+   "year": 2019,
+   "journal": "Review of Managerial Science",
+   "citations": 207,
+   "license": "http://www.springer.com/tdm",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:07Z"
+  },
+  {
+   "doi": "10.1007/s11846-019-00330-x",
+   "title": "Do board characteristics drive firm performance? An international perspective",
+   "authors": [
+    "Mar\u00eda Consuelo Pucheta-Mart\u00ednez",
+    "Isabel Gallego-\u00c1lvarez"
+   ],
+   "year": 2019,
+   "journal": "Review of Managerial Science",
+   "citations": 198,
+   "license": "http://www.springer.com/tdm",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:12Z"
+  },
+  {
+   "doi": "10.1007/s11846-019-00340-9",
+   "title": "Exploring the impact of ethical leadership on job satisfaction and organizational commitment in public sector organizations: the mediating role of psychological empowerment",
+   "authors": [
+    "Miao Qing",
+    "Muhammad Asif",
+    "Abid Hussain",
+    "Arif Jameel"
+   ],
+   "year": 2019,
+   "journal": "Review of Managerial Science",
+   "citations": 193,
+   "license": "http://www.springer.com/tdm",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:14Z"
+  },
+  {
+   "doi": "10.1007/s11846-023-00647-8",
+   "title": "The role of digitalization in business and management: a systematic literature review",
+   "authors": [
+    "Esther Calderon-Monge",
+    "Domingo Ribeiro-Soriano"
+   ],
+   "year": 2023,
+   "journal": "Review of Managerial Science",
+   "citations": 183,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-023-00647-8.pdf",
+   "pdf_sha256": "4fe3ec14528af3ef423aad8c24b13cc4ad7a3cfd0c3e8fa10961622b912a93d3",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:19Z"
+  },
+  {
+   "doi": "10.1007/s11846-020-00437-6",
+   "title": "Entrepreneurial ecosystems and networks: a literature review and research agenda",
+   "authors": [
+    "Ana Joana Fernandes",
+    "Joao J. Ferreira"
+   ],
+   "year": 2021,
+   "journal": "Review of Managerial Science",
+   "citations": 177,
+   "license": "https://www.springer.com/tdm",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:23Z"
+  },
+  {
+   "doi": "10.1007/s11846-020-00384-2",
+   "title": "Disciplines of organizational resilience: contributions, critiques, and future research avenues",
+   "authors": [
+    "Julia Hillmann"
+   ],
+   "year": 2020,
+   "journal": "Review of Managerial Science",
+   "citations": 172,
+   "license": "https://www.springer.com/tdm",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:25Z"
+  },
+  {
+   "doi": "10.1007/s11846-022-00521-z",
+   "title": "Value creation and value capture for AI business model innovation: a three-phase process framework",
+   "authors": [
+    "Josef \u00c5str\u00f6m",
+    "Wiebke Reim",
+    "Vinit Parida"
+   ],
+   "year": 2022,
+   "journal": "Review of Managerial Science",
+   "citations": 160,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-022-00521-z.pdf",
+   "pdf_sha256": "cbbc7c1e08ec32b6e5d3a31453bb890ad926623a9a0377001c54fa8d330d7262",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:28Z"
+  },
+  {
+   "doi": "10.1007/s11846-021-00451-2",
+   "title": "Qualitative research: extending the range with flexible pattern matching",
+   "authors": [
+    "Ricarda B. Bouncken",
+    "Yixin Qiu",
+    "Noemi Sinkovics",
+    "Wolfgang K\u00fcrsten"
+   ],
+   "year": 2021,
+   "journal": "Review of Managerial Science",
+   "citations": 154,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-021-00451-2.pdf",
+   "pdf_sha256": "8b9fc770a385c7c07ed81998f2bd8d74ea43d22582fb4e5fac354d80d64bffa7",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:32Z"
+  },
+  {
+   "doi": "10.1007/s11846-021-00444-1",
+   "title": "Entrepreneurial ecosystems in an interconnected world: emergence, governance and digitalization",
+   "authors": [
+    "Ricarda B. Bouncken",
+    "Sascha Kraus"
+   ],
+   "year": 2021,
+   "journal": "Review of Managerial Science",
+   "citations": 154,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-021-00444-1.pdf",
+   "pdf_sha256": "52240f961b2b80882b71ff3c61b258aeea4e3003c724bf91d9b9a10fce4b2fab",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:37Z"
+  },
+  {
+   "doi": "10.1007/s11846-019-00339-2",
+   "title": "Learning from innovation failures: a systematic review of the literature and research agenda",
+   "authors": [
+    "Khalil Rhaiem",
+    "Nabil Amara"
+   ],
+   "year": 2019,
+   "journal": "Review of Managerial Science",
+   "citations": 146,
+   "license": "http://www.springer.com/tdm",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:42Z"
+  },
+  {
+   "doi": "10.1007/s11846-021-00508-2",
+   "title": "Digital business model innovation: toward construct clarity and future research directions",
+   "authors": [
+    "Matthias Fabian Gregersen Trischler",
+    "Jason Li-Ying"
+   ],
+   "year": 2022,
+   "journal": "Review of Managerial Science",
+   "citations": 145,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-021-00508-2.pdf",
+   "pdf_sha256": "f2badf824de1f6a1db26175a66af9fbf394364e740fcc92b640866d9722253f8",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:44Z"
+  },
+  {
+   "doi": "10.1007/s11846-023-00638-9",
+   "title": "Digital innovation in entrepreneurial firms: a systematic literature review",
+   "authors": [
+    "Alberto Michele Felicetti",
+    "Vincenzo Corvello",
+    "Salvatore Ammirato"
+   ],
+   "year": 2023,
+   "journal": "Review of Managerial Science",
+   "citations": 133,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-023-00638-9.pdf",
+   "pdf_sha256": "accf68eb1bdebd54929ab85c6fca5f86311ddcd16bacd30f6b00859587ed4970",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:48Z"
+  },
+  {
+   "doi": "10.1007/s11846-021-00484-7",
+   "title": "Do sustainable institutional investors contribute to firms\u2019 environmental performance? Empirical evidence from Europe",
+   "authors": [
+    "Othar Kordsachia",
+    "Maximilian Focke",
+    "Patrick Velte"
+   ],
+   "year": 2021,
+   "journal": "Review of Managerial Science",
+   "citations": 129,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-021-00484-7.pdf",
+   "pdf_sha256": "e0e0e17fb1c206332af4eeb3b06f86aa34edc94b843ba648986915aad815d4de",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:53Z"
+  },
+  {
+   "doi": "10.1007/s11846-024-00729-1",
+   "title": "The burgeoning role of literature review articles in management research: an introduction and outlook",
+   "authors": [
+    "Sascha Kraus",
+    "Ricarda B. Bouncken",
+    "Alba Yela Ar\u00e1nega"
+   ],
+   "year": 2024,
+   "journal": "Review of Managerial Science",
+   "citations": 128,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-024-00729-1.pdf",
+   "pdf_sha256": "4a62d11167e88d29be39640c7b48e953294366795bc45f84ef4a6ae2eb7f9124",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:08:58Z"
+  },
+  {
+   "doi": "10.1007/s11846-022-00607-8",
+   "title": "Family business succession and innovation: a systematic literature review",
+   "authors": [
+    "Juliana R. Baltazar",
+    "Cristina I. Fernandes",
+    "Veland Ramadani",
+    "Mathew Hughes"
+   ],
+   "year": 2023,
+   "journal": "Review of Managerial Science",
+   "citations": 123,
+   "license": "https://www.springernature.com/gp/researchers/text-and-data-mining",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:02Z"
+  },
+  {
+   "doi": "10.1007/s11846-021-00457-w",
+   "title": "Entrepreneurial orientation and new venture performance in emerging markets: the mediating role of opportunity recognition",
+   "authors": [
+    "Muhammad Anwar",
+    "Thomas Clauss",
+    "Wunnam Basit Issah"
+   ],
+   "year": 2021,
+   "journal": "Review of Managerial Science",
+   "citations": 120,
+   "license": "https://creativecommons.org/licenses/by/4.0",
+   "pdf_path": "pdfs/10.1007_s11846-021-00457-w.pdf",
+   "pdf_sha256": "3f65eda0dab483552a6b74fbe7d2b25bfb78a7d582d62736f1b18fb79fee2c45",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:07Z"
   }
  ]
 }
