@@ -142,10 +142,19 @@ class OALibrary:
             "with_pdf": self.n_with_pdf,
             "entries": [asdict(e) for e in self.entries.values()],
         }, indent=1))
+        # Sorted by citations: this list is a human's fetch queue, and an hour
+        # of institutional access should go to the papers the field reads.
         with open(self.paywalled_path, "w", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=["doi", "title", "journal", "year", "url"])
+            w = csv.DictWriter(
+                f, fieldnames=["citations", "doi", "title", "journal", "year", "url"],
+                extrasaction="ignore")
             w.writeheader()
-            for row in self.paywalled.values():
+            rows = list(self.paywalled.values())
+            for row in rows:
+                row.setdefault("citations", getattr(
+                    self.entries.get(row["doi"]), "citations", 0) or 0)
+            rows.sort(key=lambda r: -int(r.get("citations") or 0))
+            for row in rows:
                 w.writerow(row)
 
     @property
