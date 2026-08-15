@@ -1,6 +1,6 @@
 {
- "count": 389,
- "with_pdf": 59,
+ "count": 554,
+ "with_pdf": 82,
  "entries": [
   {
    "doi": "10.1177/1042258720934581",
@@ -7063,6 +7063,3064 @@
    "pdf_source": "semantic_scholar_oa",
    "subjects": [],
    "harvested_at": "2026-08-15T18:09:07Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2019.102098",
+   "title": "Innovation ecosystems: A conceptual review and a new definition",
+   "authors": [
+    "Ove Granstrand",
+    "Marcus Holgersson"
+   ],
+   "year": 2020,
+   "journal": "Technovation",
+   "citations": 790,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:14Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2020.102217",
+   "title": "Developing a unified definition of digital transformation",
+   "authors": [
+    "Cheng Gong",
+    "Vincent Ribiere"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 766,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:18Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2018.11.004",
+   "title": "Dynamic capabilities, creativity and innovation capability and their impact on competitive advantage and firm performance: The moderating role of entrepreneurial orientation",
+   "authors": [
+    "Jorge Ferreira",
+    "Arnaldo Coelho",
+    "Luiz Moutinho"
+   ],
+   "year": 2020,
+   "journal": "Technovation",
+   "citations": 520,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:21Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102312",
+   "title": "Understanding managers\u2019 attitudes and behavioral intentions towards using artificial intelligence for organizational decision-making",
+   "authors": [
+    "Guangming Cao",
+    "Yanqing Duan",
+    "John S. Edwards",
+    "Yogesh K. Dwivedi"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 485,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:23Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102623",
+   "title": "Artificial intelligence in innovation research: A systematic review, conceptual framework, and future research directions",
+   "authors": [
+    "Marcello M. Mariani",
+    "Isa Machado",
+    "Vittoria Magrelli",
+    "Yogesh K. Dwivedi"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 480,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:27Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102414",
+   "title": "Digital transformation of industrial businesses: A dynamic capability approach",
+   "authors": [
+    "Swapan Ghosh",
+    "Mat Hughes",
+    "Ian Hodgkinson",
+    "Paul Hughes"
+   ],
+   "year": 2022,
+   "journal": "Technovation",
+   "citations": 475,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:32Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2018.05.005",
+   "title": "Innovation indicators throughout the innovation process: An extensive literature analysis",
+   "authors": [
+    "Marisa Dziallas",
+    "Knut Blind"
+   ],
+   "year": 2019,
+   "journal": "Technovation",
+   "citations": 472,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:36Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2020.102173",
+   "title": "Internet of Things and Big Data as enablers for business digitalization strategies",
+   "authors": [
+    "Andrea Sestino",
+    "Maria Irene Prete",
+    "Luigi Piper",
+    "Gianluigi Guido"
+   ],
+   "year": 2020,
+   "journal": "Technovation",
+   "citations": 440,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:40Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2017.12.004",
+   "title": "The digital transformation of business models in the creative industries: A holistic framework and emerging trends",
+   "authors": [
+    "Feng Li"
+   ],
+   "year": 2020,
+   "journal": "Technovation",
+   "citations": 419,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.technovation.2017.12.004.pdf",
+   "pdf_sha256": "85a113914ddf181c49af0cefdce3999b584eb91eeba5d5a4a3ab83a4adb67a17",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:09:45Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2020.102121",
+   "title": "Managing the digital supply chain: The role of smart technologies",
+   "authors": [
+    "Mina Nasiri",
+    "Juhani Ukko",
+    "Minna Saunila",
+    "Tero Rantala"
+   ],
+   "year": 2020,
+   "journal": "Technovation",
+   "citations": 399,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:00Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102255",
+   "title": "Extreme weather events risk to crop-production and the adaptation of innovative management strategies to mitigate the risk: A retrospective survey of rural Punjab, Pakistan",
+   "authors": [
+    "Ehsan Elahi",
+    "Zainab Khalid",
+    "Muhammad Zubair Tauni",
+    "Hongxia Zhang",
+    "Xing Lirong"
+   ],
+   "year": 2022,
+   "journal": "Technovation",
+   "citations": 368,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:05Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102275",
+   "title": "Performance effects of digital technology adoption and product &amp; service innovation \u2013 A process-industry perspective",
+   "authors": [
+    "Henrik Blichfeldt",
+    "Rita Faullant"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 350,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:07Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2017.12.002",
+   "title": "Knowledge sharing in supply chain networks: Effects of collaborative innovation activities and capability on innovation performance",
+   "authors": [
+    "Changfeng Wang",
+    "Qiying Hu"
+   ],
+   "year": 2020,
+   "journal": "Technovation",
+   "citations": 342,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:12Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2020.102218",
+   "title": "Co-evolution of platform architecture, platform services, and platform governance: Expanding the platform value of industrial digital platforms",
+   "authors": [
+    "Marin Jovanovic",
+    "David Sj\u00f6din",
+    "Vinit Parida"
+   ],
+   "year": 2022,
+   "journal": "Technovation",
+   "citations": 324,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:14Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2023.102747",
+   "title": "Worker and workplace Artificial Intelligence (AI) coexistence: Emerging themes and research agenda",
+   "authors": [
+    "Araz Zirar",
+    "Syed Imran Ali",
+    "Nazrul Islam"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 317,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:18Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102458",
+   "title": "Digital innovation and performance of manufacturing firms: An affordance perspective",
+   "authors": [
+    "Yang Liu",
+    "Jiuyu Dong",
+    "Liang Mei",
+    "Rui Shen"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 315,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:22Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102254",
+   "title": "A relational natural-resource-based view on product innovation: The influence of green product innovation and green suppliers on differentiation advantage in small manufacturing firms",
+   "authors": [
+    "Jim Anders\u00e9n"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 302,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:25Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2020.102155",
+   "title": "Unearthing antecedents to financial inclusion through FinTech innovations",
+   "authors": [
+    "PK Senyo",
+    "Ellis L.C. Osabutey"
+   ],
+   "year": 2020,
+   "journal": "Technovation",
+   "citations": 299,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:29Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102375",
+   "title": "Prerequisites for the adoption of AI technologies in manufacturing \u2013 Evidence from a worldwide sample of manufacturing companies",
+   "authors": [
+    "Steffen Kinkel",
+    "Marco Baumgartner",
+    "Enrica Cherubini"
+   ],
+   "year": 2022,
+   "journal": "Technovation",
+   "citations": 272,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:33Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102274",
+   "title": "Business model innovation and firm performance: Exploring causal mechanisms in SMEs",
+   "authors": [
+    "Mohammad-Ali Latifi",
+    "Shahrokh Nikou",
+    "Harry Bouwman"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 252,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:36Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102221",
+   "title": "Open innovation in the manufacturing industry: A review and research agenda",
+   "authors": [
+    "Tena Obradovi\u0107",
+    "Bo\u017eidar Vla\u010di\u0107",
+    "Marina Dabi\u0107"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 249,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:40Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102256",
+   "title": "Building digitally-enabled process innovation in the process industries: A dynamic capabilities approach",
+   "authors": [
+    "Koteshwar Chirumalla"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 243,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:44Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2023.102768",
+   "title": "A framework for AI-powered service innovation capability: Review and agenda for future research",
+   "authors": [
+    "Shahriar Akter",
+    "Md Afnan Hossain",
+    "Shahriar Sajib",
+    "Saida Sultana",
+    "Mahfuzur Rahman",
+    "Demetris Vrontis",
+    "Grace McCarthy"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 236,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:48Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2018.06.003",
+   "title": "Collaborative modes with Cultural and Creative Industries and innovation performance: The moderating role of heterogeneous sources of knowledge and absorptive capacity",
+   "authors": [
+    "Gabriele Santoro",
+    "Stefano Bresciani",
+    "Armando Papa"
+   ],
+   "year": 2020,
+   "journal": "Technovation",
+   "citations": 220,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:52Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102447",
+   "title": "Exploring the boundaries of open innovation: Evidence from social media mining",
+   "authors": [
+    "Jose Ramon Saura",
+    "Daniel Palacios-Marqu\u00e9s",
+    "Domingo Ribeiro-Soriano"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 210,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:10:59Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102545",
+   "title": "Government digital initiatives and firm digital innovation: Evidence from China",
+   "authors": [
+    "Xincheng Wang",
+    "Yuan Li",
+    "Longwei Tian",
+    "Ye Hou"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 194,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.technovation.2022.102545.pdf",
+   "pdf_sha256": "1b123de0cf76c2d003ba886ef03b41c202bca5f18ca78deb25201cb42369f915",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:04Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2018.07.004",
+   "title": "Creating and capturing value from Big Data: A multiple-case study analysis of provider companies",
+   "authors": [
+    "Andrea Urbinati",
+    "Marcel Bogers",
+    "Vittorio Chiesa",
+    "Federico Frattini"
+   ],
+   "year": 2019,
+   "journal": "Technovation",
+   "citations": 189,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.technovation.2018.07.004.pdf",
+   "pdf_sha256": "325d4668bd7b971ccefdbcb347959bc1671f77d22bb7ce175c2f969ab7fd8ac2",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:09Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102484",
+   "title": "Technology, entrepreneurship, innovation and social change in digital economics",
+   "authors": [
+    "Steven Si",
+    "Jeremy Hall",
+    "Roy Suddaby",
+    "David Ahlstrom",
+    "Jiang Wei"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 186,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:16Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102480",
+   "title": "Blockchain\u2019s coming to hospital to digitalize healthcare services: Designing a distributed electronic health record ecosystem",
+   "authors": [
+    "Roberto Cerchione",
+    "Piera Centobelli",
+    "Emanuela Riccio",
+    "Stefano Abbate",
+    "Eugenio Oropallo"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 186,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:19Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2023.102717",
+   "title": "Smart city governance from an innovation management perspective: Theoretical framing, review of current practices, and future research agenda",
+   "authors": [
+    "Luca Mora",
+    "Paolo Gerli",
+    "Lorenzo Ardito",
+    "Antonio Messeni Petruzzelli"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 173,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:25Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2023.102716",
+   "title": "The challenges of digital transformation in healthcare: An interdisciplinary literature review, framework, and future research agenda",
+   "authors": [
+    "Francesca Dal Mas",
+    "Maurizio Massaro",
+    "Pierluigi Rippa",
+    "Giustina Secundo"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 165,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:30Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102348",
+   "title": "\u201cBaby, you can drive my car\u201d: Psychological antecedents that drive consumers\u2019 adoption of AI-powered autonomous vehicles",
+   "authors": [
+    "Lars Meyer-Waarden",
+    "Julien Cloarec"
+   ],
+   "year": 2022,
+   "journal": "Technovation",
+   "citations": 163,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:32Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2024.103027",
+   "title": "Digital transformation and firm performance in innovative SMEs: The mediating role of business model innovation",
+   "authors": [
+    "Joan Mer\u00edn-Rodrig\u00e1\u00f1ez",
+    "\u00c0ngels Das\u00ed",
+    "Joaqu\u00edn Alegre"
+   ],
+   "year": 2024,
+   "journal": "Technovation",
+   "citations": 161,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:35Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102457",
+   "title": "How digital technology promotes entrepreneurship in ecosystems",
+   "authors": [
+    "Shaker A. Zahra",
+    "Wan Liu",
+    "Steven Si"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 160,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:39Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102519",
+   "title": "The limits to open innovation and its impact on innovation performance",
+   "authors": [
+    "B. David Audretsch",
+    "Maksim Belitski"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 160,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:42Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102581",
+   "title": "The three pointers of research and development (R&amp;D) for growth-boosting sustainable innovation system",
+   "authors": [
+    "David Sarpong",
+    "Derrick Boakye",
+    "George Ofosu",
+    "David Botchie"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 156,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:46Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102510",
+   "title": "Healthcare system: Moving forward with artificial intelligence",
+   "authors": [
+    "Grazia Dicuonzo",
+    "Francesca Donofrio",
+    "Antonio Fusco",
+    "Matilda Shini"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 153,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:51Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102325",
+   "title": "Entrepreneurial orientation and new product development performance in SMEs: The mediating role of business model innovation",
+   "authors": [
+    "Jos\u00e9 Luis Ferreras-M\u00e9ndez",
+    "Julia Olmos-Pe\u00f1uela",
+    "Andr\u00e9s Salas-Vallina",
+    "Joaqu\u00edn Alegre"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 152,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:53Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102612",
+   "title": "Innovation and climate change: A review and introduction to the special issue",
+   "authors": [
+    "Stelvia Matos",
+    "Eric Viardot",
+    "Benjamin K. Sovacool",
+    "Frank W. Geels",
+    "Yu Xiong"
+   ],
+   "year": 2022,
+   "journal": "Technovation",
+   "citations": 151,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:11:59Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2024.103021",
+   "title": "Applications of generative AI and future organizational performance: The mediating role of explorative and exploitative innovation and the moderating role of ethical dilemmas and environmental dynamism",
+   "authors": [
+    "Kuldeep Singh",
+    "Sheshadri Chatterjee",
+    "Marcello Mariani"
+   ],
+   "year": 2024,
+   "journal": "Technovation",
+   "citations": 151,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:04Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2023.102764",
+   "title": "Artificial intelligence and productivity: global evidence from AI patent and bibliometric data",
+   "authors": [
+    "Aleksandra Parteka",
+    "Aleksandra Kordalska"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 149,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:08Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102386",
+   "title": "Digital transformation in the healthcare sector through blockchain technology. Insights from academic research and business developments",
+   "authors": [
+    "Maurizio Massaro"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 145,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:12Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2024.103002",
+   "title": "Future applications of generative large language models: A data-driven case study on ChatGPT",
+   "authors": [
+    "Filippo Chiarello",
+    "Vito Giordano",
+    "Irene Spada",
+    "Simone Barandoni",
+    "Gualtiero Fantoni"
+   ],
+   "year": 2024,
+   "journal": "Technovation",
+   "citations": 144,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:18Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2020.102178",
+   "title": "To explore or exploit: The influence of inter-firm R&amp;D network diversity and structural holes on innovation outcomes",
+   "authors": [
+    "Jinyan Wen",
+    "William J. Qualls",
+    "Deming Zeng"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 144,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:23Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102624",
+   "title": "Coopetition and innovation: A review and research agenda",
+   "authors": [
+    "Leonardo Corbo",
+    "Sascha Kraus",
+    "Bo\u017eidar Vla\u010di\u0107",
+    "Marina Dabi\u0107",
+    "Andrea Caputo",
+    "Massimiliano M. Pellegrini"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 144,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:26Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102333",
+   "title": "The impacts of democracy on innovation: Revisited evidence",
+   "authors": [
+    "Quan-Jing Wang",
+    "Gen-Fu Feng",
+    "Hai-Jie Wang",
+    "Chun-Ping Chang"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 143,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:31Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2019.05.005",
+   "title": "The fit between firms\u2019 open innovation and business model for new product development speed: A contingent perspective",
+   "authors": [
+    "Xiaoxuan Zhu",
+    "Zhenxin Xiao",
+    "Maggie Chuoyan Dong",
+    "Jibao Gu"
+   ],
+   "year": 2019,
+   "journal": "Technovation",
+   "citations": 139,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:33Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102481",
+   "title": "Healthcare apps\u2019 purchase intention: A consumption values perspective",
+   "authors": [
+    "Debarun Chakraborty",
+    "Justin Paul"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 139,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:36Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102583",
+   "title": "Resilience in healthcare systems: Cyber security and digital transformation",
+   "authors": [
+    "Alexeis Garcia-Perez",
+    "Juan Gabriel Cegarra-Navarro",
+    "Mark Paul Sallos",
+    "Eva Martinez-Caro",
+    "Anitha Chinnaswamy"
+   ],
+   "year": 2023,
+   "journal": "Technovation",
+   "citations": 138,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:39Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2018.07.008",
+   "title": "Do business incubators really enhance entrepreneurial growth? Evidence from a large sample of innovative Italian start-ups",
+   "authors": [
+    "Martin Luke\u0161",
+    "Maria Cristina Longo",
+    "Jan Zouhar"
+   ],
+   "year": 2019,
+   "journal": "Technovation",
+   "citations": 135,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:43Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2018.06.009",
+   "title": "The technology transfer ecosystem in academia. An organizational design perspective",
+   "authors": [
+    "Matthew Good",
+    "Mirjam Knockaert",
+    "Birthe Soppe",
+    "Mike Wright"
+   ],
+   "year": 2019,
+   "journal": "Technovation",
+   "citations": 133,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:46Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2021.102222",
+   "title": "Platform-based servitization and business model adaptation by established manufacturers",
+   "authors": [
+    "Jiamian Tian",
+    "Wim Coreynen",
+    "Paul Matthyssens",
+    "Lei Shen"
+   ],
+   "year": 2022,
+   "journal": "Technovation",
+   "citations": 132,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:52Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2022.102589",
+   "title": "Integrated blockchain and internet of things in the food supply chain: Adoption barriers",
+   "authors": [
+    "Shashank Kumar",
+    "Rakesh D. Raut",
+    "Nishant Agrawal",
+    "Naoufel Cheikhrouhou",
+    "Mahak Sharma",
+    "Tugrul Daim"
+   ],
+   "year": 2022,
+   "journal": "Technovation",
+   "citations": 132,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:12:58Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2020.102193",
+   "title": "Ecosystem-as-structure and ecosystem-as-coevolution: A constructive examination",
+   "authors": [
+    "Hong Hou",
+    "Yongjiang Shi"
+   ],
+   "year": 2021,
+   "journal": "Technovation",
+   "citations": 132,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:01Z"
+  },
+  {
+   "doi": "10.1016/j.technovation.2024.103064",
+   "title": "Assessing the nexus of Generative AI adoption, ethical considerations and organizational performance",
+   "authors": [
+    "Nripendra P. Rana",
+    "Rajasshrie Pillai",
+    "Brijesh Sivathanu",
+    "Nishtha Malik"
+   ],
+   "year": 2024,
+   "journal": "Technovation",
+   "citations": 131,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:03Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.03.018",
+   "title": "The digital transformation of innovation and entrepreneurship: Progress, challenges and key themes",
+   "authors": [
+    "Satish Nambisan",
+    "Mike Wright",
+    "Maryann Feldman"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 2231,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:11Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.10.006",
+   "title": "Towards a typology of intermediaries in sustainability transitions: A systematic review and a research agenda",
+   "authors": [
+    "Paula Kivimaa",
+    "Wouter Boon",
+    "Sampsa Hyysalo",
+    "Laurens Klerkx"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 687,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:18Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104289",
+   "title": "Digital technologies, innovation, and skills: Emerging trajectories and challenges",
+   "authors": [
+    "Tommaso Ciarli",
+    "Martin Kenney",
+    "Silvia Massini",
+    "Lucia Piscitello"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 497,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:23Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2022.104536",
+   "title": "How Artificial Intelligence Technology Affects Productivity and Employment: Firm-level Evidence from Taiwan",
+   "authors": [
+    "Chih-Hai Yang"
+   ],
+   "year": 2022,
+   "journal": "Research Policy",
+   "citations": 470,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:29Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.104114",
+   "title": "Academic engagement: A review of the literature 2011-2019",
+   "authors": [
+    "Markus Perkmann",
+    "Rossella Salandra",
+    "Valentina Tartari",
+    "Maureen McKelvey",
+    "Alan Hughes"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 461,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:33Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.03.012",
+   "title": "Gender gap in entrepreneurship",
+   "authors": [
+    "Jorge Guzman",
+    "Aleksandra (Olenka) Kacperczyk"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 440,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:37Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2022.104555",
+   "title": "Artificial intelligence and industrial innovation: Evidence from German firm-level data",
+   "authors": [
+    "Christian Rammer",
+    "Gast\u00f3n P. Fern\u00e1ndez",
+    "Dirk Czarnitzki"
+   ],
+   "year": 2022,
+   "journal": "Research Policy",
+   "citations": 437,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:39Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.03.010",
+   "title": "The co-evolution of policy mixes and socio-technical systems: Towards a conceptual framework of policy mix feedback in sustainability transitions",
+   "authors": [
+    "Duncan L. Edmondson",
+    "Florian Kern",
+    "Karoline S. Rogge"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 404,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:44Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.04.003",
+   "title": "The design of startup accelerators",
+   "authors": [
+    "Susan Cohen",
+    "Daniel C. Fehder",
+    "Yael V. Hochberg",
+    "Fiona Murray"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 389,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:48Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.103827",
+   "title": "Resource efficient eco-innovations for a circular economy: Evidence from EU firms",
+   "authors": [
+    "Giulio Cainelli",
+    "Alessio D\u2019Amato",
+    "Massimiliano Mazzanti"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 382,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:50Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.103901",
+   "title": "Knowledge sources and impacts on subsequent inventions: Do green technologies differ from non-green ones?",
+   "authors": [
+    "Nicol\u00f2 Barbieri",
+    "Alberto Marzucchi",
+    "Ugo Rizzo"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 380,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:53Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.03.010",
+   "title": "Is this time different? How digitalization influences job creation and destruction",
+   "authors": [
+    "Benjamin Balsmeier",
+    "Martin Woerter"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 379,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2019.03.010.pdf",
+   "pdf_sha256": "dce8b114f1eedb7ffe5b9f97a66ba8f84aa48b9f82f3c0c6312a7d10e0424144",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:13:59Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.103948",
+   "title": "Economic complexity and the green economy",
+   "authors": [
+    "Penny Mealy",
+    "Alexander Teytelboym"
+   ],
+   "year": 2022,
+   "journal": "Research Policy",
+   "citations": 368,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:05Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.103832",
+   "title": "Policy mixes for sustainability transitions: New approaches and insights through bridging innovation and policy studies",
+   "authors": [
+    "Florian Kern",
+    "Karoline S. Rogge",
+    "Michael Howlett"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 363,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:10Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.07.014",
+   "title": "More is not always better: Effects of collaboration breadth and depth on radical and incremental innovation performance at the project level",
+   "authors": [
+    "Sebastian Kobarg",
+    "Jutta Stumpf-Wollersheim",
+    "Isabell M. Welpe"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 343,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:14Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.10.028",
+   "title": "Transformative innovation policy: Addressing variety in an emerging policy paradigm",
+   "authors": [
+    "Gijs Diercks",
+    "Henrik Larsen",
+    "Fred Steward"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 309,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:16Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.03.012",
+   "title": "Measuring the temporal dynamics of policy mixes \u2013 An empirical analysis of renewable energy policy mixes\u2019 balance and design features in nine countries",
+   "authors": [
+    "Tobias S. Schmidt",
+    "Sebastian Sewerin"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 292,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:20Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104293",
+   "title": "Innovation, growth and the transition to net-zero emissions",
+   "authors": [
+    "Nicholas Stern",
+    "Anna Valero"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 282,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:24Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.12.010",
+   "title": "Mobile phones for financial inclusion: What explains the diffusion of mobile money innovations?",
+   "authors": [
+    "Addisu A. Lashitew",
+    "Rob van Tulder",
+    "Yann Liasse"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 281,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2018.12.010.pdf",
+   "pdf_sha256": "663285747cda772945e33305dac412e11bb228b2404a6d7f0ae86ebded2a55c8",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:27Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.104147",
+   "title": "Evaluating impact from research: A methodological framework",
+   "authors": [
+    "M.S. Reed",
+    "M. Ferr\u00e9",
+    "J. Martin-Ortega",
+    "R. Blanche",
+    "R. Lawford-Rolfe",
+    "M. Dallimer",
+    "J. Holden"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 258,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:33Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.08.005",
+   "title": "International research collaboration: An emerging domain of innovation studies?",
+   "authors": [
+    "Kaihua Chen",
+    "Yi Zhang",
+    "Xiaolan Fu"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 258,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2018.08.005.pdf",
+   "pdf_sha256": "f64a1fe69e6c0250214048457b9e25d4b803ca165427ae583c65782ec6dfc543",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:38Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.104080",
+   "title": "Towards a theory of transformative social innovation: A relational framework and 12 propositions",
+   "authors": [
+    "Bonno Pel",
+    "Alex Haxeltine",
+    "Flor Avelino",
+    "Adina Dumitru",
+    "Ren\u00e9 Kemp",
+    "Tom Bauler",
+    "Iris Kunze",
+    "Jens Dorland",
+    "Julia Wittmayer",
+    "Michael S\u00f8gaard J\u00f8rgensen"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 257,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:43Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2022.104697",
+   "title": "Corporate commitment to climate change: The effect of eco-innovation and climate governance",
+   "authors": [
+    "Khaldoon Albitar",
+    "Habiba Al-Shaer",
+    "Yang Stephanie Liu"
+   ],
+   "year": 2023,
+   "journal": "Research Policy",
+   "citations": 250,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:48Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.12.001",
+   "title": "Advancing innovation in the public sector: Aligning innovation measurement with policy goals",
+   "authors": [
+    "Anthony Arundel",
+    "Carter Bloch",
+    "Barry Ferguson"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 246,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:53Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104215",
+   "title": "Patent Quality: Towards a Systematic Framework for Analysis and Measurement",
+   "authors": [
+    "Kyle Higham",
+    "Ga\u00e9tan de Rassenfosse",
+    "Adam B. Jaffe"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 246,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:14:57Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.103833",
+   "title": "Exaptation in a digital innovation ecosystem: The disruptive impacts of 3D printing",
+   "authors": [
+    "Ahmad Beltagui",
+    "Ainurul Rosli",
+    "Marina Candi"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 244,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2019.103833.pdf",
+   "pdf_sha256": "b13092b70c63d56187d86348f8455fc5ba51100c7c7f3cedfe938f87c144c9c1",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:04Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.01.014",
+   "title": "Investors\u2019 choices between cash and voting rights: Evidence from dual-class equity crowdfunding",
+   "authors": [
+    "Douglas Cumming",
+    "Michele Meoli",
+    "Silvio Vismara"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 243,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2019.01.014.pdf",
+   "pdf_sha256": "c3e20e377d64f523ad9550e3f26ebf9fef59b589034522a3938c55ac9ae0ea42",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:11Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.104072",
+   "title": "Six policy intervention points for sustainability transitions: A conceptual framework and a systematic literature review",
+   "authors": [
+    "Laur Kanger",
+    "Benjamin K. Sovacool",
+    "Martin Noork\u00f5iv"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 241,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:17Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.10.021",
+   "title": "Digital technology adoption and knowledge flows within firms: Can the Internet overcome geographic and technological distance?",
+   "authors": [
+    "Chris Forman",
+    "Nicolas van Zeebroeck"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 234,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2018.10.021.pdf",
+   "pdf_sha256": "7889f53b5317d57daee152617d1cf32d2ede5b4168836197823db20efab5869f",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:24Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104336",
+   "title": "Measure Twice, Cut Once: Entrepreneurial Ecosystem Metrics",
+   "authors": [
+    "Jip Leendertse",
+    "Mirella Schrijvers",
+    "Erik Stam"
+   ],
+   "year": 2022,
+   "journal": "Research Policy",
+   "citations": 229,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:31Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.103978",
+   "title": "Citizen science and sustainability transitions",
+   "authors": [
+    "Henry Sauermann",
+    "Katrin Vohland",
+    "Vyron Antoniou",
+    "B\u00e1lint Bal\u00e1zs",
+    "Claudia G\u00f6bel",
+    "Kostas Karatzas",
+    "Peter Mooney",
+    "Josep Perell\u00f3",
+    "Marisa Ponti",
+    "Roeland Samson",
+    "Silvia Winter"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 228,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:35Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2023.104765",
+   "title": "Technology sovereignty as an emerging frame for innovation policy. Defining rationales, ends and means",
+   "authors": [
+    "Jakob Edler",
+    "Knut Blind",
+    "Henning Kroll",
+    "Torben Schubert"
+   ],
+   "year": 2023,
+   "journal": "Research Policy",
+   "citations": 227,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:39Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104221",
+   "title": "Can public R&amp;D subsidy facilitate firms\u2019 exploratory innovation? The heterogeneous effects between central and local subsidy programs",
+   "authors": [
+    "Yuchen Gao",
+    "Yimei Hu",
+    "Xielin Liu",
+    "Huanren Zhang"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 227,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2021.104221.pdf",
+   "pdf_sha256": "f2f40f99e48d4de8b86c1371c8939936a0ace8188bcfd3e49c1ef39b27dbd8c1",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:44Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.103844",
+   "title": "Public procurement, innovation and industrial policy: Rationales, roles, capabilities and implementation",
+   "authors": [
+    "Elvira Uyarra",
+    "Jon Mikel Zabala-Iturriagagoitia",
+    "Kieron Flanagan",
+    "Edurne Magro"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 225,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2019.103844.pdf",
+   "pdf_sha256": "6df666fdf9650b7112a3cc51d0d8693360f0446ea7e1d6d03341f62f6cf9b610",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:49Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.04.014",
+   "title": "Patent claims and patent scope",
+   "authors": [
+    "Alan C. Marco",
+    "Joshua D. Sarnoff",
+    "Charles A.W. deGrazia"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 224,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:54Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104316",
+   "title": "The drivers of SME innovation in the regions of the EU",
+   "authors": [
+    "Jos\u00e9-Luis Herv\u00e1s-Oliver",
+    "Mario Davide Parrilli",
+    "Andr\u00e9s Rodr\u00edguez-Pose",
+    "Francisca Sempere-Ripoll"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 221,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:15:57Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.104144",
+   "title": "Natural language processing to identify the creation and impact of new technologies in patent text: Code, data, and new measures",
+   "authors": [
+    "Sam Arts",
+    "Jianan Hou",
+    "Juan Carlos Gomez"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 217,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:16:02Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.10.004",
+   "title": "Innovation policy for system-wide transformation: The case of strategic innovation programmes (SIPs) in Sweden",
+   "authors": [
+    "Markus Grillitsch",
+    "Teis Hansen",
+    "Lars Coenen",
+    "Johan Mi\u00f6rner",
+    "Jerker Moodysson"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 215,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:16:05Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.01.002",
+   "title": "International research collaboration: Novelty, conventionality, and atypicality in knowledge recombination",
+   "authors": [
+    "Caroline S. Wagner",
+    "Travis A. Whetsell",
+    "Satyam Mukherjee"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 214,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2019.01.002.pdf",
+   "pdf_sha256": "efe437eca87e4950337d01c6e80dde00e14a3b161bbca7c9f98f2817ff140f34",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:16:40Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.103885",
+   "title": "Gender diversity in R&amp;D teams and innovation efficiency: Role of the innovation context",
+   "authors": [
+    "Luqun Xie",
+    "Jieyu Zhou",
+    "Qingqing Zong",
+    "Qian Lu"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 212,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:16:44Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.104027",
+   "title": "Innovative start-ups and policy initiatives",
+   "authors": [
+    "David Audretsch",
+    "Alessandra Colombelli",
+    "Luca Grilli",
+    "Tommaso Minola",
+    "Einar Rasmussen"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 211,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:16:47Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104218",
+   "title": "How open is innovation? A retrospective and ideas forward",
+   "authors": [
+    "Linus Dahlander",
+    "David M. Gann",
+    "Martin W. Wallin"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 211,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:16:55Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.09.003",
+   "title": "Policies, actors and sustainability transition pathways: A study of the EU\u2019s energy policy mix",
+   "authors": [
+    "Marie Byskov Lindberg",
+    "Jochen Markard",
+    "Allan Dahl Andersen"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 209,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:16:59Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2022.104530",
+   "title": "Green innovation and financial performance: A study on Italian firms",
+   "authors": [
+    "Efi Vasileiou",
+    "Nikolaos Georgantzis",
+    "Giuseppe Attanasi",
+    "Patrick Llerena"
+   ],
+   "year": 2022,
+   "journal": "Research Policy",
+   "citations": 206,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:17:04Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104450",
+   "title": "The new paradigm of economic complexity",
+   "authors": [
+    "Pierre-Alexandre Balland",
+    "Tom Broekel",
+    "Dario Diodato",
+    "Elisa Giuliani",
+    "Ricardo Hausmann",
+    "Neave O'Clery",
+    "David Rigby"
+   ],
+   "year": 2022,
+   "journal": "Research Policy",
+   "citations": 205,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:17:08Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.104049",
+   "title": "Unpacking liabilities of newness and smallness in innovative start-ups: Investigating the differences in innovation performance between new and older small firms",
+   "authors": [
+    "Elena M. Gimenez-Fernandez",
+    "Francesco D. Sandulli",
+    "Marcel Bogers"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 203,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:17:12Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104395",
+   "title": "China's catching-up in artificial intelligence seen as a co-evolution of corporate and national innovation systems",
+   "authors": [
+    "Bengt-\u00c5ke Lundvall",
+    "Cecilia Rikap"
+   ],
+   "year": 2022,
+   "journal": "Research Policy",
+   "citations": 202,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2021.104395.pdf",
+   "pdf_sha256": "4a2b9186165ddd2bb319e82000558b2cb55007d197c6f4ed89250932dd863367",
+   "pdf_source": "unpaywall",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:17:15Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2020.103971",
+   "title": "The roles of the state in the governance of socio-technical systems\u2019 transformation",
+   "authors": [
+    "Susana Borr\u00e1s",
+    "Jakob Edler"
+   ],
+   "year": 2020,
+   "journal": "Research Policy",
+   "citations": 196,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:17:22Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.09.010",
+   "title": "Which firms benefit from investments in green energy technologies? \u2013 The effect of energy costs",
+   "authors": [
+    "Tobias Stucki"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 196,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:14Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2023.104906",
+   "title": "Externalities and complementarities in platforms and ecosystems: From structural solutions to endogenous failures",
+   "authors": [
+    "Michael G. Jacobides",
+    "Carmelo Cennamo",
+    "Annabelle Gawer"
+   ],
+   "year": 2024,
+   "journal": "Research Policy",
+   "citations": 194,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:22Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2019.04.015",
+   "title": "Driving innovation: Public policy and human capital",
+   "authors": [
+    "Helena Lenihan",
+    "Helen McGuirk",
+    "Kevin R. Murphy"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 193,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:26Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2022.104516",
+   "title": "Does green public procurement trigger environmental innovations?",
+   "authors": [
+    "Bastian Krieger",
+    "Vera Zipperer"
+   ],
+   "year": 2022,
+   "journal": "Research Policy",
+   "citations": 191,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:30Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2022.104653",
+   "title": "Could machine learning be a general purpose technology? A comparison of emerging technologies using data from online job postings",
+   "authors": [
+    "Avi Goldfarb",
+    "Bledi Taska",
+    "Florenta Teodoridis"
+   ],
+   "year": 2023,
+   "journal": "Research Policy",
+   "citations": 189,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:34Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2018.10.005",
+   "title": "The evolution of mission-oriented policies: Exploring changing market creating policies in the US and European space sector",
+   "authors": [
+    "Douglas K.R. Robinson",
+    "Mariana Mazzucato"
+   ],
+   "year": 2019,
+   "journal": "Research Policy",
+   "citations": 189,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:36Z"
+  },
+  {
+   "doi": "10.1016/j.respol.2021.104229",
+   "title": "Advanced manufacturing technology adoption and innovation: A systematic literature review on barriers, enablers, and innovation types",
+   "authors": [
+    "Aldo Stornelli",
+    "Sercan Ozcan",
+    "Christopher Simms"
+   ],
+   "year": 2021,
+   "journal": "Research Policy",
+   "citations": 182,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.respol.2021.104229.pdf",
+   "pdf_sha256": "3595fbd95361e5b5c24272ec01a620497b019be641c0768992c041bc2b89e8e3",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:43Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.121092",
+   "title": "CB-SEM vs PLS-SEM methods for research in social sciences and technology forecasting",
+   "authors": [
+    "Ganesh Dash",
+    "Justin Paul"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 2102,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:52Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.119762",
+   "title": "Green innovation and environmental performance: The role of green transformational leadership and green human resource management",
+   "authors": [
+    "Sanjay Kumar Singh",
+    "Manlio Del Giudice",
+    "Roberto Chierici",
+    "Domenico Graziano"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 1699,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2019.119762.pdf",
+   "pdf_sha256": "979494aa45174ee24e77c98327fd144c62fb4716da3b060e2c2fd98f22822bbc",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:19:57Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.05.021",
+   "title": "Driving forces and barriers of Industry 4.0: Do multinational and small and medium-sized companies have equal opportunities?",
+   "authors": [
+    "D\u00f3ra Horv\u00e1th",
+    "Roland Zs. Szab\u00f3"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 1067,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:03Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2017.12.016",
+   "title": "Green innovation and organizational performance: The influence of big data and the moderating role of management commitment and HR practices",
+   "authors": [
+    "Abdul-Nasser El-Kassar",
+    "Sanjay Kumar Singh"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 1042,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2017.12.016.pdf",
+   "pdf_sha256": "e0a85198983540d536c28282031bc058af014d376c6c8617d808700186761bff",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:08Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120262",
+   "title": "Corporate social responsibility and environmental performance: The mediating role of environmental strategy and green innovation",
+   "authors": [
+    "Sascha Kraus",
+    "Shafique Ur Rehman",
+    "F. Javier Sendra Garc\u00eda"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 960,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:13Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.06.010",
+   "title": "Do green technology innovations contribute to carbon dioxide emission reduction? Empirical evidence from patent data",
+   "authors": [
+    "Kerui Du",
+    "Pengzhen Li",
+    "Zheming Yan"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 959,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:20Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.01.014",
+   "title": "Servitization and Industry 4.0 convergence in the digital transformation of product firms: A business model innovation perspective",
+   "authors": [
+    "Alejandro G. Frank",
+    "Glauco H.S. Mendes",
+    "N\u00e9stor F. Ayala",
+    "Antonio Ghezzi"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 941,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:23Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120392",
+   "title": "Artificial intelligence and innovation management: A review, framework, and research agenda\u2730",
+   "authors": [
+    "Naomi Haefner",
+    "Joakim Wincent",
+    "Vinit Parida",
+    "Oliver Gassmann"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 889,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:27Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.121359",
+   "title": "The digital divide: A review and future research agenda",
+   "authors": [
+    "Sophie Lythreatis",
+    "Sanjay Kumar Singh",
+    "Abdul-Nasser El-Kassar"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 853,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:32Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.119791",
+   "title": "Digital entrepreneurship ecosystem: How digital technologies and collective intelligence are reshaping the entrepreneurial process",
+   "authors": [
+    "Gianluca Elia",
+    "Alessandro Margherita",
+    "Giuseppina Passiante"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 826,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:34Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2022.121882",
+   "title": "Influence mechanism between green finance and green innovation: Exploring regional policy intervention effects in China",
+   "authors": [
+    "Muhammad Irfan",
+    "Asif Razzaq",
+    "Arshian Sharif",
+    "Xiaodong Yang"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 757,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:37Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120420",
+   "title": "Role of institutional pressures and resources in the adoption of big data analytics powered artificial intelligence, sustainable manufacturing practices and circular economy capabilities",
+   "authors": [
+    "Surajit Bag",
+    "Jan Ham Christiaan Pretorius",
+    "Shivam Gupta",
+    "Yogesh K. Dwivedi"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 747,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2020.120420.pdf",
+   "pdf_sha256": "9c2a7dd271a8077a1572047493e3ea31bea2b429dffdfa22575bd4d49eaff819",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:40Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120447",
+   "title": "Manufacturing and service supply chain resilience to the COVID-19 outbreak: Lessons learned from the automobile and airline industries",
+   "authors": [
+    "Amine Belhadi",
+    "Sachin Kamble",
+    "Charbel Jose Chiappetta Jabbour",
+    "Angappa Gunasekaran",
+    "Nelson Oly Ndubisi",
+    "Mani Venkatesh"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 716,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:20:45Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120284",
+   "title": "The Third Mission of the university: A systematic literature review on potentials and constraints",
+   "authors": [
+    "Lorenzo Compagnucci",
+    "Francesca Spigarelli"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 675,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:21:05Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120481",
+   "title": "Analyzing the relationship between green innovation and environmental performance in large manufacturing firms",
+   "authors": [
+    "Shafique Ur Rehman",
+    "Sascha Kraus",
+    "Syed Asim Shah",
+    "Dmitry Khanin",
+    "Raj V. Mahto"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 673,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:21:11Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2017.06.020",
+   "title": "Can big data and predictive analytics improve social and environmental sustainability?",
+   "authors": [
+    "Rameshwar Dubey",
+    "Angappa Gunasekaran",
+    "Stephen J. Childe",
+    "Thanos Papadopoulos",
+    "Zongwei Luo",
+    "Samuel Fosso Wamba",
+    "David Roubaud"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 649,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:21:15Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.120880",
+   "title": "Understanding AI adoption in manufacturing and production firms using an integrated TAM-TOE model",
+   "authors": [
+    "Sheshadri Chatterjee",
+    "Nripendra P. Rana",
+    "Yogesh K. Dwivedi",
+    "Abdullah M. Baabdullah"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 648,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:21:25Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.120744",
+   "title": "Do carbon emission trading schemes stimulate green innovation in enterprises? Evidence from China",
+   "authors": [
+    "Zhongfei Chen",
+    "Xiao Zhang",
+    "Fanglin Chen"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 638,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:21:41Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120557",
+   "title": "The impact of big data analytics and artificial intelligence on green supply chain process integration and hospital environmental performance",
+   "authors": [
+    "Smail Benzidia",
+    "Naouel Makaoui",
+    "Omar Bentahar"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 626,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:21:44Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2022.121508",
+   "title": "Linking circular economy and digitalisation technologies: A systematic literature review of past achievements and future promises",
+   "authors": [
+    "Chetna Chauhan",
+    "Vinit Parida",
+    "Amandeep Dhir"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 626,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:21:49Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2018.11.004",
+   "title": "Inequality, ICT and financial access in Africa",
+   "authors": [
+    "Vanessa S. Tchamyou",
+    "Guido Erreygers",
+    "Danny Cassimon"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 621,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2018.11.004.pdf",
+   "pdf_sha256": "76354658d29850003ff935d20929f12f1d9d66c4a951603f3164544abe3102f8",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:21:55Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2018.08.015",
+   "title": "A systematic review of the smart home literature: A user perspective",
+   "authors": [
+    "Davit Marikyan",
+    "Savvas Papagiannidis",
+    "Eleftherios Alamanos"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 619,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:00Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120469",
+   "title": "Impact of COVID-19 on the travel and tourism industry",
+   "authors": [
+    "Marinko \u0160kare",
+    "Domingo Riberio Soriano",
+    "Ma\u0142gorzata Porada-Rocho\u0144"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 614,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:04Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120142",
+   "title": "Influence of artificial intelligence on technological innovation: Evidence from the panel data of china's manufacturing sectors",
+   "authors": [
+    "Jun Liu",
+    "Huihong Chang",
+    "Jeffrey Yi-Lin Forrest",
+    "Baohua Yang"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 606,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:11Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.119804",
+   "title": "The relationship between digitalization and servitization: The role of servitization in capturing the financial potential of digitalization",
+   "authors": [
+    "Marko Kohtam\u00e4ki",
+    "Vinit Parida",
+    "Pankaj C. Patel",
+    "Heiko Gebauer"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 583,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2019.119804.pdf",
+   "pdf_sha256": "80dcf91051e8cf236cbcb461d556a48e22fc38a00eb3aaf5376eaa413ee09b05",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:14Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2018.12.018",
+   "title": "Understanding Smart Cities: Innovation ecosystems, technological advancements, and societal challenges",
+   "authors": [
+    "Francesco Paolo Appio",
+    "Marcos Lima",
+    "Sotirios Paroutis"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 571,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:19Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.03.015",
+   "title": "Supply chain re-engineering using blockchain technology: A case of smart contract based tracking process",
+   "authors": [
+    "Shuchih Ernest Chang",
+    "Yi-Chian Chen",
+    "Ming-Fang Lu"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 566,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:22Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.119962",
+   "title": "Digital technologies and firm performance: The role of digital organisational culture",
+   "authors": [
+    "Eva Mart\u00ednez-Caro",
+    "Juan Gabriel Cegarra-Navarro",
+    "Francisco Javier Alfonso-Ruiz"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 563,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:25Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2018.07.022",
+   "title": "Smart innovative cities: The impact of Smart City policies on urban innovation",
+   "authors": [
+    "Andrea Caragliu",
+    "Chiara F. Del Bo"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 554,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2018.07.022.pdf",
+   "pdf_sha256": "7d77bae711958c507013e844c65041f6e50e812aa36507224b239dddce8fd0bf",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:27Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.04.023",
+   "title": "Loaning scale and government subsidy for promoting green innovation",
+   "authors": [
+    "Zhehao Huang",
+    "Gaoke Liao",
+    "Zhenghui Li"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 538,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:33Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.121434",
+   "title": "Green technology innovations, urban innovation environment and CO2 emission reduction in China: Fresh evidence from a partially linear functional-coefficient panel model",
+   "authors": [
+    "Boqiang Lin",
+    "Ruiyang Ma"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 537,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:36Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.121390",
+   "title": "What influences algorithmic decision-making? A systematic literature review on algorithm aversion",
+   "authors": [
+    "Hasan Mahmud",
+    "A.K.M. Najmul Islam",
+    "Syed Ishtiaque Ahmed",
+    "Kari Smolander"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 530,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:39Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.120659",
+   "title": "Energy efficiency: The role of technological innovation and knowledge spillover",
+   "authors": [
+    "Huaping Sun",
+    "Bless Kofi Edziah",
+    "Anthony Kwaku Kporsu",
+    "Samuel Asumadu Sarkodie",
+    "Farhad Taghizadeh-Hesary"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 529,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:43Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.119790",
+   "title": "Smart factory performance and Industry 4.0",
+   "authors": [
+    "Giacomo B\u00fcchi",
+    "Monica Cugno",
+    "Rebecca Castagnoli"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 508,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:49Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120028",
+   "title": "ICT and environmental quality in Sub-Saharan Africa: Effects and transmission channels",
+   "authors": [
+    "D\u00e9sir\u00e9 Avom",
+    "Hilaire Nkengfack",
+    "Herv\u00e9 Kaffo Fotio",
+    "Armand Totouom"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 502,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:54Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120166",
+   "title": "How Blockchain can impact financial services \u2013 The overview, challenges and recommendations from expert interviewees",
+   "authors": [
+    "Victor Chang",
+    "Patricia Baudier",
+    "Hui Zhang",
+    "Qianwen Xu",
+    "Jingqi Zhang",
+    "Mitra Arami"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 489,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:22:56Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120343",
+   "title": "Impact of digital transformation on the automotive industry",
+   "authors": [
+    "Carlos Llopis-Albert",
+    "Francisco Rubio",
+    "Francisco Valero"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 488,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:01Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2017.05.002",
+   "title": "Transformative social innovation and (dis)empowerment",
+   "authors": [
+    "Flor Avelino",
+    "Julia M. Wittmayer",
+    "Bonno Pel",
+    "Paul Weaver",
+    "Adina Dumitru",
+    "Alex Haxeltine",
+    "Ren\u00e9 Kemp",
+    "Michael S. J\u00f8rgensen",
+    "Tom Bauler",
+    "Saskia Ruijsink",
+    "Tim O'Riordan"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 483,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:05Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.120766",
+   "title": "Big data analytics capability and decision-making: The role of data-driven insight on circular economy performance",
+   "authors": [
+    "Usama Awan",
+    "Saqib Shamim",
+    "Zaheer Khan",
+    "Najam Ul Zia",
+    "Syed Muhammad Shariq",
+    "Muhammad Naveed Khan"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 480,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2021.120766.pdf",
+   "pdf_sha256": "31d13f96ad43e99f6578c37a32820dc110096aba1b5fb851ce0c7916603845f1",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:09Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.121227",
+   "title": "How can SMEs successfully navigate VUCA environment: The role of agility in the digital transformation era",
+   "authors": [
+    "Ciro Troise",
+    "Vincenzo Corvello",
+    "Abby Ghobadian",
+    "Nicholas O'Regan"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 470,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2021.121227.pdf",
+   "pdf_sha256": "e51cea27d0f7f41e428acf81a811be1f606ecde14750e6580a1c52e1e4294b92",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:15Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.121378",
+   "title": "Green bonds for sustainable development: Review of literature on development and impact of green bonds",
+   "authors": [
+    "Umair Saeed Bhutta",
+    "Adeel Tariq",
+    "Muhammad Farrukh",
+    "Ali Raza",
+    "Muhammad Khalid Iqbal"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 455,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:22Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2016.08.031",
+   "title": "Experimenting for sustainability transitions: A systematic literature review",
+   "authors": [
+    "Frans Sengers",
+    "Anna J. Wieczorek",
+    "Rob Raven"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 454,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:25Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.120795",
+   "title": "The adoption of digital technologies in supply chains: Drivers, process and impact",
+   "authors": [
+    "Miying Yang",
+    "Mingtao Fu",
+    "Zihan Zhang"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 452,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:30Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2017.09.010",
+   "title": "Unlocking the circular economy through new business models based on large-scale data: An integrative framework and research agenda",
+   "authors": [
+    "Charbel Jose Chiappetta Jabbour",
+    "Ana Beatriz Lopes de Sousa Jabbour",
+    "Joseph Sarkis",
+    "Moacir Godinho Filho"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 451,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:34Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.121246",
+   "title": "Impacts of influencer attributes on purchase intentions in social media influencer marketing: Mediating roles of characterizations",
+   "authors": [
+    "Hisashi Masuda",
+    "Spring H. Han",
+    "Jungwoo Lee"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 449,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:38Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2018.07.006",
+   "title": "Knowledge management: A global examination based on bibliometric analysis",
+   "authors": [
+    "Magaly Gaviria-Marin",
+    "Jos\u00e9 M. Merig\u00f3",
+    "Hugo Baier-Fuentes"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 446,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:23:46Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2022.121599",
+   "title": "Fuzzy-set qualitative comparative analysis (fsQCA) in business and management research: A contemporary overview",
+   "authors": [
+    "Satish Kumar",
+    "Saumyaranjan Sahoo",
+    "Weng Marc Lim",
+    "Sascha Kraus",
+    "Umesh Bamel"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 441,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:25:56Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120341",
+   "title": "Corporate controversies and company's financial performance: Exploring the moderating role of ESG practices",
+   "authors": [
+    "Niccol\u00f2 Nirino",
+    "Gabriele Santoro",
+    "Nicola Miglietta",
+    "Roberto Quaglia"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 438,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:26:01Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2018.06.030",
+   "title": "Circular economy and big data analytics: A stakeholder perspective",
+   "authors": [
+    "Shivam Gupta",
+    "Haozhe Chen",
+    "Benjamin T. Hazen",
+    "Sarabjot Kaur",
+    "Ernesto D.R. Santiba\u00f1ez Gonzalez"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 435,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:26:03Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2021.120650",
+   "title": "Internationalization, digitalization, and sustainability: Are SMEs ready? A survey on synergies and substituting effects among growth paths",
+   "authors": [
+    "Stefano Denicolai",
+    "Antonella Zucchella",
+    "Giovanna Magnani"
+   ],
+   "year": 2021,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 416,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:26:05Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2022.121670",
+   "title": "The impact of green technological innovation and institutional quality on CO2 emissions in African countries",
+   "authors": [
+    "Emma Serwaa Obobisa",
+    "Haibo Chen",
+    "Isaac Adjei Mensah"
+   ],
+   "year": 2022,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 414,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:26:08Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2017.12.012",
+   "title": "Dynamic relationship among environmental regulation, technological innovation and energy efficiency based on large scale provincial panel data in China",
+   "authors": [
+    "Xiongfeng Pan",
+    "Bowei Ai",
+    "Changyu Li",
+    "Xianyou Pan",
+    "Yaobo Yan"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 413,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:26:10Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2020.120201",
+   "title": "Misinformation sharing and social media fatigue during COVID-19: An affordance and cognitive load perspective",
+   "authors": [
+    "A.K.M. Najmul Islam",
+    "Samuli Laato",
+    "Shamim Talukder",
+    "Erkki Sutinen"
+   ],
+   "year": 2020,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 412,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:26:13Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2022.122307",
+   "title": "Digital technology and business model innovation: A systematic literature review and future research agenda",
+   "authors": [
+    "Chiara Ancillai",
+    "Andrea Sabatini",
+    "Marco Gatti",
+    "Andrea Perna"
+   ],
+   "year": 2023,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 409,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:26:17Z"
+  },
+  {
+   "doi": "10.1016/j.techfore.2019.07.002",
+   "title": "Improving the practical application of the Delphi method in group-based judgment: A six-step prescription for a well-founded and defensible process",
+   "authors": [
+    "Ian Belton",
+    "Alice MacDonald",
+    "George Wright",
+    "Iain Hamlin"
+   ],
+   "year": 2019,
+   "journal": "Technological Forecasting and Social Change",
+   "citations": 405,
+   "license": "https://www.elsevier.com/tdm/userlicense/1.0/",
+   "pdf_path": "pdfs/10.1016_j.techfore.2019.07.002.pdf",
+   "pdf_sha256": "e221231ab7e62695925bfc5377c8e178f89d777a60cee8c808f7cb379224ff51",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:26:21Z"
   }
  ]
 }

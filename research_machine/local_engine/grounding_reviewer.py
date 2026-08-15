@@ -97,7 +97,8 @@ class GroundingIssue:
 class GroundingReport:
     issues: List[GroundingIssue] = field(default_factory=list)
     checked_claims: int = 0
-    revised: bool = False  # set by the engine after a self-correction pass
+    revised: bool = False  # True only if a section was actually rewritten
+    revision_note: str = ""  # what the correction pass did, verbatim
 
     @property
     def high_issues(self) -> List[GroundingIssue]:
@@ -123,7 +124,10 @@ class GroundingReport:
         return (
             f"{len(self.issues)} issues ({len(self.high_issues)} high) over "
             f"{self.checked_claims} checked claims: {kind_str}."
-            + (" Self-correction applied." if self.revised else "")
+            # Say what the correction pass actually did. Claiming "applied"
+            # when every rewrite failed would report work that never happened.
+            + (f" Self-correction: {self.revision_note}." if self.revision_note
+               else " Self-correction applied." if self.revised else "")
         )
 
 

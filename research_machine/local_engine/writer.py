@@ -316,12 +316,18 @@ def revise_section_with_claude(section_name: str, draft: str, issues: list, cont
             f"Return ONLY the revised section text — no commentary, no headers. Preserve "
             f"everything that was not flagged."
         )
-        revised = claude_cli.call(prompt, timeout=150)
+        revised = claude_cli.call(prompt, timeout=240)
         # sanity: refuse suspiciously short rewrites (model returned commentary/refusal)
         if revised and len(revised) > 0.4 * len(draft):
             return revised.strip()
+        logger.warning(
+            f"[Reviewer] revise {section_name}: rewrite too short "
+            f"({len(revised or '')} vs {len(draft)} chars) — keeping the flagged draft"
+        )
     except Exception as e:
-        logger.debug(f"[Reviewer] revise {section_name} failed: {e}")
+        # Loud, because a silent failure here leaves flagged issues in the
+        # manuscript while the pipeline moves on as if they were handled.
+        logger.warning(f"[Reviewer] revise {section_name} FAILED: {str(e)[:160]}")
     return draft
 
 

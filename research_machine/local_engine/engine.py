@@ -835,22 +835,39 @@ class LocalResearchEngine:
             by_section = {}
             for iss in report.high_issues:
                 by_section.setdefault(iss.section, []).append(iss)
+            rewritten, attempted = [], []
             for sec, issues in by_section.items():
                 fld = section_field.get(sec)
                 if not fld or not paper_data.get(fld):
                     continue
+                attempted.append(sec)
                 revised = revise_section_with_claude(sec, paper_data[fld], issues, ctx)
                 if revised != paper_data[fld]:
                     paper_data["content_markdown"] = paper_data["content_markdown"].replace(
                         paper_data[fld], revised
                     )
                     paper_data[fld] = revised
+                    rewritten.append(sec)
                     logger.info(f"[Grounding] Self-corrected {sec} ({len(issues)} high issues)")
+            if attempted and not rewritten:
+                # Every rewrite returned its input — the CLI failed or refused.
+                # Reporting "self-correction applied" here would claim work that
+                # did not happen, which is the exact failure this gate exists to
+                # catch in the manuscript.
+                logger.warning(
+                    f"[Grounding] Self-correction FAILED on {', '.join(attempted)} — "
+                    f"no section changed; the issues below stand uncorrected"
+                )
             report = reviewer.review(
                 paper_data["content_markdown"], corpus, synthesis.primary_theory,
                 consensus, allowed_extra=SEMINAL_ALLOWED,
             )
-            report.revised = True
+            report.revised = bool(rewritten)
+            report.revision_note = (
+                f"rewrote {', '.join(rewritten)}" if rewritten
+                else f"attempted {', '.join(attempted)}; no rewrite succeeded" if attempted
+                else ""
+            )
             logger.info(f"[Grounding] Post-correction: {report.feedback()}")
         return report
 
