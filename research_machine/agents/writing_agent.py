@@ -36,15 +36,9 @@ Writing standards:
 """
 
 
-class DraftPaper(BaseModel):
-    title: str                     # Research paper title
-    abstract: str                  # 150-250 word structured abstract
-    introduction_md: str           # Introduction section (800-1000 words)
-    methods_md: str                # Methods section (400-600 words)
-    results_md: str                # Results/Findings section (600-800 words)
-    discussion_md: str             # Discussion section (800-1000 words)
-    citation_count: int            # Total citation count
-    content_markdown: str          # Full paper in Markdown
+# DraftPaper now lives in research_machine.schemas so that consumers which
+# only need the shape (formatter, local engine CLI) do not import langchain.
+from research_machine.schemas import DraftPaper  # noqa: E402,F401
 
 
 class WritingAgent:

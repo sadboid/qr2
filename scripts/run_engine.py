@@ -34,7 +34,7 @@ if _env.exists():
 
 from research_machine.local_engine import LocalResearchEngine
 from research_machine.output.formatter import PaperFormatter
-from research_machine.agents.writing_agent import DraftPaper
+from research_machine.schemas import DraftPaper
 
 logging.basicConfig(
     level=logging.INFO,

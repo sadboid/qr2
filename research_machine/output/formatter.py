@@ -18,7 +18,7 @@ from docx import Document
 from docx.shared import Pt, Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-from research_machine.agents.writing_agent import DraftPaper
+from research_machine.schemas import DraftPaper
 
 logger = logging.getLogger(__name__)
 
