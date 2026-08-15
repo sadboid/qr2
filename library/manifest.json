@@ -1,6 +1,6 @@
 {
- "count": 257,
- "with_pdf": 34,
+ "count": 312,
+ "with_pdf": 39,
  "entries": [
   {
    "doi": "10.1177/1042258720934581",
@@ -4661,6 +4661,1010 @@
    "pdf_source": null,
    "subjects": [],
    "harvested_at": "2026-08-15T17:58:01Z"
+  },
+  {
+   "doi": "10.1002/sej.1344",
+   "title": "Entrepreneurial orientation: The necessity of a multilevel conceptualization",
+   "authors": [
+    "William J. Wales",
+    "Jeffrey G. Covin",
+    "Erik Monsen"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 280,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:58:08Z"
+  },
+  {
+   "doi": "10.1002/sej.1368",
+   "title": "Natural disasters as a source of entrepreneurial opportunity: Family business resilience after an earthquake",
+   "authors": [
+    "Carlo Salvato",
+    "Massimo Sargiacomo",
+    "Mario Daniele Amore",
+    "Alessandro Minichilli"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 206,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:58:11Z"
+  },
+  {
+   "doi": "10.1002/sej.1346",
+   "title": "Context, time, and change: Historical approaches to entrepreneurship research",
+   "authors": [
+    "R. Daniel Wadhwani",
+    "David Kirsch",
+    "Friederike Welter",
+    "William B. Gartner",
+    "Geoffrey G. Jones"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 176,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:58:14Z"
+  },
+  {
+   "doi": "10.1002/sej.1395",
+   "title": "Policy for innovative entrepreneurship: Institutions, interventions, and societal challenges",
+   "authors": [
+    "Steven W. Bradley",
+    "Phillip H. Kim",
+    "Peter G. Klein",
+    "Jeffery S. McMullen",
+    "Karl Wennberg"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 173,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:58:16Z"
+  },
+  {
+   "doi": "10.1002/sej.1373",
+   "title": "The lean startup method: Early\u2010stage teams and hypothesis\u2010based probing of business ideas",
+   "authors": [
+    "Michael Leatherbee",
+    "Riitta Katila"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 163,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#am",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:58:49Z"
+  },
+  {
+   "doi": "10.1002/sej.1370",
+   "title": "The (not so) dark side of entrepreneurship: A meta\u2010analysis of the well\u2010being and performance consequences of entrepreneurial stress",
+   "authors": [
+    "Michael P. Lerman",
+    "Timothy P. Munyon",
+    "David W. Williams"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 146,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:58:58Z"
+  },
+  {
+   "doi": "10.1002/sej.1483",
+   "title": "Upgrading adaptation: How digital transformation promotes organizational resilience",
+   "authors": [
+    "Russell E. Browder",
+    "Sean M. Dwyer",
+    "Hope Koch"
+   ],
+   "year": 2023,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 144,
+   "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:01Z"
+  },
+  {
+   "doi": "10.1002/sej.1353",
+   "title": "Navigating the emerging market context: Performance implications of effectuation and causation for small and medium enterprises during adverse economic conditions in Russia",
+   "authors": [
+    "Galina Shirokova",
+    "Oleksiy Osiyevskyy",
+    "Anastasiia Laskovaia",
+    "Hossein MahdaviMazdeh"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 123,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:04Z"
+  },
+  {
+   "doi": "10.1002/sej.1363",
+   "title": "Entrepreneurship in emerging economies",
+   "authors": [
+    "Maw\u2010Der Foo",
+    "Balagopal Vissa",
+    "Brian Wu"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 115,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:11Z"
+  },
+  {
+   "doi": "10.1002/sej.1358",
+   "title": "Informality costs: Informal entrepreneurship and innovation in emerging economies",
+   "authors": [
+    "Juan Bu",
+    "Alvaro Cuervo\u2010Cazurra"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 112,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:16Z"
+  },
+  {
+   "doi": "10.1002/sej.1409",
+   "title": "Knowledge\u2010based theory, entrepreneurial orientation, stakeholder engagement, and firm performance",
+   "authors": [
+    "Mathew Hughes",
+    "Paul Hughes",
+    "Ian Hodgkinson",
+    "Yi\u2010Ying Chang",
+    "Che\u2010Yuan Chang"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 104,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:18Z"
+  },
+  {
+   "doi": "10.1002/sej.1325",
+   "title": "Why does entrepreneurial orientation affect company performance?",
+   "authors": [
+    "T\u0101lis J. Putni\u0146\u0161",
+    "Arnis Sauka"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 101,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:22Z"
+  },
+  {
+   "doi": "10.1002/sej.1417",
+   "title": "The\n                    <scp>CEO</scp>\n                    beauty premium: Founder\n                    <scp>CEO</scp>\n                    attractiveness and firm valuation in initial coin offerings",
+   "authors": [
+    "Massimo G. Colombo",
+    "Christian Fisch",
+    "Paul P. Momtaz",
+    "Silvio Vismara"
+   ],
+   "year": 2022,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 89,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:28Z"
+  },
+  {
+   "doi": "10.1002/sej.1420",
+   "title": "Are family female directors catalysts of innovation in family small and medium enterprise\n                    <scp>s</scp>\n                    ?",
+   "authors": [
+    "Jonathan Bauweraerts",
+    "Emanuela Rondi",
+    "Paola Rovelli",
+    "Alfredo De Massis",
+    "Salvatore Sciascia"
+   ],
+   "year": 2022,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 89,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": "pdfs/10.1002_sej.1420.pdf",
+   "pdf_sha256": "53ca57651edb7b4d315a66a3776183d9718cb69198853dbfac3a0cdbee370e95",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:33Z"
+  },
+  {
+   "doi": "10.1002/sej.1312",
+   "title": "Capability creation: Heuristics as microfoundations",
+   "authors": [
+    "Christopher B. Bingham",
+    "Travis Howell",
+    "Timothy E. Ott"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 88,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#am",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T17:59:40Z"
+  },
+  {
+   "doi": "10.1002/sej.1313",
+   "title": "Sources of strategic flexibility in new ventures: An analysis of the role of resource leveraging practices",
+   "authors": [
+    "Jan Brinckmann",
+    "Jaume Villanueva",
+    "Dietmar Grichnik",
+    "Luv Singh"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 88,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:04Z"
+  },
+  {
+   "doi": "10.1002/sej.1332",
+   "title": "The organizational design of entrepreneurial ventures",
+   "authors": [
+    "M. Diane Burton",
+    "Massimo G. Colombo",
+    "Cristina Rossi\u2010Lamastra",
+    "Noam Wasserman"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 76,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:07Z"
+  },
+  {
+   "doi": "10.1002/sej.1392",
+   "title": "Entrepreneurial space and the freedom for entrepreneurship: Institutional settings, policy, and action in the space industry",
+   "authors": [
+    "Wadid Lamine",
+    "Alistair Anderson",
+    "Sarah L. Jack",
+    "Alain Fayolle"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 72,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": "pdfs/10.1002_sej.1392.pdf",
+   "pdf_sha256": "1710d884439ff245f7955fa371b39c53300fe4e5d8b1c5687ffe93523621c766",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:09Z"
+  },
+  {
+   "doi": "10.1002/sej.1350",
+   "title": "Identifying the tacit entrepreneurial opportunity of latent customer needs in an emerging economy: The effects of experiential market learning versus vicarious market learning",
+   "authors": [
+    "Yongchuan Bao",
+    "Zelong Wei",
+    "Anthony Di Benedetto"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 71,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:14Z"
+  },
+  {
+   "doi": "10.1002/sej.1453",
+   "title": "Nonresponse bias in survey\u2010based entrepreneurship research: A review, investigation, and recommendations",
+   "authors": [
+    "David J. Scheaf",
+    "Andrew C. Loignon",
+    "Justin W. Webb",
+    "Eric D. Heggestad"
+   ],
+   "year": 2023,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 70,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:27Z"
+  },
+  {
+   "doi": "10.1002/sej.1406",
+   "title": "Founder team prior work experience: An asset or a liability for startup growth?",
+   "authors": [
+    "Niron Hashai",
+    "Shaker Zahra"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 67,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:30Z"
+  },
+  {
+   "doi": "10.1002/sej.1422",
+   "title": "The influence of women on SME innovation in emerging markets",
+   "authors": [
+    "Kristen Madison",
+    "Curt B. Moore",
+    "Joshua J. Daspit",
+    "Joyce Komakech Nabisaalu"
+   ],
+   "year": 2022,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 66,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:38Z"
+  },
+  {
+   "doi": "10.1002/sej.1342",
+   "title": "Business model diversification and firm performance: A demand\u2010side perspective",
+   "authors": [
+    "Timo Sohl",
+    "Govert Vroom",
+    "Brian T. McCann"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 65,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:41Z"
+  },
+  {
+   "doi": "10.1002/sej.1426",
+   "title": "Who can claim innovation and benefit from it? Gender and expectancy violations in reward\u2010based crowdfunding",
+   "authors": [
+    "Benedikt David Christian Seigner",
+    "Hana Milanov",
+    "Aaron F. McKenny"
+   ],
+   "year": 2022,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 65,
+   "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:00:43Z"
+  },
+  {
+   "doi": "10.1002/sej.1413",
+   "title": "From tensions to synergy: Causation and effectuation in the process of venture creation",
+   "authors": [
+    "Tamara Galkina",
+    "Irina Atkova",
+    "Man Yang"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 61,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:00Z"
+  },
+  {
+   "doi": "10.1002/sej.1369",
+   "title": "Dumb money or smart money? Meta\u2010analytically unpacking corporate venture capital",
+   "authors": [
+    "Peiyuan Huang",
+    "Ravi Madhavan"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 60,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:06Z"
+  },
+  {
+   "doi": "10.1002/sej.1359",
+   "title": "Spin\u2010offs' linkages to their parent universities over time: The performance implications of equity, geographical proximity, and technological ties",
+   "authors": [
+    "Daniela Bolzani",
+    "Einar Rasmussen",
+    "Riccardo Fini"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 58,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:09Z"
+  },
+  {
+   "doi": "10.1002/sej.1362",
+   "title": "Managing dilemmas of resource mobilization through\n                    <i>jugaad</i>\n                    : A\n                    <scp>multi\u2010method</scp>\n                    study of social enterprises in Indian healthcare",
+   "authors": [
+    "Nivedita Agarwal",
+    "Ronika Chakrabarti",
+    "Jaideep C. Prabhu",
+    "Alexander Brem"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 58,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:14Z"
+  },
+  {
+   "doi": "10.1002/sej.1462",
+   "title": "External enablers and entrepreneurial ecosystems: The brokering role of the anchor tenant in capacitating grassroots ecopreneurs",
+   "authors": [
+    "Norma Juma",
+    "Joy Olabisi",
+    "Eliada Griffin\u2010EL"
+   ],
+   "year": 2023,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 56,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:20Z"
+  },
+  {
+   "doi": "10.1002/sej.1377",
+   "title": "What matters more for entrepreneurship success? A meta\u2010analysis comparing general mental ability and emotional intelligence in entrepreneurial settings",
+   "authors": [
+    "Jared S. Allen",
+    "Regan M. Stevenson",
+    "Ernest H. O'Boyle",
+    "Scott Seibert"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 56,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:23Z"
+  },
+  {
+   "doi": "10.1002/sej.1324",
+   "title": "A fresh look at patterns and assumptions in the field of entrepreneurship: What can we learn?",
+   "authors": [
+    "Gary Dushnitsky",
+    "Sharon F. Matusik"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 54,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": "pdfs/10.1002_sej.1324.pdf",
+   "pdf_sha256": "8021d6d28bf1868688d3ba19754da11f531569292cfa00beac197310128cfd0c",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:26Z"
+  },
+  {
+   "doi": "10.1002/sej.1330",
+   "title": "Organizational design choices of high\u2010tech startups: How middle management drives innovation performance",
+   "authors": [
+    "Christoph Grimpe",
+    "Martin Murmann",
+    "Wolfgang Sofka"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 54,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:32Z"
+  },
+  {
+   "doi": "10.1002/sej.1364",
+   "title": "When capital does not matter: How entrepreneurship training buffers the negative effect of capital constraints on business creation",
+   "authors": [
+    "Kim Marie Bischoff",
+    "Michael M. Gielnik",
+    "Michael Frese"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 54,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:39Z"
+  },
+  {
+   "doi": "10.1002/sej.1349",
+   "title": "Going above and beyond: How intermediaries enhance change in emerging economy institutions to facilitate small to medium enterprise development",
+   "authors": [
+    "Juliet Oriaifo",
+    "Rui Torres de Oliveira",
+    "Kimberly M. Ellis"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 53,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:46Z"
+  },
+  {
+   "doi": "10.1002/sej.1397",
+   "title": "Relationship between human capital, new venture ideas, and opportunity beliefs: A meta\u2010analysis",
+   "authors": [
+    "Sergio Canavati",
+    "Dirk Libaers",
+    "Tang Wang",
+    "Soheil Hooshangi",
+    "Hessam Sarooghi"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 52,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:51Z"
+  },
+  {
+   "doi": "10.1002/sej.1348",
+   "title": "The tangled historical roots of entrepreneurial growth aspirations",
+   "authors": [
+    "Stephanie Decker",
+    "Saul Estrin",
+    "Tomasz Mickiewicz"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 52,
+   "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:01:55Z"
+  },
+  {
+   "doi": "10.1002/sej.1435",
+   "title": "Catalyzing change: Innovation in women's entrepreneurship",
+   "authors": [
+    "Candida G. Brush",
+    "Kimberly A. Eddleston",
+    "Linda F. Edelman",
+    "Tatiana S. Manolova",
+    "Maura McAdam",
+    "Cristina Rossi\u2010Lamastra"
+   ],
+   "year": 2022,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 50,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": "pdfs/10.1002_sej.1435.pdf",
+   "pdf_sha256": "57be58bfb15afabd2c93c7426284e5b7e22da411246c7a29458b5dbd8fc76298",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:02Z"
+  },
+  {
+   "doi": "10.1002/sej.1351",
+   "title": "Do differences among accelerators explain differences in the performance of member ventures? Evidence from 117 accelerators in 22 countries",
+   "authors": [
+    "Chien Sheng Richard Chan",
+    "Pankaj C. Patel",
+    "Phillip H. Phan"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 50,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:07Z"
+  },
+  {
+   "doi": "10.1002/sej.1516",
+   "title": "Chance, probability, and uncertainty at the edge of human reasoning: What is Knightian uncertainty?",
+   "authors": [
+    "David M. Townsend",
+    "Richard A. Hunt",
+    "Judy Rady"
+   ],
+   "year": 2024,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 48,
+   "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:10Z"
+  },
+  {
+   "doi": "10.1002/sej.1352",
+   "title": "When do return migrants become entrepreneurs? The role of global social networks and institutional distance",
+   "authors": [
+    "Dan J. Wang"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 48,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:14Z"
+  },
+  {
+   "doi": "10.1002/sej.1331",
+   "title": "Collaboration and informal hierarchy in innovation teams: Product introductions in entrepreneurial ventures",
+   "authors": [
+    "Amrita Lahiri",
+    "Emily C. Pahnke",
+    "Michael D. Howard",
+    "Warren Boeker"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 48,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:16Z"
+  },
+  {
+   "doi": "10.1002/sej.1374",
+   "title": "The government whispering to entrepreneurs: Public venture capital, policy shifts, and firm productivity",
+   "authors": [
+    "Samuele Murtinu"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 47,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:20Z"
+  },
+  {
+   "doi": "10.1002/sej.1439",
+   "title": "Time to unicorn status: An exploratory examination of new ventures with extreme valuations",
+   "authors": [
+    "Suresh Kotha",
+    "Seowon Joseph Shin",
+    "Greg Fisher"
+   ],
+   "year": 2022,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 47,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:26Z"
+  },
+  {
+   "doi": "10.1002/sej.1310",
+   "title": "Innovation, intermediation, and the nature of entrepreneurship: A historical perspective",
+   "authors": [
+    "Steven Toms",
+    "Nick Wilson",
+    "Mike Wright"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 43,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": "pdfs/10.1002_sej.1310.pdf",
+   "pdf_sha256": "6e9ce21341dd51d50934c4cf50b2bb095f66f313d431bee9aa6619a85beebb9c",
+   "pdf_source": "semantic_scholar_oa",
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:29Z"
+  },
+  {
+   "doi": "10.1002/sej.1357",
+   "title": "The impact of managerial job security on corporate entrepreneurship: Evidence from corporate venture capital programs",
+   "authors": [
+    "Joseph J. Cabral",
+    "Bill B. Francis",
+    "M. V. Shyam Kumar"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 42,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:34Z"
+  },
+  {
+   "doi": "10.1002/sej.1372",
+   "title": "Entrepreneurial identity and strategic disclosure: Founder\n                    <scp>CEOs</scp>\n                    and new venture media strategy",
+   "authors": [
+    "Michael D. Howard",
+    "Johannes Kolb",
+    "Valerie A. Sy"
+   ],
+   "year": 2020,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 42,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:39Z"
+  },
+  {
+   "doi": "10.1002/sej.1411",
+   "title": "Marketplace lending of small\u2010 and medium\u2010sized enterprises",
+   "authors": [
+    "Douglas Cumming",
+    "Lars Hornuf"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 41,
+   "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:42Z"
+  },
+  {
+   "doi": "10.1002/sej.1455",
+   "title": "Maneuvering the odds: The dynamics of venture capital decision\u2010making",
+   "authors": [
+    "Jeffrey S. Petty",
+    "Marc Gruber",
+    "Dietmar Harhoff"
+   ],
+   "year": 2023,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 41,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:47Z"
+  },
+  {
+   "doi": "10.1002/sej.1388",
+   "title": "Under pressure: Family financial support and the ambidextrous use of causation and effectuation",
+   "authors": [
+    "Ilija Braun",
+    "Philipp Sieger"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 40,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:02:53Z"
+  },
+  {
+   "doi": "10.1002/sej.1452",
+   "title": "Turning rebellion into money? Social entrepreneurship as the strategic performance of systems change",
+   "authors": [
+    "Simon Teasdale",
+    "Michael J. Roy",
+    "Alex Nicholls",
+    "Chantal Hervieux"
+   ],
+   "year": 2022,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 40,
+   "license": "http://creativecommons.org/licenses/by-nc-nd/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:02Z"
+  },
+  {
+   "doi": "10.1002/sej.1329",
+   "title": "Professionalizing entrepreneurial firms: Managing the challenges and outcomes of founder\u2010CEO succession",
+   "authors": [
+    "Caroline Kaehr Serra",
+    "Jana Thiel"
+   ],
+   "year": 2019,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 40,
+   "license": "http://onlinelibrary.wiley.com/termsAndConditions#vor",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:07Z"
+  },
+  {
+   "doi": "10.1002/sej.1400",
+   "title": "The impact of customer ties and industry segment maturity on business model adaptation in an emerging industry",
+   "authors": [
+    "Lien Denoo",
+    "Helena Yli\u2010Renko",
+    "Bart Clarysse"
+   ],
+   "year": 2021,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 39,
+   "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:11Z"
+  },
+  {
+   "doi": "10.1002/sej.1472",
+   "title": "The impact of growth mindset training on entrepreneurial action among necessity entrepreneurs: Evidence from a randomized control trial",
+   "authors": [
+    "Shad Morris",
+    "Chad Carlos",
+    "Geoffrey M. Kistruck",
+    "Robert B. Lount",
+    "Tumsifu Elly Thomas"
+   ],
+   "year": 2023,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 38,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:16Z"
+  },
+  {
+   "doi": "10.1002/sej.1450",
+   "title": "Cross\u2010cultural implications of linguistic future time reference and institutional uncertainty on social entrepreneurship",
+   "authors": [
+    "Diana M. Hechavarr\u00eda",
+    "Steven A. Brieger",
+    "Ludvig Levasseur",
+    "Siri A. Terjesen"
+   ],
+   "year": 2022,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 38,
+   "license": "http://creativecommons.org/licenses/by/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:21Z"
+  },
+  {
+   "doi": "10.1002/sej.1493",
+   "title": "Strategic leaders' ecosystem vision formation and digital transformation: A motivated interactional lens",
+   "authors": [
+    "Emmanuelle Reuter",
+    "Steven Floyd"
+   ],
+   "year": 2023,
+   "journal": "Strategic Entrepreneurship Journal",
+   "citations": 37,
+   "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+   "pdf_path": null,
+   "pdf_sha256": null,
+   "pdf_source": null,
+   "subjects": [],
+   "harvested_at": "2026-08-15T18:03:26Z"
   }
  ]
 }
