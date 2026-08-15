@@ -36,6 +36,19 @@ _ENTRY_RE = re.compile(
 )
 
 
+def _library_pdf(doi: str, library_root: str = "library") -> Optional[Path]:
+    """Locate a seed's PDF in the harvested library.
+
+    A seed folder keeps its own PDF copies, but those are gitignored and do not
+    survive a fresh container. The library is rebuilt from its manifest on
+    demand, so it is the durable source. Files are named by DOI slug, as the
+    harvester writes them.
+    """
+    slug = re.sub(r"[^\w.-]", "_", doi)[:120]
+    p = Path(library_root) / "pdfs" / f"{slug}.pdf"
+    return p if p.exists() else None
+
+
 def _pdf_text(path: Path, max_chars: int = 12000) -> Optional[str]:
     try:
         import pypdf
@@ -65,6 +78,8 @@ def load_seeds(seed_dir: str, keywords: List[str]) -> List[Paper]:
     for m in _ENTRY_RE.finditer(readme.read_text()):
         doi = m["doi"].replace("https://doi.org/", "").strip()
         pdf = root / m["file"]
+        if not pdf.exists():
+            pdf = _library_pdf(doi) or pdf
         full_text = _pdf_text(pdf) if pdf.exists() else None
         p = Paper(
             paper_id=f"DOI:{doi}",
